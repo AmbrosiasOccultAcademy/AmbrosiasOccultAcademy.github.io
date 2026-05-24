@@ -1,1 +1,605 @@
-<!-- index.html — Ambrosia's Occult Academy --> <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Ambrosia's Occult Academy</title> <!-- Google Fonts --> <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"> <link rel="stylesheet" href="style.css"> </head> <body> <!-- NAVIGATION --> <nav class="navbar"> <div class="nav-logo">Ambrosia's Occult Academy</div> <ul class="nav-links"> <li><a href="#readings">Readings</a></li> <li><a href="#shop">Shop</a></li> <li><a href="#about">About</a></li> <li><a href="#contact">Contact</a></li> </ul> </nav> <!-- HERO SECTION --> <section class="hero"> <div class="hero-content"> <h1>Ambrosia's Occult Academy</h1> <p class="hero-sub">Ancient knowledge. Accessible practice. Real magic.</p> <div class="hero-buttons"> <a href="#readings" class="btn btn-primary">Book a Reading</a> <a href="#shop" class="btn btn-secondary">Visit the Shop</a> </div> </div> </section> <!-- READINGS SECTION --> <section id="readings" class="section"> <h2 class="section-title">Readings & Services</h2> <div class="cards-grid"> <!-- Reading cards go here --> </div> </section> <!-- SHOP SECTION --> <section id="shop" class="section section-alt"> <h2 class="section-title">The Apothecary</h2> <p class="section-sub">Handcrafted candles, crystals, herbs and tools for your practice</p> <!-- Etsy embed or product cards here --> </section> <!-- YOUTUBE SECTION --> <section id="videos" class="section"> <h2 class="section-title">Latest from the Academy</h2> <!-- YouTube embed iframes go here --> </section> </body> </html>
+<!-- index.html — Ambrosia's Occult Academy --> <!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Ambrosia's Occult Academy</title> <!-- Google Fonts --> <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"> <link rel="stylesheet" href="style.css"> </head> <body> <!-- NAVIGATION --> <nav class="navbar"> <div class="nav-logo">Ambrosia's Occult Academy</div> <ul class="nav-links"> <li><a href="#readings">Readings</a></li> <li><a href="#shop">Shop</a></li> <li><a href="#about">About</a></li> <li><a href="#contact">Contact</a></li> </ul> </nav> <!-- HERO SECTION --> <section class="hero"> <div class="hero-content"> <h1>Ambrosia's Occult Academy</h1> <p class="hero-sub">Ancient knowledge. Accessible practice. Real magic.</p> <div class="hero-buttons"> <a href="#readings" class="btn btn-primary">Book a Reading</a> <a href="#shop" class="btn btn-secondary">Visit the Shop</a> </div> </div> </section> <!-- READINGS SECTION --> <section id="readings" class="section"> <h2 class="section-title">Readings & Services</h2> <div class="cards-grid"> <!-- Reading cards go here --> </div> </section> <!-- SHOP SECTION --> <section id="shop" class="section section-alt"> <h2 class="section-title">The Apothecary</h2> <p class="section-sub">Handcrafted candles, crystals, herbs and tools for your practice</p> <!-- Etsy embed or product cards here --> </section> <!-- YOUTUBE SECTION --> <section id="videos" class="section"> <h2 class="section-title">Latest from the Academy</h2> <!-- YouTube embed iframes go here --> </section> </body> </html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natal Chart Reading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --bg: #0c0b14;
+      --bg-card: #13111f;
+      --bg-input: #1a1728;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --text-primary: #f0edf8;
+      --text-secondary: #9b97b0;
+      --text-muted: #5c5870;
+      --accent: #c9b8f5;
+      --accent-dim: rgba(201,184,245,0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+    }
+ 
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: 'Lato', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 5rem;
+    }
+ 
+    /* Sky background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(80,50,160,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(40,30,100,0.15) 0%, transparent 55%);
+      pointer-events: none;
+      z-index: 0;
+    }
+ 
+    .page-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 640px;
+    }
+ 
+    /* ── Header ── */
+    .site-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+ 
+    .star-row {
+      font-size: 11px;
+      letter-spacing: 0.5em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+ 
+    .site-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(28px, 5vw, 38px);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+ 
+    .site-tagline {
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+ 
+    /* ── Form card ── */
+    .card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+    }
+ 
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+ 
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+ 
+    label {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+ 
+    input {
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-primary);
+      background: var(--bg-input);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+ 
+    input::placeholder { color: var(--text-muted); }
+    input:focus { border-color: var(--border-hover); }
+ 
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator {
+      filter: invert(0.5);
+      cursor: pointer;
+    }
+ 
+    .submit-btn {
+      width: 100%;
+      padding: 13px;
+      margin-top: 6px;
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: 0.18em;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 0.5px solid rgba(201,184,245,0.25);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+ 
+    .submit-btn:hover { background: rgba(201,184,245,0.2); }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+ 
+    .error-msg {
+      font-size: 13px;
+      color: #e07070;
+      text-align: center;
+      padding: 0.75rem 0 0;
+      display: none;
+    }
+ 
+    /* ── Loading ── */
+    .loading-state {
+      text-align: center;
+      padding: 3rem 0;
+      display: none;
+    }
+ 
+    .stars-anim {
+      font-size: 20px;
+      letter-spacing: 10px;
+      color: var(--accent);
+      animation: pulse 1.8s ease-in-out infinite;
+      display: inline-block;
+    }
+ 
+    @keyframes pulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+ 
+    .loading-text {
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 14px;
+    }
+ 
+    /* ── Results ── */
+    .result-section { display: none; }
+ 
+    .result-name {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+ 
+    .result-date {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+ 
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+ 
+    /* Planet row */
+    .planet-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .planet-pill {
+      background: var(--bg-input);
+      border: 0.5px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+ 
+    .planet-pill .symbol {
+      color: var(--accent);
+      font-size: 13px;
+    }
+ 
+    /* House grid */
+    .house-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 1.5rem;
+    }
+ 
+    .house-card {
+      background: var(--bg-input);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 9px 11px;
+    }
+ 
+    .house-num {
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+ 
+    .house-sign {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+ 
+    .house-meaning {
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+ 
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 1.5rem 0;
+    }
+ 
+    /* Reading */
+    .reading-card {
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+ 
+    .reading-card-title {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid var(--border);
+    }
+ 
+    .reading-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+    }
+ 
+    .new-reading-btn {
+      width: 100%;
+      padding: 11px;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: transparent;
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+ 
+    .new-reading-btn:hover {
+      border-color: var(--border-hover);
+      color: var(--text-secondary);
+    }
+ 
+    /* ── Footer ── */
+    .site-footer {
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+ 
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: 1; }
+      .house-grid { grid-template-columns: repeat(2, 1fr); }
+      .card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<div class="page-wrap">
+ 
+  <!-- Header -->
+  <header class="site-header">
+    <div class="star-row">✦ &nbsp; ✧ &nbsp; ✦</div>
+    <h1 class="site-title">Natal Chart Reading</h1>
+    <p class="site-tagline">Discover what the stars reveal about you</p>
+  </header>
+ 
+  <!-- Form -->
+  <div class="card" id="form-section">
+    <div class="form-grid">
+      <div class="form-group full">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" placeholder="e.g. Luna Rivera" autocomplete="off" />
+      </div>
+      <div class="form-group">
+        <label for="birthdate">Date of Birth</label>
+        <input type="date" id="birthdate" />
+      </div>
+      <div class="form-group">
+        <label for="birthtime">Time of Birth</label>
+        <input type="time" id="birthtime" />
+      </div>
+      <div class="form-group full">
+        <label for="birthplace">Place of Birth</label>
+        <input type="text" id="birthplace" placeholder="e.g. Chicago, Illinois, USA" autocomplete="off" />
+      </div>
+    </div>
+    <button class="submit-btn" id="submit-btn" onclick="getReading()">✦ &nbsp; Reveal My Chart &nbsp; ✦</button>
+    <div class="error-msg" id="error-msg"></div>
+  </div>
+ 
+  <!-- Loading -->
+  <div class="loading-state" id="loading-state">
+    <div class="stars-anim">✦ &nbsp; ✧ &nbsp; ✦</div>
+    <div class="loading-text" id="loading-text">Reading the celestial map...</div>
+  </div>
+ 
+  <!-- Results -->
+  <div class="result-section" id="result-section">
+    <div class="result-name" id="result-name"></div>
+    <div class="result-date" id="result-date"></div>
+ 
+    <div class="section-label">Planetary Placements</div>
+    <div class="planet-row" id="planet-row"></div>
+ 
+    <div class="section-label">The Twelve Houses</div>
+    <div class="house-grid" id="house-grid"></div>
+ 
+    <hr class="divider" />
+ 
+    <div class="reading-card">
+      <div class="reading-card-title">✦ &nbsp; Your Cosmic Reading &nbsp; ✦</div>
+      <div class="reading-text" id="reading-text"></div>
+    </div>
+ 
+    <button class="new-reading-btn" onclick="resetForm()">↩ &nbsp; New Reading</button>
+  </div>
+ 
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p>Readings are for entertainment and reflection purposes</p>
+  </footer>
+ 
+</div>
+ 
+<script>
+  const loadingPhrases = [
+    "Reading the celestial map...",
+    "Consulting ancient star charts...",
+    "Calculating planetary positions...",
+    "Decoding your cosmic blueprint...",
+    "Aligning the celestial spheres..."
+  ];
+ 
+  let loadingInterval;
+ 
+  function startLoadingAnim() {
+    let i = 0;
+    const el = document.getElementById('loading-text');
+    el.textContent = loadingPhrases[0];
+    loadingInterval = setInterval(() => {
+      i = (i + 1) % loadingPhrases.length;
+      el.textContent = loadingPhrases[i];
+    }, 2000);
+  }
+ 
+  function stopLoadingAnim() {
+    clearInterval(loadingInterval);
+  }
+ 
+  function showError(msg) {
+    const el = document.getElementById('error-msg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+ 
+  function resetForm() {
+    document.getElementById('result-section').style.display = 'none';
+    document.getElementById('form-section').style.display = 'block';
+    document.getElementById('error-msg').style.display = 'none';
+    document.getElementById('submit-btn').disabled = false;
+  }
+ 
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr + 'T12:00:00');
+    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  }
+ 
+  async function getReading() {
+    const name = document.getElementById('name').value.trim();
+    const birthdate = document.getElementById('birthdate').value;
+    const birthtime = document.getElementById('birthtime').value;
+    const birthplace = document.getElementById('birthplace').value.trim();
+ 
+    document.getElementById('error-msg').style.display = 'none';
+ 
+    if (!name || !birthdate || !birthtime || !birthplace) {
+      showError('Please fill in all fields to receive your reading.');
+      return;
+    }
+ 
+    document.getElementById('submit-btn').disabled = true;
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('loading-state').style.display = 'block';
+    startLoadingAnim();
+ 
+    const prompt = `You are an expert astrologer with deep knowledge of Western astrology, natal charts, and planetary interpretation.
+ 
+A person named ${name} was born on ${birthdate} at ${birthtime} in ${birthplace}.
+ 
+Using this birth data, provide a detailed astrological natal chart reading.
+ 
+Calculate and list the approximate sign placements for all 12 houses and these key planets: Sun, Moon, Rising (Ascendant), Mercury, Venus, Mars, Jupiter, Saturn.
+ 
+Then provide a rich personalized narrative reading covering:
+- Core personality (Sun, Moon, Rising)
+- Communication and mind (Mercury)
+- Love and relationships (Venus, 7th house)
+- Drive and ambition (Mars, 10th house)
+- Growth and luck (Jupiter)
+- Life lessons (Saturn)
+- Overall life themes and destiny
+ 
+Respond ONLY with a raw JSON object — no markdown, no backticks, no explanation before or after. Structure exactly:
+{
+  "houses": [
+    {"house": "1st House", "sign": "Aries", "meaning": "Self & Identity"},
+    {"house": "2nd House", "sign": "Taurus", "meaning": "Values & Money"},
+    {"house": "3rd House", "sign": "Gemini", "meaning": "Communication"},
+    {"house": "4th House", "sign": "Cancer", "meaning": "Home & Roots"},
+    {"house": "5th House", "sign": "Leo", "meaning": "Creativity & Joy"},
+    {"house": "6th House", "sign": "Virgo", "meaning": "Health & Work"},
+    {"house": "7th House", "sign": "Libra", "meaning": "Relationships"},
+    {"house": "8th House", "sign": "Scorpio", "meaning": "Transformation"},
+    {"house": "9th House", "sign": "Sagittarius", "meaning": "Philosophy"},
+    {"house": "10th House", "sign": "Capricorn", "meaning": "Career & Legacy"},
+    {"house": "11th House", "sign": "Aquarius", "meaning": "Community"},
+    {"house": "12th House", "sign": "Pisces", "meaning": "Spirituality"}
+  ],
+  "planets": [
+    {"symbol": "☀", "planet": "Sun", "sign": "Aries", "house": "1st"},
+    {"symbol": "☽", "planet": "Moon", "sign": "Cancer", "house": "4th"},
+    {"symbol": "↑", "planet": "Rising", "sign": "Aries", "house": "1st"},
+    {"symbol": "☿", "planet": "Mercury", "sign": "Pisces", "house": "12th"},
+    {"symbol": "♀", "planet": "Venus", "sign": "Taurus", "house": "2nd"},
+    {"symbol": "♂", "planet": "Mars", "sign": "Gemini", "house": "3rd"},
+    {"symbol": "♃", "planet": "Jupiter", "sign": "Leo", "house": "5th"},
+    {"symbol": "♄", "planet": "Saturn", "sign": "Capricorn", "house": "10th"}
+  ],
+  "reading": "Your full personalized narrative — rich, detailed, mystical but grounded. Minimum 450 words. Address ${name} by name. Use double newlines between paragraphs."
+}`;
+ 
+    try {
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 2000,
+          messages: [{ role: "user", content: prompt }]
+        })
+      });
+ 
+      if (!response.ok) throw new Error(`API error: ${response.status}`);
+ 
+      const data = await response.json();
+      const raw = data.content.map(b => b.text || "").join("");
+      const clean = raw.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(clean);
+ 
+      stopLoadingAnim();
+      document.getElementById('loading-state').style.display = 'none';
+ 
+      // Name & date
+      document.getElementById('result-name').textContent = `✦ ${name}'s Natal Chart ✦`;
+      document.getElementById('result-date').textContent = `${formatDate(birthdate)} · ${birthtime} · ${birthplace}`;
+ 
+      // Planets
+      const planetRow = document.getElementById('planet-row');
+      planetRow.innerHTML = '';
+      (parsed.planets || []).forEach(p => {
+        const pill = document.createElement('div');
+        pill.className = 'planet-pill';
+        pill.innerHTML = `<span class="symbol">${p.symbol}</span> ${p.planet} in ${p.sign}`;
+        planetRow.appendChild(pill);
+      });
+ 
+      // Houses
+      const houseGrid = document.getElementById('house-grid');
+      houseGrid.innerHTML = '';
+      (parsed.houses || []).forEach(h => {
+        const card = document.createElement('div');
+        card.className = 'house-card';
+        card.innerHTML = `
+          <div class="house-num">${h.house}</div>
+          <div class="house-sign">${h.sign}</div>
+          <div class="house-meaning">${h.meaning}</div>
+        `;
+        houseGrid.appendChild(card);
+      });
+ 
+      // Reading
+      document.getElementById('reading-text').textContent = parsed.reading || '';
+ 
+      document.getElementById('result-section').style.display = 'block';
+      document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+ 
+    } catch (err) {
+      stopLoadingAnim();
+      document.getElementById('loading-state').style.display = 'none';
+      document.getElementById('form-section').style.display = 'block';
+      document.getElementById('submit-btn').disabled = false;
+      showError('Something went wrong generating your reading. Please try again.');
+      console.error(err);
+    }
+  }
+</script>
+ 
+</body>
+</html>
