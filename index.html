@@ -1,275 +1,274 @@
-ML
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>Ambrosia's Occult Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Natal Chart Reading</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:wght@300;400&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0c0b14;
-      --bg-card: #13111f;
-      --bg-input: #1a1728;
-      --border: rgba(255,255,255,0.08);
-      --border-hover: rgba(255,255,255,0.18);
-      --text-primary: #f0edf8;
-      --text-secondary: #9b97b0;
-      --text-muted: #5c5870;
-      --accent: #c9b8f5;
-      --accent-dim: rgba(201,184,245,0.12);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 18px;
-    }
-    body {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: 'Lato', sans-serif;
-      font-weight: 300;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 3rem 1.5rem 5rem;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(80,50,160,0.18) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(40,30,100,0.15) 0%, transparent 55%);
-      pointer-events: none;
-      z-index: 0;
-    }
-    .page-wrap { position: relative; z-index: 1; width: 100%; max-width: 640px; }
-    .site-header { text-align: center; margin-bottom: 3rem; }
-    .star-row { font-size: 11px; letter-spacing: 0.5em; color: var(--text-muted); margin-bottom: 1rem; }
-    .site-title { font-family: 'Cinzel', serif; font-size: clamp(28px, 5vw, 38px); font-weight: 600; letter-spacing: 0.06em; color: var(--text-primary); line-height: 1.2; margin-bottom: 0.5rem; }
-    .site-tagline { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-secondary); }
-    .card { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group.full { grid-column: 1 / -1; }
-    label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
-    input { font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 300; color: var(--text-primary); background: var(--bg-input); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; width: 100%; outline: none; transition: border-color 0.2s; -webkit-appearance: none; appearance: none; }
-    input::placeholder { color: var(--text-muted); }
-    input:focus { border-color: var(--border-hover); }
-    input[type="date"]::-webkit-calendar-picker-indicator, input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.5); cursor: pointer; }
-    .submit-btn { width: 100%; padding: 13px; margin-top: 6px; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 0.18em; font-weight: 600; color: var(--accent); background: var(--accent-dim); border: 0.5px solid rgba(201,184,245,0.25); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.2s, transform 0.1s; }
-    .submit-btn:hover { background: rgba(201,184,245,0.2); }
-    .submit-btn:active { transform: scale(0.98); }
-    .submit-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .error-msg { font-size: 13px; color: #e07070; text-align: center; padding: 0.75rem 0 0; display: none; }
-    .loading-state { text-align: center; padding: 3rem 0; display: none; }
-    .stars-anim { font-size: 20px; letter-spacing: 10px; color: var(--accent); animation: pulse 1.8s ease-in-out infinite; display: inline-block; }
-    @keyframes pulse { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
-    .loading-text { font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-top: 14px; }
-    .result-section { display: none; }
-    .result-name { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.1em; text-align: center; color: var(--accent); margin-bottom: 0.3rem; }
-    .result-date { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-align: center; margin-bottom: 1.75rem; }
-    .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
-    .planet-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
-    .planet-pill { background: var(--bg-input); border: 0.5px solid var(--border); border-radius: 999px; padding: 5px 12px; font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 6px; }
-    .planet-pill .symbol { color: var(--accent); font-size: 13px; }
-    .house-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1.5rem; }
-    .house-card { background: var(--bg-input); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 9px 11px; }
-    .house-num { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2px; }
-    .house-sign { font-family: 'Cinzel', serif; font-size: 13px; font-weight: 600; color: var(--text-primary); }
-    .house-meaning { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
-    .divider { border: none; border-top: 0.5px solid var(--border); margin: 1.5rem 0; }
-    .reading-card { background: var(--bg-card); border: 0.5px solid var(--border); border-radius: var(--radius-md); padding: 1.5rem; margin-bottom: 1.25rem; }
-    .reading-card-title { font-family: 'Cinzel', serif; font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; padding-bottom: 10px; border-bottom: 0.5px solid var(--border); }
-    .reading-text { font-size: 15px; line-height: 1.85; color: var(--text-primary); white-space: pre-wrap; }
-    .new-reading-btn { width: 100%; padding: 11px; font-family: 'Lato', sans-serif; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); background: transparent; border: 0.5px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: border-color 0.2s, color 0.2s; }
-    .new-reading-btn:hover { border-color: var(--border-hover); color: var(--text-secondary); }
-    .site-footer { text-align: center; margin-top: 3rem; font-size: 11px; letter-spacing: 0.12em; color: var(--text-muted); }
-    @media (max-width: 480px) {
-      .form-grid { grid-template-columns: 1fr; }
-      .form-group.full { grid-column: 1; }
-      .house-grid { grid-template-columns: repeat(2, 1fr); }
-      .card { padding: 1.5rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="page-wrap">
-  <header class="site-header">
-    <div class="star-row">✦ &nbsp; ✧ &nbsp; ✦</div>
-    <h1 class="site-title">Natal Chart Reading</h1>
-    <p class="site-tagline">Discover what the stars reveal about you</p>
+  <!-- HEADER / HERO -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Ambrosia's Occult Academy</h1>
+      <p class="hero-subtitle">
+        Celestial guidance, mystical education, and practical magic for modern seekers.
+      </p>
+      <div class="hero-buttons">
+        <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">Visit YouTube</a>
+        <a href="#tarot" class="btn secondary">Free Daily Tarot</a>
+        <a href="#birthchart" class="btn outline">Birth Chart Tool</a>
+      </div>
+    </div>
   </header>
- 
-  <div class="card" id="form-section">
-    <div class="form-grid">
-      <div class="form-group full">
-        <label for="name">Your Name</label>
-        <input type="text" id="name" placeholder="e.g. Luna Rivera" autocomplete="off" />
+
+  <!-- NAVIGATION -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#themes">Daily Themes</a></li>
+      <li><a href="#birthchart">Birth Charts</a></li>
+      <li><a href="#tarot">Tarot Readings</a></li>
+      <li><a href="#freaky">Freaky Fridays</a></li>
+      <li><a href="#shop">Future Shop</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ABOUT SECTION -->
+  <section id="about" class="section section-light">
+    <div class="section-inner">
+      <h2>About Jennifer Ambrosia</h2>
+      <p>
+        Jennifer Ambrosia is the intuitive guide behind <strong>Ambrosia’s Occult Academy</strong> — a lifelong empath,
+        seeker of cosmic truth, and mother whose path has been shaped by love, resilience, and a deep connection to the unseen.
+      </p>
+      <p>
+        Raised in San Diego, Jennifer discovered her intuitive gifts early. By her teens she was already exploring palmistry,
+        astrology, tarot, meditation, and the subtle energies that shape our lives. What began as curiosity grew into a calling:
+        to understand the mysteries of the universe and help others understand their own.
+      </p>
+      <p>
+        Today, she’s a proud mother of three: a son serving in the U.S. Navy, a daughter studying Meteorology in New York
+        (and raising a bright little star of her own), and a spirited nine‑year‑old daughter she raises as a single parent in Las Vegas.
+        Together they enjoy camping under desert skies, music festivals, and late‑night drives to Area 51 — because yes, she’s that cool mom.
+      </p>
+      <p>
+        Jennifer believes destiny and free will dance together. Through palmistry, astrology, tarot, and other divination arts,
+        she helps others uncover the wisdom written in their palms, their stars, their dreams, and their cards.
+      </p>
+      <p class="about-quote">
+        ✨ <em>“Let’s learn, grow, and practice real magic together.”</em>
+      </p>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Subscribers</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">133</span>
+          <span class="stat-label">Videos</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">37,980</span>
+          <span class="stat-label">Views</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">Since 2022</span>
+          <span class="stat-label">On YouTube</span>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="birthdate">Date of Birth</label>
-        <input type="date" id="birthdate" />
-      </div>
-      <div class="form-group">
-        <label for="birthtime">Time of Birth</label>
-        <input type="time" id="birthtime" />
-      </div>
-      <div class="form-group full">
-        <label for="birthplace">Place of Birth</label>
-        <input type="text" id="birthplace" placeholder="e.g. Chicago, Illinois, USA" autocomplete="off" />
+      <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">
+        Visit My YouTube Channel
+      </a>
+    </div>
+  </section>
+
+  <!-- DAILY THEMES GRID -->
+  <section id="themes" class="section section-dark">
+    <div class="section-inner">
+      <h2>Daily Themes</h2>
+      <p class="section-intro">
+        Explore the Academy one day at a time — each theme opens a different doorway into the occult.
+      </p>
+      <div class="theme-grid">
+        <a href="palmistry-sunday.html" class="theme-card">
+          <h3>Palmistry Sundays</h3>
+          <p>Lines, mounts, and the stories written in your hands.</p>
+        </a>
+        <a href="manifest-monday.html" class="theme-card">
+          <h3>Manifest, Meditate &amp; Motivate Mondays</h3>
+          <p>Rituals, affirmations, and meditations to shape your reality.</p>
+        </a>
+        <a href="tarot-tuesday.html" class="theme-card">
+          <h3>Tarot Tip Tuesdays</h3>
+          <p>Tarot tips, spreads, and a daily card to guide your path.</p>
+        </a>
+        <a href="bewitching-wednesday.html" class="theme-card">
+          <h3>Bewitching Wednesdays</h3>
+          <p>Spells, herbs, and witchcraft education for modern practitioners.</p>
+        </a>
+        <a href="astrology-thursday.html" class="theme-card">
+          <h3>Astrology Thursdays</h3>
+          <p>Zodiac insights, transits, and cosmic weather reports.</p>
+        </a>
+        <a href="freaky-friday.html" class="theme-card">
+          <h3>Freaky Fridays</h3>
+          <p>Ghosts, UFOs, cryptids, and the paranormal side of reality.</p>
+        </a>
+        <a href="spellbound-saturday.html" class="theme-card">
+          <h3>Spellbound Saturdays</h3>
+          <p>Weekly occult lessons, deep dives, and magical practice.</p>
+        </a>
       </div>
     </div>
-    <button class="submit-btn" id="submit-btn" onclick="getReading()">✦ &nbsp; Reveal My Chart &nbsp; ✦</button>
-    <div class="error-msg" id="error-msg"></div>
-  </div>
- 
-  <div class="loading-state" id="loading-state">
-    <div class="stars-anim">✦ &nbsp; ✧ &nbsp; ✦</div>
-    <div class="loading-text" id="loading-text">Reading the celestial map...</div>
-  </div>
- 
-  <div class="result-section" id="result-section">
-    <div class="result-name" id="result-name"></div>
-    <div class="result-date" id="result-date"></div>
-    <div class="section-label">Planetary Placements</div>
-    <div class="planet-row" id="planet-row"></div>
-    <div class="section-label">The Twelve Houses</div>
-    <div class="house-grid" id="house-grid"></div>
-    <hr class="divider" />
-    <div class="reading-card">
-      <div class="reading-card-title">✦ &nbsp; Your Cosmic Reading &nbsp; ✦</div>
-      <div class="reading-text" id="reading-text"></div>
+  </section>
+
+  <!-- BIRTH CHART SECTION -->
+  <section id="birthchart" class="section section-light">
+    <div class="section-inner">
+      <h2>Birth Chart Tool</h2>
+      <p class="section-intro">
+        Start with a simple chart overview, then go deeper with a personalized full reading.
+      </p>
+      <form class="form-grid">
+        <div class="form-field">
+          <label for="bc-name">Name</label>
+          <input type="text" id="bc-name" placeholder="Your name" />
+        </div>
+        <div class="form-field">
+          <label for="bc-date">Birth Date</label>
+          <input type="date" id="bc-date" />
+        </div>
+        <div class="form-field">
+          <label for="bc-time">Birth Time</label>
+          <input type="time" id="bc-time" />
+        </div>
+        <div class="form-field">
+          <label for="bc-place">Birth Place</label>
+          <input type="text" id="bc-place" placeholder="City, Country" />
+        </div>
+        <button type="button" class="btn primary">Generate Simple Chart</button>
+      </form>
+      <div class="info-box">
+        <h3>Full Birth Chart Reading — $5</h3>
+        <p>
+          Want a detailed, intuitive breakdown of your chart? For just $5, you’ll receive a full written reading
+          delivered to your email, including key placements, themes, and guidance.
+        </p>
+        <p class="small-note">
+          To request a full reading, email me with your birth details and “Full Birth Chart Reading” in the subject line.
+        </p>
+      </div>
     </div>
-    <button class="new-reading-btn" onclick="resetForm()">↩ &nbsp; New Reading</button>
-  </div>
- 
-  <footer class="site-footer">
-    <p>Readings are for entertainment and reflection purposes</p>
+  </section>
+
+  <!-- TAROT SECTION -->
+  <section id="tarot" class="section section-dark">
+    <div class="section-inner">
+      <h2>Tarot Readings</h2>
+      <p class="section-intro">
+        Pull a free daily card, then go deeper with a full reading when you’re ready.
+      </p>
+      <div class="tarot-layout">
+        <div class="tarot-card-display">
+          <div class="tarot-card-placeholder">
+            <span>Daily Tarot Card</span>
+          </div>
+          <button type="button" class="btn secondary">Pull a Free Daily Card</button>
+          <p class="small-note">Client-side only — no data stored, just guidance for your day.</p>
+        </div>
+        <div class="info-box">
+          <h3>Full Tarot Reading — $10</h3>
+          <p>
+            For $10, receive a full email reading tailored to your question or situation. I’ll pull a spread,
+            interpret each card, and share clear, compassionate guidance.
+          </p>
+          <p class="small-note">
+            To request a full reading, email me with your question and “Full Tarot Reading” in the subject line.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREAKY FRIDAY PREVIEW -->
+  <section id="freaky" class="section section-light">
+    <div class="section-inner">
+      <h2>Freaky Fridays</h2>
+      <p class="section-intro">
+        Ghost stories, UFOs, skinwalkers, and all the things that go bump in the night.
+      </p>
+      <div class="freaky-grid">
+        <div class="info-box">
+          <h3>Share Your Ghost Story</h3>
+          <p>
+            Have you experienced something you can’t explain? A haunting, a sighting, a strange encounter?
+            Freaky Fridays is where your stories come to life.
+          </p>
+          <p class="small-note">
+            For now, send your story by email with “Freaky Friday Story” in the subject line. A submission form and
+            live features are coming soon.
+          </p>
+        </div>
+        <div class="info-box">
+          <h3>Live Ghost Watching Cam (Coming Soon)</h3>
+          <p>
+            Stay tuned for a live paranormal cam feed — a place to watch, wonder, and maybe witness something otherworldly.
+          </p>
+        </div>
+      </div>
+      <a href="freaky-friday.html" class="btn outline">Visit Freaky Fridays Page</a>
+    </div>
+  </section>
+
+  <!-- FUTURE SHOP -->
+  <section id="shop" class="section section-dark">
+    <div class="section-inner">
+      <h2>Future Apothecary &amp; Candle Shop</h2>
+      <p class="section-intro">
+        Coming soon: hand‑poured candles, spell tools, and celestial creations aligned with each zodiac sign.
+      </p>
+      <div class="shop-grid">
+        <div class="info-box">
+          <h3>Zodiac Candles</h3>
+          <p>
+            Soy candles crafted for each sign — with colors, scents, and gemstone chips chosen to match your cosmic energy.
+          </p>
+        </div>
+        <div class="info-box">
+          <h3>Spell Candles</h3>
+          <p>
+            Intention‑based candles dressed with herbs, oils, and crystals to support your rituals and manifestations.
+          </p>
+        </div>
+      </div>
+      <p class="small-note">
+        Check back soon or follow my YouTube channel for launch updates.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" class="footer">
+    <div class="section-inner">
+      <h2>Contact &amp; Links</h2>
+      <p>
+        For readings, collaborations, or questions, reach out and let’s connect.
+      </p>
+      <ul class="footer-links">
+        <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
+        <li><strong>Location:</strong> Las Vegas, Nevada, United States</li>
+        <li><strong>Email:</strong> (add your preferred email here)</li>
+      </ul>
+      <p class="footer-copy">
+        &copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.
+      </p>
+    </div>
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
   </footer>
-</div>
- 
-<script>
-  const GEMINI_API_KEY = "AIzaSyB3JawJUeo0-VmA1GOZmWv5zasCQomaTKM";
-  const GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + GEMINI_API_KEY;
- 
-  const loadingPhrases = [
-    "Reading the celestial map...",
-    "Consulting ancient star charts...",
-    "Calculating planetary positions...",
-    "Decoding your cosmic blueprint...",
-    "Aligning the celestial spheres..."
-  ];
- 
-  let loadingInterval;
- 
-  function startLoadingAnim() {
-    let i = 0;
-    const el = document.getElementById('loading-text');
-    el.textContent = loadingPhrases[0];
-    loadingInterval = setInterval(function() {
-      i = (i + 1) % loadingPhrases.length;
-      el.textContent = loadingPhrases[i];
-    }, 2000);
-  }
- 
-  function stopLoadingAnim() { clearInterval(loadingInterval); }
- 
-  function showError(msg) {
-    const el = document.getElementById('error-msg');
-    el.textContent = msg;
-    el.style.display = 'block';
-  }
- 
-  function resetForm() {
-    document.getElementById('result-section').style.display = 'none';
-    document.getElementById('form-section').style.display = 'block';
-    document.getElementById('error-msg').style.display = 'none';
-    document.getElementById('submit-btn').disabled = false;
-  }
- 
-  function formatDate(dateStr) {
-    if (!dateStr) return '';
-    var d = new Date(dateStr + 'T12:00:00');
-    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-  }
- 
-  function getReading() {
-    var name = document.getElementById('name').value.trim();
-    var birthdate = document.getElementById('birthdate').value;
-    var birthtime = document.getElementById('birthtime').value;
-    var birthplace = document.getElementById('birthplace').value.trim();
- 
-    document.getElementById('error-msg').style.display = 'none';
- 
-    if (!name || !birthdate || !birthtime || !birthplace) {
-      showError('Please fill in all fields to receive your reading.');
-      return;
-    }
- 
-    document.getElementById('submit-btn').disabled = true;
-    document.getElementById('form-section').style.display = 'none';
-    document.getElementById('loading-state').style.display = 'block';
-    startLoadingAnim();
- 
-    var prompt = "You are an expert astrologer with deep knowledge of Western astrology, natal charts, and planetary interpretation.\n\nA person named " + name + " was born on " + birthdate + " at " + birthtime + " in " + birthplace + ".\n\nUsing this birth data, provide a detailed astrological natal chart reading. Calculate the approximate sign placements for all 12 houses and these planets: Sun, Moon, Rising (Ascendant), Mercury, Venus, Mars, Jupiter, Saturn.\n\nThen write a rich personalized narrative reading (minimum 450 words) covering core personality, communication, love, drive, growth, life lessons, and overall destiny. Address " + name + " by name.\n\nRespond ONLY with a raw JSON object, no markdown, no backticks, no text before or after:\n{\n  \"houses\": [\n    {\"house\": \"1st House\", \"sign\": \"Aries\", \"meaning\": \"Self & Identity\"},\n    {\"house\": \"2nd House\", \"sign\": \"Taurus\", \"meaning\": \"Values & Money\"},\n    {\"house\": \"3rd House\", \"sign\": \"Gemini\", \"meaning\": \"Communication\"},\n    {\"house\": \"4th House\", \"sign\": \"Cancer\", \"meaning\": \"Home & Roots\"},\n    {\"house\": \"5th House\", \"sign\": \"Leo\", \"meaning\": \"Creativity & Joy\"},\n    {\"house\": \"6th House\", \"sign\": \"Virgo\", \"meaning\": \"Health & Work\"},\n    {\"house\": \"7th House\", \"sign\": \"Libra\", \"meaning\": \"Relationships\"},\n    {\"house\": \"8th House\", \"sign\": \"Scorpio\", \"meaning\": \"Transformation\"},\n    {\"house\": \"9th House\", \"sign\": \"Sagittarius\", \"meaning\": \"Philosophy\"},\n    {\"house\": \"10th House\", \"sign\": \"Capricorn\", \"meaning\": \"Career & Legacy\"},\n    {\"house\": \"11th House\", \"sign\": \"Aquarius\", \"meaning\": \"Community\"},\n    {\"house\": \"12th House\", \"sign\": \"Pisces\", \"meaning\": \"Spirituality\"}\n  ],\n  \"planets\": [\n    {\"symbol\": \"\u2600\", \"planet\": \"Sun\", \"sign\": \"Aries\", \"house\": \"1st\"},\n    {\"symbol\": \"\u263d\", \"planet\": \"Moon\", \"sign\": \"Cancer\", \"house\": \"4th\"},\n    {\"symbol\": \"\u2191\", \"planet\": \"Rising\", \"sign\": \"Aries\", \"house\": \"1st\"},\n    {\"symbol\": \"\u263f\", \"planet\": \"Mercury\", \"sign\": \"Pisces\", \"house\": \"12th\"},\n    {\"symbol\": \"\u2640\", \"planet\": \"Venus\", \"sign\": \"Taurus\", \"house\": \"2nd\"},\n    {\"symbol\": \"\u2642\", \"planet\": \"Mars\", \"sign\": \"Gemini\", \"house\": \"3rd\"},\n    {\"symbol\": \"\u2643\", \"planet\": \"Jupiter\", \"sign\": \"Leo\", \"house\": \"5th\"},\n    {\"symbol\": \"\u2644\", \"planet\": \"Saturn\", \"sign\": \"Capricorn\", \"house\": \"10th\"}\n  ],\n  \"reading\": \"Your full narrative here with double newlines between paragraphs.\"\n}";
- 
-    fetch(GEMINI_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.9, maxOutputTokens: 2048 }
-      })
-    })
-    .then(function(response) {
-      if (!response.ok) throw new Error("API error: " + response.status);
-      return response.json();
-    })
-    .then(function(data) {
-      var raw = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : "";
-      var clean = raw.replace(/```json|```/g, "").trim();
-      var parsed = JSON.parse(clean);
- 
-      stopLoadingAnim();
-      document.getElementById('loading-state').style.display = 'none';
- 
-      document.getElementById('result-name').textContent = "\u2736 " + name + "'s Natal Chart \u2736";
-      document.getElementById('result-date').textContent = formatDate(birthdate) + " \u00b7 " + birthtime + " \u00b7 " + birthplace;
- 
-      var planetRow = document.getElementById('planet-row');
-      planetRow.innerHTML = '';
-      (parsed.planets || []).forEach(function(p) {
-        var pill = document.createElement('div');
-        pill.className = 'planet-pill';
-        pill.innerHTML = '<span class="symbol">' + p.symbol + '</span> ' + p.planet + ' in ' + p.sign;
-        planetRow.appendChild(pill);
-      });
- 
-      var houseGrid = document.getElementById('house-grid');
-      houseGrid.innerHTML = '';
-      (parsed.houses || []).forEach(function(h) {
-        var card = document.createElement('div');
-        card.className = 'house-card';
-        card.innerHTML = '<div class="house-num">' + h.house + '</div><div class="house-sign">' + h.sign + '</div><div class="house-meaning">' + h.meaning + '</div>';
-        houseGrid.appendChild(card);
-      });
- 
-      document.getElementById('reading-text').textContent = parsed.reading || '';
-      document.getElementById('result-section').style.display = 'block';
-      document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    })
-    .catch(function(err) {
-      stopLoadingAnim();
-      document.getElementById('loading-state').style.display = 'none';
-      document.getElementById('form-section').style.display = 'block';
-      document.getElementById('submit-btn').disabled = false;
-      showError('Something went wrong generating your reading. Please try again.');
-      console.error(err);
-    });
-  }
-</script>
 </body>
+</html>
