@@ -152,9 +152,9 @@
         <button type="button" class="btn primary">Generate Simple Chart</button>
       </form>
       <div class="info-box">
-        <h3>Full Birth Chart Reading — $5</h3>
+        <h3>Full Birth Chart Reading — $9.955</h3>
         <p>
-          Want a detailed, intuitive breakdown of your chart? For just $5, you’ll receive a full written reading
+          Want a detailed, intuitive breakdown of your chart? For just $9.95, you’ll receive a full written reading
           delivered to your email, including key placements, themes, and guidance.
         </p>
         <p class="small-note">
@@ -166,23 +166,20 @@
 
   <!-- TAROT SECTION -->
   <section id="tarot" class="section section-dark">
-    <div class="section-inner">
-      <h2>Tarot Readings</h2>
-      <p class="section-intro">
-        Pull a free daily card, then go deeper with a full reading when you’re ready.
-      </p>
-      <div class="tarot-layout">
-        <div class="tarot-card-display">
-          <div class="tarot-card-placeholder">
-            <span>Daily Tarot Card</span>
-          </div>
+	<div class="tarot-card-display">
+	  <div class="tarot-card-placeholder">
+	    <span id="daily-tarot-card">Your card will appear here</span>
+	  </div>
+	  <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
+	  <p class="small-note">Client-side only — no data stored, just guidance for your day.</p>
+	</div>
           <button type="button" class="btn secondary">Pull a Free Daily Card</button>
           <p class="small-note">Client-side only — no data stored, just guidance for your day.</p>
         </div>
         <div class="info-box">
-          <h3>Full Tarot Reading — $10</h3>
+          <h3>Full Tarot Reading — $9.95</h3>
           <p>
-            For $10, receive a full email reading tailored to your question or situation. I’ll pull a spread,
+            For $9.95, receive a full email reading tailored to your question or situation. I’ll pull a spread,
             interpret each card, and share clear, compassionate guidance.
           </p>
           <p class="small-note">
@@ -270,5 +267,20 @@
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
   </footer>
+  <script>
+    const tarotCards = [
+      "The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor",
+      "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit",
+      "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance",
+      "The Devil", "The Tower", "The Star", "The Moon", "The Sun",
+      "Judgement", "The World"
+    ];
+
+    function pullDailyCard() {
+      const card = tarotCards[Math.floor(Math.random() * tarotCards.length)];
+      document.getElementById("daily-tarot-card").textContent = card;
+    }
+  </script>
+
 </body>
 </html>
