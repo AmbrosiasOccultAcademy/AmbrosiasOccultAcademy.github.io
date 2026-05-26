@@ -420,7 +420,7 @@ body {
   .main-nav ul {
     gap: 0.9rem;
 	.tarot-image {
-	  width: 110px;
+	  width: 110px;      /* perfect mini‑tarot size */
 	  height: auto;
 	  border-radius: 12px;
 	  border: 1px solid rgba(255,255,255,0.2);
