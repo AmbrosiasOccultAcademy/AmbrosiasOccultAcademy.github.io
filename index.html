@@ -166,30 +166,35 @@
 
   <!-- TAROT SECTION -->
   <section id="tarot" class="section section-dark">
-	<div class="tarot-card-display">
-	  <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image">
-	  <p class="tarot-label">
-	    <span id="tarot-card-name">Your card will appear here</span>
-	    <br>
-	    <span id="tarot-card-orientation"></span>
-	  </p>
-	
-         <button type="button" class="btn secondary">Pull a Free Daily Card</button>
-          <p class="small-note">Client-side only — no data stored, just guidance for your day.</p>
-        </div>
-        <div class="info-box">
-          <h3>Full Tarot Reading — $9.95</h3>
-          <p>
-            For $9.95, receive a full email reading tailored to your question or situation. I’ll pull a spread,
-            interpret each card, and share clear, compassionate guidance.
-          </p>
-          <p class="small-note">
-            To request a full reading, email me with your question and “Full Tarot Reading” in the subject line.
-          </p>
-        </div>
+    <div class="section-inner">
+
+      <div class="tarot-card-display">
+        <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image">
+
+        <p class="tarot-label">
+          <span id="tarot-card-name">Your card will appear here</span>
+          <br>
+          <span id="tarot-card-orientation"></span>
+        </p>
+
+        <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
+        <p class="small-note">Client-side only — no data stored, just guidance for your day.</p>
       </div>
+
+      <div class="info-box">
+        <h3>Full Tarot Reading — $9.95</h3>
+        <p>
+          For $9.95, receive a full email reading tailored to your question or situation. I’ll pull a spread,
+          interpret each card, and share clear, compassionate guidance.
+        </p>
+        <p class="small-note">
+          To request a full reading, email me with your question and “Full Tarot Reading” in the subject line.
+        </p>
+      </div>
+
     </div>
   </section>
+
 
   <!-- FREAKY FRIDAY PREVIEW -->
   <section id="freaky" class="section section-light">
