@@ -429,6 +429,28 @@ body {
 	}
 	.tarot-image.reversed {
 	  transform: rotate(180deg);
+	  /* Sparkle effect for reversed cards */
+	  .sparkle {
+	    position: absolute;
+	    top: -10px;
+	    right: -10px;
+	    width: 40px;
+	    height: 40px;
+	    background: url('images/sparkle.png') no-repeat center center / contain;
+	    animation: twinkle 1.2s infinite ease-in-out;
+	    pointer-events: none;
+	  }
+
+	  @keyframes twinkle {
+	    0% { opacity: 0.2; transform: scale(0.8); }
+	    50% { opacity: 1; transform: scale(1.1); }
+	    100% { opacity: 0.2; transform: scale(0.8); }
+	  }
+
+	  .tarot-card-display {
+	    position: relative;
+	  }
+
 	}
   }
 }

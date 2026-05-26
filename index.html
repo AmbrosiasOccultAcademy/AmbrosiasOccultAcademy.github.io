@@ -177,8 +177,10 @@
           <span id="tarot-card-orientation"></span>
         </p>
 
-        <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
-        <p class="small-note">Client-side only — no data stored, just guidance for your day.</p>
+		<button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
+
+		<button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
+
       </div>
 
       <div class="info-box">
@@ -288,6 +290,8 @@
       document.getElementById("daily-tarot-card").textContent = card;
     }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
   <script>
     const tarotDeck = [
       { name: "The Fool", image: "images/tarot/fool.png" },
@@ -314,27 +318,49 @@
       { name: "The World", image: "images/tarot/world.png" }
     ];
 
-    function pullDailyCard() {
-      const card = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+	function pullDailyCard() {
+	  const card = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
 
-      // Random orientation
-      const isReversed = Math.random() < 0.5;
+	  // Random orientation
+	  const isReversed = Math.random() < 0.5;
 
-      const img = document.getElementById("tarot-card-image");
-      const name = document.getElementById("tarot-card-name");
-      const orientation = document.getElementById("tarot-card-orientation");
+	  const img = document.getElementById("tarot-card-image");
+	  const name = document.getElementById("tarot-card-name");
+	  const orientation = document.getElementById("tarot-card-orientation");
 
-      img.src = card.image;
-      name.textContent = card.name;
+	  img.src = card.image;
+	  name.textContent = card.name;
 
-      if (isReversed) {
-        img.classList.add("reversed");
-        orientation.textContent = "(Reversed)";
-      } else {
-        img.classList.remove("reversed");
-        orientation.textContent = "(Upright)";
-      }
-    }
+	  if (isReversed) {
+	    img.classList.add("reversed");
+	    orientation.textContent = "(Reversed)";
+	  } else {
+	    img.classList.remove("reversed");
+	    orientation.textContent = "(Upright)";
+	  }
+
+	  // REMOVE OLD SPARKLE
+	  const oldSparkle = document.querySelector('.sparkle');
+	  if (oldSparkle) oldSparkle.remove();
+
+	  // ADD SPARKLE IF REVERSED
+	  if (isReversed) {
+	    const sparkle = document.createElement('div');
+	    sparkle.classList.add('sparkle');
+	    document.querySelector('.tarot-card-display').appendChild(sparkle);
+	  }
+	}
+	function saveReading() {
+	  const cardArea = document.querySelector('.tarot-card-display');
+
+	  html2canvas(cardArea).then(canvas => {
+	    const link = document.createElement('a');
+	    link.download = 'tarot-reading.png';
+	    link.href = canvas.toDataURL();
+	    link.click();
+	  });
+	}
+
   </script>
 
 </body>
