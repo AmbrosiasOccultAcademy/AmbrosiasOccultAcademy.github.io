@@ -5,9 +5,60 @@
   <title>Ambrosia's Occult Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- html2canvas for saving the tarot reading as an image -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <style>
+    /* ── Tarot card sizing ───────────────────────────────────────────────── */
+    .tarot-image {
+      /* Standard tarot proportions: roughly 2.75" × 4.75" */
+      width: 220px;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: block;
+      margin: 0 auto 1rem;
+    }
+
+    /* Reversed card — flip upside down */
+    .tarot-image.reversed {
+      transform: rotate(180deg);
+    }
+
+    /* ── Sparkle effect (reversed cards only) ───────────────────────────── */
+    .sparkle {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.55) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(180, 130, 255, 0.45) 0%, transparent 40%),
+        radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0%, transparent 30%);
+      animation: sparkle-pulse 1.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkle-pulse {
+      from { opacity: 0.6; }
+      to   { opacity: 1; }
+    }
+
+    /* Make the card display a positioning context for the sparkle overlay */
+    .tarot-card-display {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  </style>
 </head>
 <body>
-  <!-- HEADER / HERO -->
+
+  <!-- ─── HEADER / HERO ──────────────────────────────────────────────────── -->
   <header class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -23,7 +74,7 @@
     </div>
   </header>
 
-  <!-- NAVIGATION -->
+  <!-- ─── NAVIGATION ────────────────────────────────────────────────────── -->
   <nav class="main-nav">
     <ul>
       <li><a href="#about">About</a></li>
@@ -36,12 +87,12 @@
     </ul>
   </nav>
 
-  <!-- ABOUT SECTION -->
+  <!-- ─── ABOUT SECTION ─────────────────────────────────────────────────── -->
   <section id="about" class="section section-light">
     <div class="section-inner">
       <h2>About Jennifer Ambrosia</h2>
       <p>
-        Jennifer Ambrosia is the intuitive guide behind <strong>Ambrosia’s Occult Academy</strong> — a lifelong empath,
+        Jennifer Ambrosia is the intuitive guide behind <strong>Ambrosia's Occult Academy</strong> — a lifelong empath,
         seeker of cosmic truth, and mother whose path has been shaped by love, resilience, and a deep connection to the unseen.
       </p>
       <p>
@@ -50,16 +101,16 @@
         to understand the mysteries of the universe and help others understand their own.
       </p>
       <p>
-        Today, she’s a proud mother of three: a son serving in the U.S. Navy, a daughter studying Meteorology in New York
+        Today, she's a proud mother of three: a son serving in the U.S. Navy, a daughter studying Meteorology in New York
         (and raising a bright little star of her own), and a spirited nine‑year‑old daughter she raises as a single parent in Las Vegas.
-        Together they enjoy camping under desert skies, music festivals, and late‑night drives to Area 51 — because yes, she’s that cool mom.
+        Together they enjoy camping under desert skies, music festivals, and late‑night drives to Area 51 — because yes, she's that cool mom.
       </p>
       <p>
         Jennifer believes destiny and free will dance together. Through palmistry, astrology, tarot, and other divination arts,
         she helps others uncover the wisdom written in their palms, their stars, their dreams, and their cards.
       </p>
       <p class="about-quote">
-        ✨ <em>“Let’s learn, grow, and practice real magic together.”</em>
+        ✨ <em>"Let's learn, grow, and practice real magic together."</em>
       </p>
       <div class="about-stats">
         <div class="stat-card">
@@ -85,7 +136,7 @@
     </div>
   </section>
 
-  <!-- DAILY THEMES GRID -->
+  <!-- ─── DAILY THEMES GRID ─────────────────────────────────────────────── -->
   <section id="themes" class="section section-dark">
     <div class="section-inner">
       <h2>Daily Themes</h2>
@@ -125,14 +176,14 @@
     </div>
   </section>
 
-  <!-- BIRTH CHART SECTION -->
+  <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
   <section id="birthchart" class="section section-light">
     <div class="section-inner">
       <h2>Birth Chart Tool</h2>
       <p class="section-intro">
         Start with a simple chart overview, then go deeper with a personalized full reading.
       </p>
-      <form class="form-grid">
+      <form class="form-grid" onsubmit="return false;">
         <div class="form-field">
           <label for="bc-name">Name</label>
           <input type="text" id="bc-name" placeholder="Your name" />
@@ -154,52 +205,48 @@
       <div class="info-box">
         <h3>Full Birth Chart Reading — $9.95</h3>
         <p>
-          Want a detailed, intuitive breakdown of your chart? For just $9.95, you’ll receive a full written reading
+          Want a detailed, intuitive breakdown of your chart? For just $9.95, you'll receive a full written reading
           delivered to your email, including key placements, themes, and guidance.
         </p>
         <p class="small-note">
-          To request a full reading, email me with your birth details and “Full Birth Chart Reading” in the subject line.
+          To request a full reading, email me with your birth details and "Full Birth Chart Reading" in the subject line.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- TAROT SECTION -->
+  <!-- ─── TAROT SECTION ─────────────────────────────────────────────────── -->
   <section id="tarot" class="section section-dark">
     <div class="section-inner">
 
       <div class="tarot-card-display">
-        <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image">
+        <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
 
         <p class="tarot-label">
           <span id="tarot-card-name">Your card will appear here</span>
-          <br>
+          <br />
           <span id="tarot-card-orientation"></span>
         </p>
 
-		<button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
-
-		<button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
-
-      </div>
+        <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
+        <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
+      </div><!-- /.tarot-card-display -->
 
       <div class="info-box">
         <h3>Full Tarot Reading — $9.95</h3>
         <p>
-          For $9.95, receive a full email reading tailored to your question or situation. I’ll pull a spread,
+          For $9.95, receive a full email reading tailored to your question or situation. I'll pull a spread,
           interpret each card, and share clear, compassionate guidance.
         </p>
         <p class="small-note">
-          To request a full reading, email me with your question and “Full Tarot Reading” in the subject line.
+          To request a full reading, email me with your question and "Full Tarot Reading" in the subject line.
         </p>
+      </div>
 
-    </div>
+    </div><!-- /.section-inner -->
   </section>
 
-
-
-
-  <!-- FREAKY FRIDAY PREVIEW -->
+  <!-- ─── FREAKY FRIDAY PREVIEW ─────────────────────────────────────────── -->
   <section id="freaky" class="section section-light">
     <div class="section-inner">
       <h2>Freaky Fridays</h2>
@@ -210,11 +257,11 @@
         <div class="info-box">
           <h3>Share Your Ghost Story</h3>
           <p>
-            Have you experienced something you can’t explain? A haunting, a sighting, a strange encounter?
+            Have you experienced something you can't explain? A haunting, a sighting, a strange encounter?
             Freaky Fridays is where your stories come to life.
           </p>
           <p class="small-note">
-            For now, send your story by email with “Freaky Friday Story” in the subject line. A submission form and
+            For now, send your story by email with "Freaky Friday Story" in the subject line. A submission form and
             live features are coming soon.
           </p>
         </div>
@@ -229,7 +276,7 @@
     </div>
   </section>
 
-  <!-- FUTURE SHOP -->
+  <!-- ─── FUTURE SHOP ───────────────────────────────────────────────────── -->
   <section id="shop" class="section section-dark">
     <div class="section-inner">
       <h2>Future Apothecary &amp; Candle Shop</h2>
@@ -256,12 +303,12 @@
     </div>
   </section>
 
-  <!-- CONTACT / FOOTER -->
+  <!-- ─── CONTACT / FOOTER ──────────────────────────────────────────────── -->
   <footer id="contact" class="footer">
     <div class="section-inner">
       <h2>Contact &amp; Links</h2>
       <p>
-        For readings, collaborations, or questions, reach out and let’s connect.
+        For readings, collaborations, or questions, reach out and let's connect.
       </p>
       <ul class="footer-links">
         <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
@@ -272,75 +319,101 @@
         &copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.
       </p>
     </div>
-	<script>
-	  const tarotDeck = [
-	    { name: "The Fool", image: "images/tarot/fool.png" },
-	    { name: "The Magician", image: "images/tarot/magician.png" },
-	    { name: "The High Priestess", image: "images/tarot/high-priestess.png" },
-	    { name: "The Empress", image: "images/tarot/empress.png" },
-	    { name: "The Emperor", image: "images/tarot/emperor.png" },
-	    { name: "The Hierophant", image: "images/tarot/hierophant.png" },
-	    { name: "The Lovers", image: "images/tarot/lovers.png" },
-	    { name: "The Chariot", image: "images/tarot/chariot.png" },
-	    { name: "Strength", image: "images/tarot/strength.png" },
-	    { name: "The Hermit", image: "images/tarot/hermit.png" },
-	    { name: "Wheel of Fortune", image: "images/tarot/wheel-of-fortune.png" },
-	    { name: "Justice", image: "images/tarot/justice.png" },
-	    { name: "The Hanged Man", image: "images/tarot/hanged-man.png" },
-	    { name: "Death", image: "images/tarot/death.png" },
-	    { name: "Temperance", image: "images/tarot/temperance.png" },
-	    { name: "The Devil", image: "images/tarot/devil.png" },
-	    { name: "The Tower", image: "images/tarot/tower.png" },
-	    { name: "The Star", image: "images/tarot/star.png" },
-	    { name: "The Moon", image: "images/tarot/moon.png" },
-	    { name: "The Sun", image: "images/tarot/sun.png" },
-	    { name: "Judgement", image: "images/tarot/judgement.png" },
-	    { name: "The World", image: "images/tarot/world.png" }
-	  ];
+  </footer>
 
-	  function pullDailyCard() {
-	    const card = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+  <!-- ─── SCRIPTS ───────────────────────────────────────────────────────── -->
+  <script>
+    // Auto-fill copyright year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
-	    const isReversed = Math.random() < 0.5;
+    // ── Tarot Deck ──────────────────────────────────────────────────────────
+    const tarotDeck = [
+      { name: "The Fool",          image: "images/tarot/fool.png" },
+      { name: "The Magician",      image: "images/tarot/magician.png" },
+      { name: "The High Priestess",image: "images/tarot/high-priestess.png" },
+      { name: "The Empress",       image: "images/tarot/empress.png" },
+      { name: "The Emperor",       image: "images/tarot/emperor.png" },
+      { name: "The Hierophant",    image: "images/tarot/hierophant.png" },
+      { name: "The Lovers",        image: "images/tarot/lovers.png" },
+      { name: "The Chariot",       image: "images/tarot/chariot.png" },
+      { name: "Strength",          image: "images/tarot/strength.png" },
+      { name: "The Hermit",        image: "images/tarot/hermit.png" },
+      { name: "Wheel of Fortune",  image: "images/tarot/wheel-of-fortune.png" },
+      { name: "Justice",           image: "images/tarot/justice.png" },
+      { name: "The Hanged Man",    image: "images/tarot/hanged-man.png" },
+      { name: "Death",             image: "images/tarot/death.png" },
+      { name: "Temperance",        image: "images/tarot/temperance.png" },
+      { name: "The Devil",         image: "images/tarot/devil.png" },
+      { name: "The Tower",         image: "images/tarot/tower.png" },
+      { name: "The Star",          image: "images/tarot/star.png" },
+      { name: "The Moon",          image: "images/tarot/moon.png" },
+      { name: "The Sun",           image: "images/tarot/sun.png" },
+      { name: "Judgement",         image: "images/tarot/judgement.png" },
+      { name: "The World",         image: "images/tarot/world.png" }
+    ];
 
-	    const img = document.getElementById("tarot-card-image");
-	    const name = document.getElementById("tarot-card-name");
-	    const orientation = document.getElementById("tarot-card-orientation");
+    // ── Pull Daily Card ─────────────────────────────────────────────────────
+    function pullDailyCard() {
+      const card       = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+      const isReversed = Math.random() < 0.5;
 
-	    img.src = card.image;
-	    name.textContent = card.name;
+      const img         = document.getElementById("tarot-card-image");
+      const nameEl      = document.getElementById("tarot-card-name");
+      const orientEl    = document.getElementById("tarot-card-orientation");
+      const displayArea = document.querySelector(".tarot-card-display");
 
-	    if (isReversed) {
-	      img.classList.add("reversed");
-	      orientation.textContent = "(Reversed)";
-	    } else {
-	      img.classList.remove("reversed");
-	      orientation.textContent = "(Upright)";
-	    }
+      // Update image & text
+      img.src           = card.image;
+      nameEl.textContent = card.name;
 
-	    // REMOVE OLD SPARKLE
-	    const oldSparkle = document.querySelector('.sparkle');
-	    if (oldSparkle) oldSparkle.remove();
+      // Apply / remove reversed styling
+      if (isReversed) {
+        img.classList.add("reversed");
+        orientEl.textContent = "(Reversed)";
+      } else {
+        img.classList.remove("reversed");
+        orientEl.textContent = "(Upright)";
+      }
 
-	    // ADD SPARKLE IF REVERSED
-	    if (isReversed) {
-	      const sparkle = document.createElement('div');
-	      sparkle.classList.add('sparkle');
-	      document.querySelector('.tarot-card-display').appendChild(sparkle);
-	    }
-	  }  // ⭐ THIS WAS MISSING
+      // Remove any existing sparkle overlay
+      const oldSparkle = displayArea.querySelector(".sparkle");
+      if (oldSparkle) oldSparkle.remove();
 
-	  function saveReading() {
-	    const cardArea = document.querySelector('.tarot-card-display');
+      // Add sparkle overlay only for reversed cards
+      if (isReversed) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        // Insert sparkle right after the image so it overlaps the card
+        img.insertAdjacentElement("afterend", sparkle);
+      }
+    }
 
-	    html2canvas(cardArea).then(canvas => {
-	      const link = document.createElement('a');
-	      link.download = 'tarot-reading.png';
-	      link.href = canvas.toDataURL();
-	      link.click();
-	    });
-	  }
-	</script>
+    // ── Save Reading ────────────────────────────────────────────────────────
+    function saveReading() {
+      const cardName = document.getElementById("tarot-card-name").textContent.trim();
+
+      // Don't save if no card has been pulled yet
+      if (cardName === "Your card will appear here") {
+        alert("Please pull a card first before saving your reading!");
+        return;
+      }
+
+      const cardArea = document.querySelector(".tarot-card-display");
+
+      html2canvas(cardArea, {
+        backgroundColor: null,   // preserve transparent/dark backgrounds
+        useCORS: true             // allow cross-origin card images
+      }).then(canvas => {
+        const link      = document.createElement("a");
+        link.download   = "tarot-reading.png";
+        link.href       = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(err => {
+        console.error("Screenshot failed:", err);
+        alert("Sorry, the reading couldn't be saved. Please try again.");
+      });
+    }
+  </script>
 
 </body>
 </html>
