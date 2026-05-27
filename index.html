@@ -272,97 +272,76 @@
         &copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.
       </p>
     </div>
-    <script>
-      document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
-  </footer>
-  <script>
-    const tarotCards = [
-      "The Fool", "The Magician", "The High Priestess", "The Empress", "The Emperor",
-      "The Hierophant", "The Lovers", "The Chariot", "Strength", "The Hermit",
-      "Wheel of Fortune", "Justice", "The Hanged Man", "Death", "Temperance",
-      "The Devil", "The Tower", "The Star", "The Moon", "The Sun",
-      "Judgement", "The World"
-    ];
+	<
+>
+	  const tarotDeck = [
+	    { name: "The Fool", image: "images/tarot/fool.png" },
+	    { name: "The Magician", image: "images/tarot/magician.png" },
+	    { name: "The High Priestess", image: "images/tarot/high-priestess.png" },
+	    { name: "The Empress", image: "images/tarot/empress.png" },
+	    { name: "The Emperor", image: "images/tarot/emperor.png" },
+	    { name: "The Hierophant", image: "images/tarot/hierophant.png" },
+	    { name: "The Lovers", image: "images/tarot/lovers.png" },
+	    { name: "The Chariot", image: "images/tarot/chariot.png" },
+	    { name: "Strength", image: "images/tarot/strength.png" },
+	    { name: "The Hermit", image: "images/tarot/hermit.png" },
+	    { name: "Wheel of Fortune", image: "images/tarot/wheel-of-fortune.png" },
+	    { name: "Justice", image: "images/tarot/justice.png" },
+	    { name: "The Hanged Man", image: "images/tarot/hanged-man.png" },
+	    { name: "Death", image: "images/tarot/death.png" },
+	    { name: "Temperance", image: "images/tarot/temperance.png" },
+	    { name: "The Devil", image: "images/tarot/devil.png" },
+	    { name: "The Tower", image: "images/tarot/tower.png" },
+	    { name: "The Star", image: "images/tarot/star.png" },
+	    { name: "The Moon", image: "images/tarot/moon.png" },
+	    { name: "The Sun", image: "images/tarot/sun.png" },
+	    { name: "Judgement", image: "images/tarot/judgement.png" },
+	    { name: "The World", image: "images/tarot/world.png" }
+	  ];
 
-    function pullDailyCard() {
-      const card = tarotCards[Math.floor(Math.random() * tarotCards.length)];
-      document.getElementById("daily-tarot-card").textContent = card;
-    }
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+	  function pullDailyCard() {
+	    const card = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
 
-  <script>
-    const tarotDeck = [
-      { name: "The Fool", image: "images/tarot/fool.png" },
-      { name: "The Magician", image: "images/tarot/magician.png" },
-      { name: "The High Priestess", image: "images/tarot/high-priestess.png" },
-      { name: "The Empress", image: "images/tarot/empress.png" },
-      { name: "The Emperor", image: "images/tarot/emperor.png" },
-      { name: "The Hierophant", image: "images/tarot/hierophant.png" },
-      { name: "The Lovers", image: "images/tarot/lovers.png" },
-      { name: "The Chariot", image: "images/tarot/chariot.png" },
-      { name: "Strength", image: "images/tarot/strength.png" },
-      { name: "The Hermit", image: "images/tarot/hermit.png" },
-      { name: "Wheel of Fortune", image: "images/tarot/wheel-of-fortune.png" },
-      { name: "Justice", image: "images/tarot/justice.png" },
-      { name: "The Hanged Man", image: "images/tarot/hanged-man.png" },
-      { name: "Death", image: "images/tarot/death.png" },
-      { name: "Temperance", image: "images/tarot/temperance.png" },
-      { name: "The Devil", image: "images/tarot/devil.png" },
-      { name: "The Tower", image: "images/tarot/tower.png" },
-      { name: "The Star", image: "images/tarot/star.png" },
-      { name: "The Moon", image: "images/tarot/moon.png" },
-      { name: "The Sun", image: "images/tarot/sun.png" },
-      { name: "Judgement", image: "images/tarot/judgement.png" },
-      { name: "The World", image: "images/tarot/world.png" }
-    ];
+	    const isReversed = Math.random() < 0.5;
 
-	function pullDailyCard() {
-	  const card = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+	    const img = document.getElementById("tarot-card-image");
+	    const name = document.getElementById("tarot-card-name");
+	    const orientation = document.getElementById("tarot-card-orientation");
 
-	  // Random orientation
-	  const isReversed = Math.random() < 0.5;
+	    img.src = card.image;
+	    name.textContent = card.name;
 
-	  const img = document.getElementById("tarot-card-image");
-	  const name = document.getElementById("tarot-card-name");
-	  const orientation = document.getElementById("tarot-card-orientation");
+	    if (isReversed) {
+	      img.classList.add("reversed");
+	      orientation.textContent = "(Reversed)";
+	    } else {
+	      img.classList.remove("reversed");
+	      orientation.textContent = "(Upright)";
+	    }
 
-	  img.src = card.image;
-	  name.textContent = card.name;
+	    // REMOVE OLD SPARKLE
+	    const oldSparkle = document.querySelector('.sparkle');
+	    if (oldSparkle) oldSparkle.remove();
 
-	  if (isReversed) {
-	    img.classList.add("reversed");
-	    orientation.textContent = "(Reversed)";
-	  } else {
-	    img.classList.remove("reversed");
-	    orientation.textContent = "(Upright)";
+	    // ADD SPARKLE IF REVERSED
+	    if (isReversed) {
+	      const sparkle = document.createElement('div');
+	      sparkle.classList.add('sparkle');
+	      document.querySelector('.tarot-card-display').appendChild(sparkle);
+	    }
+	  }  // ⭐ THIS WAS MISSING
+
+	  function saveReading() {
+	    const cardArea = document.querySelector('.tarot-card-display');
+
+	    html2canvas(cardArea).then(canvas => {
+	      const link = document.createElement('a');
+	      link.download = 'tarot-reading.png';
+	      link.href = canvas.toDataURL();
+	      link.click();
+	    });
 	  }
-
-	  // REMOVE OLD SPARKLE
-	  const oldSparkle = document.querySelector('.sparkle');
-	  if (oldSparkle) oldSparkle.remove();
-
-	  // ADD SPARKLE IF REVERSED
-	  if (isReversed) {
-	    const sparkle = document.createElement('div');
-	    sparkle.classList.add('sparkle');
-	    document.querySelector('.tarot-card-display').appendChild(sparkle);
-	  }
-
-
-	function saveReading() {
-	  const cardArea = document.querySelector('.tarot-card-display');
-
-	  html2canvas(cardArea).then(canvas => {
-	    const link = document.createElement('a');
-	    link.download = 'tarot-reading.png';
-	    link.href = canvas.toDataURL();
-	    link.click();
-	  });
-	}
-
-  </script>
+	</script>
 
 </body>
 </html>
