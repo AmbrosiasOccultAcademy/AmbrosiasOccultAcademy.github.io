@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 
-  <!-- html2canvas for saving the tarot reading as an image -->
+  <!-- html2canvas for saving readings as images -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     /* ── Tarot card sizing ───────────────────────────────────────────────── */
     .tarot-image {
-      /* Standard tarot proportions: roughly 2.75" × 4.75" */
       width: 220px;
       height: 380px;
       object-fit: cover;
@@ -46,7 +45,7 @@
       to   { opacity: 1; }
     }
 
-    /* Make the card display a positioning context for the sparkle overlay */
+    /* Positioning context for sparkle overlay */
     .tarot-card-display {
       position: relative;
       display: flex;
@@ -69,7 +68,7 @@
       <div class="hero-buttons">
         <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">Visit YouTube</a>
         <a href="#tarot" class="btn secondary">Free Daily Tarot</a>
-        <a href="#birthchart" class="btn outline">Birth Chart Tool</a>
+        <a href="#birth-chart" class="btn outline">Birth Chart Tool</a>
       </div>
     </div>
   </header>
@@ -79,7 +78,7 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#themes">Daily Themes</a></li>
-      <li><a href="#birthchart">Birth Charts</a></li>
+      <li><a href="#birth-chart">Birth Charts</a></li>
       <li><a href="#tarot">Tarot Readings</a></li>
       <li><a href="#freaky">Freaky Fridays</a></li>
       <li><a href="#shop">Future Shop</a></li>
@@ -176,45 +175,6 @@
     </div>
   </section>
 
-  <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
-  <section id="birthchart" class="section section-light">
-    <div class="section-inner">
-      <h2>Birth Chart Tool</h2>
-      <p class="section-intro">
-        Start with a simple chart overview, then go deeper with a personalized full reading.
-      </p>
-      <form class="form-grid" onsubmit="return false;">
-        <div class="form-field">
-          <label for="bc-name">Name</label>
-          <input type="text" id="bc-name" placeholder="Your name" />
-        </div>
-        <div class="form-field">
-          <label for="bc-date">Birth Date</label>
-          <input type="date" id="bc-date" />
-        </div>
-        <div class="form-field">
-          <label for="bc-time">Birth Time</label>
-          <input type="time" id="bc-time" />
-        </div>
-        <div class="form-field">
-          <label for="bc-place">Birth Place</label>
-          <input type="text" id="bc-place" placeholder="City, Country" />
-        </div>
-        <button type="button" class="btn primary">Generate Simple Chart</button>
-      </form>
-      <div class="info-box">
-        <h3>Full Birth Chart Reading — $9.95</h3>
-        <p>
-          Want a detailed, intuitive breakdown of your chart? For just $9.95, you'll receive a full written reading
-          delivered to your email, including key placements, themes, and guidance.
-        </p>
-        <p class="small-note">
-          To request a full reading, email me with your birth details and "Full Birth Chart Reading" in the subject line.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- ─── TAROT SECTION ─────────────────────────────────────────────────── -->
   <section id="tarot" class="section section-dark">
     <div class="section-inner">
@@ -245,11 +205,13 @@
 
     </div><!-- /.section-inner -->
   </section>
+
+  <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
   <section class="section section-light" id="birth-chart">
     <div class="section-inner">
 
       <h2 class="section-title">Birth Chart Mini‑Reading</h2>
-      <p class="section-intro">Reveal your Sun, Moon, and Rising signs through the Academy’s Arcane Seal.</p>
+      <p class="section-intro">Reveal your Sun, Moon, and Rising signs through the Academy's Arcane Seal.</p>
 
       <!-- SVG OCCULT ACADEMY SEAL -->
       <div class="birthchart-seal-container">
@@ -271,10 +233,8 @@
             100,110
           " stroke="#EF9F27" stroke-width="2" fill="none"/>
 
-          <!-- 12 House Lines -->
-          <g id="house-lines">
-            <!-- JS will generate the 12 lines -->
-          </g>
+          <!-- 12 House Lines — drawn by JS after DOM is ready -->
+          <g id="house-lines"></g>
 
           <!-- Glyph placeholders -->
           <g id="glyph-layer"></g>
@@ -285,31 +245,27 @@
       <div class="info-box">
         <div class="form-grid">
           <div class="form-field">
-            <label>Birth Date</label>
-            <input type="date" id="birth-date">
+            <label for="birth-date">Birth Date</label>
+            <input type="date" id="birth-date" />
           </div>
-
           <div class="form-field">
-            <label>Birth Time</label>
-            <input type="time" id="birth-time">
+            <label for="birth-time">Birth Time</label>
+            <input type="time" id="birth-time" />
           </div>
-
           <div class="form-field">
-            <label>Birth Location</label>
-            <input type="text" id="birth-location" placeholder="City, State or Country">
+            <label for="birth-location">Birth Location</label>
+            <input type="text" id="birth-location" placeholder="City, State or Country" />
           </div>
         </div>
-
         <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
       </div>
 
-      <!-- RESULTS -->
+      <!-- RESULTS (hidden until chart is generated) -->
       <div id="birth-results" class="info-box" style="display:none;">
         <h3>Your Big Three</h3>
         <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
         <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
         <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
-
         <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
       </div>
 
@@ -322,7 +278,6 @@
 
     </div>
   </section>
-
 
   <!-- ─── FREAKY FRIDAY PREVIEW ─────────────────────────────────────────── -->
   <section id="freaky" class="section section-light">
@@ -399,38 +354,43 @@
     </div>
   </footer>
 
-  <!-- ─── SCRIPTS ───────────────────────────────────────────────────────── -->
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SCRIPTS — placed at end of body so the DOM is fully loaded first
+  ════════════════════════════════════════════════════════════════════════ -->
   <script>
-    // Auto-fill copyright year
+
+    // ── Copyright year ──────────────────────────────────────────────────────
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ── Tarot Deck ──────────────────────────────────────────────────────────
+
+    /* =====================================================================
+       TAROT
+    ===================================================================== */
     const tarotDeck = [
-      { name: "The Fool",          image: "images/tarot/fool.png" },
-      { name: "The Magician",      image: "images/tarot/magician.png" },
-      { name: "The High Priestess",image: "images/tarot/high-priestess.png" },
-      { name: "The Empress",       image: "images/tarot/empress.png" },
-      { name: "The Emperor",       image: "images/tarot/emperor.png" },
-      { name: "The Hierophant",    image: "images/tarot/hierophant.png" },
-      { name: "The Lovers",        image: "images/tarot/lovers.png" },
-      { name: "The Chariot",       image: "images/tarot/chariot.png" },
-      { name: "Strength",          image: "images/tarot/strength.png" },
-      { name: "The Hermit",        image: "images/tarot/hermit.png" },
-      { name: "Wheel of Fortune",  image: "images/tarot/wheel-of-fortune.png" },
-      { name: "Justice",           image: "images/tarot/justice.png" },
-      { name: "The Hanged Man",    image: "images/tarot/hanged-man.png" },
-      { name: "Death",             image: "images/tarot/death.png" },
-      { name: "Temperance",        image: "images/tarot/temperance.png" },
-      { name: "The Devil",         image: "images/tarot/devil.png" },
-      { name: "The Tower",         image: "images/tarot/tower.png" },
-      { name: "The Star",          image: "images/tarot/star.png" },
-      { name: "The Moon",          image: "images/tarot/moon.png" },
-      { name: "The Sun",           image: "images/tarot/sun.png" },
-      { name: "Judgement",         image: "images/tarot/judgement.png" },
-      { name: "The World",         image: "images/tarot/world.png" }
+      { name: "The Fool",           image: "images/tarot/fool.png" },
+      { name: "The Magician",       image: "images/tarot/magician.png" },
+      { name: "The High Priestess", image: "images/tarot/high-priestess.png" },
+      { name: "The Empress",        image: "images/tarot/empress.png" },
+      { name: "The Emperor",        image: "images/tarot/emperor.png" },
+      { name: "The Hierophant",     image: "images/tarot/hierophant.png" },
+      { name: "The Lovers",         image: "images/tarot/lovers.png" },
+      { name: "The Chariot",        image: "images/tarot/chariot.png" },
+      { name: "Strength",           image: "images/tarot/strength.png" },
+      { name: "The Hermit",         image: "images/tarot/hermit.png" },
+      { name: "Wheel of Fortune",   image: "images/tarot/wheel-of-fortune.png" },
+      { name: "Justice",            image: "images/tarot/justice.png" },
+      { name: "The Hanged Man",     image: "images/tarot/hanged-man.png" },
+      { name: "Death",              image: "images/tarot/death.png" },
+      { name: "Temperance",         image: "images/tarot/temperance.png" },
+      { name: "The Devil",          image: "images/tarot/devil.png" },
+      { name: "The Tower",          image: "images/tarot/tower.png" },
+      { name: "The Star",           image: "images/tarot/star.png" },
+      { name: "The Moon",           image: "images/tarot/moon.png" },
+      { name: "The Sun",            image: "images/tarot/sun.png" },
+      { name: "Judgement",          image: "images/tarot/judgement.png" },
+      { name: "The World",          image: "images/tarot/world.png" }
     ];
 
-    // ── Pull Daily Card ─────────────────────────────────────────────────────
     function pullDailyCard() {
       const card       = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
       const isReversed = Math.random() < 0.5;
@@ -440,11 +400,9 @@
       const orientEl    = document.getElementById("tarot-card-orientation");
       const displayArea = document.querySelector(".tarot-card-display");
 
-      // Update image & text
-      img.src           = card.image;
+      img.src            = card.image;
       nameEl.textContent = card.name;
 
-      // Apply / remove reversed styling
       if (isReversed) {
         img.classList.add("reversed");
         orientEl.textContent = "(Reversed)";
@@ -453,151 +411,171 @@
         orientEl.textContent = "(Upright)";
       }
 
-      // Remove any existing sparkle overlay
+      // Remove old sparkle then add fresh one if reversed
       const oldSparkle = displayArea.querySelector(".sparkle");
       if (oldSparkle) oldSparkle.remove();
 
-      // Add sparkle overlay only for reversed cards
       if (isReversed) {
         const sparkle = document.createElement("div");
         sparkle.classList.add("sparkle");
-        // Insert sparkle right after the image so it overlaps the card
         img.insertAdjacentElement("afterend", sparkle);
       }
     }
 
-    // ── Save Reading ────────────────────────────────────────────────────────
     function saveReading() {
       const cardName = document.getElementById("tarot-card-name").textContent.trim();
-
-      // Don't save if no card has been pulled yet
       if (cardName === "Your card will appear here") {
         alert("Please pull a card first before saving your reading!");
         return;
       }
-
-      const cardArea = document.querySelector(".tarot-card-display");
-
-      html2canvas(cardArea, {
-        backgroundColor: null,   // preserve transparent/dark backgrounds
-        useCORS: true             // allow cross-origin card images
+      html2canvas(document.querySelector(".tarot-card-display"), {
+        backgroundColor: null,
+        useCORS: true
       }).then(canvas => {
-        const link      = document.createElement("a");
-        link.download   = "tarot-reading.png";
-        link.href       = canvas.toDataURL("image/png");
+        const link    = document.createElement("a");
+        link.download = "tarot-reading.png";
+        link.href     = canvas.toDataURL("image/png");
         link.click();
       }).catch(err => {
         console.error("Screenshot failed:", err);
         alert("Sorry, the reading couldn't be saved. Please try again.");
       });
     }
-  </script>
-  <script>
-  /* -------------------------
-     SUN SIGN LOOKUP
-  ------------------------- */
-  function getSunSign(date) {
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
 
-    const signs = [
-      ["Capricorn", 1, 19], ["Aquarius", 2, 18], ["Pisces", 3, 20],
-      ["Aries", 4, 19], ["Taurus", 5, 20], ["Gemini", 6, 20],
-      ["Cancer", 7, 22], ["Leo", 8, 22], ["Virgo", 9, 22],
-      ["Libra", 10, 22], ["Scorpio", 11, 21], ["Sagittarius", 12, 21],
-      ["Capricorn", 12, 31]
-    ];
 
-    for (let i = 0; i < signs.length; i++) {
-      const [sign, m, d] = signs[i];
-      if (month === m && day <= d) return sign;
+    /* =====================================================================
+       BIRTH CHART
+    ===================================================================== */
+
+    /* ── Sun Sign ───────────────────────────────────────────────────────── */
+    function getSunSign(date) {
+      const month = date.getMonth() + 1; // 1–12
+      const day   = date.getDate();
+
+      // Each entry: [sign, cutoff month, cutoff day]
+      // If month === cutoff month AND day <= cutoff day → that sign
+      const signs = [
+        ["Capricorn",   1, 19],
+        ["Aquarius",    2, 18],
+        ["Pisces",      3, 20],
+        ["Aries",       4, 19],
+        ["Taurus",      5, 20],
+        ["Gemini",      6, 20],
+        ["Cancer",      7, 22],
+        ["Leo",         8, 22],
+        ["Virgo",       9, 22],
+        ["Libra",      10, 22],
+        ["Scorpio",    11, 21],
+        ["Sagittarius",12, 21]
+      ];
+
+      for (const [sign, m, d] of signs) {
+        if (month === m && day <= d) return sign;
+        if (month === m && day > d) {
+          // Past the cutoff for this month — next sign starts
+          // (handled by next iteration or fallback)
+          continue;
+        }
+        if (month < m) return sign; // haven't reached this cutoff month yet
+      }
+      // Dec 22–31 → Capricorn
+      return "Capricorn";
     }
-  }
 
-  /* -------------------------
-     MOON SIGN (Simplified)
-  ------------------------- */
-  function getMoonSign(date) {
-    const cycle = 29.53;
-    const knownNewMoon = new Date("2000-01-06");
-    const diff = (date - knownNewMoon) / (1000 * 60 * 60 * 24);
-    const phase = diff % cycle;
+    /* ── Moon Sign (simplified estimate) ───────────────────────────────── */
+    function getMoonSign(date) {
+      const cycle        = 29.53;
+      const knownNewMoon = new Date("2000-01-06");
+      const diffDays     = (date - knownNewMoon) / (1000 * 60 * 60 * 24);
 
-    const moonSigns = [
-      "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-      "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
-    ];
+      // Use Math.abs so negative dates (pre-2000) don't break the index
+      let phase = diffDays % cycle;
+      if (phase < 0) phase += cycle;
 
-    return moonSigns[Math.floor((phase / cycle) * 12)];
-  }
+      const moonSigns = [
+        "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
+        "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
+      ];
 
-  /* -------------------------
-     RISING SIGN (Simplified)
-  ------------------------- */
-  function getRisingSign(time) {
-    const hour = parseInt(time.split(":")[0]);
-    const rising = [
-      "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-      "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
-    ];
-    return rising[Math.floor((hour % 24) / 2)];
-  }
-
-  /* -------------------------
-     GENERATE SVG HOUSE LINES
-  ------------------------- */
-  function generateHouseLines() {
-    const group = document.getElementById("house-lines");
-    for (let i = 0; i < 12; i++) {
-      const angle = (i * 30) * (Math.PI / 180);
-      const x = 150 + Math.cos(angle) * 140;
-      const y = 150 + Math.sin(angle) * 140;
-
-      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
-      line.setAttribute("x1","150");
-      line.setAttribute("y1","150");
-      line.setAttribute("x2",x);
-      line.setAttribute("y2",y);
-      line.setAttribute("stroke","#EF9F27");
-      line.setAttribute("stroke-width","1.5");
-
-      group.appendChild(line);
+      return moonSigns[Math.floor((phase / cycle) * 12)];
     }
-  }
-  generateHouseLines();
 
-  /* -------------------------
-     MAIN FUNCTION
-  ------------------------- */
-  function generateBirthChart() {
-    const dateInput = document.getElementById("birth-date").value;
-    const timeInput = document.getElementById("birth-time").value;
+    /* ── Rising Sign (simplified — based on birth hour) ────────────────── */
+    function getRisingSign(timeStr) {
+      const hour   = parseInt(timeStr.split(":")[0], 10);
+      const rising = [
+        "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
+        "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
+      ];
+      return rising[Math.floor((hour % 24) / 2)];
+    }
 
-    if (!dateInput || !timeInput) return alert("Please enter date and time.");
+    /* ── Draw 12 House Lines on the SVG Seal ───────────────────────────── */
+    // FIX: called at the bottom of the script block, after DOM is ready
+    function generateHouseLines() {
+      const group = document.getElementById("house-lines");
+      if (!group) return; // safety guard
 
-    const date = new Date(dateInput);
+      for (let i = 0; i < 12; i++) {
+        const angle = (i * 30) * (Math.PI / 180);
+        const x2    = 150 + Math.cos(angle) * 140;
+        const y2    = 150 + Math.sin(angle) * 140;
 
-    document.getElementById("sun-sign").textContent = getSunSign(date);
-    document.getElementById("moon-sign").textContent = getMoonSign(date);
-    document.getElementById("rising-sign").textContent = getRisingSign(timeInput);
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", "150");
+        line.setAttribute("y1", "150");
+        line.setAttribute("x2", x2);
+        line.setAttribute("y2", y2);
+        line.setAttribute("stroke", "#EF9F27");
+        line.setAttribute("stroke-width", "1.5");
+        group.appendChild(line);
+      }
+    }
 
-    document.getElementById("birth-results").style.display = "block";
-  }
+    /* ── Generate Birth Chart ───────────────────────────────────────────── */
+    function generateBirthChart() {
+      const dateInput = document.getElementById("birth-date").value;
+      const timeInput = document.getElementById("birth-time").value;
 
-  /* -------------------------
-     SAVE READING
-  ------------------------- */
-  function saveBirthReading() {
-    const area = document.getElementById("birth-results");
-    html2canvas(area).then(canvas => {
-      const link = document.createElement("a");
-      link.download = "birth-reading.png";
-      link.href = canvas.toDataURL();
-      link.click();
-    });
-  }
+      if (!dateInput || !timeInput) {
+        alert("Please enter both a birth date and birth time.");
+        return;
+      }
+
+      // Parse as local date (avoid timezone shift from new Date(string))
+      const [year, month, day] = dateInput.split("-").map(Number);
+      const date = new Date(year, month - 1, day);
+
+      document.getElementById("sun-sign").textContent    = getSunSign(date);
+      document.getElementById("moon-sign").textContent   = getMoonSign(date);
+      document.getElementById("rising-sign").textContent = getRisingSign(timeInput);
+
+      document.getElementById("birth-results").style.display = "block";
+      document.getElementById("birth-results").scrollIntoView({ behavior: "smooth" });
+    }
+
+    /* ── Save Birth Reading ─────────────────────────────────────────────── */
+    function saveBirthReading() {
+      const resultsEl = document.getElementById("birth-results");
+      if (resultsEl.style.display === "none") {
+        alert("Please generate your birth chart first!");
+        return;
+      }
+      html2canvas(resultsEl, { backgroundColor: null, useCORS: true }).then(canvas => {
+        const link    = document.createElement("a");
+        link.download = "birth-reading.png";
+        link.href     = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(err => {
+        console.error("Screenshot failed:", err);
+        alert("Sorry, the reading couldn't be saved. Please try again.");
+      });
+    }
+
+    // ── Draw house lines NOW (DOM is ready since script is at end of body) ──
+    generateHouseLines();
+
   </script>
-
 
 </body>
 </html>
