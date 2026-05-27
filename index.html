@@ -134,7 +134,39 @@
       </a>
     </div>
   </section>
+  <!-- ─── YOUTUBE CHANNEL SECTION ──────────────────────────────────────── -->
+    <section id="youtube" class="section section-dark">
+      <div class="section-inner">
+        <h2>Latest from the Academy</h2>
+        <p class="section-intro">
+          Subscribe to Ambrosia's Occult Academy for daily tarot, astrology, and mystical guidance.
+        </p>
+        
+        <!-- YouTube Subscribe Button -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+          <a href="https://www.youtube.com/@AmbrosiasOccultAcademy?sub_confirmation=1" target="_blank" class="btn primary">
+            Subscribe on YouTube
+          </a>
+        </div>
 
+        <!-- Latest Videos Feed -->
+        <div style="max-width: 100%; margin: 0 auto;">
+          <iframe 
+            width="100%" 
+            height="500" 
+            src="https://www.youtube.com/embed/videoseries?list=UCviAaC0gLt932FjBfFz9AVQ" 
+            title="Ambrosia's Occult Academy - Latest Videos"
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <p class="small-note" style="text-align: center; margin-top: 1.5rem;">
+          🎬 Watch the latest tarot readings, astrology forecasts, and occult education live from the Academy.
+        </p>
+      </div>
+    </section>
   <!-- ─── DAILY THEMES GRID ─────────────────────────────────────────────── -->
   <section id="themes" class="section section-dark">
     <div class="section-inner">
@@ -754,7 +786,7 @@
       <ul class="footer-links">
         <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
         <li><strong>Location:</strong> Las Vegas, Nevada, United States</li>
-        <li><strong>Email:</strong> AmbrosiasOccultAcademy@gmail.com</li>
+     <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
       </ul>
       <p class="footer-copy">
         &copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.
@@ -980,50 +1012,53 @@
       });
     }
 
-    // ── Draw house lines NOW (DOM is ready since script is at end of body) ──
-    generateHouseLines();
-	<script>
-	   (function () {
-	     const form    = document.getElementById("ghost-story-form");
-	     const msgEl   = document.getElementById("ghost-form-message");
+	 // ── Draw house lines NOW (DOM is ready since script is at end of body) ──
+	    generateHouseLines();
 
-	     if (!form) return;
+	    /* =====================================================================
+	       GHOST STORY FORM
+	    ===================================================================== */
+	    (function () {
+	      const form    = document.getElementById("ghost-story-form");
+	      const msgEl   = document.getElementById("ghost-form-message");
 
-	     form.addEventListener("submit", async function (e) {
-	       e.preventDefault();
+	      if (!form) return;
 
-	       const submitBtn = form.querySelector("button[type='submit']");
-	       submitBtn.disabled    = true;
-	       submitBtn.textContent = "Sending...";
+	      form.addEventListener("submit", async function (e) {
+	        e.preventDefault();
 
-	       try {
-	         const response = await fetch(form.action, {
-	           method:  "POST",
-	           body:    new FormData(form),
-	           headers: { "Accept": "application/json" }
-	         });
+	        const submitBtn = form.querySelector("button[type='submit']");
+	        submitBtn.disabled    = true;
+	        submitBtn.textContent = "Sending...";
 
-	         if (response.ok) {
-	           msgEl.className     = "success";
-	           msgEl.style.display = "block";
-	           msgEl.textContent   = "✨ Your story has been received! Jennifer will read it personally — thank you for sharing your experience with the Academy.";
-	           form.reset();
-	         } else {
-	           throw new Error("Server error");
-	         }
-	       } catch (err) {
-	         msgEl.className     = "error";
-	         msgEl.style.display = "block";
-	         msgEl.innerHTML     = '⚠️ Something went wrong. Please try emailing your story directly to Jennifer — just click "Email your story directly" below the form.';
-	       } finally {
-	         submitBtn.disabled    = false;
-	         submitBtn.textContent = "🕯️ Submit My Story";
-	         msgEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
-	       }
-	     });
-	   })();
-	 </script>
-  </script>
+	        try {
+	          const response = await fetch(form.action, {
+	            method:  "POST",
+	            body:    new FormData(form),
+	            headers: { "Accept": "application/json" }
+	          });
 
-</body>
-</html>
+	          if (response.ok) {
+	            msgEl.className     = "success";
+	            msgEl.style.display = "block";
+	            msgEl.textContent   = "✨ Your story has been received! Jennifer will read it personally — thank you for sharing your experience with the Academy.";
+	            form.reset();
+	          } else {
+	            throw new Error("Server error");
+	          }
+	        } catch (err) {
+	          msgEl.className     = "error";
+	          msgEl.style.display = "block";
+	          msgEl.innerHTML     = '⚠️ Something went wrong. Please try emailing your story directly to Jennifer — just click "Email your story directly" below the form.';
+	        } finally {
+	          submitBtn.disabled    = false;
+	          submitBtn.textContent = "🕯️ Submit My Story";
+	          msgEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+	        }
+	      });
+	    })();
+
+	  </script>
+
+	</body>
+	</html>
