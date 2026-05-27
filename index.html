@@ -245,6 +245,84 @@
 
     </div><!-- /.section-inner -->
   </section>
+  <section class="section section-light" id="birth-chart">
+    <div class="section-inner">
+
+      <h2 class="section-title">Birth Chart Mini‑Reading</h2>
+      <p class="section-intro">Reveal your Sun, Moon, and Rising signs through the Academy’s Arcane Seal.</p>
+
+      <!-- SVG OCCULT ACADEMY SEAL -->
+      <div class="birthchart-seal-container">
+        <svg id="academy-seal" viewBox="0 0 300 300">
+          <!-- Outer Circle -->
+          <circle cx="150" cy="150" r="140" stroke="#EF9F27" stroke-width="3" fill="none"/>
+
+          <!-- Inner Star -->
+          <polygon points="
+            150,40
+            200,110
+            260,130
+            210,190
+            220,260
+            150,230
+            80,260
+            90,190
+            40,130
+            100,110
+          " stroke="#EF9F27" stroke-width="2" fill="none"/>
+
+          <!-- 12 House Lines -->
+          <g id="house-lines">
+            <!-- JS will generate the 12 lines -->
+          </g>
+
+          <!-- Glyph placeholders -->
+          <g id="glyph-layer"></g>
+        </svg>
+      </div>
+
+      <!-- INPUT FORM -->
+      <div class="info-box">
+        <div class="form-grid">
+          <div class="form-field">
+            <label>Birth Date</label>
+            <input type="date" id="birth-date">
+          </div>
+
+          <div class="form-field">
+            <label>Birth Time</label>
+            <input type="time" id="birth-time">
+          </div>
+
+          <div class="form-field">
+            <label>Birth Location</label>
+            <input type="text" id="birth-location" placeholder="City, State or Country">
+          </div>
+        </div>
+
+        <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
+      </div>
+
+      <!-- RESULTS -->
+      <div id="birth-results" class="info-box" style="display:none;">
+        <h3>Your Big Three</h3>
+        <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
+        <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
+        <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
+
+        <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
+      </div>
+
+      <!-- UPSELL -->
+      <div class="info-box upsell-box">
+        <h3>Unlock Your Full Birth Chart — $9.95</h3>
+        <p>Receive a 3‑page PDF with all 12 houses, planetary aspects, elemental balance, and personalized interpretations.</p>
+        <button class="btn secondary">Purchase Full Reading</button>
+      </div>
+
+    </div>
+  </section>
+
 
   <!-- ─── FREAKY FRIDAY PREVIEW ─────────────────────────────────────────── -->
   <section id="freaky" class="section section-light">
@@ -414,6 +492,112 @@
       });
     }
   </script>
+  <script>
+  /* -------------------------
+     SUN SIGN LOOKUP
+  ------------------------- */
+  function getSunSign(date) {
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+
+    const signs = [
+      ["Capricorn", 1, 19], ["Aquarius", 2, 18], ["Pisces", 3, 20],
+      ["Aries", 4, 19], ["Taurus", 5, 20], ["Gemini", 6, 20],
+      ["Cancer", 7, 22], ["Leo", 8, 22], ["Virgo", 9, 22],
+      ["Libra", 10, 22], ["Scorpio", 11, 21], ["Sagittarius", 12, 21],
+      ["Capricorn", 12, 31]
+    ];
+
+    for (let i = 0; i < signs.length; i++) {
+      const [sign, m, d] = signs[i];
+      if (month === m && day <= d) return sign;
+    }
+  }
+
+  /* -------------------------
+     MOON SIGN (Simplified)
+  ------------------------- */
+  function getMoonSign(date) {
+    const cycle = 29.53;
+    const knownNewMoon = new Date("2000-01-06");
+    const diff = (date - knownNewMoon) / (1000 * 60 * 60 * 24);
+    const phase = diff % cycle;
+
+    const moonSigns = [
+      "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
+      "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
+    ];
+
+    return moonSigns[Math.floor((phase / cycle) * 12)];
+  }
+
+  /* -------------------------
+     RISING SIGN (Simplified)
+  ------------------------- */
+  function getRisingSign(time) {
+    const hour = parseInt(time.split(":")[0]);
+    const rising = [
+      "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
+      "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
+    ];
+    return rising[Math.floor((hour % 24) / 2)];
+  }
+
+  /* -------------------------
+     GENERATE SVG HOUSE LINES
+  ------------------------- */
+  function generateHouseLines() {
+    const group = document.getElementById("house-lines");
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * 30) * (Math.PI / 180);
+      const x = 150 + Math.cos(angle) * 140;
+      const y = 150 + Math.sin(angle) * 140;
+
+      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+      line.setAttribute("x1","150");
+      line.setAttribute("y1","150");
+      line.setAttribute("x2",x);
+      line.setAttribute("y2",y);
+      line.setAttribute("stroke","#EF9F27");
+      line.setAttribute("stroke-width","1.5");
+
+      group.appendChild(line);
+    }
+  }
+  generateHouseLines();
+
+  /* -------------------------
+     MAIN FUNCTION
+  ------------------------- */
+  function generateBirthChart() {
+    const dateInput = document.getElementById("birth-date").value;
+    const timeInput = document.getElementById("birth-time").value;
+
+    if (!dateInput || !timeInput) return alert("Please enter date and time.");
+
+    const date = new Date(dateInput);
+
+    document.getElementById("sun-sign").textContent = getSunSign(date);
+    document.getElementById("moon-sign").textContent = getMoonSign(date);
+    document.getElementById("rising-sign").textContent = getRisingSign(timeInput);
+
+    document.getElementById("birth-results").style.display = "block";
+  }
+
+  /* -------------------------
+     SAVE READING
+  ------------------------- */
+  function saveBirthReading() {
+    const area = document.getElementById("birth-results");
+    html2canvas(area).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "birth-reading.png";
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  }
+  </script>
+
 
 </body>
 </html>

@@ -449,3 +449,19 @@ body {
     gap: 0.9rem;
   }
 }
+.birthchart-seal-container {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+#academy-seal {
+  width: 260px;
+  height: 260px;
+  filter: drop-shadow(0 0 12px rgba(239,159,39,0.4));
+}
+
+.upsell-box {
+  border-color: rgba(239,159,39,0.5);
+  background: rgba(239,159,39,0.08);
+}
