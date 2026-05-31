@@ -313,108 +313,198 @@
 
 
    <!-- ─── INLINE STYLES for Freaky Friday additions ─────────────────────── -->
+   <!--
+     ═══════════════════════════════════════════════════════════════════════════
+     LIVE CAM PREVIEW — drop this into index.html to REPLACE your existing
+     #freaky section's cam grid, OR paste it as a new section just above #freaky
+     ═══════════════════════════════════════════════════════════════════════════
+   -->
+
    <style>
+   /* ── Live Cam Preview Section ─────────────────────────────────────────── */
+   .cam-preview-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+     gap: 1.5rem;
+     margin: 2rem 0 1rem;
+   }
 
-     /* ── Live Cam Grid ──────────────────────────────────────────────────── */
-     .cam-grid {
-       display: grid;
-       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-       gap: 1.5rem;
-       margin: 2rem 0;
-     }
+   .cam-preview-card {
+     background: rgba(10, 10, 30, 0.9);
+     border: 1px solid rgba(165, 107, 255, 0.25);
+     border-radius: 14px;
+     overflow: hidden;
+     display: flex;
+     flex-direction: column;
+     box-shadow: 0 18px 40px rgba(0,0,0,0.6);
+     transition: transform 0.3s ease, border-color 0.3s ease;
+   }
 
-     .cam-card {
-       background: rgba(255,255,255,0.04);
-       border: 1px solid rgba(239,159,39,0.25);
-       border-radius: 12px;
-       overflow: hidden;
-       display: flex;
-       flex-direction: column;
-     }
+   .cam-preview-card:hover {
+     transform: translateY(-4px);
+     border-color: rgba(165, 107, 255, 0.6);
+   }
 
-     .cam-card-header {
-       background: rgba(239,159,39,0.12);
-       padding: 0.75rem 1rem;
-       display: flex;
-       align-items: center;
-       gap: 0.5rem;
-     }
+   .cam-preview-header {
+     background: rgba(165, 107, 255, 0.1);
+     padding: 0.7rem 1rem;
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     border-bottom: 1px solid rgba(165,107,255,0.15);
+   }
 
-     .cam-card-header h3 {
-       margin: 0;
-       font-size: 1rem;
-       color: #EF9F27;
-     }
+   .cam-preview-header h3 {
+     margin: 0;
+     font-size: 0.95rem;
+     color: #d7e2ff;
+     font-family: var(--font-display, serif);
+     letter-spacing: 0.05em;
+   }
 
-     .cam-card-header .cam-live-badge {
-       margin-left: auto;
-       background: #c0392b;
-       color: #fff;
-       font-size: 0.65rem;
-       font-weight: 700;
-       letter-spacing: 0.08em;
-       padding: 2px 7px;
-       border-radius: 4px;
-       animation: pulse-badge 2s ease-in-out infinite;
-     }
+   .cam-live-dot {
+     margin-left: auto;
+     display: flex;
+     align-items: center;
+     gap: 5px;
+     font-size: 0.65rem;
+     font-weight: 700;
+     letter-spacing: 0.1em;
+     color: #e74c3c;
+   }
 
-     .cam-card-header .cam-soon-badge {
-       margin-left: auto;
-       background: rgba(239,159,39,0.3);
-       color: #EF9F27;
-       font-size: 0.65rem;
-       font-weight: 700;
-       letter-spacing: 0.08em;
-       padding: 2px 7px;
-       border-radius: 4px;
-     }
+   .cam-live-dot::before {
+     content: "";
+     display: inline-block;
+     width: 8px;
+     height: 8px;
+     background: #e74c3c;
+     border-radius: 50%;
+     animation: live-pulse 1.8s ease-in-out infinite;
+   }
 
-     @keyframes pulse-badge {
-       0%, 100% { opacity: 1; }
-       50%       { opacity: 0.5; }
-     }
+   @keyframes live-pulse {
+     0%, 100% { opacity: 1; transform: scale(1); }
+     50%       { opacity: 0.4; transform: scale(0.8); }
+   }
 
-     .cam-embed {
-       width: 100%;
-       aspect-ratio: 16 / 9;
-       border: none;
-       display: block;
-       background: #111;
-     }
+   .cam-embed-wrap {
+     width: 100%;
+     aspect-ratio: 16 / 9;
+     background: #05030e;
+     position: relative;
+   }
 
-     .cam-coming-soon {
-       aspect-ratio: 16 / 9;
-       background:
-         radial-gradient(ellipse at 50% 60%, rgba(239,159,39,0.08) 0%, transparent 70%),
-         #0d0d0d;
-       display: flex;
-       flex-direction: column;
-       align-items: center;
-       justify-content: center;
-       gap: 0.5rem;
-       color: rgba(255,255,255,0.35);
-       font-size: 0.85rem;
-     }
+   .cam-embed-wrap iframe {
+     width: 100%;
+     height: 100%;
+     border: none;
+     display: block;
+   }
 
-     .cam-coming-soon .cam-icon {
-       font-size: 2.5rem;
-       opacity: 0.4;
-     }
+   .cam-preview-footer {
+     padding: 0.65rem 1rem;
+     font-size: 0.78rem;
+     color: rgba(194, 198, 224, 0.65);
+     border-top: 1px solid rgba(165,107,255,0.1);
+     line-height: 1.4;
+   }
 
-     .cam-coming-soon a {
-       color: #EF9F27;
-       font-size: 0.8rem;
-       text-decoration: none;
-       border-bottom: 1px dotted #EF9F27;
-       margin-top: 0.25rem;
-     }
+   .cam-preview-footer a {
+     color: #a56bff;
+     text-decoration: none;
+     border-bottom: 1px dotted #a56bff;
+   }
 
-     .cam-card-footer {
-       padding: 0.6rem 1rem;
-       font-size: 0.78rem;
-       color: rgba(255,255,255,0.45);
-       border-top: 1px solid rgba(239,159,39,0.1);
-     }
+   .cam-section-cta {
+     text-align: center;
+     margin-top: 1.5rem;
+   }
+   </style>
+
+   <!-- ─── LIVE CAM PREVIEW SECTION ─────────────────────────────────────────── -->
+   <section id="live-cams" class="section section-dark">
+     <div class="section-inner">
+
+       <h2>🔴 Live Paranormal Cams</h2>
+       <p class="section-intro">
+         Watch live, 24/7 — from haunted libraries to Loch Ness to the night sky above. You never know what might appear.
+         <br><a href="freaky-friday.html" style="color:#a56bff;">👁 Visit Freaky Fridays for more cams, stories &amp; ghost story submissions →</a>
+       </p>
+
+       <div class="cam-preview-grid">
+
+         <!-- CAM 1: GHOST — Willard Library Basement Hall -->
+         <div class="cam-preview-card">
+           <div class="cam-preview-header">
+             <span>👻</span>
+             <h3>Willard Library — Basement Hall</h3>
+             <span class="cam-live-dot">LIVE</span>
+           </div>
+           <div class="cam-embed-wrap">
+             <iframe
+               src="https://g1.ipcamlive.com/player/player.php?alias=63f79f7e24b28&skin=white&autoplay=1&mute=1&disablezoombutton=1&disableframecapture=1&disabletimelapseplayer=1&disablestorageplayer=1&disabledownloadbutton=1&disablenavigation=1"
+               title="Willard Library Basement Hall Ghost Cam"
+               allow="autoplay"
+               allowfullscreen>
+             </iframe>
+           </div>
+           <div class="cam-preview-footer">
+             Evansville, Indiana — Home of the <em>Grey Lady</em>, haunting this Victorian library since the 1930s.
+             <br><a href="freaky-friday.html#ghost-cams">More ghost cams &amp; the full story →</a>
+           </div>
+         </div>
+
+         <!-- CAM 2: CRYPTID — Loch Ness, Clansman Hotel -->
+         <div class="cam-preview-card">
+           <div class="cam-preview-header">
+             <span>🐉</span>
+             <h3>Loch Ness — Nessie Watch</h3>
+             <span class="cam-live-dot">LIVE</span>
+           </div>
+           <div class="cam-embed-wrap">
+             <iframe
+               src="https://g0.ipcamlive.com/player/player.php?alias=clansmanhotel&autoplay=1&mute=1"
+               title="Loch Ness Live Cam — Clansman Hotel"
+               allow="autoplay"
+               allowfullscreen>
+             </iframe>
+           </div>
+           <div class="cam-preview-footer">
+             Scottish Highlands — Watch the dark waters of Loch Ness 24/7 for Scotland's most famous mystery.
+             <br><a href="freaky-friday.html#cryptid-cams">More Nessie cams &amp; the legend →</a>
+           </div>
+         </div>
+
+         <!-- CAM 3: UFO — HauntTV 24/7 UFO livestream (YouTube) -->
+         <div class="cam-preview-card">
+           <div class="cam-preview-header">
+             <span>🛸</span>
+             <h3>UFO &amp; Alien Encounters — Live</h3>
+             <span class="cam-live-dot">LIVE</span>
+           </div>
+           <div class="cam-embed-wrap">
+             <iframe
+               src="https://www.youtube.com/embed/dsas_-2QsdY?autoplay=0&rel=0&modestbranding=1"
+               title="24/7 UFO Sightings and Alien Encounters Live Stream"
+               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+               allowfullscreen>
+             </iframe>
+           </div>
+           <div class="cam-preview-footer">
+             HauntTV's round-the-clock UFO and alien encounter stream. Scan the skies for anomalous lights and unexplained craft.
+             <br><a href="freaky-friday.html#ufo-cams">More UFO cams &amp; sighting history →</a>
+           </div>
+         </div>
+
+       </div><!-- /.cam-preview-grid -->
+
+       <div class="cam-section-cta">
+         <a href="freaky-friday.html" class="btn secondary">👁 See All Cams on Freaky Fridays</a>
+       </div>
+
+     </div>
+   </section>
 
      /* ── Ghost Story Submission Form ────────────────────────────────────── */
      .ghost-form-wrap {
@@ -657,14 +747,7 @@
        <div class="ghost-form-wrap">
          <h3>✉️ Submit Your Story</h3>
 
-         <!--
-           FORMSPREE SETUP (free, no backend needed):
-           1. Go to https://formspree.io and create a free account
-           2. Create a new form — Formspree gives you a unique endpoint like:
-              https://formspree.io/f/xyzabcde
-           3. Replace YOUR_FORMSPREE_ID below with that ID (just the last part, e.g. xyzabcde)
-           4. Formspree will email you every submission — no server required!
-         -->
+       
          <form
            id="ghost-story-form"
            action="https://formspree.io/f/YOUR_FORMSPREE_ID"
