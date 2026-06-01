@@ -53,111 +53,6 @@
       align-items: center;
       gap: 0.75rem;
     }
-  
-    /* ── Ghost Story Submission Form ───────────────────────────────────── */
-    .ghost-form-wrap {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(165,107,255,0.2);
-      border-radius: 14px;
-      padding: 2rem;
-      margin: 2rem 0;
-    }
-    .ghost-form-wrap h3 { margin-top: 0; color: #a56bff; }
-    .ghost-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    @media (max-width: 600px) { .ghost-form-grid { grid-template-columns: 1fr; } }
-    .ghost-form-field { display: flex; flex-direction: column; gap: 0.35rem; }
-    .ghost-form-field.full-width { grid-column: 1 / -1; }
-    .ghost-form-field label { font-size: 0.82rem; color: rgba(255,255,255,0.6); letter-spacing: 0.04em; }
-    .ghost-form-field input,
-    .ghost-form-field select,
-    .ghost-form-field textarea {
-      background: rgba(0,0,0,0.35);
-      border: 1px solid rgba(165,107,255,0.25);
-      border-radius: 8px;
-      color: #fff;
-      padding: 0.6rem 0.85rem;
-      font-size: 0.95rem;
-      font-family: inherit;
-      outline: none;
-      transition: border-color 0.2s;
-      resize: vertical;
-    }
-    .ghost-form-field input:focus,
-    .ghost-form-field select:focus,
-    .ghost-form-field textarea:focus { border-color: #a56bff; }
-    .ghost-form-field select option { background: #0f1024; }
-    .ghost-form-field input::placeholder,
-    .ghost-form-field textarea::placeholder { color: rgba(255,255,255,0.25); }
-    .ghost-form-consent {
-      display: flex; align-items: flex-start; gap: 0.6rem;
-      font-size: 0.8rem; color: rgba(255,255,255,0.5);
-      margin-bottom: 1.25rem; cursor: pointer;
-    }
-    .ghost-form-consent input[type="checkbox"] {
-      margin-top: 2px; accent-color: #a56bff; width: 15px; height: 15px; flex-shrink: 0;
-    }
-    .ghost-form-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .ghost-form-or { color: rgba(255,255,255,0.3); font-size: 0.8rem; }
-    .ghost-form-email-link { font-size: 0.82rem; color: #a56bff; text-decoration: none; border-bottom: 1px dotted #a56bff; }
-    #ghost-form-message { display: none; padding: 0.75rem 1rem; border-radius: 8px; margin-top: 1rem; font-size: 0.9rem; }
-    #ghost-form-message.success { background: rgba(39,174,96,0.15); border: 1px solid rgba(39,174,96,0.4); color: #2ecc71; }
-    #ghost-form-message.error   { background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.4); color: #e74c3c; }
-
-    /* ── Cam grid styles (old #freaky section) ─────────────────────────── */
-    .cam-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin: 1.5rem 0;
-    }
-    .cam-card {
-      background: rgba(10,10,30,0.9);
-      border: 1px solid rgba(165,107,255,0.2);
-      border-radius: 14px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-    .cam-card-header {
-      background: rgba(165,107,255,0.1);
-      padding: 0.65rem 1rem;
-      display: flex; align-items: center; gap: 0.5rem;
-      border-bottom: 1px solid rgba(165,107,255,0.12);
-    }
-    .cam-card-header h3 { margin: 0; font-size: 0.92rem; color: #d7e2ff; }
-    .cam-embed { width: 100%; aspect-ratio: 16/9; border: none; display: block; background: #05030e; }
-    .cam-card-footer {
-      padding: 0.6rem 1rem; font-size: 0.78rem;
-      color: rgba(194,198,224,0.6);
-      border-top: 1px solid rgba(165,107,255,0.1); line-height: 1.4;
-    }
-    .cam-live-badge {
-      margin-left: auto; background: #c0392b; color: #fff;
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 4px;
-      animation: cam-pulse 2s ease-in-out infinite;
-    }
-    .cam-soon-badge {
-      margin-left: auto; background: rgba(165,107,255,0.2); color: #a56bff;
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
-      padding: 2px 7px; border-radius: 4px;
-    }
-    @keyframes cam-pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-    .cam-coming-soon {
-      aspect-ratio: 16/9;
-      background: radial-gradient(ellipse at 50% 60%, rgba(165,107,255,0.08) 0%, transparent 70%), #0d0d0d;
-      display: flex; flex-direction: column; align-items: center;
-      justify-content: center; gap: 0.5rem;
-      color: rgba(255,255,255,0.35); font-size: 0.85rem; text-align: center; padding: 1rem;
-    }
-    .cam-coming-soon .cam-icon { font-size: 2.5rem; opacity: 0.4; }
-    .cam-coming-soon a { color: #a56bff; font-size: 0.8rem; text-decoration: none; border-bottom: 1px dotted #a56bff; margin-top: 0.25rem; }
-
   </style>
 </head>
 <body>
@@ -256,13 +151,13 @@
 
         <!-- Latest Videos Feed -->
         <div style="max-width: 100%; margin: 0 auto;">
-          <iframe 
-            width="100%" 
-            height="500" 
-            src="https://www.youtube.com/embed/videoseries?list=UCviAaC0gLt932FjBfFz9AVQ" 
-            title="Ambrosia's Occult Academy - Latest Videos"
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          <iframe
+            width="100%"
+            height="500"
+            src="https://www.youtube.com/embed?listType=user_uploads&list=UCviAaC0gLt932FjBfFz9AVQ&rel=0&modestbranding=1"
+            title="Ambrosia's Occult Academy — Latest Videos"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
         </div>
@@ -611,7 +506,136 @@
      </div>
    </section>
 
-     
+     /* ── Ghost Story Submission Form ────────────────────────────────────── */
+     .ghost-form-wrap {
+       background: rgba(255,255,255,0.03);
+       border: 1px solid rgba(239,159,39,0.2);
+       border-radius: 14px;
+       padding: 2rem;
+       margin: 2rem 0;
+     }
+
+     .ghost-form-wrap h3 {
+       margin-top: 0;
+       color: #EF9F27;
+     }
+
+     .ghost-form-grid {
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+       gap: 1rem;
+       margin-bottom: 1rem;
+     }
+
+     @media (max-width: 600px) {
+       .ghost-form-grid { grid-template-columns: 1fr; }
+     }
+
+     .ghost-form-field {
+       display: flex;
+       flex-direction: column;
+       gap: 0.35rem;
+     }
+
+     .ghost-form-field.full-width {
+       grid-column: 1 / -1;
+     }
+
+     .ghost-form-field label {
+       font-size: 0.82rem;
+       color: rgba(255,255,255,0.6);
+       letter-spacing: 0.04em;
+     }
+
+     .ghost-form-field input,
+     .ghost-form-field select,
+     .ghost-form-field textarea {
+       background: rgba(0,0,0,0.35);
+       border: 1px solid rgba(239,159,39,0.25);
+       border-radius: 8px;
+       color: #fff;
+       padding: 0.6rem 0.85rem;
+       font-size: 0.95rem;
+       font-family: inherit;
+       outline: none;
+       transition: border-color 0.2s;
+       resize: vertical;
+     }
+
+     .ghost-form-field input:focus,
+     .ghost-form-field select:focus,
+     .ghost-form-field textarea:focus {
+       border-color: #EF9F27;
+     }
+
+     .ghost-form-field select option {
+       background: #1a1a2e;
+     }
+
+     .ghost-form-field input::placeholder,
+     .ghost-form-field textarea::placeholder {
+       color: rgba(255,255,255,0.25);
+     }
+
+     .ghost-form-consent {
+       display: flex;
+       align-items: flex-start;
+       gap: 0.6rem;
+       font-size: 0.8rem;
+       color: rgba(255,255,255,0.5);
+       margin-bottom: 1.25rem;
+       cursor: pointer;
+     }
+
+     .ghost-form-consent input[type="checkbox"] {
+       margin-top: 2px;
+       accent-color: #EF9F27;
+       width: 15px;
+       height: 15px;
+       flex-shrink: 0;
+     }
+
+     .ghost-form-actions {
+       display: flex;
+       align-items: center;
+       gap: 1rem;
+       flex-wrap: wrap;
+     }
+
+     .ghost-form-or {
+       color: rgba(255,255,255,0.3);
+       font-size: 0.8rem;
+     }
+
+     .ghost-form-email-link {
+       font-size: 0.82rem;
+       color: #EF9F27;
+       text-decoration: none;
+       border-bottom: 1px dotted #EF9F27;
+     }
+
+     /* Success / error messages */
+     #ghost-form-message {
+       display: none;
+       padding: 0.75rem 1rem;
+       border-radius: 8px;
+       margin-top: 1rem;
+       font-size: 0.9rem;
+     }
+
+     #ghost-form-message.success {
+       background: rgba(39,174,96,0.15);
+       border: 1px solid rgba(39,174,96,0.4);
+       color: #2ecc71;
+     }
+
+     #ghost-form-message.error {
+       background: rgba(192,57,43,0.15);
+       border: 1px solid rgba(192,57,43,0.4);
+       color: #e74c3c;
+     }
+
+   </style>
 
    <!-- ─── FREAKY FRIDAYS SECTION ─────────────────────────────────────────── -->
    <section id="freaky" class="section section-dark">
