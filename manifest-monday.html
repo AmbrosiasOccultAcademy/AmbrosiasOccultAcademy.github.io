@@ -2,57 +2,782 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Manifest Mondays | Ambrosia's Occult Academy</title>
+  <title>Manifest Monday | Ambrosia's Occult Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Page Hero ──────────────────────────────────────────────────────── */
+    .monday-hero {
+      position: relative;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #1a0a3a 0%, #050316 55%, #02010b 100%);
+      overflow: hidden;
+    }
+    .monday-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(165,107,255,0.2) 0, transparent 50%),
+        radial-gradient(circle at 75% 20%, rgba(75,180,255,0.12) 0, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(255,200,100,0.08) 0, transparent 40%);
+      pointer-events: none;
+    }
+    .monday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .monday-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .monday-hero .day-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 0.75rem;
+    }
+    .monday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ── Jump Nav ───────────────────────────────────────────────────────── */
+    .jump-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: rgba(5,3,22,0.96);
+      border-bottom: 1px solid var(--border-soft);
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      backdrop-filter: blur(14px);
+    }
+    .jump-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .jump-nav a:hover {
+      color: #d7e2ff;
+      border-color: rgba(165,107,255,0.5);
+      background: rgba(165,107,255,0.08);
+    }
+
+    /* ── Weekly Update Box ──────────────────────────────────────────────── */
+    .weekly-box {
+      background: linear-gradient(135deg, rgba(165,107,255,0.12), rgba(75,180,255,0.07));
+      border: 1px solid rgba(165,107,255,0.4);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 0 0 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .weekly-box::before {
+      content: "✏️ UPDATED WEEKLY";
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: #a56bff;
+      font-weight: 700;
+    }
+    .weekly-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #d7e2ff;
+      margin-bottom: 1.25rem;
+    }
+    .weekly-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(165,107,255,0.15);
+    }
+    .weekly-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .weekly-item-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .weekly-quote {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      line-height: 1.55;
+      color: #f5f5ff;
+      font-style: italic;
+      padding-left: 1.2rem;
+      border-left: 3px solid #a56bff;
+    }
+    .weekly-quote .attribution {
+      display: block;
+      font-size: 0.8rem;
+      font-style: normal;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .weekly-tip {
+      background: rgba(0,0,0,0.25);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .weekly-tip strong { color: #d7e2ff; }
+
+    /* ── Guide Sections ─────────────────────────────────────────────────── */
+    .guide-section { margin-bottom: 3rem; }
+    .guide-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .guide-section .guide-intro {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+      max-width: 820px;
+    }
+
+    /* ── Aura Color Cards ───────────────────────────────────────────────── */
+    .aura-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .aura-card {
+      border-radius: 14px;
+      padding: 1.4rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .aura-card:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,0.55); }
+    .aura-card-top {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .aura-swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px currentColor;
+    }
+    .aura-card h3 { margin: 0; font-size: 1rem; color: #f5f5ff; }
+    .aura-card .aura-keywords {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 0.5rem;
+    }
+    .aura-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+
+    /* individual aura card backgrounds */
+    .aura-red    { background: linear-gradient(135deg, rgba(180,30,30,0.25), rgba(10,10,30,0.9)); }
+    .aura-orange { background: linear-gradient(135deg, rgba(200,100,20,0.25), rgba(10,10,30,0.9)); }
+    .aura-yellow { background: linear-gradient(135deg, rgba(200,180,20,0.25), rgba(10,10,30,0.9)); }
+    .aura-green  { background: linear-gradient(135deg, rgba(30,150,80,0.25), rgba(10,10,30,0.9)); }
+    .aura-blue   { background: linear-gradient(135deg, rgba(30,100,200,0.25), rgba(10,10,30,0.9)); }
+    .aura-indigo { background: linear-gradient(135deg, rgba(70,50,180,0.25), rgba(10,10,30,0.9)); }
+    .aura-violet { background: linear-gradient(135deg, rgba(140,50,200,0.25), rgba(10,10,30,0.9)); }
+    .aura-pink   { background: linear-gradient(135deg, rgba(200,50,130,0.25), rgba(10,10,30,0.9)); }
+    .aura-white  { background: linear-gradient(135deg, rgba(200,200,220,0.15), rgba(10,10,30,0.9)); }
+    .aura-gold   { background: linear-gradient(135deg, rgba(200,160,30,0.25), rgba(10,10,30,0.9)); }
+    .aura-silver { background: linear-gradient(135deg, rgba(160,170,190,0.2), rgba(10,10,30,0.9)); }
+    .aura-black  { background: linear-gradient(135deg, rgba(60,40,80,0.4), rgba(10,10,30,0.9)); }
+
+    /* ── Seeing Auras Guide ─────────────────────────────────────────────── */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .steps-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(10,10,30,0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+    }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #a56bff;
+      min-width: 2rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .step-body h4 { margin: 0 0 0.25rem; font-size: 0.95rem; color: #d7e2ff; }
+    .step-body p  { margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── Tip Box ────────────────────────────────────────────────────────── */
+    .tip-box {
+      background: rgba(165,107,255,0.07);
+      border-left: 3px solid #a56bff;
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .tip-box strong { color: #d7e2ff; }
+
+    /* ── Meditation Steps ───────────────────────────────────────────────── */
+    .meditation-card {
+      background: rgba(10,10,30,0.85);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .meditation-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.05em;
+      color: #d7e2ff;
+      margin-bottom: 0.3rem;
+    }
+    .meditation-card .med-duration {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 1rem;
+    }
+    .meditation-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.75rem; }
+    .meditation-card p:last-child { margin-bottom: 0; }
+
+    /* ── Responsive ─────────────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .aura-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-  <header class="hero hero-small">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Manifest, Meditate & Motivate Mondays</h1>
-      <p class="hero-subtitle">
-        Start your week with intention, clarity, and cosmic alignment.
+
+  <!-- ─── MAIN SITE NAV ─────────────────────────────────────────────────── -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#themes">Daily Themes</a></li>
+      <li><a href="index.html#birth-chart">Birth Charts</a></li>
+      <li><a href="index.html#tarot">Tarot</a></li>
+      <li><a href="index.html#live-cams">Live Cams</a></li>
+      <li><a href="freaky-friday.html">Freaky Fridays</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── PAGE HERO ─────────────────────────────────────────────────────── -->
+  <header class="monday-hero">
+    <div class="monday-hero-content">
+      <p class="day-label">Every Monday</p>
+      <h1>🌙 Manifest, Meditate &amp; Motivate</h1>
+      <p>
+        Rituals, affirmations, and meditations to shape your reality. Start your week with intention —
+        align your energy, open your vision, and step into the power of what you're calling in.
       </p>
-      <a href="index.html#themes" class="btn outline">Back to Homepage</a>
     </div>
   </header>
 
-  <main class="section section-light">
-    <div class="section-inner">
-      <h2>Welcome to Manifest Mondays</h2>
-      <p>
-        Mondays are for setting the tone of your week. Here we explore manifestation techniques,
-        guided meditations, affirmations, and motivational rituals to help you align your energy
-        with your goals.
-      </p>
+  <!-- ─── JUMP NAV ──────────────────────────────────────────────────────── -->
+  <div class="jump-nav">
+    <a href="#weekly">✨ This Week</a>
+    <a href="#aura-colors">🌈 Aura Colors</a>
+    <a href="#see-auras">👁 See Auras</a>
+    <a href="#meditation">🧘 Meditation Guide</a>
+  </div>
 
-      <div class="info-box">
-        <h3>Coming Soon</h3>
-        <p>
-          Weekly manifestation prompts, meditation audios, and intention‑setting rituals.
-        </p>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       WEEKLY UPDATE — edit this section every Monday (takes ~5 minutes)
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="weekly" class="section section-dark">
+    <div class="section-inner">
+
+      <div class="weekly-box">
+        <h3>✨ This Week's Energy</h3>
+
+        <!-- ✏️ UPDATE WEEKLY — Change the quote, author, and tip below each Monday -->
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">💬 Motivation Quote of the Week</div>
+          <blockquote class="weekly-quote">
+            "You are the artist of your own life. Don't hand the paintbrush to anyone else."
+            <span class="attribution">— Unknown</span>
+          </blockquote>
+        </div>
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">🌱 Manifestation Tip of the Week</div>
+          <div class="weekly-tip">
+            <strong>Try the 369 Method this week.</strong> Choose one clear intention — something you
+            genuinely believe is possible and excites you. Write it down <strong>3 times</strong> in the
+            morning, <strong>6 times</strong> in the afternoon, and <strong>9 times</strong> in the evening.
+            Don't rush through it — feel the reality of it as you write. Do this for 7 days straight and
+            notice what shifts in your energy and awareness.
+          </div>
+        </div>
+
+        <!-- ✏️ END WEEKLY UPDATE -->
       </div>
 
-      <div class="info-box">
-        <h3>Watch on YouTube</h3>
-        <p>
-          New manifestation and meditation content will be added to my channel regularly.
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       AURA COLORS GUIDE — permanent content, no need to update
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="aura-colors" class="section section-light">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>🌈 The Complete Aura Color Guide</h2>
+        <p class="guide-intro">
+          Your aura is the luminous energy field that surrounds your physical body — a living reflection of your
+          emotional state, spiritual development, physical health, and soul's journey. Every living being has one.
+          The colors within it shift constantly, responding to your thoughts, emotions, relationships, and environment.
+          Learning to read auras — your own and others' — is one of the most powerful perceptual skills you can develop.
+          Below is a complete guide to what each color means.
         </p>
-        <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn secondary">
-          Open YouTube Channel
-        </a>
+
+        <div class="aura-grid">
+
+          <div class="aura-card aura-red">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#c0392b; color:#c0392b;"></div>
+              <h3>Red</h3>
+            </div>
+            <div class="aura-keywords">Passion · Vitality · Power · Survival</div>
+            <p>Red is the color of raw life force. It signals high physical energy, passion, and a strong
+            connection to the material world. Bright red indicates confidence, courage, and leadership.
+            Dark or muddy red can point to suppressed anger, anxiety, or trauma stored in the body.</p>
+          </div>
+
+          <div class="aura-card aura-orange">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#e67e22; color:#e67e22;"></div>
+              <h3>Orange</h3>
+            </div>
+            <div class="aura-keywords">Creativity · Joy · Social Energy · Sexuality</div>
+            <p>Orange radiates warmth, enthusiasm, and creative fire. It's the color of people who are deeply
+            social, emotionally expressive, and artistically driven. A bright orange aura indicates someone
+            who is in their creative flow. Dull orange may suggest emotional exhaustion or creative blocks.</p>
+          </div>
+
+          <div class="aura-card aura-yellow">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#f1c40f; color:#f1c40f;"></div>
+              <h3>Yellow</h3>
+            </div>
+            <div class="aura-keywords">Intellect · Optimism · Confidence · Clarity</div>
+            <p>Yellow is the aura of thinkers, teachers, and optimists. It reflects a bright, active mind,
+            curiosity, and a natural gift for communication. A golden-yellow aura indicates spiritual wisdom
+            alongside intellectual power. Pale or muddy yellow can signal overthinking, criticism, or fear.</p>
+          </div>
+
+          <div class="aura-card aura-green">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#27ae60; color:#27ae60;"></div>
+              <h3>Green</h3>
+            </div>
+            <div class="aura-keywords">Healing · Growth · Compassion · Balance</div>
+            <p>Green is the aura of healers, nurturers, and those deeply connected to nature and the heart.
+            It signals emotional balance, generosity, and a gift for helping others. Emerald green is often
+            seen around natural healers and empaths. Dark or yellow-green may indicate jealousy or envy.</p>
+          </div>
+
+          <div class="aura-card aura-blue">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#2980b9; color:#2980b9;"></div>
+              <h3>Blue</h3>
+            </div>
+            <div class="aura-keywords">Communication · Truth · Intuition · Calm</div>
+            <p>Blue signals deep sensitivity, clear communication, and strong intuition. Those with blue auras
+            often have a natural gift for speaking truth and are trusted confidants. Light blue indicates
+            honesty and peacefulness. Royal blue is a highly intuitive, almost psychic shade. Dark blue
+            can suggest difficulty expressing emotions or fear of speaking one's truth.</p>
+          </div>
+
+          <div class="aura-card aura-indigo">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#3d3d9e; color:#3d3d9e;"></div>
+              <h3>Indigo</h3>
+            </div>
+            <div class="aura-keywords">Third Eye · Perception · Deep Knowing · Sensitivity</div>
+            <p>Indigo is the aura of old souls and deep seers. It's strongly linked to the third eye chakra
+            and marks people with heightened intuition, strong inner knowing, and sensitivity to energy.
+            Many highly empathic or psychically gifted people carry indigo in their aura field. It
+            indicates a soul that has lived many lives and carries ancient wisdom.</p>
+          </div>
+
+          <div class="aura-card aura-violet">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#8e44ad; color:#8e44ad;"></div>
+              <h3>Violet / Purple</h3>
+            </div>
+            <div class="aura-keywords">Spirituality · Vision · Magic · Higher Consciousness</div>
+            <p>Violet is among the rarest and most spiritually elevated aura colors. It indicates a strong
+            connection to divine energy, visionary thinking, and an active spiritual life. People with violet
+            auras are often drawn to healing, teaching, and mystical pursuits. It's the color most frequently
+            seen around spiritual teachers, mystics, and those undergoing profound awakening.</p>
+          </div>
+
+          <div class="aura-card aura-pink">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#e91e8c; color:#e91e8c;"></div>
+              <h3>Pink</h3>
+            </div>
+            <div class="aura-keywords">Unconditional Love · Gentleness · Compassion · Tenderness</div>
+            <p>Pink auras radiate pure love — for self, for others, and for life itself. They appear around
+            deeply compassionate, gentle souls who lead with their heart. Bright pink signals new love,
+            romantic energy, or a tender, childlike openness to the world. Pale pink can indicate
+            vulnerability or a need for nurturing.</p>
+          </div>
+
+          <div class="aura-card aura-white">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#dce8ff; color:#dce8ff;"></div>
+              <h3>White</h3>
+            </div>
+            <div class="aura-keywords">Purity · Divine Connection · Truth · High Frequency</div>
+            <p>White auras are rare and indicate an extremely high vibrational state — a soul operating close
+            to its purest form. White encompasses all colors and reflects unity consciousness, spiritual
+            protection, and a close connection to divine source. It's often seen during moments of deep
+            meditation, prayer, or spiritual breakthrough, and around newborns.</p>
+          </div>
+
+          <div class="aura-card aura-gold">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#d4a017; color:#d4a017;"></div>
+              <h3>Gold</h3>
+            </div>
+            <div class="aura-keywords">Divine Wisdom · Enlightenment · Higher Self · Sacred Power</div>
+            <p>Gold is the aura of those who have done deep spiritual work and carry genuine wisdom. It signals
+            divine protection, enlightenment, and a direct channel to higher guidance. Gold often appears
+            around teachers, healers, and spiritual leaders whose work comes from a place of authentic
+            service. It is considered one of the most powerful aura colors.</p>
+          </div>
+
+          <div class="aura-card aura-silver">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#a0aec0; color:#a0aec0;"></div>
+              <h3>Silver</h3>
+            </div>
+            <div class="aura-keywords">Intuition · Psychic Gifts · Lunar Energy · Receptivity</div>
+            <p>Silver auras shimmer with psychic sensitivity, strong intuition, and a deep connection to lunar
+            cycles and the unconscious mind. Silver-aura people are often highly receptive, picking up on
+            the emotions and energies around them without even trying. This color frequently appears during
+            psychic awakenings or periods of intense spiritual receptivity.</p>
+          </div>
+
+          <div class="aura-card aura-black">
+            <div class="aura-card-top">
+              <div class="aura-swatch" style="background:#4a3060; color:#4a3060;"></div>
+              <h3>Black / Dark</h3>
+            </div>
+            <div class="aura-keywords">Absorption · Protection · Trauma · Transformation</div>
+            <p>A black or very dark aura is not inherently evil — it signals that something is being absorbed,
+            blocked, or transmuted. It can indicate unresolved trauma, long-term grief, deep emotional
+            shielding, or energetic exhaustion. In some traditions, it signals a natural ability to absorb
+            and neutralize negative energy. Dark patches in an otherwise colorful aura point to areas
+            needing healing attention.</p>
+          </div>
+
+        </div><!-- /.aura-grid -->
+
+        <div class="tip-box">
+          <strong>💡 Tip:</strong> Most people don't have just one aura color — you'll typically see a
+          dominant color (your soul's current state), secondary colors (active areas of life), and shifting
+          outer layers that reflect your mood and energy in the moment. The colors closest to the body are
+          most personal; the outer layers reflect your spiritual and energetic reach.
+        </div>
+
       </div>
     </div>
-  </main>
+  </section>
 
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HOW TO SEE AURAS — permanent content
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="see-auras" class="section section-dark">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>👁 How to See Auras</h2>
+        <p class="guide-intro">
+          Seeing auras is a learnable skill — not a gift reserved for psychics. It requires patience,
+          a relaxed gaze, and practice. Most people begin to see a faint glow or shimmer within a few
+          weeks of consistent practice. Below are two methods: one for solo practice and one to try with
+          a partner.
+        </p>
+
+        <!-- SOLO METHOD -->
+        <h3 style="color:#a56bff; font-size:1.1rem; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:1rem;">
+          🤲 Solo Practice — Seeing Your Own Aura
+        </h3>
+
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <h4>Set the scene</h4>
+              <p>Find a quiet room with soft, natural light. Dim artificial lights work too — avoid harsh
+              overhead fluorescents. You'll need a plain white or neutral wall as a backdrop. Sit
+              comfortably with your dominant hand extended in front of you against the wall.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <h4>Soften your gaze</h4>
+              <p>This is the most important step. Instead of looking directly at your hand, let your
+              focus go slightly "through" it — the way you'd look at one of those 3D magic eye pictures.
+              Your eyes should feel relaxed, not strained. Blink normally.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <h4>Hold for 30–60 seconds</h4>
+              <p>Stay with this soft gaze. After 30 seconds or so, you may begin to notice a faint
+              whitish or pale glow around the edges of your fingers. This is the etheric layer — the
+              first and most visible layer of the aura. Don't get excited and shift your focus or it
+              will disappear. Stay soft.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <h4>Expand your awareness</h4>
+              <p>Once you can reliably see the etheric glow, slowly widen your peripheral awareness
+              to include the space around your whole hand. Some people begin to detect a subtle color
+              tinge at this stage — usually a few inches out from the skin. Trust what you see, even
+              if it seems faint or fleeting.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <h4>Practice daily for 5–10 minutes</h4>
+              <p>Like any perceptual skill, consistency builds ability. Many people see nothing for
+              several days and then suddenly find it clicks. Morning practice, when your eyes are
+              fresh, tends to work best.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="tip-box">
+          <strong>💡 Troubleshooting:</strong> If you're only seeing a white or gray glow, that's
+          completely normal — you're perceiving the etheric body, the dense energy layer closest to
+          the skin. Color perception typically develops with more practice. If your eyes water or
+          strain, you're looking too hard. Release the effort entirely.
+        </div>
+
+        <!-- PARTNER METHOD -->
+        <h3 style="color:#a56bff; font-size:1.1rem; letter-spacing:0.06em; text-transform:uppercase; margin: 2rem 0 1rem;">
+          🧑‍🤝‍🧑 Partner Practice — Reading Another Person's Aura
+        </h3>
+
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <h4>Position yourselves</h4>
+              <p>Have your partner stand or sit in front of a plain white or light-colored wall in
+              soft, even lighting. You should be about 6–10 feet away. Ask them to be still and
+              breathe slowly — their calm energy makes the aura easier to read.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <h4>Focus on the space above their head</h4>
+              <p>Fix your soft gaze on a point just above the crown of their head — not on their
+              face or body. Use the same relaxed, slightly defocused gaze from the solo practice.
+              The area above the head and around the shoulders tends to show the clearest colors.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <h4>Wait without expectation</h4>
+              <p>Give it 60–90 seconds with this relaxed gaze. You may notice a haze, a shimmer,
+              or a subtle color beginning to appear in your peripheral vision around their outline.
+              Many people see the color most clearly with peripheral vision rather than direct sight.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <h4>Note what you perceive without judgment</h4>
+              <p>Whatever color, sensation, or impression comes — note it. Don't dismiss something
+              because it seems too simple or obvious. Share what you see and encourage your partner
+              to share theirs. Often two people reading each other simultaneously produce remarkably
+              similar results.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <h4>Ask your partner how they're feeling</h4>
+              <p>After the reading, compare what you saw to the color meanings above and ask your
+              partner about their current emotional state, what's on their mind, or how their energy
+              has been this week. You may be surprised how closely what you perceived matches what
+              they're experiencing.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="tip-box">
+          <strong>💡 For both methods:</strong> Emotions, health, and environment all affect the aura
+          in real time. Someone who is anxious will have a very different aura than the same person
+          at rest. For the most accurate reading, practice when both of you are calm, hydrated, and
+          away from screens for at least 20 minutes.
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MEDITATION GUIDE — permanent content
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="meditation" class="section section-light">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>🧘 Beginner's Meditation Guide</h2>
+        <p class="guide-intro">
+          Meditation is the foundation of every spiritual practice — it quiets the mental noise that
+          drowns out your intuition and opens a channel to the deeper awareness that lives beneath your
+          thoughts. You don't need to clear your mind completely. You only need to learn to watch it.
+          Start with whichever practice below calls to you.
+        </p>
+
+        <div class="meditation-card">
+          <h3>🌬️ The 4-7-8 Breath — Instant Calm</h3>
+          <div class="med-duration">⏱ 3–5 minutes · Perfect for beginners · Use anytime</div>
+          <p>This breathing pattern activates the parasympathetic nervous system, shifting you from fight-or-flight
+          into a deeply calm, receptive state. It's the fastest way to drop into a meditative space.</p>
+          <p><strong>How to practice:</strong> Sit comfortably with your back straight. Close your eyes.
+          Inhale through your nose for <strong>4 counts</strong>. Hold your breath for <strong>7 counts</strong>.
+          Exhale slowly through your mouth for <strong>8 counts</strong> — make a soft whooshing sound as you
+          release. That's one cycle. Repeat for 4 cycles. As you exhale, consciously release any tension in
+          your jaw, shoulders, and hands.</p>
+          <p>Once your breath has settled, simply rest in the quiet. When thoughts arise — and they will —
+          don't fight them. Just notice them like clouds passing across a clear sky, and return your attention
+          to your breath. This is the practice.</p>
+        </div>
+
+        <div class="meditation-card">
+          <h3>🕯️ Candle Flame Focus Meditation</h3>
+          <div class="med-duration">⏱ 5–15 minutes · Builds concentration · Enhances aura perception</div>
+          <p>Candle gazing (called <em>trataka</em> in yogic tradition) is one of the oldest meditation
+          practices. It trains single-pointed focus, strengthens the third eye, and — with practice —
+          can open the door to aura perception and visionary states.</p>
+          <p><strong>How to practice:</strong> Light a candle and place it at eye level about 2 feet in
+          front of you. Dim or turn off other lights. Sit still, breathe slowly, and fix your soft gaze
+          on the flame — particularly the space just above the wick where the flame is brightest.
+          Try not to blink for as long as is comfortable (30–60 seconds). When you need to blink, close
+          your eyes and hold the afterimage of the flame in your mind's eye. When it fades, open your
+          eyes and continue. Practice for 5–15 minutes.</p>
+          <p>Over time this practice develops extraordinary focus and many practitioners begin to see
+          colors and energy fields around the flame — a natural extension into aura perception.</p>
+        </div>
+
+        <div class="meditation-card">
+          <h3>🌙 Monday Morning Manifestation Meditation</h3>
+          <div class="med-duration">⏱ 10–20 minutes · Best on Monday mornings · Sets your week's intention</div>
+          <p>This guided visualization is designed to be done at the start of each week to set your
+          energetic tone and plant the seeds of what you want to call in.</p>
+          <p><strong>How to practice:</strong> Find a comfortable seated position. Close your eyes and
+          take 5 slow, deep breaths. On each exhale, feel the weight of last week releasing from your
+          body — any stress, disappointment, or tension dissolving into the earth beneath you.</p>
+          <p>Now bring to mind one thing you want to experience, create, or feel this week. Not a task —
+          a feeling. How does it feel when this thing is already real? Let that feeling fill your chest,
+          your hands, the top of your head. Stay with it for several minutes without forcing or straining.
+          Just feel it as already true.</p>
+          <p>Before you open your eyes, set one small, concrete action you'll take today that moves
+          toward this feeling. Speak it aloud or write it down immediately. The combination of felt
+          visualization and physical action is the engine of genuine manifestation.</p>
+        </div>
+
+        <div class="tip-box">
+          <strong>💡 The most important rule:</strong> Consistency beats duration every time.
+          Five minutes every day produces more transformation than an hour once a week.
+          Start small, stay steady, and trust the process. Your mind will quiet with practice —
+          but only if you show up for it.
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
   <footer class="footer">
     <div class="section-inner">
-      <p class="footer-copy">
-        &copy; <span id="year"></span> Ambrosia's Occult Academy — Manifest Mondays.
-      </p>
+      <h2>More from the Academy</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin: 1rem 0 1.5rem;">
+        <a href="tarot-tuesday.html"       class="btn outline" style="font-size:0.82rem;">🃏 Tarot Tuesday</a>
+        <a href="bewitching-wednesday.html" class="btn outline" style="font-size:0.82rem;">🌿 Bewitching Wednesday</a>
+        <a href="astrology-thursday.html"  class="btn outline" style="font-size:0.82rem;">♑ Astrology Thursday</a>
+        <a href="freaky-friday.html"       class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
+        <a href="spellbound-saturday.html" class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
+        <a href="palmistry-sunday.html"    class="btn outline" style="font-size:0.82rem;">🤲 Palmistry Sunday</a>
+      </div>
+      <ul class="footer-links">
+        <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
+        <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
+      </ul>
+      <p style="margin-top:1rem;"><a href="index.html" class="btn outline" style="font-size:0.85rem;">← Back to Main Site</a></p>
+      <p class="footer-copy">&copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.</p>
     </div>
-    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
 </body>
 </html>
