@@ -1,50 +1,577 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
   <title>Palmistry Sunday | Ambrosia's Occult Academy</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .sunday-hero {
+      position: relative;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #1a0a2e 0%, #050316 55%, #02010b 100%);
+      overflow: hidden;
+    }
+    .sunday-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 35%, rgba(165,107,255,0.18) 0, transparent 50%),
+        radial-gradient(circle at 70% 20%, rgba(75,180,255,0.1) 0, transparent 45%);
+      pointer-events: none;
+    }
+    .sunday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .sunday-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .day-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 0.75rem;
+    }
+    .sunday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
 
+    .jump-nav {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.75rem; padding: 1rem 1.5rem;
+      background: rgba(5,3,22,0.96);
+      border-bottom: 1px solid var(--border-soft);
+      position: sticky; top: 0; z-index: 9;
+      backdrop-filter: blur(14px);
+    }
+    .jump-nav a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .jump-nav a:hover {
+      color: #d7e2ff; border-color: rgba(165,107,255,0.5);
+      background: rgba(165,107,255,0.08);
+    }
+
+    /* Weekly box */
+    .weekly-box {
+      background: linear-gradient(135deg, rgba(165,107,255,0.12), rgba(75,180,255,0.07));
+      border: 1px solid rgba(165,107,255,0.4);
+      border-radius: 16px; padding: 2rem; margin: 0 0 2.5rem;
+      position: relative; overflow: hidden;
+    }
+    .weekly-box::before {
+      content: "✏️ UPDATED WEEKLY";
+      position: absolute; top: 0.75rem; right: 1rem;
+      font-size: 0.65rem; letter-spacing: 0.12em; color: #a56bff; font-weight: 700;
+    }
+    .weekly-box h3 {
+      font-family: var(--font-display); font-size: 1.2rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 1.25rem;
+    }
+    .weekly-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(165,107,255,0.15); }
+    .weekly-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .weekly-item-label {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #a56bff; margin-bottom: 0.5rem; font-weight: 700;
+    }
+    .weekly-tip {
+      background: rgba(0,0,0,0.25); border-radius: 10px;
+      padding: 1rem 1.2rem; color: var(--text-muted);
+      font-size: 0.95rem; line-height: 1.7;
+    }
+    .weekly-tip strong { color: #d7e2ff; }
+
+    /* Guide sections */
+    .guide-intro {
+      color: var(--text-muted); font-size: 0.95rem;
+      line-height: 1.75; margin-bottom: 1.75rem; max-width: 820px;
+    }
+    .section-sub-title {
+      color: #a56bff; font-size: 1.05rem; letter-spacing: 0.07em;
+      text-transform: uppercase; margin: 2.5rem 0 1rem; font-weight: 600;
+    }
+
+    /* Hand shape cards */
+    .hand-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem; margin-bottom: 2rem;
+    }
+    .hand-card {
+      background: rgba(10,10,30,0.9);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 1.4rem;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .hand-card:hover { transform: translateY(-3px); border-color: rgba(165,107,255,0.4); }
+    .hand-card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .hand-icon { font-size: 2rem; }
+    .hand-card h3 { margin: 0; font-size: 1rem; color: #d7e2ff; }
+    .hand-card .hand-element {
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: #a56bff; margin-bottom: 0.5rem;
+    }
+    .hand-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+
+    /* Line entries */
+    .line-entry {
+      background: rgba(10,10,30,0.85);
+      border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 1.6rem;
+      margin-bottom: 1.25rem;
+      border-left: 4px solid #a56bff;
+    }
+    .line-entry h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem; letter-spacing: 0.05em;
+      color: #d7e2ff; margin-bottom: 0.25rem;
+    }
+    .line-entry .line-keywords {
+      font-size: 0.72rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #a56bff; margin-bottom: 0.85rem;
+    }
+    .line-entry p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.75rem; }
+    .line-entry p:last-child { margin-bottom: 0; }
+    .line-markers {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem;
+    }
+    .line-marker {
+      background: rgba(165,107,255,0.1);
+      border: 1px solid rgba(165,107,255,0.25);
+      border-radius: 999px; padding: 0.25rem 0.75rem;
+      font-size: 0.78rem; color: #c4b0ff;
+    }
+
+    /* Tip box */
+    .tip-box {
+      background: rgba(165,107,255,0.07);
+      border-left: 3px solid #a56bff;
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem; margin: 1.5rem 0;
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .tip-box strong { color: #d7e2ff; }
+
+    @media (max-width: 640px) { .hand-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
 <body>
-  <!-- 🌞 Page Hero -->
-  <header class="page-hero palmistry-hero">
-    <h1>🤲 Palmistry Sunday</h1>
-    <p>Discover the secrets written in your hands</p>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#themes">Daily Themes</a></li>
+      <li><a href="index.html#birth-chart">Birth Charts</a></li>
+      <li><a href="index.html#tarot">Tarot</a></li>
+      <li><a href="freaky-friday.html">Freaky Fridays</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="sunday-hero">
+    <div class="sunday-hero-content">
+      <p class="day-label">Every Sunday</p>
+      <h1>🤲 Palmistry Sundays</h1>
+      <p>The map of your destiny is written in your hands. Learn to read the lines, shapes, and stories that have been with you since before you were born.</p>
+    </div>
   </header>
 
-  <!-- 📚 Permanent Guide Section -->
-  <main>
-    <section class="guide-section">
-      <h2>The Hand Guide</h2>
-      <p>Explore the ancient art of palmistry — the study of lines, mounts, and shapes that reveal personality and destiny.</p>
+  <div class="jump-nav">
+    <a href="#hand-diagram">🖐 Hand Map</a>
+    <a href="#weekly">✏️ This Week</a>
+    <a href="#hand-shapes">✋ Hand Shapes</a>
+    <a href="#major-lines">〰️ Major Lines</a>
+  </div>
 
-      <h3>Major Lines</h3>
-      <ul>
-        <li><strong>Life Line:</strong> Vitality, health, and life path.</li>
-        <li><strong>Heart Line:</strong> Emotional depth and relationships.</li>
-        <li><strong>Head Line:</strong> Intellect, creativity, and decision‑making.</li>
-        <li><strong>Fate Line:</strong> Career, destiny, and life direction.</li>
+  <!-- ══ HAND DIAGRAM ══════════════════════════════════════════════════ -->
+  <section class="section section-dark" id="hand-diagram">
+    <div class="section-inner" style="text-align:center;">
+
+      <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🖐 The Palm Map</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto;">
+        Use this diagram as your reference guide. Hover or tap each labeled line to see its name highlighted.
+        The four major lines are marked — find them on your own hand as you read below.
+      </p>
+
+      <div style="display:inline-block;position:relative;max-width:380px;width:100%;">
+        <svg viewBox="0 0 380 520" xmlns="http://www.w3.org/2000/svg" style="width:100%;filter:drop-shadow(0 0 24px rgba(165,107,255,0.3));">
+          <defs>
+            <radialGradient id="palmGrad" cx="50%" cy="60%" r="55%">
+              <stop offset="0%"   stop-color="#2a1a4a"/>
+              <stop offset="100%" stop-color="#0d0820"/>
+            </radialGradient>
+            <radialGradient id="glowPurple" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#a56bff" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#a56bff" stop-opacity="0"/>
+            </radialGradient>
+            <filter id="lineglow">
+              <feGaussianBlur stdDeviation="2.5" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- ── Palm / hand silhouette ────────────────────────────────── -->
+          <!-- Wrist base -->
+          <rect x="105" y="440" width="170" height="70" rx="18" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.35)" stroke-width="1.5"/>
+          <!-- Palm body -->
+          <rect x="90" y="220" width="200" height="240" rx="22" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.35)" stroke-width="1.5"/>
+
+          <!-- Fingers -->
+          <!-- Pinky (little finger) -->
+          <rect x="90"  y="80"  width="38" height="155" rx="19" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.3)" stroke-width="1.5"/>
+          <!-- Ring finger -->
+          <rect x="135" y="55"  width="38" height="178" rx="19" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.3)" stroke-width="1.5"/>
+          <!-- Middle finger -->
+          <rect x="180" y="38"  width="38" height="195" rx="19" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.3)" stroke-width="1.5"/>
+          <!-- Index finger -->
+          <rect x="225" y="58"  width="38" height="175" rx="19" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.3)" stroke-width="1.5"/>
+          <!-- Thumb -->
+          <rect x="268" y="170" width="38" height="130" rx="19" fill="url(#palmGrad)" stroke="rgba(165,107,255,0.3)" stroke-width="1.5"/>
+
+          <!-- Knuckle lines (subtle) -->
+          <line x1="92"  y1="178" x2="126" y2="178" stroke="rgba(165,107,255,0.18)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="92"  y1="148" x2="126" y2="148" stroke="rgba(165,107,255,0.12)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="137" y1="158" x2="171" y2="158" stroke="rgba(165,107,255,0.18)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="137" y1="130" x2="171" y2="130" stroke="rgba(165,107,255,0.12)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="182" y1="145" x2="216" y2="145" stroke="rgba(165,107,255,0.18)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="182" y1="115" x2="216" y2="115" stroke="rgba(165,107,255,0.12)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="227" y1="155" x2="261" y2="155" stroke="rgba(165,107,255,0.18)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="227" y1="125" x2="261" y2="125" stroke="rgba(165,107,255,0.12)" stroke-width="1" stroke-linecap="round"/>
+          <line x1="270" y1="245" x2="304" y2="245" stroke="rgba(165,107,255,0.18)" stroke-width="1" stroke-linecap="round"/>
+
+          <!-- ── HEART LINE (red) — runs below fingers ───────────────────
+               Starts under pinky, curves up toward index finger -->
+          <path id="heartLine"
+            d="M 108 248 C 130 238, 165 232, 200 234 C 228 236, 250 230, 258 222"
+            fill="none" stroke="#e74c3c" stroke-width="3.5"
+            stroke-linecap="round" filter="url(#lineglow)" opacity="0.92"/>
+
+          <!-- ── HEAD LINE (blue) — runs across middle of palm ──────────
+               Starts near thumb side, runs horizontally across -->
+          <path id="headLine"
+            d="M 112 298 C 140 296, 170 295, 205 297 C 230 299, 248 308, 258 318"
+            fill="none" stroke="#3498db" stroke-width="3.5"
+            stroke-linecap="round" filter="url(#lineglow)" opacity="0.92"/>
+
+          <!-- ── LIFE LINE (green) — curves around thumb base ───────────
+               Starts between thumb and index, curves down around thumb mount -->
+          <path id="lifeLine"
+            d="M 248 195 C 238 230, 228 270, 215 310 C 205 338, 195 365, 188 420"
+            fill="none" stroke="#27ae60" stroke-width="3.5"
+            stroke-linecap="round" filter="url(#lineglow)" opacity="0.92"/>
+
+          <!-- ── FATE LINE (gold) — runs vertically up center palm ───────
+               From wrist up toward middle finger -->
+          <path id="fateLine"
+            d="M 190 445 C 189 400, 188 355, 187 310 C 186 275, 185 248, 188 230"
+            fill="none" stroke="#f1c40f" stroke-width="3"
+            stroke-linecap="round" stroke-dasharray="6 3"
+            filter="url(#lineglow)" opacity="0.85"/>
+
+          <!-- ── Dot markers at line endpoints ─────────────────────────── -->
+          <circle cx="108" cy="248" r="5" fill="#e74c3c" opacity="0.9"/>
+          <circle cx="258" cy="222" r="5" fill="#e74c3c" opacity="0.9"/>
+          <circle cx="112" cy="298" r="5" fill="#3498db" opacity="0.9"/>
+          <circle cx="258" cy="318" r="5" fill="#3498db" opacity="0.9"/>
+          <circle cx="248" cy="195" r="5" fill="#27ae60" opacity="0.9"/>
+          <circle cx="188" cy="420" r="5" fill="#27ae60" opacity="0.9"/>
+          <circle cx="190" cy="445" r="5" fill="#f1c40f" opacity="0.85"/>
+          <circle cx="188" cy="230" r="5" fill="#f1c40f" opacity="0.85"/>
+
+          <!-- ── Labels ──────────────────────────────────────────────────
+               Positioned to the left side, with connector lines -->
+
+          <!-- Heart Line label -->
+          <line x1="60" y1="240" x2="105" y2="248" stroke="#e74c3c" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+          <text x="8" y="236" fill="#e74c3c" font-size="11" font-family="system-ui,sans-serif" font-weight="600" letter-spacing="0.04em">❤ HEART</text>
+          <text x="8" y="250" fill="#e74c3c" font-size="9"  font-family="system-ui,sans-serif" opacity="0.7">LINE</text>
+
+          <!-- Head Line label -->
+          <line x1="60" y1="295" x2="110" y2="298" stroke="#3498db" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+          <text x="8" y="291" fill="#3498db" font-size="11" font-family="system-ui,sans-serif" font-weight="600" letter-spacing="0.04em">🧠 HEAD</text>
+          <text x="8" y="305" fill="#3498db" font-size="9"  font-family="system-ui,sans-serif" opacity="0.7">LINE</text>
+
+          <!-- Life Line label — right side -->
+          <line x1="320" y1="310" x2="218" y2="310" stroke="#27ae60" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+          <text x="322" y="306" fill="#27ae60" font-size="11" font-family="system-ui,sans-serif" font-weight="600" letter-spacing="0.04em">🌱 LIFE</text>
+          <text x="322" y="320" fill="#27ae60" font-size="9"  font-family="system-ui,sans-serif" opacity="0.7">LINE</text>
+
+          <!-- Fate Line label — right side -->
+          <line x1="320" y1="380" x2="192" y2="395" stroke="#f1c40f" stroke-width="1" stroke-dasharray="3 3" opacity="0.7"/>
+          <text x="322" y="376" fill="#f1c40f" font-size="11" font-family="system-ui,sans-serif" font-weight="600" letter-spacing="0.04em">⭐ FATE</text>
+          <text x="322" y="390" fill="#f1c40f" font-size="9"  font-family="system-ui,sans-serif" opacity="0.7">LINE</text>
+
+          <!-- Subtle palm glow -->
+          <ellipse cx="190" cy="340" rx="80" ry="100" fill="url(#glowPurple)" opacity="0.25"/>
+        </svg>
+      </div>
+
+      <!-- Line colour legend -->
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:1.75rem;">
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text-muted);">
+          <span style="display:inline-block;width:28px;height:4px;background:#e74c3c;border-radius:2px;"></span> Heart Line
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text-muted);">
+          <span style="display:inline-block;width:28px;height:4px;background:#3498db;border-radius:2px;"></span> Head Line
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text-muted);">
+          <span style="display:inline-block;width:28px;height:4px;background:#27ae60;border-radius:2px;"></span> Life Line
+        </div>
+        <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.82rem;color:var(--text-muted);">
+          <span style="display:inline-block;width:28px;height:4px;background:#f1c40f;border-radius:2px;border-top:1px dashed #f1c40f;"></span> Fate Line
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══ WEEKLY UPDATE ══════════════════════════════════════════════════ -->
+  <section id="weekly" class="section section-dark">
+    <div class="section-inner">
+      <div class="weekly-box">
+        <h3>🤲 This Week's Palm Feature</h3>
+
+        <!-- ✏️ UPDATE WEEKLY — swap the feature title, description, and tip below each Sunday -->
+        <div class="weekly-item">
+          <div class="weekly-item-label">🔍 Featured Line This Week</div>
+          <div class="weekly-tip">
+            <strong>The Heart Line — What Your Emotional Truth Looks Like</strong><br><br>
+            This week, look at your heart line — the horizontal line closest to your fingers, running
+            from below your pinky toward your index or middle finger. Is it long and sweeping, or short
+            and straight? Does it curve upward or run flat? A deeply curved heart line belongs to someone
+            who leads with feeling and loves passionately. A straighter line often belongs to a more
+            guarded, analytical heart — someone who thinks before they feel. Breaks or chains in the line
+            can point to emotional wounds that shaped how you love. Take a photo of both hands and compare —
+            your dominant hand shows who you've become; your non-dominant hand shows who you were born to be.
+          </div>
+        </div>
+        <!-- ✏️ END WEEKLY UPDATE -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ HAND SHAPES ════════════════════════════════════════════════════ -->
+  <section id="hand-shapes" class="section section-light">
+    <div class="section-inner">
+
+      <h2 class="section-title" style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">✋ The Four Hand Shapes</h2>
+      <p class="guide-intro">
+        Before reading a single line, a palmist looks at the hand as a whole. The shape of the hand — its
+        proportions, the length of the palm versus the fingers — reveals the elemental nature of the soul
+        inhabiting it. There are four primary shapes, each corresponding to one of the classical elements.
+        Most people are a blend of two, with one dominant.
+      </p>
+
+      <div class="hand-grid">
+
+        <div class="hand-card">
+          <div class="hand-card-top">
+            <span class="hand-icon">🔥</span>
+            <h3>Fire Hand</h3>
+          </div>
+          <div class="hand-element">Element: Fire · Signs: Aries, Leo, Sagittarius</div>
+          <p><strong style="color:#d7e2ff;">Shape:</strong> Long rectangular palm with short fingers. The palm is noticeably longer than the fingers.</p>
+          <br>
+          <p>Fire hands belong to passionate, driven, impulsive souls. These are natural leaders and entrepreneurs — people who act first and reflect later. They have enormous creative and physical energy, a magnetic presence, and a tendency to burn hot and fast in love and work alike. They need freedom and stimulation. Routine suffocates them. Their greatest challenge is patience and follow-through.</p>
+        </div>
+
+        <div class="hand-card">
+          <div class="hand-card-top">
+            <span class="hand-icon">🌍</span>
+            <h3>Earth Hand</h3>
+          </div>
+          <div class="hand-element">Element: Earth · Signs: Taurus, Virgo, Capricorn</div>
+          <p><strong style="color:#d7e2ff;">Shape:</strong> Square palm with short fingers and firm, thick skin. Solid and substantial in feel.</p>
+          <br>
+          <p>Earth hands belong to practical, grounded, reliable souls. These are the builders — people who show up, do the work, and create lasting things. They are deeply sensory and physical, connected to the body and the material world. They build slowly and last. Their relationships are loyal and their word is their bond. Their challenge is rigidity — resistance to change even when it's needed.</p>
+        </div>
+
+        <div class="hand-card">
+          <div class="hand-card-top">
+            <span class="hand-icon">💨</span>
+            <h3>Air Hand</h3>
+          </div>
+          <div class="hand-element">Element: Air · Signs: Gemini, Libra, Aquarius</div>
+          <p><strong style="color:#d7e2ff;">Shape:</strong> Square or rectangular palm with long fingers. Often fine-boned with prominent knuckles.</p>
+          <br>
+          <p>Air hands belong to intellectual, communicative, socially oriented souls. These are the thinkers, writers, teachers, and connectors — people whose mind is always running, always curious, always finding new angles. They need mental stimulation the way fire needs oxygen. They are often witty, charming, and highly adaptable. Their challenge is being too in their head — overthinking, detachment, or difficulty sitting with emotion.</p>
+        </div>
+
+        <div class="hand-card">
+          <div class="hand-card-top">
+            <span class="hand-icon">💧</span>
+            <h3>Water Hand</h3>
+          </div>
+          <div class="hand-element">Element: Water · Signs: Cancer, Scorpio, Pisces</div>
+          <p><strong style="color:#d7e2ff;">Shape:</strong> Long rectangular palm with long fingers. Often soft to the touch, with fine skin and many fine lines.</p>
+          <br>
+          <p>Water hands belong to intuitive, empathic, deeply feeling souls. These are the dreamers, healers, artists, and psychics — people who feel everything and absorb the emotions of those around them without trying. They are highly creative, spiritually sensitive, and capable of profound depth in love and art. Their challenge is boundaries — they must learn to feel without losing themselves in what they feel.</p>
+        </div>
+
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Which hand do you read?</strong> In palmistry, both hands are read together but for
+        different purposes. Your <strong>non-dominant hand</strong> (usually left) shows your innate
+        potential — the blueprint you were born with. Your <strong>dominant hand</strong> (usually right)
+        shows what you've done with it — the life you've actually lived and are living. Differences between
+        the two hands are among the most revealing aspects of a palm reading.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ MAJOR LINES ════════════════════════════════════════════════════ -->
+  <section id="major-lines" class="section section-dark">
+    <div class="section-inner">
+
+      <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">〰️ The Four Major Lines</h2>
+      <p class="guide-intro">
+        The major lines are the deep, prominent creases that virtually everyone has on their palm.
+        They form before birth and reflect the broad themes of your life — your vitality, emotional
+        nature, mental style, and sense of purpose. Their length, depth, clarity, and any marks
+        along them all carry meaning.
+      </p>
+
+      <div class="line-entry" style="border-left-color:#e74c3c;">
+        <h3>❤️ The Heart Line</h3>
+        <div class="line-keywords">Emotions · Love · Relationships · Emotional Intelligence</div>
+        <p>The heart line runs horizontally across the upper palm, just below the fingers. It is the
+        first line most people notice and the one that speaks most directly to your emotional life —
+        how you love, how you grieve, and what your heart has endured.</p>
+        <p><strong style="color:#d7e2ff;">Long, curving upward toward the index finger:</strong> A deeply
+        idealistic, romantic nature. You love completely and expect the same in return. You lead with
+        your heart in most decisions and are highly attuned to the emotional states of others.</p>
+        <p><strong style="color:#d7e2ff;">Straight and short:</strong> A more self-contained emotional
+        nature. You feel deeply but don't always show it. You may prioritize practicality over romance
+        and are protective of your inner world until trust is established.</p>
+        <p><strong style="color:#d7e2ff;">Curving toward the middle finger:</strong> A strong-willed,
+        sometimes self-focused emotional nature. You love on your own terms. Independence in
+        relationships is important to you.</p>
+        <div class="line-markers">
+          <span class="line-marker">Chained = past emotional wounds</span>
+          <span class="line-marker">Breaks = significant relationship shifts</span>
+          <span class="line-marker">Islands = periods of emotional confusion</span>
+          <span class="line-marker">Deep &amp; clear = emotional consistency</span>
+        </div>
+      </div>
+
+      <div class="line-entry" style="border-left-color:#3498db;">
+        <h3>🧠 The Head Line</h3>
+        <div class="line-keywords">Intellect · Thinking Style · Decision-Making · Mental Clarity</div>
+        <p>The head line runs horizontally across the middle of the palm, typically starting near the
+        life line and traveling toward the outer edge of the hand. It reflects not how intelligent you
+        are — but <em>how</em> you think. Your natural mental style, how you process information,
+        and how you make decisions.</p>
+        <p><strong style="color:#d7e2ff;">Long, straight line:</strong> A logical, analytical, systematic
+        mind. You think before you act, prefer facts over feelings in decisions, and can be highly focused
+        and disciplined mentally.</p>
+        <p><strong style="color:#d7e2ff;">Curving downward toward the wrist:</strong> A creative,
+        imaginative, intuitive thinker. Your best ideas come from feeling and vision rather than pure
+        logic. You may be drawn to art, writing, music, or spiritual pursuits.</p>
+        <p><strong style="color:#d7e2ff;">Short head line:</strong> Focused, decisive, and practical. You
+        think quickly and act quickly. You don't get lost in theory — you want results.</p>
+        <div class="line-markers">
+          <span class="line-marker">Forked end = versatile, sees multiple perspectives</span>
+          <span class="line-marker">Chained start = early mental struggles</span>
+          <span class="line-marker">Break = significant mental shift or change in thinking</span>
+          <span class="line-marker">Joined to life line = cautious, deliberate nature</span>
+        </div>
+      </div>
+
+      <div class="line-entry" style="border-left-color:#27ae60;">
+        <h3>🌱 The Life Line</h3>
+        <div class="line-keywords">Vitality · Life Force · Major Life Changes · Physical Energy</div>
+        <p>The life line curves around the base of the thumb, running from between the thumb and
+        index finger down toward the wrist. Despite popular belief, its length does <em>not</em>
+        predict how long you will live. It reflects the quality of your vitality — your energy, your
+        resilience, and the major chapters and transitions of your life.</p>
+        <p><strong style="color:#d7e2ff;">Long and deeply etched:</strong> Strong physical constitution,
+        high resilience, and consistent life force. You tend to bounce back from hardship and have
+        deep reserves of energy to draw from.</p>
+        <p><strong style="color:#d7e2ff;">Short or faint:</strong> Not a sign of short life — rather, it
+        suggests someone who prefers to conserve energy, may be more introverted or sensitive physically,
+        and may experience their greatest vitality in focused bursts rather than as a constant stream.</p>
+        <p><strong style="color:#d7e2ff;">Wide arc, swinging far into the palm:</strong> An adventurous,
+        physically active nature with strong drive and a love of life. These people tend to have large
+        energy fields and a magnetic presence.</p>
+        <div class="line-markers">
+          <span class="line-marker">Breaks = major life transitions or health events</span>
+          <span class="line-marker">Islands = periods of reduced vitality or stress</span>
+          <span class="line-marker">Branches upward = periods of significant growth</span>
+          <span class="line-marker">Branches downward = periods of depletion</span>
+        </div>
+      </div>
+
+      <div class="line-entry" style="border-left-color:#f39c12;">
+        <h3>⭐ The Fate Line</h3>
+        <div class="line-keywords">Destiny · Career · Life Path · External Influence</div>
+        <p>The fate line runs vertically up the center of the palm from the wrist toward the middle
+        finger. Not everyone has one — and its absence is not a bad sign. It reflects the degree to
+        which your life path is shaped by external forces, vocation, and a sense of destiny or purpose.</p>
+        <p><strong style="color:#d7e2ff;">Strong, clear fate line from the wrist:</strong> A person with
+        a strong sense of purpose from early in life. You may have always known what you were meant to
+        do, or felt guided by something larger than yourself. Career and life path tend to be clear,
+        even if the road is not always smooth.</p>
+        <p><strong style="color:#d7e2ff;">Fate line beginning mid-palm:</strong> Purpose and direction
+        that crystallized later in life — often after a significant turning point in the late twenties
+        or thirties. Early life may have felt uncertain or exploratory.</p>
+        <p><strong style="color:#d7e2ff;">No fate line:</strong> Someone who forges their own path
+        entirely — highly self-directed, less bound by convention or external expectation. Freedom and
+        self-determination are central to your story.</p>
+        <div class="line-markers">
+          <span class="line-marker">Starts from life line = self-made</span>
+          <span class="line-marker">Starts from Luna mount = public career, influenced by others</span>
+          <span class="line-marker">Double fate line = two parallel paths or careers</span>
+          <span class="line-marker">Breaks = major career shifts</span>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Reading tip:</strong> Always read lines in context, never in isolation. A short life
+        line on a broad, deeply-lined earth hand tells a very different story than the same short life line
+        on a delicate water hand. The whole hand — shape, texture, color, flexibility, and lines together —
+        paints the full picture. Trust your instincts as much as the rulebook.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="section-inner">
+      <h2>More from the Academy</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:1rem 0 1.5rem;">
+        <a href="manifest-monday.html"      class="btn outline" style="font-size:0.82rem;">🌙 Manifest Monday</a>
+        <a href="tarot-tuesday.html"        class="btn outline" style="font-size:0.82rem;">🃏 Tarot Tuesday</a>
+        <a href="bewitching-wednesday.html" class="btn outline" style="font-size:0.82rem;">🌿 Bewitching Wednesday</a>
+        <a href="astrology-thursday.html"   class="btn outline" style="font-size:0.82rem;">♑ Astrology Thursday</a>
+        <a href="freaky-friday.html"        class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
+        <a href="spellbound-saturday.html"  class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
+      </div>
+      <ul class="footer-links">
+        <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
+        <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
       </ul>
-
-      <h3>Mounts & Fingers</h3>
-      <p>Each mount corresponds to a planet — Venus, Jupiter, Saturn, Apollo, and Mercury — revealing traits and tendencies. Finger shapes and lengths add nuance to interpretation.</p>
-
-      <h3>Hand Shapes</h3>
-      <p>Earth, Air, Fire, and Water hands reflect elemental balance and personality archetypes.</p>
-    </section>
-
-    <!-- ✏️ UPDATE WEEKLY -->
-    <section class="weekly-update">
-      <h2>Palm Feature of the Week</h2>
-      <p><em>The Mystic Cross</em> — a rare marking between the Head and Heart lines, symbolizing intuitive wisdom and spiritual insight.</p>
-    </section>
-  </main>
-
-  <!-- 🔗 Footer Links -->
-  <footer>
-    <p><a href="index.html">← Back to Main Site</a> | <a href="https://www.youtube.com/@ambrosiasoccultacademy">Visit our YouTube Channel</a></p>
+      <p style="margin-top:1rem;"><a href="index.html" class="btn outline" style="font-size:0.85rem;">← Back to Main Site</a></p>
+      <p class="footer-copy">&copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.</p>
+    </div>
   </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
