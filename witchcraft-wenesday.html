@@ -1,44 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Bewitching Wednesdays | Ambrosia's Occult Academy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    /* ── Hero ───────────────────────────────────────────────────────────── */
-    .wednesday-hero {
-      position: relative; min-height: 40vh;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; padding: 4rem 1.5rem 3rem;
-      background: radial-gradient(ellipse at top, #0e0a2e 0%, #050316 55%, #02010b 100%);
-      overflow: hidden;
-    }
-    .wednesday-hero::before {
-      content: ""; position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 20% 30%, rgba(100,60,200,0.2) 0, transparent 50%),
-        radial-gradient(circle at 75% 25%, rgba(165,107,255,0.14) 0, transparent 45%),
-        radial-gradient(circle at 50% 80%, rgba(50,20,100,0.15) 0, transparent 40%);
-      pointer-events: none;
-    }
-    .wednesday-hero-content { position: relative; z-index: 1; max-width: 760px; }
-    .wednesday-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem;
-    }
-    .day-label { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #a56bff; margin-bottom: 0.75rem; }
-    .wednesday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bewitching Wednesdays | Ambrosia’s Occult Academy</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="wednesday-hero">
+    <div class="wednesday-hero-content">
+      <h1>Bewitching Wednesdays</h1>
+      <p class="day-label">Wednesdays at Ambrosia's</p>
+    </div>
+    <nav class="jump-nav">
+      <a href="#events">Events</a>
+      <a href="#learn">Learn</a>
+    </nav>
+  </header>
 
-    /* ── Jump Nav ───────────────────────────────────────────────────────── */
-    .jump-nav {
-      display: flex; flex-wrap: wrap; justify-content: center;
-      gap: 0.75rem; padding: 1rem 1.5rem;
-      background: rgba(5,3,22,0.96); border-bottom: 1px solid var(--border-soft);
-      position: sticky; top: 0; z-index: 9; backdrop-filter: blur(14px);
-    }
-    .jump-nav a {
+  <!-- rest of page -->
+</body>
+</html>
+
       color: var(--text-muted); text-decoration: none;
       font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
       padding: 0.3rem 0.8rem; border-radius: 999px; border: 1px solid var(--border-soft);
