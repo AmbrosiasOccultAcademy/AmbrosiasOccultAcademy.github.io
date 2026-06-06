@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bewitching Wednesdays | Ambrosia's Occult Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Hero ───────────────────────────────────────────────────────────── */
+    .wednesday-hero {
+      position: relative; min-height: 40vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #0e0a2e 0%, #050316 55%, #02010b 100%);
+      overflow: hidden;
+    }
+    .wednesday-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(100,60,200,0.2) 0, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(165,107,255,0.14) 0, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(50,20,100,0.15) 0, transparent 40%);
+      pointer-events: none;
+    }
+    .wednesday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .wednesday-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .day-label { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #a56bff; margin-bottom: 0.75rem; }
+    .wednesday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ── Jump Nav ───────────────────────────────────────────────────────── */
+    .jump-nav {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.75rem; padding: 1rem 1.5rem;
+      background: rgba(5,3,22,0.96); border-bottom: 1px solid var(--border-soft);
+      position: sticky; top: 0; z-index: 9; backdrop-filter: blur(14px);
+    }
+    .jump-nav a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 999px; border: 1px solid var(--border-soft);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .jump-nav a:hover { color: #d7e2ff; border-color: rgba(165,107,255,0.5); background: rgba(165,107,255,0.08); }
+
+    /* ── Weekly box ─────────────────────────────────────────────────────── */
+    .weekly-box {
+      background: linear-gradient(135deg, rgba(100,60,200,0.15), rgba(165,107,255,0.07));
+      border: 1px solid rgba(165,107,255,0.4); border-radius: 16px;
+      padding: 2rem; margin: 0 0 2rem; position: relative; overflow: hidden;
+    }
+    .weekly-box::before {
+      content: "✏️ UPDATED WEEKLY"; position: absolute; top: 0.75rem; right: 1rem;
+      font-size: 0.65rem; letter-spacing: 0.12em; color: #a56bff; font-weight: 700;
+    }
+    .weekly-box h3 {
+      font-family: var(--font-display); font-size: 1.2rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 1.25rem;
+    }
+    .weekly-item { margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(165,107,255,0.15); }
+    .weekly-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .weekly-item-label { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #a56bff; margin-bottom: 0.5rem; font-weight: 700; }
+    .weekly-spell-title { font-family: var(--font-display); font-size: 1.1rem; color: #d7e2ff; margin-bottom: 0.75rem; }
+    .weekly-spell-body { background: rgba(0,0,0,0.25); border-radius: 10px; padding: 1.1rem 1.2rem; color: var(--text-muted); font-size: 0.93rem; line-height: 1.75; }
+    .weekly-spell-body strong { color: #d7e2ff; }
+    .spell-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.85rem; }
+    .spell-tag {
+      background: rgba(165,107,255,0.1); border: 1px solid rgba(165,107,255,0.25);
+      border-radius: 999px; padding: 0.2rem 0.7rem; font-size: 0.75rem; color: #c4b0ff;
+    }
+
+    /* ── Guide sections ─────────────────────────────────────────────────── */
+    .guide-intro { color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.75rem; max-width: 820px; }
+
+    /* ── Spellwork basics cards ─────────────────────────────────────────── */
+    .basics-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.2rem; margin-bottom: 2rem;
+    }
+    .basics-card {
+      background: rgba(10,10,30,0.9); border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 1.4rem;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .basics-card:hover { transform: translateY(-3px); border-color: rgba(165,107,255,0.4); }
+    .basics-card-top { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .basics-icon { font-size: 1.8rem; }
+    .basics-card h3 { margin: 0; font-size: 1rem; color: #d7e2ff; }
+    .basics-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+
+    /* ── Book of Shadows sections ───────────────────────────────────────── */
+    .bos-entry {
+      background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft);
+      border-radius: 14px; padding: 1.6rem; margin-bottom: 1.25rem;
+      border-left: 4px solid #a56bff;
+    }
+    .bos-entry h3 { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.05em; color: #d7e2ff; margin-bottom: 0.25rem; }
+    .bos-entry .bos-sub { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #a56bff; margin-bottom: 0.85rem; }
+    .bos-entry p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.75rem; }
+    .bos-entry p:last-child { margin-bottom: 0; }
+    .bos-list { list-style: none; padding: 0; margin: 0.75rem 0 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .bos-list li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--text-muted); line-height: 1.6;
+    }
+    .bos-list li::before { content: "✦"; color: #a56bff; flex-shrink: 0; font-size: 0.7rem; margin-top: 4px; }
+    .bos-list li strong { color: #d7e2ff; }
+
+    /* ── Tip box ────────────────────────────────────────────────────────── */
+    .tip-box {
+      background: rgba(165,107,255,0.07); border-left: 3px solid #a56bff;
+      border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.5rem 0;
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .tip-box strong { color: #d7e2ff; }
+
+    /* ── Section titles ─────────────────────────────────────────────────── */
+    .section-heading {
+      font-family: var(--font-display); font-size: 1.8rem; letter-spacing: 0.07em;
+      text-transform: uppercase; margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 640px) { .basics-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ───────────────────────────────────────────────────────────── -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#themes">Daily Themes</a></li>
+      <li><a href="index.html#birth-chart">Birth Charts</a></li>
+      <li><a href="index.html#tarot">Tarot</a></li>
+      <li><a href="freaky-friday.html">Freaky Fridays</a></li>
+      <li><a href="services.html">✨ Readings</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HERO ──────────────────────────────────────────────────────────── -->
+  <header class="wednesday-hero">
+    <div class="wednesday-hero-content">
+      <p class="day-label">Every Wednesday</p>
+      <h1>🌿 Bewitching Wednesdays</h1>
+      <p>Spells, herbs, and witchcraft education for modern practitioners. Whether you're brand new to the craft or deepening an existing practice, this is your Wednesday home.</p>
+    </div>
+  </header>
+
+  <!-- ─── JUMP NAV ──────────────────────────────────────────────────────── -->
+  <div class="jump-nav">
+    <a href="#weekly">🕯️ Spell of the Week</a>
+    <a href="#spellwork-basics">📖 Spellwork Basics</a>
+    <a href="#book-of-shadows">📓 Book of Shadows</a>
+  </div>
+
+
+  <!-- ══ WEEKLY SPELL ════════════════════════════════════════════════════ -->
+  <section id="weekly" class="section section-dark">
+    <div class="section-inner">
+      <div class="weekly-box">
+        <h3>🕯️ Spell of the Week</h3>
+
+        <!-- ✏️ UPDATE WEEKLY — Replace the spell name, ingredients, steps and tags each Wednesday -->
+        <div class="weekly-item">
+          <div class="weekly-item-label">🌙 This Week's Working</div>
+          <div class="weekly-spell-title">New Beginnings Candle Spell — Clearing the Path Forward</div>
+          <div class="weekly-spell-body">
+            <strong>Best performed:</strong> On a new moon, or any Wednesday morning before noon.<br><br>
+
+            <strong>You will need:</strong><br>
+            A white or light blue candle &nbsp;·&nbsp; A piece of paper and pen &nbsp;·&nbsp;
+            A fireproof dish &nbsp;·&nbsp; Rosemary or sage (fresh or dried) &nbsp;·&nbsp;
+            A pinch of sea salt<br><br>
+
+            <strong>The working:</strong><br>
+            Begin by grounding yourself — take three slow, deep breaths and feel your feet on the floor.
+            Light your candle and hold the paper in both hands. Write one thing you are ready to release
+            — a fear, a habit, a relationship pattern, a belief about yourself that no longer serves you.
+            Be honest. Be specific.<br><br>
+
+            Sprinkle a pinch of sea salt over the words, then fold the paper away from you (fold it outward,
+            symbolizing release). Hold it briefly in the candle flame — carefully — and place it in your
+            fireproof dish to burn fully. As it burns, say aloud or in your mind:<br><br>
+
+            <em>"What was, releases. What comes, arrives with grace. I am clear. I am ready. So it is."</em><br><br>
+
+            Let the candle burn for at least 20 minutes. When you're done, scatter the ashes outside
+            or flush them — returning them to the earth or water completes the release.
+
+            <div class="spell-tags">
+              <span class="spell-tag">🌑 New Moon</span>
+              <span class="spell-tag">🕯️ Candle Magic</span>
+              <span class="spell-tag">🌿 Rosemary</span>
+              <span class="spell-tag">⭐ Beginner Friendly</span>
+              <span class="spell-tag">🔓 Release Work</span>
+            </div>
+          </div>
+        </div>
+        <!-- ✏️ END WEEKLY UPDATE -->
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ SPELLWORK BASICS ════════════════════════════════════════════════ -->
+  <section id="spellwork-basics" class="section section-light">
+    <div class="section-inner">
+
+      <h2 class="section-heading">📖 Introduction to Spellwork</h2>
+      <p class="guide-intro">
+        Spellwork is the intentional direction of energy toward a desired outcome. It is not about bending
+        reality to your will through force — it is about aligning yourself so completely with what you
+        want to create that you become a clear channel for it to manifest. Every spell has the same core
+        components: intention, energy, and release. Everything else — candles, herbs, words, timing —
+        are tools that help you focus and amplify those three things.
+      </p>
+
+      <div class="basics-grid">
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">🎯</span>
+            <h3>Intention</h3>
+          </div>
+          <p>The most powerful ingredient in any spell is the clarity and sincerity of your intention.
+          Before you light a single candle, you must be absolutely clear about what you are calling in —
+          and why. Vague intentions produce vague results. "I want more money" is less powerful than
+          "I am open to and worthy of financial abundance flowing to me through joyful, aligned work."
+          Write your intention out before every working. Read it aloud. Feel it in your body. That
+          feeling of resonance IS the magic.</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">⚡</span>
+            <h3>Energy &amp; Raising Power</h3>
+          </div>
+          <p>A spell without raised energy is just words and props. Energy must be raised — built up
+          within you or the working space — and then directed toward your intention before release.
+          Methods for raising energy include: breathwork, chanting, drumming, dancing, meditation,
+          visualization, and emotional intensity. The stronger and more focused the energy you raise,
+          the more potent the working. Many practitioners feel a physical sensation — heat, tingling,
+          pressure in the hands — when energy is properly raised.</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">🕯️</span>
+            <h3>Candle Magic</h3>
+          </div>
+          <p>Candles are among the most accessible and versatile magical tools. The flame represents
+          transformation — the alchemical process of converting one state into another. Color matters:
+          white is all-purpose and purifying; red for passion and courage; green for growth and
+          abundance; blue for calm, healing, and truth; black for banishing and protection; purple for
+          spiritual work and psychic opening; pink for love and self-compassion; yellow for clarity
+          and communication. Dress your candles with oils and herbs aligned to your intention to
+          amplify their power.</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">🌙</span>
+            <h3>Timing &amp; Moon Phases</h3>
+          </div>
+          <p>Timing your workings with natural cycles amplifies their power by aligning your personal
+          energy with the larger rhythms of the universe. The moon's cycle is the most commonly used:
+          the <strong>new moon</strong> is for new beginnings, setting intentions, and starting fresh.
+          The <strong>waxing moon</strong> (growing) is for drawing things toward you — abundance,
+          love, opportunity. The <strong>full moon</strong> is peak power — use it for manifestation,
+          charging tools, and divination. The <strong>waning moon</strong> (shrinking) is for release,
+          banishing, and letting go. The <strong>dark moon</strong> is for shadow work, deep rest,
+          and inner reflection.</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">🌿</span>
+            <h3>Herbs &amp; Plants</h3>
+          </div>
+          <p>Every plant carries its own energetic signature, shaped by its chemistry, its history of
+          use, and its connection to planetary and elemental forces. Rosemary is protective and
+          clarifying. Lavender soothes and opens psychic channels. Mugwort enhances dreams and
+          divination. Basil draws abundance and love. Bay laurel amplifies wishes and victory.
+          Sage clears and purifies. You don't need a full apothecary to begin — a few versatile herbs
+          will serve most purposes. Always research any herb before burning or ingesting, especially
+          if you are pregnant or have health conditions.</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">🛡️</span>
+            <h3>Protection &amp; Grounding</h3>
+          </div>
+          <p>Before any magical working, grounding and protection are not optional — they are
+          foundational. Grounding means connecting your energy to the earth, stabilizing yourself
+          so you are working from a centered, rooted place rather than a scattered or depleted one.
+          Visualize roots extending from your feet into the earth. Protection means establishing
+          a clear energetic boundary around your working space and yourself. This can be as simple
+          as calling in white light, casting a circle, burning protective herbs like rosemary or
+          frankincense, or stating clearly: "Only that which is aligned with my highest good may
+          enter this space."</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">🔓</span>
+            <h3>Release &amp; Trust</h3>
+          </div>
+          <p>The final and most spiritually advanced step of any working is release — surrendering
+          attachment to the outcome. This is where most beginners struggle. After raising your energy,
+          stating your intention, and directing your focus, you must let it go completely. Clinging,
+          obsessing, and constantly checking for results actually blocks manifestation by feeding
+          energy into doubt rather than trust. "Set it and forget it" is not passive — it's an active
+          choice to trust that what you've planted is growing, even when you can't see it yet.
+          The universe works in its own timing.</p>
+        </div>
+
+        <div class="basics-card">
+          <div class="basics-card-top">
+            <span class="basics-icon">⚖️</span>
+            <h3>Ethics &amp; Responsibility</h3>
+          </div>
+          <p>With magic, as with all power, comes responsibility. The most important ethical principle
+          in most traditions is simple: do not use magic to override another person's free will. Love
+          spells designed to force a specific person to love you, workings designed to harm or
+          manipulate — these create energetic debt and almost always backfire. Instead, focus your
+          workings on yourself: your own clarity, your own healing, your own opening to receive what
+          is meant for you. There is more than enough magic available when you work in alignment
+          with the highest good of all.</p>
+        </div>
+
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 The most important truth about spellwork:</strong> You are the magic. Every tool,
+        herb, candle, and phase of the moon is an amplifier — but the source of power is always you.
+        Your belief, your focus, your emotional energy, and your alignment are what determine results.
+        Start simple. Stay consistent. Document everything in your Book of Shadows.
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══ BOOK OF SHADOWS GUIDE ════════════════════════════════════════════ -->
+  <section id="book-of-shadows" class="section section-dark">
+    <div class="section-inner">
+
+      <h2 class="section-heading">📓 Your Book of Shadows</h2>
+      <p class="guide-intro">
+        A Book of Shadows (BoS) is a witch's personal magical journal — a living record of your practice,
+        your workings, your discoveries, and your growth. It is not a fixed rulebook passed down from
+        above; it is something you build yourself, over time, through experience. No two Books of Shadows
+        are alike. Yours reflects your path, your voice, and your magic. Below is a complete guide to
+        starting yours from scratch.
+      </p>
+
+      <div class="bos-entry">
+        <h3>📖 What Is a Book of Shadows?</h3>
+        <div class="bos-sub">Foundation · History · Purpose</div>
+        <p>The term "Book of Shadows" was popularized by Gerald Gardner, the founder of Wicca, in the
+        mid-20th century — but the practice of keeping a magical journal is far older, found across
+        virtually every magical tradition worldwide under different names: the grimoire in European
+        ceremonial magic, the tao-te in Chinese alchemy, the ijala among Yoruba practitioners.</p>
+        <p>At its core, a BoS is a place where you record what you do, what you believe, what works,
+        and what doesn't. It grows with you. A page you wrote as a beginner will look very different
+        from one written five years into your practice — and both have value. The only requirement
+        is that it is honest and it is yours.</p>
+      </div>
+
+      <div class="bos-entry">
+        <h3>🛠️ Choosing Your Book</h3>
+        <div class="bos-sub">Physical · Digital · What to Look For</div>
+        <p>Your BoS can be anything that feels sacred to you. Many practitioners use a beautiful
+        hardcover journal or a three-ring binder (practical for adding pages and sections). Others
+        keep a digital BoS in Notion, Obsidian, or even a private blog. Some keep both — a digital
+        record for ease and a handwritten journal for ritual use.</p>
+        <p>Whatever you choose, make it feel special. Decorate the cover. Write your name on the
+        inside. Consider dedicating it in a simple ritual — light a candle, hold the book, and
+        state your intention for your practice. This act of consecration signals to your subconscious
+        (and to the universe) that this is sacred space.</p>
+      </div>
+
+      <div class="bos-entry">
+        <h3>📋 What to Include — A Starter Structure</h3>
+        <div class="bos-sub">Sections · Organization · What Goes Where</div>
+        <p>There is no single right way to organize a BoS. Below is a suggested structure for
+        beginners — adapt it freely as your practice develops.</p>
+        <ul class="bos-list">
+          <li><strong>Dedication page</strong> — Your intention for your practice. Who you are as a practitioner, what you believe, what you seek.</li>
+          <li><strong>Beliefs &amp; principles</strong> — Your personal ethical framework. What you will and won't do. The traditions or paths that resonate with you.</li>
+          <li><strong>The wheel of the year</strong> — The eight sabbats (Samhain, Yule, Imbolc, Ostara, Beltane, Litha, Lughnasadh, Mabon) with dates, meanings, and how you choose to honor them.</li>
+          <li><strong>Moon phases</strong> — Your guide to working with lunar cycles. Notes from actual moon rituals you've performed.</li>
+          <li><strong>Correspondences</strong> — Colors, herbs, crystals, planets, days of the week, and their magical associations. This becomes your personal reference library.</li>
+          <li><strong>Spells &amp; rituals</strong> — Every working you perform: date, moon phase, intention, ingredients, method, and results. This is the most valuable section over time.</li>
+          <li><strong>Dreams &amp; divination</strong> — Tarot readings, dreams, synchronicities, visions, and intuitive hits. Patterns you notice over time.</li>
+          <li><strong>Herb &amp; crystal guides</strong> — Your growing personal reference for plant and stone magic, built from your own research and experience.</li>
+          <li><strong>Prayers, chants &amp; invocations</strong> — Words that carry power for you. Original or found, attributed honestly.</li>
+          <li><strong>Reflections &amp; lessons</strong> — What you're learning. What surprised you. What didn't work. Your evolution as a practitioner.</li>
+        </ul>
+      </div>
+
+      <div class="bos-entry">
+        <h3>🌙 Recording Your Workings</h3>
+        <div class="bos-sub">The Most Important Practice · What to Write · When to Write</div>
+        <p>The habit of documenting every working is what separates practitioners who grow quickly
+        from those who stay stuck. Write in your BoS immediately after any ritual or spell while
+        the details are fresh. Over time, you will begin to see patterns — which moon phases
+        produce the strongest results for you, which herbs resonate most with your energy, which
+        types of workings you are naturally gifted at.</p>
+        <p>For each working, record at minimum: the date, the moon phase, your emotional state going
+        in, the intention, what you did, and how you felt afterward. Then return to that entry
+        days or weeks later and add a note about what manifested. This feedback loop is the
+        foundation of genuine magical development.</p>
+      </div>
+
+      <div class="bos-entry">
+        <h3>✨ Making It Sacred</h3>
+        <div class="bos-sub">Personalization · Ritual · Energy</div>
+        <p>Your BoS is a magical object in its own right. Treat it accordingly. Keep it in a
+        dedicated space — wrapped in cloth, kept on your altar, or stored somewhere private and
+        intentional. Many practitioners cleanse their BoS periodically with smoke, moonlight, or
+        by placing a cleansing crystal on top of it overnight.</p>
+        <p>Decorate its pages. Press herbs between the leaves. Paste in images that represent your
+        path. Write in your own hand whenever possible — the physical act of handwriting is itself
+        a form of energy direction. Your BoS should feel, when you hold it, like a living piece
+        of your magical self. Because it is.</p>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 Jennifer's advice:</strong> Don't wait until you feel ready or until you have the
+        perfect journal. Start today, with whatever you have. The Book of Shadows you actually write
+        in is infinitely more powerful than the perfect one you're still waiting to begin. Every entry
+        is a thread in the tapestry of your practice. Start weaving.
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="section-inner">
+      <h2>More from the Academy</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:1rem 0 1.5rem;">
+        <a href="manifest-monday.html"     class="btn outline" style="font-size:0.82rem;">🌙 Manifest Monday</a>
+        <a href="tarot-tuesday.html"       class="btn outline" style="font-size:0.82rem;">🃏 Tarot Tuesday</a>
+        <a href="astrology-thursday.html"  class="btn outline" style="font-size:0.82rem;">♑ Astrology Thursday</a>
+        <a href="freaky-friday.html"       class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
+        <a href="spellbound-saturday.html" class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
+        <a href="palmistry-sunday.html"    class="btn outline" style="font-size:0.82rem;">🤲 Palmistry Sunday</a>
+        <a href="services.html"            class="btn primary"  style="font-size:0.82rem;">✨ Book a Reading</a>
+      </div>
+      <ul class="footer-links">
+        <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
+        <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
+      </ul>
+      <p style="margin-top:1rem;"><a href="index.html" class="btn outline" style="font-size:0.85rem;">← Back to Main Site</a></p>
+      <p class="footer-copy">&copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.</p>
+    </div>
+  </footer>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
