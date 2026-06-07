@@ -2,1320 +2,803 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Ambrosia's Occult Academy</title>
+  <title>Astrology Thursday | Ambrosia's Occult Academy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
-
-  <!-- html2canvas for saving readings as images -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
   <style>
-    /* ── Tarot card sizing ───────────────────────────────────────────────── */
-    .tarot-image {
-      width: 220px;
-      height: 380px;
-      object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      display: block;
-      margin: 0 auto 1rem;
-    }
-
-    /* Reversed card — flip upside down */
-    .tarot-image.reversed {
-      transform: rotate(180deg);
-    }
-
-    /* ── Sparkle effect (reversed cards only) ───────────────────────────── */
-    .sparkle {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: 12px;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.55) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(180, 130, 255, 0.45) 0%, transparent 40%),
-        radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0%, transparent 30%);
-      animation: sparkle-pulse 1.6s ease-in-out infinite alternate;
-    }
-
-    @keyframes sparkle-pulse {
-      from { opacity: 0.6; }
-      to   { opacity: 1; }
-    }
-
-    /* Positioning context for sparkle overlay */
-    .tarot-card-display {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    /* ── Tarot tabs ─────────────────────────────────────────────────────── */
-    .tarot-tabs {
-      display: flex; gap: 0.5rem; margin-bottom: 1.5rem; justify-content: center;
-    }
-    .tarot-tab {
-      background: rgba(10,10,30,0.8);
-      border: 1px solid rgba(165,107,255,0.3);
-      border-radius: 999px; padding: 0.5rem 1.2rem;
-      color: var(--text-muted); font-size: 0.88rem;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      cursor: pointer; font-family: inherit;
-      transition: all 0.2s;
-    }
-    .tarot-tab.active, .tarot-tab:hover {
-      background: rgba(165,107,255,0.18);
-      border-color: #a56bff; color: #d7e2ff;
-    }
-    .tarot-panel { width: 100%; }
-
-    /* ── Meaning box (shown after pull) ─────────────────────────────────── */
-    .tarot-meaning-box {
-      background: rgba(0,0,0,0.3);
-      border: 1px solid rgba(165,107,255,0.2);
-      border-radius: 12px; padding: 1.1rem 1.3rem;
-      margin-bottom: 0.75rem; max-width: 340px;
-      text-align: left; width: 100%;
-    }
-    .tarot-meaning-box .tm-upright { margin-bottom: 0.6rem; }
-    .tarot-meaning-box .tm-label {
-      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-      font-weight: 700; margin-bottom: 0.25rem;
-    }
-    .tarot-meaning-box .tm-upright .tm-label { color: #4bb4ff; }
-    .tarot-meaning-box .tm-reversed .tm-label { color: #e74c3c; }
-    .tarot-meaning-box .tm-keywords {
-      font-size: 0.82rem; color: var(--text-muted); line-height: 1.55;
-    }
-
-    /* ── Search panel ───────────────────────────────────────────────────── */
-    .tarot-search-wrap { max-width: 700px; margin: 0 auto; }
-    .tarot-search-bar input {
-      width: 100%; padding: 0.75rem 1rem;
-      background: rgba(0,0,0,0.4);
-      border: 1px solid rgba(165,107,255,0.35);
-      border-radius: 10px; color: #fff;
-      font-size: 0.95rem; font-family: inherit; outline: none;
-      transition: border-color 0.2s; margin-bottom: 1rem;
-    }
-    .tarot-search-bar input:focus { border-color: #a56bff; }
-    .tarot-search-bar input::placeholder { color: rgba(255,255,255,0.25); }
-
-    .tarot-search-results {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 0.6rem; margin-bottom: 1rem;
-    }
-    .tarot-result-btn {
-      background: rgba(10,10,30,0.85);
-      border: 1px solid rgba(165,107,255,0.2);
-      border-radius: 10px; padding: 0.6rem 0.5rem;
-      color: var(--text-muted); font-size: 0.78rem;
-      text-align: center; cursor: pointer;
-      font-family: inherit; line-height: 1.35;
-      transition: all 0.2s;
-    }
-    .tarot-result-btn:hover {
-      background: rgba(165,107,255,0.15);
-      border-color: #a56bff; color: #d7e2ff;
-    }
-    .tarot-result-btn .tr-num {
-      display: block; font-size: 0.7rem; color: #a56bff;
-      margin-bottom: 3px; letter-spacing: 0.06em;
-    }
-
-    /* ── Card detail panel ──────────────────────────────────────────────── */
-    .tarot-search-detail {
-      background: rgba(10,10,30,0.9);
-      border: 1px solid rgba(165,107,255,0.25);
-      border-radius: 14px; overflow: hidden;
-    }
-    .tsd-inner {
-      display: grid;
-      grid-template-columns: 200px 1fr;
-      gap: 0; min-height: 280px;
-    }
-    .tsd-img-wrap {
-      background: rgba(0,0,0,0.4);
+    /* ── Hero ───────────────────────────────────────────────────────────── */
+    .thursday-hero {
+      position: relative; min-height: 40vh;
       display: flex; align-items: center; justify-content: center;
-      padding: 1.25rem;
+      text-align: center; padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #0a1a3a 0%, #050316 55%, #02010b 100%);
+      overflow: hidden;
     }
-    .tsd-img-wrap img {
-      width: 160px; height: auto; max-height: 260px;
-      object-fit: cover; border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+    .thursday-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(75,180,255,0.15) 0, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(165,107,255,0.12) 0, transparent 45%);
+      pointer-events: none;
     }
-    .tsd-content { padding: 1.5rem; }
-    .tsd-numeral { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #a56bff; margin-bottom: 0.25rem; }
-    .tsd-name { font-family: var(--font-display); font-size: 1.4rem; letter-spacing: 0.07em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 1rem; }
-    .tsd-block { margin-bottom: 1rem; }
-    .tsd-block-label {
-      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
-      font-weight: 700; margin-bottom: 0.35rem;
+    .thursday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .thursday-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem;
     }
-    .tsd-upright .tsd-block-label { color: #4bb4ff; }
-    .tsd-reversed .tsd-block-label { color: #e74c3c; }
-    .tsd-block p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
-    .tsd-back-btn {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      margin: 0 1.5rem 1.25rem; font-size: 0.78rem; color: #a56bff;
-      background: none; border: none; cursor: pointer; font-family: inherit;
+    .day-label { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #4bb4ff; margin-bottom: 0.75rem; }
+    .thursday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ── Jump nav ───────────────────────────────────────────────────────── */
+    .jump-nav {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.65rem; padding: 0.9rem 1.5rem;
+      background: rgba(5,3,22,0.96); border-bottom: 1px solid var(--border-soft);
+      position: sticky; top: 0; z-index: 9; backdrop-filter: blur(14px);
+    }
+    .jump-nav a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.28rem 0.75rem; border-radius: 999px; border: 1px solid var(--border-soft);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .jump-nav a:hover { color: #d7e2ff; border-color: rgba(75,180,255,0.5); background: rgba(75,180,255,0.08); }
+
+    /* ── Moon phase widget ──────────────────────────────────────────────── */
+    .moon-widget {
+      background: linear-gradient(135deg, rgba(75,180,255,0.1), rgba(165,107,255,0.07));
+      border: 1px solid rgba(75,180,255,0.3);
+      border-radius: 16px; padding: 1.5rem 2rem;
+      display: flex; align-items: center; gap: 2rem;
+      flex-wrap: wrap; margin-bottom: 2rem;
+    }
+    .moon-glyph {
+      font-size: 4rem; line-height: 1;
+      filter: drop-shadow(0 0 12px rgba(75,180,255,0.5));
+      flex-shrink: 0;
+    }
+    .moon-info h3 {
+      font-family: var(--font-display); font-size: 1.15rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 0.25rem;
+    }
+    .moon-phase-name { font-size: 1rem; color: #4bb4ff; margin-bottom: 0.4rem; font-weight: 600; }
+    .moon-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; max-width: 520px; }
+    .moon-illumination {
+      margin-top: 0.5rem; font-size: 0.75rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(75,180,255,0.7);
+    }
+
+    /* ── Weekly forecast (AI generated) ────────────────────────────────── */
+    .forecast-wrap {
+      background: rgba(10,10,30,0.9);
+      border: 1px solid rgba(75,180,255,0.2);
+      border-radius: 16px; overflow: hidden; margin-bottom: 2rem;
+    }
+    .forecast-header {
+      background: linear-gradient(135deg, rgba(75,180,255,0.12), rgba(165,107,255,0.07));
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      border-bottom: 1px solid rgba(75,180,255,0.15);
+    }
+    .forecast-header h3 {
+      font-family: var(--font-display); font-size: 1.1rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin: 0;
+    }
+    .forecast-body { padding: 1.5rem; }
+    .forecast-days { display: flex; flex-direction: column; gap: 0.85rem; }
+    .forecast-day {
+      display: grid; grid-template-columns: 90px 1fr;
+      gap: 0.75rem; align-items: start;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(75,180,255,0.08);
+    }
+    .forecast-day:last-child { border-bottom: none; padding-bottom: 0; }
+    .forecast-day-label {
+      font-family: var(--font-display); font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4bb4ff; padding-top: 2px;
+    }
+    .forecast-day-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+    .forecast-placeholder {
+      text-align: center; padding: 2rem 1rem;
+      color: rgba(194,198,224,0.4); font-size: 0.9rem; line-height: 1.7;
+    }
+    .forecast-placeholder .fp-icon { font-size: 2.5rem; opacity: 0.3; margin-bottom: 0.75rem; }
+    .ai-loading {
+      text-align: center; padding: 2rem;
+      color: #4bb4ff; font-size: 0.9rem; letter-spacing: 0.06em;
+      display: none;
+    }
+    .ai-loading::after {
+      content: "";
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(75,180,255,0.3); border-top-color: #4bb4ff;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin-left: 0.5rem; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Horoscope sign selector ────────────────────────────────────────── */
+    .sign-selector-wrap {
+      background: rgba(10,10,30,0.9); border: 1px solid var(--border-soft);
+      border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+    }
+    .sign-selector-wrap h3 {
+      font-family: var(--font-display); font-size: 1.1rem;
       letter-spacing: 0.06em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 1.25rem;
     }
-    .tsd-back-btn:hover { color: #d7e2ff; }
+    .sign-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(85px,1fr));
+      gap: 0.6rem; margin-bottom: 1.5rem;
+    }
+    .sign-btn {
+      background: rgba(165,107,255,0.07); border: 1px solid rgba(165,107,255,0.2);
+      border-radius: 10px; padding: 0.6rem 0.4rem;
+      color: var(--text-muted); cursor: pointer;
+      font-size: 0.78rem; text-align: center; line-height: 1.4;
+      transition: all 0.2s; font-family: inherit;
+    }
+    .sign-btn:hover, .sign-btn.active {
+      background: rgba(165,107,255,0.2); border-color: #a56bff; color: #d7e2ff;
+    }
+    .sign-btn .sign-glyph { font-size: 1.4rem; display: block; margin-bottom: 2px; }
+    .sign-btn .sign-name  { font-size: 0.68rem; letter-spacing: 0.04em; }
+
+    /* ── Horoscope result ───────────────────────────────────────────────── */
+    #horoscope-result {
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(165,107,255,0.2);
+      border-radius: 12px; padding: 1.5rem;
+      font-size: 0.92rem; line-height: 1.8;
+      display: none;
+    }
+    #horoscope-result.visible { display: block; }
+    .horo-sign-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1rem; padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(165,107,255,0.15);
+    }
+    .horo-glyph { font-size: 2rem; }
+    .horo-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff;
+    }
+    .horo-dates { font-size: 0.78rem; color: #a56bff; }
+    .horo-body p { color: var(--text-muted); margin-bottom: 0.75rem; }
+    .horo-body p:last-child { margin-bottom: 0; }
+    .horo-loading {
+      text-align: center; padding: 2rem; color: #a56bff;
+      font-size: 0.9rem; letter-spacing: 0.06em;
+    }
+    .horo-loading::after {
+      content: ""; display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(165,107,255,0.3); border-top-color: #a56bff;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin-left: 0.5rem; vertical-align: middle;
+    }
+
+    /* ── House placement guide ──────────────────────────────────────────── */
+    .house-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
+    .house-tab {
+      background: rgba(10,10,30,0.8); border: 1px solid rgba(75,180,255,0.25);
+      border-radius: 999px; padding: 0.5rem 1.3rem;
+      color: var(--text-muted); font-size: 0.85rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      cursor: pointer; font-family: inherit; transition: all 0.2s;
+    }
+    .house-tab.active, .house-tab:hover {
+      background: rgba(75,180,255,0.15); border-color: #4bb4ff; color: #d7e2ff;
+    }
+    .house-panel { display: none; }
+    .house-panel.active { display: block; }
+    .house-intro-card {
+      background: linear-gradient(135deg, rgba(75,180,255,0.1), rgba(165,107,255,0.06));
+      border: 1px solid rgba(75,180,255,0.25); border-radius: 14px;
+      padding: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .house-intro-card h3 {
+      font-family: var(--font-display); font-size: 1.2rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 0.25rem;
+    }
+    .house-intro-card .house-keywords {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #4bb4ff; margin-bottom: 0.75rem; font-weight: 700;
+    }
+    .house-intro-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin: 0; }
+
+    .planet-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+      gap: 1.1rem;
+    }
+    .planet-card {
+      background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 1.25rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .planet-card:hover { transform: translateY(-2px); border-color: rgba(75,180,255,0.35); }
+    .planet-card-top { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.65rem; }
+    .planet-glyph { font-size: 1.5rem; }
+    .planet-card h4 { margin: 0; font-size: 0.95rem; color: #d7e2ff; }
+    .planet-card .planet-rules { font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase; color: #4bb4ff; }
+    .planet-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+
+    /* ── Tip box ─────────────────────────────────────────────────────────── */
+    .tip-box {
+      background: rgba(75,180,255,0.07); border-left: 3px solid #4bb4ff;
+      border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.5rem 0;
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .tip-box strong { color: #d7e2ff; }
+    .tip-box a { color: #4bb4ff; }
+
+    /* ── Zodiac quick guide ──────────────────────────────────────────────── */
+    .zodiac-mini-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap: 1rem; margin-top: 1.25rem;
+    }
+    .zodiac-mini-card {
+      background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 1.1rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .zodiac-mini-card:hover { transform: translateY(-2px); border-color: rgba(165,107,255,0.4); }
+    .zodiac-mini-top { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem; }
+    .z-glyph { font-size: 1.5rem; }
+    .zodiac-mini-card h4 { margin: 0; font-size: 0.92rem; color: #d7e2ff; }
+    .z-dates { font-size: 0.7rem; color: #a56bff; margin-bottom: 0.3rem; }
+    .z-keywords { font-size: 0.68rem; letter-spacing: 0.09em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 0.45rem; }
+    .zodiac-mini-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
 
     @media (max-width: 600px) {
-      .tsd-inner { grid-template-columns: 1fr; }
-      .tsd-img-wrap { padding: 1rem; }
-      .tsd-img-wrap img { width: 120px; }
+      .sign-grid { grid-template-columns: repeat(4,1fr); }
+      .moon-widget { flex-direction: column; gap: 1rem; text-align: center; }
+      .forecast-day { grid-template-columns: 1fr; gap: 0.25rem; }
+      .forecast-day-label { color: #4bb4ff; font-size: 0.72rem; }
     }
-
   </style>
 </head>
 <body>
 
-  <!-- ─── HEADER / HERO ──────────────────────────────────────────────────── -->
-  <header class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1>Ambrosia's Occult Academy</h1>
-      <p class="hero-subtitle">
-        Celestial guidance, mystical education, and practical magic for modern seekers.
-      </p>
-      <div class="hero-buttons">
-        <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">Visit YouTube</a>
-        <a href="#tarot" class="btn secondary">Free Daily Tarot</a>
-        <a href="#birth-chart" class="btn outline">Birth Chart Tool</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- ─── NAVIGATION ────────────────────────────────────────────────────── -->
   <nav class="main-nav">
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#themes">Daily Themes</a></li>
-      <li><a href="#birth-chart">Birth Charts</a></li>
-      <li><a href="#tarot">Tarot Readings</a></li>
-      <li><a href="#freaky">Freaky Fridays</a></li>
-      <li><a href="#shop">Future Shop</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#themes">Daily Themes</a></li>
+      <li><a href="index.html#birth-chart">Birth Charts</a></li>
+      <li><a href="index.html#tarot">Tarot</a></li>
+      <li><a href="freaky-friday.html">Freaky Fridays</a></li>
+      <li><a href="services.html">✨ Readings</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- ─── ABOUT SECTION ─────────────────────────────────────────────────── -->
-  <section id="about" class="section section-light">
-    <div class="section-inner">
-      <h2>About Jennifer Ambrosia</h2>
-      <p>
-        Jennifer Ambrosia is the intuitive guide behind <strong>Ambrosia's Occult Academy</strong> — a lifelong empath,
-        seeker of cosmic truth, and mother whose path has been shaped by love, resilience, and a deep connection to the unseen.
-      </p>
-      <p>
-        Raised in San Diego, Jennifer discovered her intuitive gifts early. By her teens she was already exploring palmistry,
-        astrology, tarot, meditation, and the subtle energies that shape our lives. What began as curiosity grew into a calling:
-        to understand the mysteries of the universe and help others understand their own.
-      </p>
-      <p>
-        Today, she's a proud mother of three: a son serving in the U.S. Navy, a daughter studying Meteorology in New York
-        (and raising a bright little star of her own), and a spirited nine‑year‑old daughter she raises as a single parent in Las Vegas.
-        Together they enjoy camping under desert skies, music festivals, and late‑night drives to Area 51 — because yes, she's that cool mom.
-      </p>
-      <p>
-        Jennifer believes destiny and free will dance together. Through palmistry, astrology, tarot, and other divination arts,
-        she helps others uncover the wisdom written in their palms, their stars, their dreams, and their cards.
-      </p>
-      <p class="about-quote">
-        ✨ <em>"Let's learn, grow, and practice real magic together."</em>
-      </p>
-      <div class="about-stats">
-        <div class="stat-card">
-          <span class="stat-number">500+</span>
-          <span class="stat-label">Subscribers</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">133</span>
-          <span class="stat-label">Videos</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">37,980</span>
-          <span class="stat-label">Views</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">Since 2022</span>
-          <span class="stat-label">On YouTube</span>
-        </div>
-      </div>
-      <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">
-        Visit My YouTube Channel
-      </a>
+  <header class="thursday-hero">
+    <div class="thursday-hero-content">
+      <p class="day-label">Every Thursday</p>
+      <h1>♑ Astrology Thursdays</h1>
+      <p>Weekly planetary forecasts, personalized horoscopes for all 12 signs, a live moon phase guide, and a complete reference for understanding your birth chart placements.</p>
     </div>
-  </section>
-  <!-- ─── YOUTUBE CHANNEL SECTION ──────────────────────────────────────── -->
-    <section id="youtube" class="section section-dark">
-      <div class="section-inner">
-        <h2>Latest from the Academy</h2>
-        <p class="section-intro">
-          Subscribe to Ambrosia's Occult Academy for daily tarot, astrology, and mystical guidance.
-        </p>
-        
-        <!-- YouTube Subscribe Button -->
-        <div style="text-align: center; margin-bottom: 2rem;">
-          <a href="https://www.youtube.com/@AmbrosiasOccultAcademy?sub_confirmation=1" target="_blank" class="btn primary">
-            Subscribe on YouTube
-          </a>
-        </div>
+  </header>
 
-        <!-- Latest Videos Feed -->
-        <div style="max-width: 100%; margin: 0 auto;">
-          <iframe
-            width="100%"
-            height="500"
-            src="https://www.youtube.com/embed?listType=user_uploads&list=UCviAaC0gLt932FjBfFz9AVQ&rel=0&modestbranding=1"
-            title="Ambrosia's Occult Academy — Latest Videos"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        </div>
+  <div class="jump-nav">
+    <a href="#moon-phase">🌙 Moon Phase</a>
+    <a href="#weekly-forecast">🌌 Weekly Forecast</a>
+    <a href="#horoscopes">⭐ Horoscopes</a>
+    <a href="#house-guide">🏠 House Guide</a>
+    <a href="#zodiac-guide">📖 Zodiac Guide</a>
+  </div>
 
-        <p class="small-note" style="text-align: center; margin-top: 1.5rem;">
-          🎬 Watch the latest tarot readings, astrology forecasts, and occult education live from the Academy.
-        </p>
-      </div>
-    </section>
-  <!-- ─── DAILY THEMES GRID ─────────────────────────────────────────────── -->
-  <section id="themes" class="section section-dark">
+
+  <!-- ══ MOON PHASE ══════════════════════════════════════════════════════ -->
+  <section id="moon-phase" class="section section-dark">
     <div class="section-inner">
-      <h2>Daily Themes</h2>
-      <p class="section-intro">
-        Explore the Academy one day at a time — each theme opens a different doorway into the occult.
-      </p>
-      <div class="theme-grid">
-        <a href="palmistry-sunday.html" class="theme-card">
-          <h3>Palmistry Sundays</h3>
-          <p>Lines, mounts, and the stories written in your hands.</p>
-        </a>
-        <a href="manifest-monday.html" class="theme-card">
-          <h3>Manifest, Meditate &amp; Motivate Mondays</h3>
-          <p>Rituals, affirmations, and meditations to shape your reality.</p>
-        </a>
-        <a href="tarot-tuesday.html" class="theme-card">
-          <h3>Tarot Tip Tuesdays</h3>
-          <p>Tarot tips, spreads, and a daily card to guide your path.</p>
-        </a>
-        <a href="bewitching-wednesday.html" class="theme-card">
-          <h3>Bewitching Wednesdays</h3>
-          <p>Spells, herbs, and witchcraft education for modern practitioners.</p>
-        </a>
-        <a href="astrology-thursday.html" class="theme-card">
-          <h3>Astrology Thursdays</h3>
-          <p>Zodiac insights, transits, and cosmic weather reports.</p>
-        </a>
-        <a href="freaky-friday.html" class="theme-card">
-          <h3>Freaky Fridays</h3>
-          <p>Ghosts, UFOs, cryptids, and the paranormal side of reality.</p>
-        </a>
-        <a href="spellbound-saturday.html" class="theme-card">
-          <h3>Spellbound Saturdays</h3>
-          <p>Weekly occult lessons, deep dives, and magical practice.</p>
-        </a>
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:1.25rem;">🌙 Current Moon Phase</h2>
+
+      <div class="moon-widget" id="moon-widget">
+        <div class="moon-glyph" id="moon-glyph">🌙</div>
+        <div class="moon-info">
+          <h3>Live Moon Tracker</h3>
+          <div class="moon-phase-name" id="moon-phase-name">Calculating...</div>
+          <div class="moon-desc" id="moon-desc">Loading current moon phase and energy...</div>
+          <div class="moon-illumination" id="moon-illumination"></div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>🌙 Working with the moon:</strong> The moon moves into a new zodiac sign roughly every 2.5 days,
+        shifting the emotional and intuitive energy available to all of us. The phase it's in — new, waxing,
+        full, or waning — tells you what kind of action that energy supports. New moons begin; full moons reveal;
+        waning moons release. Use this as your weekly energetic compass.
       </div>
     </div>
   </section>
 
-  <!-- ─── TAROT SECTION ─────────────────────────────────────────────────── -->
-  <section id="tarot" class="section section-dark">
+
+  <!-- ══ WEEKLY PLANETARY FORECAST (Gemini AI) ══════════════════════════ -->
+  <section id="weekly-forecast" class="section section-light">
     <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🌌 Weekly Planetary Forecast</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
+        A day-by-day look at what the planets have in store — Moon signs, major transits, and the energetic
+        theme of each day from Sunday through Saturday.
+      </p>
 
-      <!-- ── Tab switcher ─────────────────────────────────────────── -->
-      <div class="tarot-tabs">
-        <button class="tarot-tab active" onclick="switchTarotTab('pull', this)">🃏 Daily Card Pull</button>
-        <button class="tarot-tab" onclick="switchTarotTab('search', this)">🔍 Search a Card</button>
-      </div>
-
-      <!-- ── DAILY PULL ────────────────────────────────────────────── -->
-      <div id="tarot-panel-pull" class="tarot-panel">
-        <div class="tarot-card-display">
-          <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
-          <p class="tarot-label">
-            <span id="tarot-card-name">Your card will appear here</span>
-            <br />
-            <span id="tarot-card-orientation"></span>
-          </p>
-          <div id="tarot-meaning-box" class="tarot-meaning-box" style="display:none;"></div>
-          <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
-          <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
+      <div class="forecast-wrap">
+        <div class="forecast-header">
+          <h3>🌠 This Week's Cosmic Weather</h3>
+          <button class="btn secondary" onclick="generateWeeklyForecast()" id="forecast-btn"
+            style="font-size:0.82rem;padding:0.45rem 1.1rem;">
+            ✨ Generate This Week's Forecast
+          </button>
         </div>
-      </div>
-
-      <!-- ── CARD SEARCH ───────────────────────────────────────────── -->
-      <div id="tarot-panel-search" class="tarot-panel" style="display:none;">
-        <div class="tarot-search-wrap">
-          <div class="tarot-search-bar">
-            <input
-              type="text"
-              id="tarot-search-input"
-              placeholder="Type a card name — e.g. The Moon, Strength, The Tower..."
-              oninput="filterTarotCards(this.value)"
-              autocomplete="off"
-            />
+        <div class="forecast-body">
+          <div class="ai-loading" id="forecast-loading">Reading the planetary alignments for this week</div>
+          <div id="forecast-content">
+            <div class="forecast-placeholder">
+              <div class="fp-icon">🌌</div>
+              <p>Click <strong style="color:#4bb4ff;">Generate This Week's Forecast</strong> above to pull the current planetary weather — updated every Thursday with fresh cosmic insight for the week ahead.</p>
+            </div>
           </div>
-          <div id="tarot-search-results" class="tarot-search-results"></div>
-          <div id="tarot-search-detail" class="tarot-search-detail" style="display:none;"></div>
         </div>
       </div>
 
-      <div class="info-box" style="margin-top:1.5rem;">
-        <h3>Full Tarot Reading — $9.95</h3>
-        <p>
-          For $9.95, receive a full email reading tailored to your question or situation. I'll pull a spread,
-          interpret each card, and share clear, compassionate guidance.
-        </p>
-        <p class="small-note">
-          To request a full reading, email me with your question and "Full Tarot Reading" in the subject line.
-        </p>
+      <div class="tip-box">
+        <strong>💡 For Jennifer:</strong> Click "Generate This Week's Forecast" every Thursday to create fresh
+        content. The AI uses today's date to generate accurate day-by-day planetary energy for Sunday–Saturday.
+        Make sure your Gemini API key is set in the script below.
       </div>
-
-    </div><!-- /.section-inner -->
+    </div>
   </section>
 
-  <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
-  <section class="section section-light" id="birth-chart">
+
+  <!-- ══ WEEKLY HOROSCOPES (Gemini AI) ══════════════════════════════════ -->
+  <section id="horoscopes" class="section section-dark">
+    <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">⭐ Weekly Horoscopes</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
+        Select your sign for a personalized weekly horoscope covering love, energy, work, and a message
+        for the week ahead — Sunday through Saturday.
+      </p>
+
+      <div class="sign-selector-wrap">
+        <h3>✨ Choose Your Sign</h3>
+        <div class="sign-grid">
+          <button class="sign-btn" onclick="getHoroscope('Aries','♈','Mar 21 – Apr 19',this)"><span class="sign-glyph">♈</span><span class="sign-name">Aries</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Taurus','♉','Apr 20 – May 20',this)"><span class="sign-glyph">♉</span><span class="sign-name">Taurus</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Gemini','♊','May 21 – Jun 20',this)"><span class="sign-glyph">♊</span><span class="sign-name">Gemini</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Cancer','♋','Jun 21 – Jul 22',this)"><span class="sign-glyph">♋</span><span class="sign-name">Cancer</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Leo','♌','Jul 23 – Aug 22',this)"><span class="sign-glyph">♌</span><span class="sign-name">Leo</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Virgo','♍','Aug 23 – Sep 22',this)"><span class="sign-glyph">♍</span><span class="sign-name">Virgo</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Libra','♎','Sep 23 – Oct 22',this)"><span class="sign-glyph">♎</span><span class="sign-name">Libra</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Scorpio','♏','Oct 23 – Nov 21',this)"><span class="sign-glyph">♏</span><span class="sign-name">Scorpio</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Sagittarius','♐','Nov 22 – Dec 21',this)"><span class="sign-glyph">♐</span><span class="sign-name">Sagittarius</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Capricorn','♑','Dec 22 – Jan 19',this)"><span class="sign-glyph">♑</span><span class="sign-name">Capricorn</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Aquarius','♒','Jan 20 – Feb 18',this)"><span class="sign-glyph">♒</span><span class="sign-name">Aquarius</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Pisces','♓','Feb 19 – Mar 20',this)"><span class="sign-glyph">♓</span><span class="sign-name">Pisces</span></button>
+        </div>
+        <div id="horoscope-result"></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ HOUSE PLACEMENT GUIDE ══════════════════════════════════════════ -->
+  <section id="house-guide" class="section section-light">
     <div class="section-inner">
 
-      <h2 class="section-title">Birth Chart Mini‑Reading</h2>
-      <p class="section-intro">Reveal your Sun, Moon, and Rising signs through the Academy's Arcane Seal.</p>
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🏠 Birth Chart House Placement Guide</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:0.75rem;line-height:1.7;">
+        The free birth chart tool on the <a href="index.html#birth-chart" style="color:#4bb4ff;">main page</a>
+        shows your first three house placements. Use this guide to understand what each planet means
+        when it falls in your 1st, 2nd, or 3rd house. Click a house to explore its planets.
+      </p>
 
-      <!-- SVG OCCULT ACADEMY SEAL -->
-      <div class="birthchart-seal-container">
-        <svg id="academy-seal" viewBox="0 0 300 300">
-          <!-- Outer Circle -->
-          <circle cx="150" cy="150" r="140" stroke="#EF9F27" stroke-width="3" fill="none"/>
-
-          <!-- Inner Star -->
-          <polygon points="
-            150,40
-            200,110
-            260,130
-            210,190
-            220,260
-            150,230
-            80,260
-            90,190
-            40,130
-            100,110
-          " stroke="#EF9F27" stroke-width="2" fill="none"/>
-
-          <!-- 12 House Lines — drawn by JS after DOM is ready -->
-          <g id="house-lines"></g>
-
-          <!-- Glyph placeholders -->
-          <g id="glyph-layer"></g>
-        </svg>
+      <div class="tip-box">
+        <strong>💡 How to use this guide:</strong> After generating your free birth chart, note which planets
+        appear in your 1st, 2nd, and 3rd houses. Then click that house number below and find your planet
+        for a full interpretation. Each placement tells a different part of your story.
+        <br><br>
+        <strong>Ready for all 12 houses?</strong> A full birth chart reading goes much deeper —
+        <a href="services.html" style="color:#4bb4ff;">book a full reading here →</a>
       </div>
 
-      <!-- INPUT FORM -->
-      <div class="info-box">
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="birth-date">Birth Date</label>
-            <input type="date" id="birth-date" />
+      <div class="house-tabs">
+        <button class="house-tab active" onclick="showHouse(1, this)">🏠 1st House</button>
+        <button class="house-tab" onclick="showHouse(2, this)">💰 2nd House</button>
+        <button class="house-tab" onclick="showHouse(3, this)">💬 3rd House</button>
+      </div>
+
+      <!-- ── 1ST HOUSE ─────────────────────────────────────────────────── -->
+      <div class="house-panel active" id="house-panel-1">
+        <div class="house-intro-card">
+          <h3>The 1st House — The House of Self</h3>
+          <div class="house-keywords">Identity · Appearance · First Impressions · The Ascendant · How the World Sees You</div>
+          <p>The 1st House is the most personal house in the chart — it governs your physical appearance,
+          your instinctive personality, and the energy you project into the world before you even speak.
+          It is the house of the Ascendant (Rising Sign), and any planet placed here colors your entire
+          personality and how others perceive you at first meeting. Planets in the 1st house are expressed
+          openly, prominently, and often unconsciously.</p>
+        </div>
+        <div class="planet-grid">
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☀️</span><div><h4>Sun in the 1st House</h4><div class="planet-rules">Rules Leo · Vitality &amp; Identity</div></div></div>
+            <p>A powerfully confident, radiant placement. You were born to be seen. Your identity and your ego are strongly aligned — you know who you are and you project it without apology. Leadership comes naturally. You have a magnetic, warm presence that draws people to you. Your challenge is learning that your worth doesn't depend on others' recognition, because you'll naturally crave it. At your best you are the archetype of the Solar Hero — generous, vital, and fully yourself.</p>
           </div>
-          <div class="form-field">
-            <label for="birth-time">Birth Time</label>
-            <input type="time" id="birth-time" />
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">🌙</span><div><h4>Moon in the 1st House</h4><div class="planet-rules">Rules Cancer · Emotion &amp; Instinct</div></div></div>
+            <p>Your emotions are written on your face before you've formed a thought about them. You are highly sensitive, deeply intuitive, and respond to the world through feeling first. Your moods cycle visibly — people around you always know how you're doing without asking. You have a natural nurturing presence and others feel safe with you instantly. Your challenge is protecting your sensitive inner world from being overwhelmed. Your superpower is your extraordinary empathy and emotional intelligence.</p>
           </div>
-          <div class="form-field">
-            <label for="birth-location">Birth Location</label>
-            <input type="text" id="birth-location" placeholder="City, State or Country" />
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☿</span><div><h4>Mercury in the 1st House</h4><div class="planet-rules">Rules Gemini &amp; Virgo · Mind &amp; Communication</div></div></div>
+            <p>You think fast, speak fast, and make your intellectual presence felt immediately. Your mind is your most prominent feature — you're witty, articulate, and perpetually curious. People notice your intelligence right away. You process the world through ideas and language, and you can't help but comment, analyze, and communicate. Your challenge is anxiety or overthinking, since Mercury's restless energy in the 1st house never fully switches off. Your gift is the ability to connect with anyone through conversation.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♀</span><div><h4>Venus in the 1st House</h4><div class="planet-rules">Rules Taurus &amp; Libra · Love &amp; Beauty</div></div></div>
+            <p>You were born with natural charm, beauty, and grace. People are drawn to you and often don't know exactly why — it's a Venusian magnetism that operates below the surface. You have an instinct for aesthetics, harmony, and making environments and relationships beautiful. You're often physically attractive or have an unusually pleasing presence. Your challenge is a tendency to avoid conflict at the cost of your own truth. Your gift is making the people around you feel genuinely seen and valued.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♂</span><div><h4>Mars in the 1st House</h4><div class="planet-rules">Rules Aries · Action &amp; Desire</div></div></div>
+            <p>You are an immediate, forceful, physical presence. People feel your energy before you open your mouth. You are assertive, direct, and built for action — you don't wait for permission and you don't hesitate when you want something. Athletic, competitive, and courageous, this is one of the most powerful placements for drive and ambition. Your challenge is impulsiveness, a short fuse, and a tendency to dominate. Your gift is extraordinary courage and the ability to initiate things no one else will touch.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♃</span><div><h4>Jupiter in the 1st House</h4><div class="planet-rules">Rules Sagittarius · Expansion &amp; Luck</div></div></div>
+            <p>You carry an aura of abundance, optimism, and good fortune that others feel immediately. Jupiter in the 1st is one of the luckiest placements in the chart — doors open for you, people want to help you, and life tends to expand in your direction. You are generous, philosophical, and enthusiastic, with a laugh that fills the room. Your physical presence is often large — literally or energetically. Your challenge is excess, overconfidence, or spreading yourself too thin. Your gift is an unshakeable faith in life's goodness.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♄</span><div><h4>Saturn in the 1st House</h4><div class="planet-rules">Rules Capricorn · Discipline &amp; Mastery</div></div></div>
+            <p>You came into this life carrying a weight — a seriousness, a sense of responsibility, or a burden of self-doubt that you've had to work through. Saturn in the 1st often manifests as shyness, rigidity, or a heavy self-critical voice in early life. But Saturn rewards effort over time — by midlife, these people often become the most disciplined, accomplished, and respected in any room. You project authority and trustworthiness. Your challenge is learning to be gentle with yourself. Your gift is extraordinary resilience and earned wisdom.</p>
           </div>
         </div>
-        <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
       </div>
 
-      <!-- RESULTS (hidden until chart is generated) -->
-      <div id="birth-results" class="info-box" style="display:none;">
-        <h3>Your Big Three</h3>
-        <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
-        <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
-        <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
-        <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
-          🏠 <strong style="color:#d7e2ff;">Want to understand what your placements mean?</strong>
-          Visit <a href="astrology-thursday.html#house-guide" style="color:#a56bff;">Astrology Thursday</a>
-          for our House Placement Guide — covering what every planet means in your 1st, 2nd, and 3rd house.
-        </p>
-        <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
+      <!-- ── 2ND HOUSE ─────────────────────────────────────────────────── -->
+      <div class="house-panel" id="house-panel-2">
+        <div class="house-intro-card">
+          <h3>The 2nd House — The House of Value</h3>
+          <div class="house-keywords">Money · Possessions · Self-Worth · Material Security · What You Value</div>
+          <p>The 2nd House governs your relationship with the material world — money, possessions, and the
+          tangible resources you accumulate. But more deeply, it speaks to your sense of self-worth: what
+          you believe you deserve, how you earn, and what gives you a feeling of security. Planets here
+          shape your financial patterns, your relationship with your body, and the values that guide your
+          choices. The 2nd house asks: what do you truly value — and do you believe you're worth it?</p>
+        </div>
+        <div class="planet-grid">
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☀️</span><div><h4>Sun in the 2nd House</h4><div class="planet-rules">Rules Leo · Vitality &amp; Identity</div></div></div>
+            <p>Your identity is deeply tied to what you own, what you earn, and what you've built in the material world. Financial security isn't just comfort for you — it's central to your sense of self. You have a strong drive to accumulate resources and a genuine talent for recognizing value. When your finances are stable, you shine. When they're not, your confidence suffers. Your gift is a natural ability to generate income and build lasting material foundations. Your work is learning that your worth exists independently of your bank account.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">🌙</span><div><h4>Moon in the 2nd House</h4><div class="planet-rules">Rules Cancer · Emotion &amp; Instinct</div></div></div>
+            <p>Your emotional security is directly linked to financial and material security. When money is tight, your anxiety spikes. When you feel financially safe, your emotional world stabilizes. You likely have fluctuating finances that mirror your emotional cycles, and you may spend emotionally — comfort buying when stressed, then feeling guilty. Food and physical comfort are important emotional anchors for you. Your gift is an intuitive understanding of value and a deep drive to create a secure nest for yourself and those you love.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☿</span><div><h4>Mercury in the 2nd House</h4><div class="planet-rules">Rules Gemini &amp; Virgo · Mind &amp; Communication</div></div></div>
+            <p>Your mind is your primary moneymaker — you earn through your ideas, your words, your communication skills, and your analytical ability. You think about money constantly and have a quick, clever approach to financial matters. Writing, teaching, sales, media, or any field where thinking and communicating create income is naturally aligned with this placement. Your challenge is that your financial situation may be changeable or scattered, reflecting Mercury's restless nature. Your gift is the ability to find multiple income streams and spot opportunities others miss.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♀</span><div><h4>Venus in the 2nd House</h4><div class="planet-rules">Rules Taurus &amp; Libra · Love &amp; Beauty</div></div></div>
+            <p>Venus in her natural home — the 2nd house is one of Venus's strongest placements. You have a natural talent for attracting money, beautiful possessions, and material comfort. You appreciate quality over quantity and have exquisite taste. Your sense of self-worth tends to be strong and your relationship with your body and physical senses is pleasurable. You may earn through beauty, art, design, or anything that brings pleasure to others. Your challenge is indulgence and overspending. Your gift is the ability to genuinely enjoy and appreciate what you have.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♂</span><div><h4>Mars in the 2nd House</h4><div class="planet-rules">Rules Aries · Action &amp; Desire</div></div></div>
+            <p>You pursue money with fierce drive and determination. You are not passive about finances — you go after what you want and you're willing to work hard, take risks, and compete to get it. You may earn through physical effort, entrepreneurship, or fields requiring initiative and courage. Money can arrive in intense bursts and leave just as fast. Arguments about money or possessions are possible. Your challenge is impulsive spending and financial risk-taking. Your gift is extraordinary entrepreneurial energy and the courage to build something from nothing.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♃</span><div><h4>Jupiter in the 2nd House</h4><div class="planet-rules">Rules Sagittarius · Expansion &amp; Luck</div></div></div>
+            <p>One of the luckiest financial placements in astrology. Jupiter in the 2nd expands everything it touches — wealth, possessions, and self-worth all tend to grow over time with this placement. You have an abundance mindset and a genuine belief that there is enough for everyone, including you. Money tends to arrive, often unexpectedly and generously. Your challenge is excess — overspending, overindulgence, or assuming the abundance will always be there without tending it. Your gift is a natural prosperity consciousness that creates real-world wealth.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♄</span><div><h4>Saturn in the 2nd House</h4><div class="planet-rules">Rules Capricorn · Discipline &amp; Mastery</div></div></div>
+            <p>Financial lessons are among your deepest life themes. Early in life you may have experienced lack, financial restriction, or a deeply ingrained belief that money is scarce or hard to come by. Saturn here demands that you build financial security through sustained effort, discipline, and responsibility — not luck. Over time, these people often become genuinely wealthy through sheer persistence. Your challenge is scarcity thinking and over-frugality. Your gift is the ability to build lasting, rock-solid financial foundations that stand the test of time.</p>
+          </div>
+        </div>
       </div>
 
-      <!-- UPSELL -->
-      <div class="info-box upsell-box">
-        <h3>Unlock Your Full Birth Chart — $9.95</h3>
-        <p>Receive a 3‑page PDF with all 12 houses, planetary aspects, elemental balance, and personalized interpretations.</p>
-        <button class="btn secondary">Purchase Full Reading</button>
+      <!-- ── 3RD HOUSE ─────────────────────────────────────────────────── -->
+      <div class="house-panel" id="house-panel-3">
+        <div class="house-intro-card">
+          <h3>The 3rd House — The House of Communication</h3>
+          <div class="house-keywords">Communication · Siblings · Short Journeys · Learning · The Everyday Mind</div>
+          <p>The 3rd House governs how you think, speak, write, and exchange ideas in your immediate
+          environment. It rules your relationship with siblings and neighbors, your early education,
+          short-distance travel, and the constant mental chatter of daily life. Planets here shape your
+          communication style, your learning preferences, and the way you process and share information.
+          The 3rd house asks: how do you think, and how do you make yourself understood?</p>
+        </div>
+        <div class="planet-grid">
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☀️</span><div><h4>Sun in the 3rd House</h4><div class="planet-rules">Rules Leo · Vitality &amp; Identity</div></div></div>
+            <p>Your identity is expressed through your mind, your voice, and your ideas. You are a natural communicator — writing, speaking, teaching, or sharing information in some form is central to who you are. You shine in intellectual environments and are probably the person in any room who has something interesting to say. Siblings or early neighbors may have played a significant role in shaping who you became. Your challenge is mental restlessness or talking more than listening. Your gift is a brilliant, expressive mind that can make any subject come alive.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">🌙</span><div><h4>Moon in the 3rd House</h4><div class="planet-rules">Rules Cancer · Emotion &amp; Instinct</div></div></div>
+            <p>You think and speak with your feelings. Your communication style is warm, nurturing, and deeply intuitive — you say the right thing at the right moment because you feel what others need to hear. Your mind is emotionally driven, which makes you a gifted storyteller and empathic listener. You may have a changeable mind, shifting opinions as your feelings shift. Relationships with siblings are emotionally significant. Your challenge is emotional bias in thinking. Your gift is the ability to connect deeply through words and to make others feel truly heard.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☿</span><div><h4>Mercury in the 3rd House</h4><div class="planet-rules">Rules Gemini &amp; Virgo · Mind &amp; Communication</div></div></div>
+            <p>Mercury rules the 3rd house, so this is one of its strongest placements. Your mind is razor-sharp, quick, and endlessly curious. You communicate with precision and wit, and you probably learned to read or write early and easily. You have a gift for languages, research, writing, and any form of information gathering and sharing. You may have too many thoughts running at once — the challenge is focus and follow-through. Your gift is one of the finest minds in the zodiac for connecting ideas, gathering information, and sharing it brilliantly.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♀</span><div><h4>Venus in the 3rd House</h4><div class="planet-rules">Rules Taurus &amp; Libra · Love &amp; Beauty</div></div></div>
+            <p>You communicate with charm, elegance, and a natural gift for saying things beautifully. People enjoy listening to you — your voice may be literally pleasing, and your choice of words tends toward the poetic. You have a love of literature, beautiful language, art, and aesthetically-driven learning. Relationships with siblings are generally harmonious and loving. Short trips bring pleasure. Your challenge is avoiding difficult conversations in favor of keeping things pleasant. Your gift is an extraordinary ability to communicate love, beauty, and harmony through words.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♂</span><div><h4>Mars in the 3rd House</h4><div class="planet-rules">Rules Aries · Action &amp; Desire</div></div></div>
+            <p>You think fast, argue brilliantly, and have a mind that cuts straight to the point. You're direct in communication — sometimes bluntly so — and you don't shy away from intellectual debate or confrontation. You defend your ideas with passion and don't back down easily. Siblings may have been competitive or conflict-prone. Your writing or speaking has an urgency and fire to it that compels attention. Your challenge is impatience, argumentativeness, or a tendency to communicate combatively. Your gift is a powerful, persuasive voice that motivates and galvanizes others.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♃</span><div><h4>Jupiter in the 3rd House</h4><div class="planet-rules">Rules Sagittarius · Expansion &amp; Luck</div></div></div>
+            <p>Your mind is expansive, optimistic, and drawn to the big picture. You think philosophically, speak inspirationally, and have a gift for making people feel uplifted and enlightened after a conversation with you. Learning is one of your greatest joys — you'll be a student of something for your entire life. Short trips tend to be fortunate and stimulating. Siblings are likely beneficial influences. Your challenge is overextending intellectually or promising more than you deliver. Your gift is a brilliant, generous mind that expands everyone it touches.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♄</span><div><h4>Saturn in the 3rd House</h4><div class="planet-rules">Rules Capricorn · Discipline &amp; Mastery</div></div></div>
+            <p>Communication and learning may not have come easily early in life — you may have struggled in school, felt intellectually inadequate, or had difficult relationships with siblings. Saturn demands mastery through effort, and 3rd house Saturn people often become extraordinarily disciplined thinkers and communicators over time. You choose your words carefully — sometimes too carefully, leading to silence when speaking up is needed. Your challenge is self-censorship and mental self-doubt. Your gift is the ability to communicate with rare precision, depth, and authority earned through years of careful thought.</p>
+          </div>
+        </div>
       </div>
 
     </div>
   </section>
 
 
-   <!-- ─── INLINE STYLES for Freaky Friday additions ─────────────────────── -->
-   <!--
-     ═══════════════════════════════════════════════════════════════════════════
-     LIVE CAM PREVIEW — drop this into index.html to REPLACE your existing
-     #freaky section's cam grid, OR paste it as a new section just above #freaky
-     ═══════════════════════════════════════════════════════════════════════════
-   -->
-
-
-   <!-- ─── LIVE CAM PREVIEW SECTION ─────────────────────────────────────────── -->
-   <section id="live-cams" class="section section-dark">
-     <div class="section-inner">
-
-       <h2>🔴 Live Paranormal Cams</h2>
-       <p class="section-intro">
-         Watch live, 24/7 — from haunted libraries to Loch Ness to the night sky above. You never know what might appear.
-         <br><a href="freaky-friday.html" style="color:#a56bff;">👁 Visit Freaky Fridays for more cams, stories &amp; ghost story submissions →</a>
-       </p>
-
-       <div class="cam-preview-grid">
-
-         <!-- CAM 1: GHOST — Willard Library Basement Hall -->
-         <div class="cam-preview-card">
-           <div class="cam-preview-header">
-             <span>👻</span>
-             <h3>Willard Library — Basement Hall</h3>
-             <span class="cam-live-dot">LIVE</span>
-           </div>
-           <div class="cam-embed-wrap">
-             <iframe
-               src="https://g1.ipcamlive.com/player/player.php?alias=63f79f7e24b28&skin=white&autoplay=1&mute=1&disablezoombutton=1&disableframecapture=1&disabletimelapseplayer=1&disablestorageplayer=1&disabledownloadbutton=1&disablenavigation=1"
-               title="Willard Library Basement Hall Ghost Cam"
-               allow="autoplay"
-               allowfullscreen>
-             </iframe>
-           </div>
-           <div class="cam-preview-footer">
-             Evansville, Indiana — Home of the <em>Grey Lady</em>, haunting this Victorian library since the 1930s.
-             <br><a href="freaky-friday.html#ghost-cams">More ghost cams &amp; the full story →</a>
-           </div>
-         </div>
-
-         <!-- CAM 2: CRYPTID — Loch Ness, Clansman Hotel -->
-         <div class="cam-preview-card">
-           <div class="cam-preview-header">
-             <span>🐉</span>
-             <h3>Loch Ness — Nessie Watch</h3>
-             <span class="cam-live-dot">LIVE</span>
-           </div>
-           <div class="cam-embed-wrap">
-             <iframe
-               src="https://g0.ipcamlive.com/player/player.php?alias=clansmanhotel&autoplay=1&mute=1"
-               title="Loch Ness Live Cam — Clansman Hotel"
-               allow="autoplay"
-               allowfullscreen>
-             </iframe>
-           </div>
-           <div class="cam-preview-footer">
-             Scottish Highlands — Watch the dark waters of Loch Ness 24/7 for Scotland's most famous mystery.
-             <br><a href="freaky-friday.html#cryptid-cams">More Nessie cams &amp; the legend →</a>
-           </div>
-         </div>
-
-         <!-- CAM 3: UFO — HauntTV 24/7 UFO livestream (YouTube) -->
-         <div class="cam-preview-card">
-           <div class="cam-preview-header">
-             <span>🛸</span>
-             <h3>UFO &amp; Alien Encounters — Live</h3>
-             <span class="cam-live-dot">LIVE</span>
-           </div>
-           <div class="cam-embed-wrap">
-             <iframe
-               src="https://www.youtube.com/embed/dsas_-2QsdY?autoplay=0&rel=0&modestbranding=1"
-               title="24/7 UFO Sightings and Alien Encounters Live Stream"
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-               allowfullscreen>
-             </iframe>
-           </div>
-           <div class="cam-preview-footer">
-             HauntTV's round-the-clock UFO and alien encounter stream. Scan the skies for anomalous lights and unexplained craft.
-             <br><a href="freaky-friday.html#ufo-cams">More UFO cams &amp; sighting history →</a>
-           </div>
-         </div>
-
-       </div><!-- /.cam-preview-grid -->
-
-       <div class="cam-section-cta">
-         <a href="freaky-friday.html" class="btn secondary">👁 See All Cams on Freaky Fridays</a>
-       </div>
-
-     </div>
-   </section>
-
-     /* ── Ghost Story Submission Form ────────────────────────────────────── */
-     .ghost-form-wrap {
-       background: rgba(255,255,255,0.03);
-       border: 1px solid rgba(239,159,39,0.2);
-       border-radius: 14px;
-       padding: 2rem;
-       margin: 2rem 0;
-     }
-
-     .ghost-form-wrap h3 {
-       margin-top: 0;
-       color: #EF9F27;
-     }
-
-     .ghost-form-grid {
-       display: grid;
-       grid-template-columns: 1fr 1fr;
-       gap: 1rem;
-       margin-bottom: 1rem;
-     }
-
-     @media (max-width: 600px) {
-       .ghost-form-grid { grid-template-columns: 1fr; }
-     }
-
-     .ghost-form-field {
-       display: flex;
-       flex-direction: column;
-       gap: 0.35rem;
-     }
-
-     .ghost-form-field.full-width {
-       grid-column: 1 / -1;
-     }
-
-     .ghost-form-field label {
-       font-size: 0.82rem;
-       color: rgba(255,255,255,0.6);
-       letter-spacing: 0.04em;
-     }
-
-     .ghost-form-field input,
-     .ghost-form-field select,
-     .ghost-form-field textarea {
-       background: rgba(0,0,0,0.35);
-       border: 1px solid rgba(239,159,39,0.25);
-       border-radius: 8px;
-       color: #fff;
-       padding: 0.6rem 0.85rem;
-       font-size: 0.95rem;
-       font-family: inherit;
-       outline: none;
-       transition: border-color 0.2s;
-       resize: vertical;
-     }
-
-     .ghost-form-field input:focus,
-     .ghost-form-field select:focus,
-     .ghost-form-field textarea:focus {
-       border-color: #EF9F27;
-     }
-
-     .ghost-form-field select option {
-       background: #1a1a2e;
-     }
-
-     .ghost-form-field input::placeholder,
-     .ghost-form-field textarea::placeholder {
-       color: rgba(255,255,255,0.25);
-     }
-
-     .ghost-form-consent {
-       display: flex;
-       align-items: flex-start;
-       gap: 0.6rem;
-       font-size: 0.8rem;
-       color: rgba(255,255,255,0.5);
-       margin-bottom: 1.25rem;
-       cursor: pointer;
-     }
-
-     .ghost-form-consent input[type="checkbox"] {
-       margin-top: 2px;
-       accent-color: #EF9F27;
-       width: 15px;
-       height: 15px;
-       flex-shrink: 0;
-     }
-
-     .ghost-form-actions {
-       display: flex;
-       align-items: center;
-       gap: 1rem;
-       flex-wrap: wrap;
-     }
-
-     .ghost-form-or {
-       color: rgba(255,255,255,0.3);
-       font-size: 0.8rem;
-     }
-
-     .ghost-form-email-link {
-       font-size: 0.82rem;
-       color: #EF9F27;
-       text-decoration: none;
-       border-bottom: 1px dotted #EF9F27;
-     }
-
-     /* Success / error messages */
-     #ghost-form-message {
-       display: none;
-       padding: 0.75rem 1rem;
-       border-radius: 8px;
-       margin-top: 1rem;
-       font-size: 0.9rem;
-     }
-
-     #ghost-form-message.success {
-       background: rgba(39,174,96,0.15);
-       border: 1px solid rgba(39,174,96,0.4);
-       color: #2ecc71;
-     }
-
-     #ghost-form-message.error {
-       background: rgba(192,57,43,0.15);
-       border: 1px solid rgba(192,57,43,0.4);
-       color: #e74c3c;
-     }
-
-
-   <!-- ─── FREAKY FRIDAYS SECTION ─────────────────────────────────────────── -->
-   <section id="freaky" class="section section-dark">
-     <div class="section-inner">
-
-       <h2>👻 Freaky Fridays</h2>
-       <p class="section-intro">
-         Ghost stories, UFOs, cryptids, and all the things that go bump in the night.
-         Watch the cams, share your story, and join Jennifer every Friday for a deep dive into the unexplained.
-       </p>
-
-       <!-- ── LIVE CAMS ─────────────────────────────────────────────────── -->
-       <h3 style="color:#EF9F27; margin-bottom:0.25rem;">🔴 Live Paranormal Cams</h3>
-       <p style="color:rgba(255,255,255,0.5); font-size:0.85rem; margin-top:0; margin-bottom:1rem;">
-         Watch 24/7 — you never know what might appear. Keep your eyes peeled and drop a comment if you catch something!
-       </p>
-
-       <div class="cam-grid">
-
-         <!-- CAM 1: Ghost Hunters 24/7 Live Stream -->
-         <div class="cam-card">
-           <div class="cam-card-header">
-             <span>👻</span>
-             <h3>Ghost Hunters — 24/7 Live</h3>
-             <span class="cam-live-badge">● LIVE</span>
-           </div>
-           <iframe
-             class="cam-embed"
-             src="https://www.youtube.com/embed/lX32OA6wGvg?autoplay=0&rel=0"
-             title="Ghost Hunters 24/7 Live Stream"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-             allowfullscreen>
-           </iframe>
-           <div class="cam-card-footer">
-             Paranormal Pioneers investigate haunted locations around the clock. Watch for shadow figures, EVP spikes, and unexplained movement.
-           </div>
-         </div>
-
-         <!-- CAM 2: UFO / Sky Watch -->
-         <div class="cam-card">
-           <div class="cam-card-header">
-             <span>🛸</span>
-             <h3>UFO &amp; Alien Encounters — Live</h3>
-             <span class="cam-live-badge">● LIVE</span>
-           </div>
-           <iframe
-             class="cam-embed"
-             src="https://www.youtube.com/embed/dsas_-2QsdY?autoplay=0&rel=0"
-             title="24/7 Real UFO Sightings Live Stream"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-             allowfullscreen>
-           </iframe>
-           <div class="cam-card-footer">
-             HauntTV's round-the-clock UFO and alien encounter stream. Scan the skies for anomalous lights, craft formations, and close encounters.
-           </div>
-         </div>
-
-         <!-- CAM 3: Loch Ness / Cryptid Cam -->
-         <div class="cam-card">
-           <div class="cam-card-header">
-             <span>🐉</span>
-             <h3>Loch Ness — Nessie Watch</h3>
-             <span class="cam-live-badge">● LIVE</span>
-           </div>
-           <iframe
-             class="cam-embed"
-             src="https://www.youtube.com/embed/live_stream?channel=UCw_ySKg9iYcTmytDtT-LW2Q&autoplay=0&rel=0"
-             title="Loch Ness Live Cam — Nessie on the Net"
-             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-             allowfullscreen>
-           </iframe>
-           <div class="cam-card-footer">
-             Scotland's officially original Loch Ness live cam. Watch the dark, mysterious waters 24/7 — Nessie has been spotted here for over 30 years of streaming.
-           </div>
-         </div>
-
-         <!-- CAM 4: Creepy Woods / Night Cam — Coming Soon placeholder -->
-         <div class="cam-card">
-           <div class="cam-card-header">
-             <span>🌲</span>
-             <h3>Creepy Woods Night Cam</h3>
-             <span class="cam-soon-badge">COMING SOON</span>
-           </div>
-           <div class="cam-coming-soon">
-             <span class="cam-icon">🌑</span>
-             <span>Night-vision forest cam launching soon</span>
-             <span style="font-size:0.78rem; opacity:0.6;">Jennifer is scouting locations — possibly a Nevada desert night-sky setup!</span>
-             <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">Follow on YouTube for updates →</a>
-           </div>
-           <div class="cam-card-footer">
-             Stay tuned — subscribe to the Academy's YouTube channel so you're first to know when the woods cam goes live.
-           </div>
-         </div>
-
-       </div><!-- /.cam-grid -->
-
-       <p class="small-note" style="margin-bottom:2.5rem;">
-         📡 Cams are third-party YouTube streams and may occasionally go offline. If a feed isn't loading, click the video title to watch directly on YouTube.
-         Know of a great paranormal livestream we should feature? Email us with the link!
-       </p>
-
-       <!-- ── GHOST STORY SUBMISSION FORM ────────────────────────────────── -->
-       <h3 style="color:#EF9F27; margin-bottom:0.25rem;">📖 Share Your Ghost Story</h3>
-       <p style="color:rgba(255,255,255,0.5); font-size:0.85rem; margin-top:0; margin-bottom:1rem;">
-         Have you experienced something you can't explain? A haunting, a sighting, a strange encounter?
-         Freaky Fridays is where your stories come to life — Jennifer reads every submission and may feature yours on the show!
-       </p>
-
-       <div class="ghost-form-wrap">
-         <h3>✉️ Submit Your Story</h3>
-
-       
-         <form
-           id="ghost-story-form"
-           action="https://formspree.io/f/YOUR_FORMSPREE_ID"
-           method="POST">
-
-           <div class="ghost-form-grid">
-
-             <div class="ghost-form-field">
-               <label for="gs-name">Your Name <span style="color:#EF9F27">*</span></label>
-               <input type="text" id="gs-name" name="name" placeholder="First name or nickname" required />
-             </div>
-
-             <div class="ghost-form-field">
-               <label for="gs-email">Email Address <span style="color:#EF9F27">*</span></label>
-               <input type="email" id="gs-email" name="email" placeholder="so Jennifer can reply to you" required />
-             </div>
-
-             <div class="ghost-form-field">
-               <label for="gs-location">Where Did This Happen?</label>
-               <input type="text" id="gs-location" name="location" placeholder="City, State / Country (optional)" />
-             </div>
-
-             <div class="ghost-form-field">
-               <label for="gs-type">Type of Experience</label>
-               <select id="gs-type" name="experience_type">
-                 <option value="">— Select one —</option>
-                 <option value="ghost">👻 Ghost / Apparition</option>
-                 <option value="ufo">🛸 UFO / Unexplained Light</option>
-                 <option value="cryptid">🐾 Cryptid / Strange Creature</option>
-                 <option value="shadow">🌑 Shadow Figure / Dark Presence</option>
-                 <option value="evp">🎙️ EVP / Unexplained Sound</option>
-                 <option value="dream">🌙 Prophetic Dream / Vision</option>
-                 <option value="poltergeist">🔦 Poltergeist / Moving Objects</option>
-                 <option value="other">✨ Other / Hard to Explain</option>
-               </select>
-             </div>
-
-             <div class="ghost-form-field full-width">
-               <label for="gs-title">Story Title <span style="color:#EF9F27">*</span></label>
-               <input type="text" id="gs-title" name="story_title" placeholder="Give your story a spooky title..." required />
-             </div>
-
-             <div class="ghost-form-field full-width">
-               <label for="gs-story">Your Story <span style="color:#EF9F27">*</span></label>
-               <textarea
-                 id="gs-story"
-                 name="story"
-                 rows="8"
-                 placeholder="Tell us everything... the more detail the better. What did you see, hear, or feel? What time was it? Were you alone? What happened after?"
-                 required></textarea>
-             </div>
-
-           </div><!-- /.ghost-form-grid -->
-
-           <!-- Hidden fields Formspree uses -->
-           <input type="hidden" name="_subject" value="🕯️ New Freaky Friday Story Submission" />
-           <input type="text" name="_gotcha" style="display:none" /> <!-- honeypot spam trap -->
-
-           <label class="ghost-form-consent">
-             <input type="checkbox" name="consent" required />
-             I give Ambrosia's Occult Academy permission to share my story on YouTube, social media, or the website.
-             I understand my email will never be shared publicly.
-           </label>
-
-           <div class="ghost-form-actions">
-             <button type="submit" class="btn secondary">🕯️ Submit My Story</button>
-             <span class="ghost-form-or">or</span>
-             <a
-               href="mailto:?subject=Freaky%20Friday%20Story&body=Name%3A%0ALocation%3A%0AStory%3A%0A"
-               class="ghost-form-email-link">
-               📧 Email your story directly
-             </a>
-           </div>
-
-           <div id="ghost-form-message"></div>
-
-         </form>
-       </div><!-- /.ghost-form-wrap -->
-
-       <a href="freaky-friday.html" class="btn outline">👁️ Visit the Full Freaky Fridays Page</a>
-
-     </div><!-- /.section-inner -->
-   </section>
-
-  <!-- ─── FUTURE SHOP ───────────────────────────────────────────────────── -->
-  <section id="shop" class="section section-dark">
+  <!-- ══ ZODIAC GUIDE ════════════════════════════════════════════════════ -->
+  <section id="zodiac-guide" class="section section-dark">
     <div class="section-inner">
-      <h2>Future Apothecary &amp; Candle Shop</h2>
-      <p class="section-intro">
-        Coming soon: hand‑poured candles, spell tools, and celestial creations aligned with each zodiac sign.
-      </p>
-      <div class="shop-grid">
-        <div class="info-box">
-          <h3>Zodiac Candles</h3>
-          <p>
-            Soy candles crafted for each sign — with colors, scents, and gemstone chips chosen to match your cosmic energy.
-          </p>
-        </div>
-        <div class="info-box">
-          <h3>Spell Candles</h3>
-          <p>
-            Intention‑based candles dressed with herbs, oils, and crystals to support your rituals and manifestations.
-          </p>
-        </div>
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">📖 The 12 Signs — Quick Reference</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:0.25rem;">A permanent reference for all 12 signs — element, ruler, modality, and core essence.</p>
+      <div class="zodiac-mini-grid">
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♈</span><div><h4>Aries</h4><div class="z-dates">Mar 21 – Apr 19</div></div></div><div class="z-keywords">Fire · Mars · Cardinal</div><p>The pioneer. Bold, courageous, fiercely independent. Acts first, reflects later. Natural leader fuelled by instinct and desire.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♉</span><div><h4>Taurus</h4><div class="z-dates">Apr 20 – May 20</div></div></div><div class="z-keywords">Earth · Venus · Fixed</div><p>The builder. Sensual, loyal, and deeply reliable. Creates beauty and security. Resistant to change; unshakeable when committed.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♊</span><div><h4>Gemini</h4><div class="z-dates">May 21 – Jun 20</div></div></div><div class="z-keywords">Air · Mercury · Mutable</div><p>The communicator. Witty, curious, endlessly adaptable. Lives in the world of ideas. Can see every angle — challenge is choosing one.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♋</span><div><h4>Cancer</h4><div class="z-dates">Jun 21 – Jul 22</div></div></div><div class="z-keywords">Water · Moon · Cardinal</div><p>The nurturer. Deeply intuitive, protective, and emotionally intelligent. Home and family are everything. Feels everything deeply.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♌</span><div><h4>Leo</h4><div class="z-dates">Jul 23 – Aug 22</div></div></div><div class="z-keywords">Fire · Sun · Fixed</div><p>The sovereign. Radiant, generous, born to lead and inspire. Rules the heart. Thrives in the spotlight; withers without recognition.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♍</span><div><h4>Virgo</h4><div class="z-dates">Aug 23 – Sep 22</div></div></div><div class="z-keywords">Earth · Mercury · Mutable</div><p>The healer. Analytical, devoted, deeply service-oriented. Notices everything. Improves everything they touch. Greatest gift: discernment.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♎</span><div><h4>Libra</h4><div class="z-dates">Sep 23 – Oct 22</div></div></div><div class="z-keywords">Air · Venus · Cardinal</div><p>The diplomat. Graceful, fair-minded, relational. Seeks beauty and balance in all things. Struggles to choose; excels at creating harmony.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♏</span><div><h4>Scorpio</h4><div class="z-dates">Oct 23 – Nov 21</div></div></div><div class="z-keywords">Water · Pluto · Fixed</div><p>The transformer. Intense, perceptive, magnetically powerful. Goes where others won't. Sees what others can't. Rises from every ending.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♐</span><div><h4>Sagittarius</h4><div class="z-dates">Nov 22 – Dec 21</div></div></div><div class="z-keywords">Fire · Jupiter · Mutable</div><p>The seeker. Philosophical, adventurous, radiantly optimistic. Chases truth and the horizon. Expansive mind, restless spirit.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♑</span><div><h4>Capricorn</h4><div class="z-dates">Dec 22 – Jan 19</div></div></div><div class="z-keywords">Earth · Saturn · Cardinal</div><p>The architect. Disciplined, ambitious, quietly powerful. Builds empires through patience and integrity. Mastery is the only goal.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♒</span><div><h4>Aquarius</h4><div class="z-dates">Jan 20 – Feb 18</div></div></div><div class="z-keywords">Air · Uranus · Fixed</div><p>The visionary. Original, humanitarian, intellectually brilliant. Lives in the future. Fights for the collective. Fiercely individual.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♓</span><div><h4>Pisces</h4><div class="z-dates">Feb 19 – Mar 20</div></div></div><div class="z-keywords">Water · Neptune · Mutable</div><p>The mystic. Compassionate, intuitive, spiritually gifted. Dissolves boundaries and swims in feeling. Greatest gift: unconditional love.</p></div>
       </div>
-      <p class="small-note">
-        Check back soon or follow my YouTube channel for launch updates.
-      </p>
     </div>
   </section>
 
-  <!-- ─── CONTACT / FOOTER ──────────────────────────────────────────────── -->
-  <footer id="contact" class="footer">
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
     <div class="section-inner">
-      <h2>Contact &amp; Links</h2>
-      <p>
-        For readings, collaborations, or questions, reach out and let's connect.
-      </p>
+      <h2>More from the Academy</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:1rem 0 1.5rem;">
+        <a href="manifest-monday.html"      class="btn outline" style="font-size:0.82rem;">🌙 Manifest Monday</a>
+        <a href="tarot-tuesday.html"        class="btn outline" style="font-size:0.82rem;">🃏 Tarot Tuesday</a>
+        <a href="bewitching-wednesday.html" class="btn outline" style="font-size:0.82rem;">🌿 Bewitching Wednesday</a>
+        <a href="freaky-friday.html"        class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
+        <a href="spellbound-saturday.html"  class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
+        <a href="palmistry-sunday.html"     class="btn outline" style="font-size:0.82rem;">🤲 Palmistry Sunday</a>
+        <a href="services.html"             class="btn primary"  style="font-size:0.82rem;">✨ Book a Reading</a>
+      </div>
       <ul class="footer-links">
         <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
-        <li><strong>Location:</strong> Las Vegas, Nevada, United States</li>
-     <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
+        <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
       </ul>
-      <p class="footer-copy">
-        &copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.
-      </p>
+      <p style="margin-top:1rem;"><a href="index.html" class="btn outline" style="font-size:0.85rem;">← Back to Main Site</a></p>
+      <p class="footer-copy">&copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.</p>
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       SCRIPTS — placed at end of body so the DOM is fully loaded first
-  ════════════════════════════════════════════════════════════════════════ -->
-  <script>
 
-    // ── Copyright year ──────────────────────────────────────────────────────
+  <!-- ══ SCRIPTS ════════════════════════════════════════════════════════ -->
+  <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    // ── Replace with your Gemini API key from https://aistudio.google.com/app/apikey ──
+    const GEMINI_API_KEY = "AQ.Ab8RN6JwMdQf__VuvbZJlKGN_YRm_Gv-gGvC3a2PwAEJhMmNjg";
 
-    /* =====================================================================
-       TAROT — deck data with upright + reversed meanings
-    ===================================================================== */
-    const tarotDeck = [
-      { name: "The Fool",           numeral: "0",     image: "images/tarot/fool.png",
-        upright:  "New beginnings, spontaneity, a leap of faith, innocence, free spirit, adventure.",
-        reversed: "Recklessness, risk-taking without thought, naivety, holding back out of fear." },
-      { name: "The Magician",       numeral: "I",     image: "images/tarot/magician.png",
-        upright:  "Willpower, skill, resourcefulness, manifestation, inspired action, concentration.",
-        reversed: "Manipulation, poor planning, untapped talents, trickery, illusion." },
-      { name: "The High Priestess", numeral: "II",    image: "images/tarot/high-priestess.png",
-        upright:  "Intuition, sacred knowledge, divine feminine, the subconscious, mystery, inner knowing.",
-        reversed: "Secrets, disconnection from intuition, withdrawal, repressed feelings, surface knowledge." },
-      { name: "The Empress",        numeral: "III",   image: "images/tarot/empress.png",
-        upright:  "Femininity, beauty, nature, nurturing, abundance, fertility, sensuality, creativity.",
-        reversed: "Creative block, dependence on others, smothering, emptiness, neglect of self." },
-      { name: "The Emperor",        numeral: "IV",    image: "images/tarot/emperor.png",
-        upright:  "Authority, structure, control, fatherhood, solid foundation, discipline, leadership.",
-        reversed: "Domination, rigidity, inflexibility, loss of control, abuse of power, obstruction." },
-      { name: "The Hierophant",     numeral: "V",     image: "images/tarot/hierophant.png",
-        upright:  "Tradition, conformity, morality, ethics, spiritual wisdom, institutions, mentorship.",
-        reversed: "Personal belief systems, freedom, challenging tradition, unconventionality, rebellion." },
-      { name: "The Lovers",         numeral: "VI",    image: "images/tarot/lovers.png",
-        upright:  "Love, harmony, relationships, values alignment, choices, partnerships, deep connection.",
-        reversed: "Self-love deficit, disharmony, imbalance, misalignment of values, poor decisions." },
-      { name: "The Chariot",        numeral: "VII",   image: "images/tarot/chariot.png",
-        upright:  "Control, willpower, victory, determination, ambition, direction, hard-won success.",
-        reversed: "Aggression, no direction, scattered energy, defeat, lack of self-control, opposition." },
-      { name: "Strength",           numeral: "VIII",  image: "images/tarot/strength.png",
-        upright:  "Courage, persuasion, influence, compassion, inner strength, patience, soft power.",
-        reversed: "Inner conflict, self-doubt, low energy, raw emotion overwhelming reason, cowardice." },
-      { name: "The Hermit",         numeral: "IX",    image: "images/tarot/hermit.png",
-        upright:  "Soul-searching, introspection, solitude, inner guidance, contemplation, withdrawal.",
-        reversed: "Isolation, loneliness, withdrawal from the world, lost, rejection of guidance." },
-      { name: "Wheel of Fortune",   numeral: "X",     image: "images/tarot/wheel-of-fortune.png",
-        upright:  "Good luck, karma, life cycles, destiny, a turning point, fortune, synchronicity.",
-        reversed: "Bad luck, resistance to change, breaking cycles, clinging to control, setbacks." },
-      { name: "Justice",            numeral: "XI",    image: "images/tarot/justice.png",
-        upright:  "Justice, fairness, truth, cause and effect, law, accountability, integrity.",
-        reversed: "Unfairness, dishonesty, lack of accountability, avoidance of truth, legal complications." },
-      { name: "The Hanged Man",     numeral: "XII",   image: "images/tarot/hanged-man.png",
-        upright:  "Surrender, new perspectives, pause, letting go, sacrifice, suspension, enlightenment.",
-        reversed: "Delays, resistance, stalling, indecision, avoiding sacrifice, martyrdom." },
-      { name: "Death",              numeral: "XIII",  image: "images/tarot/death.png",
-        upright:  "Endings, change, transformation, transition, letting go, the inevitable, new cycles.",
-        reversed: "Resistance to change, inability to move on, stagnation, decay, personal transformation delayed." },
-      { name: "Temperance",         numeral: "XIV",   image: "images/tarot/temperance.png",
-        upright:  "Balance, moderation, patience, purpose, meaning, alchemy, divine timing, flow.",
-        reversed: "Imbalance, excess, lack of long-term vision, re-alignment needed, self-indulgence." },
-      { name: "The Devil",          numeral: "XV",    image: "images/tarot/devil.png",
-        upright:  "Shadow self, attachment, addiction, restriction, materialism, bondage, sexuality.",
-        reversed: "Releasing limiting beliefs, exploring darkness, detachment, freedom, reclaiming power." },
-      { name: "The Tower",          numeral: "XVI",   image: "images/tarot/tower.png",
-        upright:  "Sudden change, upheaval, chaos, revelation, awakening, the necessary destruction of false structures.",
-        reversed: "Personal transformation, fear of change, averting disaster, delaying the inevitable." },
-      { name: "The Star",           numeral: "XVII",  image: "images/tarot/star.png",
-        upright:  "Hope, faith, purpose, renewal, spirituality, serenity, inspiration, healing after hardship.",
-        reversed: "Lack of faith, despair, disconnection, discouragement, creative blocks." },
-      { name: "The Moon",           numeral: "XVIII", image: "images/tarot/moon.png",
-        upright:  "Illusion, fear, the unconscious, intuition, confusion, complexity, the hidden self.",
-        reversed: "Release of fear, repressed emotion coming to surface, confusion lifting, inner confusion." },
-      { name: "The Sun",            numeral: "XIX",   image: "images/tarot/sun.png",
-        upright:  "Positivity, fun, warmth, success, vitality, joy, clarity, confidence, optimism.",
-        reversed: "Temporary depression, lack of success, inner child work needed, overly optimistic." },
-      { name: "Judgement",          numeral: "XX",    image: "images/tarot/judgement.png",
-        upright:  "Judgement, rebirth, inner calling, absolution, awakening, reflection, reckoning.",
-        reversed: "Self-doubt, refusal of self-examination, ignoring the call, harsh self-judgement." },
-      { name: "The World",          numeral: "XXI",   image: "images/tarot/world.png",
-        upright:  "Completion, integration, accomplishment, travel, the end of a major life cycle, wholeness.",
-        reversed: "Seeking closure, incomplete goals, short-cuts, delays in completion." }
-    ];
+    const today     = new Date();
+    const weekLabel = today.toLocaleDateString("en-US", { month:"long", day:"numeric", year:"numeric" });
 
-    // ── Tab switching ───────────────────────────────────────────────────────
-    function switchTarotTab(tab, el) {
-      document.querySelectorAll('.tarot-tab').forEach(t => t.classList.remove('active'));
-      el.classList.add('active');
-      document.getElementById('tarot-panel-pull').style.display   = tab === 'pull'   ? '' : 'none';
-      document.getElementById('tarot-panel-search').style.display  = tab === 'search' ? '' : 'none';
-      if (tab === 'search') {
-        filterTarotCards('');
-        setTimeout(() => document.getElementById('tarot-search-input').focus(), 50);
-      }
+    // ── Get Sunday of current week ──────────────────────────────────────
+    function getWeekSunday() {
+      const d = new Date(today);
+      d.setDate(d.getDate() - d.getDay());
+      return d;
+    }
+    function formatDate(d) {
+      return d.toLocaleDateString("en-US", { month:"short", day:"numeric" });
     }
 
-    // ── Pull Daily Card ─────────────────────────────────────────────────────
-    function pullDailyCard() {
-      const card       = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
-      const isReversed = Math.random() < 0.5;
+    // ─────────────────────────────────────────────────────────────────────
+    // MOON PHASE CALCULATOR
+    // ─────────────────────────────────────────────────────────────────────
+    function getMoonPhase() {
+      const knownNew  = new Date("2000-01-06T18:14:00Z");
+      const synodicMs = 29.53058867 * 24 * 60 * 60 * 1000;
+      const elapsed   = today - knownNew;
+      let   age       = (elapsed % synodicMs) / synodicMs;
+      if (age < 0) age += 1;
+      const illumination = Math.round(
+        age < 0.5
+          ? (1 - Math.cos(2 * Math.PI * age)) / 2 * 100
+          : (1 - Math.cos(2 * Math.PI * age)) / 2 * 100
+      );
 
-      const img         = document.getElementById("tarot-card-image");
-      const nameEl      = document.getElementById("tarot-card-name");
-      const orientEl    = document.getElementById("tarot-card-orientation");
-      const displayArea = document.querySelector(".tarot-card-display");
-      const meaningBox  = document.getElementById("tarot-meaning-box");
+      let phase, glyph, desc;
+      if      (age < 0.034) { phase = "New Moon";          glyph = "🌑"; desc = "A time of new beginnings, planting intentions, and stepping into fresh cycles. The veil between worlds is thin. Set your most important intentions tonight."; }
+      else if (age < 0.10)  { phase = "Waxing Crescent";   glyph = "🌒"; desc = "Energy is building. This is the time to take the first concrete steps toward what you seeded at the new moon. Momentum is available — use it."; }
+      else if (age < 0.20)  { phase = "First Quarter";     glyph = "🌓"; desc = "A decision point. Challenges may arise that test your commitment to your intentions. Push through — the universe is checking your resolve."; }
+      else if (age < 0.34)  { phase = "Waxing Gibbous";    glyph = "🌔"; desc = "Refinement and adjustment. You can see your goal clearly now. Fine-tune your approach and prepare for the breakthrough the full moon will bring."; }
+      else if (age < 0.54)  { phase = "Full Moon";         glyph = "🌕"; desc = "Peak energy, peak illumination. What was hidden is now revealed. Emotions run high. A powerful time for manifestation, divination, and charging your tools."; }
+      else if (age < 0.65)  { phase = "Waning Gibbous";    glyph = "🌖"; desc = "Gratitude and integration. Harvest what the full moon revealed. Share your gifts. Begin releasing what no longer serves your highest path."; }
+      else if (age < 0.76)  { phase = "Last Quarter";      glyph = "🌗"; desc = "Release and forgiveness. Let go of what isn't working. This is a powerful time for cord-cutting, banishing work, and clearing emotional debris."; }
+      else if (age < 0.94)  { phase = "Waning Crescent";   glyph = "🌘"; desc = "Rest, reflection, and surrender. The cycle is completing. Honor what you've learned. Restore your energy before the new moon begins the cycle again."; }
+      else                  { phase = "Dark Moon";          glyph = "🌑"; desc = "The liminal space between cycles. A sacred time for deep introspection, shadow work, and communion with your inner self before rebirth."; }
 
-      img.src            = card.image;
-      nameEl.textContent = card.name;
-
-      if (isReversed) {
-        img.classList.add("reversed");
-        orientEl.textContent = "(Reversed)";
-      } else {
-        img.classList.remove("reversed");
-        orientEl.textContent = "(Upright)";
-      }
-
-      // Sparkle on reversed
-      const oldSparkle = displayArea.querySelector(".sparkle");
-      if (oldSparkle) oldSparkle.remove();
-      if (isReversed) {
-        const sparkle = document.createElement("div");
-        sparkle.classList.add("sparkle");
-        img.insertAdjacentElement("afterend", sparkle);
-      }
-
-      // Show meaning box
-      meaningBox.style.display = 'block';
-      meaningBox.innerHTML = \`
-        <div class="tm-upright">
-          <div class="tm-label">⬆ Upright</div>
-          <div class="tm-keywords">\${card.upright}</div>
-        </div>
-        <div class="tm-reversed">
-          <div class="tm-label">⬇ Reversed</div>
-          <div class="tm-keywords">\${card.reversed}</div>
-        </div>
-      \`;
+      return { phase, glyph, desc, illumination };
     }
 
-    // ── Save Reading ────────────────────────────────────────────────────────
-    function saveReading() {
-      const cardName = document.getElementById("tarot-card-name").textContent.trim();
-      if (cardName === "Your card will appear here") {
-        alert("Please pull a card first before saving your reading!");
-        return;
-      }
-      html2canvas(document.querySelector(".tarot-card-display"), {
-        backgroundColor: null, useCORS: true
-      }).then(canvas => {
-        const link    = document.createElement("a");
-        link.download = "tarot-reading.png";
-        link.href     = canvas.toDataURL("image/png");
-        link.click();
-      }).catch(() => alert("Sorry, the reading couldn't be saved. Please try again."));
-    }
+    // Display moon phase
+    (function() {
+      const m = getMoonPhase();
+      document.getElementById("moon-glyph").textContent      = m.glyph;
+      document.getElementById("moon-phase-name").textContent  = m.phase;
+      document.getElementById("moon-desc").textContent        = m.desc;
+      document.getElementById("moon-illumination").textContent = `☀️ Illumination: approx. ${m.illumination}%`;
+    })();
 
-    // ── Card Search ─────────────────────────────────────────────────────────
-    function filterTarotCards(query) {
-      const resultsEl = document.getElementById('tarot-search-results');
-      const detailEl  = document.getElementById('tarot-search-detail');
-      detailEl.style.display = 'none';
-
-      const q       = query.trim().toLowerCase();
-      const matches = q === ''
-        ? tarotDeck
-        : tarotDeck.filter(c => c.name.toLowerCase().includes(q));
-
-      if (matches.length === 0) {
-        resultsEl.innerHTML = '<p style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem 0;">No cards found — try a different name.</p>';
-        return;
-      }
-
-      resultsEl.innerHTML = matches.map((card, i) => {
-        const idx = tarotDeck.indexOf(card);
-        return \`<button class="tarot-result-btn" onclick="showCardDetail(\${idx})">
-          <span class="tr-num">\${card.numeral}</span>
-          \${card.name}
-        </button>\`;
-      }).join('');
-    }
-
-    function showCardDetail(idx) {
-      const card    = tarotDeck[idx];
-      const detail  = document.getElementById('tarot-search-detail');
-      const results = document.getElementById('tarot-search-results');
-
-      results.style.display = 'none';
-      detail.style.display  = 'block';
-
-      detail.innerHTML = \`
-        <button class="tsd-back-btn" onclick="backToResults()">← Back to all cards</button>
-        <div class="tsd-inner">
-          <div class="tsd-img-wrap">
-            <img src="\${card.image}" alt="\${card.name}" />
-          </div>
-          <div class="tsd-content">
-            <div class="tsd-numeral">\${card.numeral} · Major Arcana</div>
-            <div class="tsd-name">\${card.name}</div>
-            <div class="tsd-block tsd-upright">
-              <div class="tsd-block-label">⬆ Upright Meanings</div>
-              <p>\${card.upright}</p>
-            </div>
-            <div class="tsd-block tsd-reversed">
-              <div class="tsd-block-label">⬇ Reversed Meanings</div>
-              <p>\${card.reversed}</p>
-            </div>
-          </div>
-        </div>
-      \`;
-    }
-
-    function backToResults() {
-      document.getElementById('tarot-search-detail').style.display  = 'none';
-      document.getElementById('tarot-search-results').style.display = '';
-    }
-
-    /* =====================================================================
-       BIRTH CHART
-    ===================================================================== */
-
-    /* ── Sun Sign ───────────────────────────────────────────────────────── */
-    function getSunSign(date) {
-      const month = date.getMonth() + 1; // 1–12
-      const day   = date.getDate();
-
-      // Each entry: [sign, cutoff month, cutoff day]
-      // If month === cutoff month AND day <= cutoff day → that sign
-      const signs = [
-        ["Capricorn",   1, 19],
-        ["Aquarius",    2, 18],
-        ["Pisces",      3, 20],
-        ["Aries",       4, 19],
-        ["Taurus",      5, 20],
-        ["Gemini",      6, 20],
-        ["Cancer",      7, 22],
-        ["Leo",         8, 22],
-        ["Virgo",       9, 22],
-        ["Libra",      10, 22],
-        ["Scorpio",    11, 21],
-        ["Sagittarius",12, 21]
-      ];
-
-      for (const [sign, m, d] of signs) {
-        if (month === m && day <= d) return sign;
-        if (month === m && day > d) {
-          // Past the cutoff for this month — next sign starts
-          // (handled by next iteration or fallback)
-          continue;
+    // ─────────────────────────────────────────────────────────────────────
+    // GEMINI API CALL — shared helper
+    // ─────────────────────────────────────────────────────────────────────
+    async function callGemini(prompt, temp = 0.85, tokens = 800) {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method:  "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { temperature: temp, maxOutputTokens: tokens }
+          })
         }
-        if (month < m) return sign; // haven't reached this cutoff month yet
+      );
+      if (!res.ok) throw new Error(`API ${res.status}`);
+      const data = await res.json();
+      return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // WEEKLY PLANETARY FORECAST
+    // ─────────────────────────────────────────────────────────────────────
+    async function generateWeeklyForecast() {
+      const btn      = document.getElementById("forecast-btn");
+      const loading  = document.getElementById("forecast-loading");
+      const content  = document.getElementById("forecast-content");
+      const sunday   = getWeekSunday();
+      const days     = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+      btn.disabled     = true;
+      loading.style.display  = "block";
+      content.style.display  = "none";
+
+      const dayList = days.map((d,i) => {
+        const dd = new Date(sunday);
+        dd.setDate(sunday.getDate() + i);
+        return `${d} ${formatDate(dd)}`;
+      }).join(", ");
+
+      const prompt = `You are Jennifer Ambrosia, an intuitive astrologer at Ambrosia's Occult Academy.
+Write a day-by-day planetary energy forecast for the week of ${formatDate(sunday)}.
+The days are: ${dayList}.
+
+For each day write 2-3 sentences covering: the Moon sign if it changes, any notable planetary aspects or transits happening that day, and the overall energetic theme and what it's good for.
+
+Be mystical, warm, and practical. Give real astrological information based on actual planetary positions for these dates.
+
+Format your response EXACTLY like this — one entry per day, no extra text:
+SUNDAY: [forecast]
+MONDAY: [forecast]
+TUESDAY: [forecast]
+WEDNESDAY: [forecast]
+THURSDAY: [forecast]
+FRIDAY: [forecast]
+SATURDAY: [forecast]`;
+
+      try {
+        const text = await callGemini(prompt, 0.7, 900);
+        const dayData = {};
+        days.forEach(d => {
+          const rx    = new RegExp(`${d.toUpperCase()}:\\s*(.+?)(?=(?:MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY):|$)`, "si");
+          const match = text.match(rx);
+          if (match) dayData[d] = match[1].trim();
+        });
+
+        const sunday2 = getWeekSunday();
+        const html = days.map((d,i) => {
+          const dd = new Date(sunday2);
+          dd.setDate(sunday2.getDate() + i);
+          const label = `${d}<br><span style="font-size:0.65rem;opacity:0.6;">${formatDate(dd)}</span>`;
+          return `<div class="forecast-day">
+            <div class="forecast-day-label">${label}</div>
+            <div class="forecast-day-text">${dayData[d] || "Planetary data loading — check back shortly."}</div>
+          </div>`;
+        }).join("");
+
+        content.innerHTML = `<div class="forecast-days">${html}</div>`;
+      } catch(err) {
+        content.innerHTML = `<div style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem;">
+          <strong style="color:#e74c3c;">⚠️ Could not load forecast.</strong> Please check that your Gemini API key
+          is set in the script section. <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#4bb4ff;">Get your key here →</a>
+        </div>`;
+      } finally {
+        btn.disabled          = false;
+        loading.style.display = "none";
+        content.style.display = "block";
       }
-      // Dec 22–31 → Capricorn
-      return "Capricorn";
     }
 
-    /* ── Moon Sign (simplified estimate) ───────────────────────────────── */
-    function getMoonSign(date) {
-      const cycle        = 29.53;
-      const knownNewMoon = new Date("2000-01-06");
-      const diffDays     = (date - knownNewMoon) / (1000 * 60 * 60 * 24);
+    // ─────────────────────────────────────────────────────────────────────
+    // WEEKLY HOROSCOPE BY SIGN
+    // ─────────────────────────────────────────────────────────────────────
+    async function getHoroscope(sign, glyph, dates, btnEl) {
+      document.querySelectorAll(".sign-btn").forEach(b => b.classList.remove("active"));
+      btnEl.classList.add("active");
 
-      // Use Math.abs so negative dates (pre-2000) don't break the index
-      let phase = diffDays % cycle;
-      if (phase < 0) phase += cycle;
+      const resultEl = document.getElementById("horoscope-result");
+      resultEl.className = "visible";
+      resultEl.innerHTML = `<div class="horo-loading">Reading the stars for ${sign}</div>`;
 
-      const moonSigns = [
-        "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-        "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
-      ];
+      const sunday = getWeekSunday();
+      const prompt = `You are Jennifer Ambrosia, an intuitive astrologer at Ambrosia's Occult Academy.
+Write a warm, mystical weekly horoscope for ${sign} (${dates}) for the week of ${formatDate(sunday)} through ${formatDate(new Date(sunday.getTime() + 6*86400000))}.
 
-      return moonSigns[Math.floor((phase / cycle) * 12)];
-    }
+Use these four sections (write 2-3 sentences each, label them plainly without markdown):
 
-    /* ── Rising Sign (simplified — based on birth hour) ────────────────── */
-    function getRisingSign(timeStr) {
-      const hour   = parseInt(timeStr.split(":")[0], 10);
-      const rising = [
-        "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-        "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
-      ];
-      return rising[Math.floor((hour % 24) / 2)];
-    }
+OVERALL ENERGY: The cosmic theme and general energy for ${sign} this week.
+LOVE & RELATIONSHIPS: Heart matters, connection, and relationship energy.
+WORK & PURPOSE: Career, creativity, finances, and daily direction.
+MESSAGE FROM THE STARS: One powerful insight, closing wisdom, or affirmation.
 
-    /* ── Draw 12 House Lines on the SVG Seal ───────────────────────────── */
-    // FIX: called at the bottom of the script block, after DOM is ready
-    function generateHouseLines() {
-      const group = document.getElementById("house-lines");
-      if (!group) return; // safety guard
+End with a single italicized mantra on its own line starting with: Your mantra this week:`;
 
-      for (let i = 0; i < 12; i++) {
-        const angle = (i * 30) * (Math.PI / 180);
-        const x2    = 150 + Math.cos(angle) * 140;
-        const y2    = 150 + Math.sin(angle) * 140;
+      try {
+        const text = await callGemini(prompt, 0.85, 500);
+        const formatted = text
+          .replace(/(OVERALL ENERGY|LOVE & RELATIONSHIPS|LOVE &amp; RELATIONSHIPS|WORK & PURPOSE|WORK &amp; PURPOSE|MESSAGE FROM THE STARS):/gi,
+            '<strong style="color:#d7e2ff;display:block;margin-top:0.75rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">$1</strong>')
+          .replace(/Your mantra this week:/gi,
+            '<em style="color:#a56bff;display:block;margin-top:1rem;font-size:0.88rem;">✨ Your mantra this week:')
+          .replace(/\n\n/g, "</p><p>")
+          .replace(/\n/g, "<br>");
 
-        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        line.setAttribute("x1", "150");
-        line.setAttribute("y1", "150");
-        line.setAttribute("x2", x2);
-        line.setAttribute("y2", y2);
-        line.setAttribute("stroke", "#EF9F27");
-        line.setAttribute("stroke-width", "1.5");
-        group.appendChild(line);
+        resultEl.innerHTML = `
+          <div class="horo-sign-header">
+            <span class="horo-glyph">${glyph}</span>
+            <div><div class="horo-title">${sign}</div><div class="horo-dates">${dates}</div></div>
+          </div>
+          <div class="horo-body"><p>${formatted}</p></div>`;
+      } catch(err) {
+        resultEl.innerHTML = `<div style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem;">
+          <strong style="color:#e74c3c;">⚠️ The stars are a little cloudy.</strong><br>
+          Check that your Gemini API key is set. <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#a56bff;">Get your key here →</a>
+        </div>`;
       }
     }
 
-    /* ── Generate Birth Chart ───────────────────────────────────────────── */
-    function generateBirthChart() {
-      const dateInput = document.getElementById("birth-date").value;
-      const timeInput = document.getElementById("birth-time").value;
-
-      if (!dateInput || !timeInput) {
-        alert("Please enter both a birth date and birth time.");
-        return;
-      }
-
-      // Parse as local date (avoid timezone shift from new Date(string))
-      const [year, month, day] = dateInput.split("-").map(Number);
-      const date = new Date(year, month - 1, day);
-
-      document.getElementById("sun-sign").textContent    = getSunSign(date);
-      document.getElementById("moon-sign").textContent   = getMoonSign(date);
-      document.getElementById("rising-sign").textContent = getRisingSign(timeInput);
-
-      document.getElementById("birth-results").style.display = "block";
-      document.getElementById("birth-results").scrollIntoView({ behavior: "smooth" });
+    // ─────────────────────────────────────────────────────────────────────
+    // HOUSE TAB SWITCHING
+    // ─────────────────────────────────────────────────────────────────────
+    function showHouse(num, el) {
+      document.querySelectorAll(".house-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".house-panel").forEach(p => p.classList.remove("active"));
+      el.classList.add("active");
+      document.getElementById(`house-panel-${num}`).classList.add("active");
     }
+  </script>
 
-    /* ── Save Birth Reading ─────────────────────────────────────────────── */
-    function saveBirthReading() {
-      const resultsEl = document.getElementById("birth-results");
-      if (resultsEl.style.display === "none") {
-        alert("Please generate your birth chart first!");
-        return;
-      }
-      html2canvas(resultsEl, { backgroundColor: null, useCORS: true }).then(canvas => {
-        const link    = document.createElement("a");
-        link.download = "birth-reading.png";
-        link.href     = canvas.toDataURL("image/png");
-        link.click();
-      }).catch(err => {
-        console.error("Screenshot failed:", err);
-        alert("Sorry, the reading couldn't be saved. Please try again.");
-      });
-    }
-
-	 // ── Draw house lines NOW (DOM is ready since script is at end of body) ──
-	    generateHouseLines();
-
-	    /* =====================================================================
-	       GHOST STORY FORM
-	    ===================================================================== */
-	    (function () {
-	      const form    = document.getElementById("ghost-story-form");
-	      const msgEl   = document.getElementById("ghost-form-message");
-
-	      if (!form) return;
-
-	      form.addEventListener("submit", async function (e) {
-	        e.preventDefault();
-
-	        const submitBtn = form.querySelector("button[type='submit']");
-	        submitBtn.disabled    = true;
-	        submitBtn.textContent = "Sending...";
-
-	        try {
-	          const response = await fetch(form.action, {
-	            method:  "POST",
-	            body:    new FormData(form),
-	            headers: { "Accept": "application/json" }
-	          });
-
-	          if (response.ok) {
-	            msgEl.className     = "success";
-	            msgEl.style.display = "block";
-	            msgEl.textContent   = "✨ Your story has been received! Jennifer will read it personally — thank you for sharing your experience with the Academy.";
-	            form.reset();
-	          } else {
-	            throw new Error("Server error");
-	          }
-	        } catch (err) {
-	          msgEl.className     = "error";
-	          msgEl.style.display = "block";
-	          msgEl.innerHTML     = '⚠️ Something went wrong. Please try emailing your story directly to Jennifer — just click "Email your story directly" below the form.';
-	        } finally {
-	          submitBtn.disabled    = false;
-	          submitBtn.textContent = "🕯️ Submit My Story";
-	          msgEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
-	        }
-	      });
-	    })();
-
-	  </script>
-
-	</body>
-	</html>
+</body>
+</html>
