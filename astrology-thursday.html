@@ -320,72 +320,67 @@
   </section>
 
 
-  <!-- ══ WEEKLY PLANETARY FORECAST (Gemini AI) ══════════════════════════ -->
-  <section id="weekly-forecast" class="section section-light">
-    <div class="section-inner">
-      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🌌 Weekly Planetary Forecast</h2>
-      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
-        A day-by-day look at what the planets have in store — Moon signs, major transits, and the energetic
-        theme of each day from Sunday through Saturday.
-      </p>
-
-      <div class="forecast-wrap">
-        <div class="forecast-header">
-          <h3>🌠 This Week's Cosmic Weather</h3>
-          <button class="btn secondary" onclick="generateWeeklyForecast()" id="forecast-btn"
-            style="font-size:0.82rem;padding:0.45rem 1.1rem;">
-            ✨ Generate This Week's Forecast
-          </button>
-        </div>
-        <div class="forecast-body">
-          <div class="ai-loading" id="forecast-loading">Reading the planetary alignments for this week</div>
-          <div id="forecast-content">
-            <div class="forecast-placeholder">
-              <div class="fp-icon">🌌</div>
-              <p>Click <strong style="color:#4bb4ff;">Generate This Week's Forecast</strong> above to pull the current planetary weather — updated every Thursday with fresh cosmic insight for the week ahead.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="tip-box">
-        <strong>💡 For Jennifer:</strong> Click "Generate This Week's Forecast" every Thursday to create fresh
-        content. The AI uses today's date to generate accurate day-by-day planetary energy for Sunday–Saturday.
-        Make sure your Gemini API key is set in the script below.
-      </div>
-    </div>
-  </section>
+  
 
 
   <!-- ══ WEEKLY HOROSCOPES (Gemini AI) ══════════════════════════════════ -->
-  <section id="horoscopes" class="section section-dark">
-    <div class="section-inner">
-      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">⭐ Weekly Horoscopes</h2>
-      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
-        Select your sign for a personalized weekly horoscope covering love, energy, work, and a message
-        for the week ahead — Sunday through Saturday.
-      </p>
+<section id="three-day-horoscope">
 
-      <div class="sign-selector-wrap">
-        <h3>✨ Choose Your Sign</h3>
-        <div class="sign-grid">
-          <button class="sign-btn" onclick="getHoroscope('Aries','♈','Mar 21 – Apr 19',this)"><span class="sign-glyph">♈</span><span class="sign-name">Aries</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Taurus','♉','Apr 20 – May 20',this)"><span class="sign-glyph">♉</span><span class="sign-name">Taurus</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Gemini','♊','May 21 – Jun 20',this)"><span class="sign-glyph">♊</span><span class="sign-name">Gemini</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Cancer','♋','Jun 21 – Jul 22',this)"><span class="sign-glyph">♋</span><span class="sign-name">Cancer</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Leo','♌','Jul 23 – Aug 22',this)"><span class="sign-glyph">♌</span><span class="sign-name">Leo</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Virgo','♍','Aug 23 – Sep 22',this)"><span class="sign-glyph">♍</span><span class="sign-name">Virgo</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Libra','♎','Sep 23 – Oct 22',this)"><span class="sign-glyph">♎</span><span class="sign-name">Libra</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Scorpio','♏','Oct 23 – Nov 21',this)"><span class="sign-glyph">♏</span><span class="sign-name">Scorpio</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Sagittarius','♐','Nov 22 – Dec 21',this)"><span class="sign-glyph">♐</span><span class="sign-name">Sagittarius</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Capricorn','♑','Dec 22 – Jan 19',this)"><span class="sign-glyph">♑</span><span class="sign-name">Capricorn</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Aquarius','♒','Jan 20 – Feb 18',this)"><span class="sign-glyph">♒</span><span class="sign-name">Aquarius</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Pisces','♓','Feb 19 – Mar 20',this)"><span class="sign-glyph">♓</span><span class="sign-name">Pisces</span></button>
-        </div>
-        <div id="horoscope-result"></div>
-      </div>
+    <h2>✨ Three‑Day Horoscope ✨</h2>
+
+    <!-- TODAY -->
+    <div class="horoscope-day">
+        <h3>🔮 Today</h3>
+
+        <h4>🌞 Sun Sign Meaning</h4>
+        <p class="sun-meaning">[Insert Sun meaning here]</p>
+
+        <h4>🌙 Moon Sign Meaning</h4>
+        <p class="moon-meaning">[Insert Moon meaning here]</p>
+
+        <h4>⬆️ Rising Sign Meaning</h4>
+        <p class="rising-meaning">[Insert Rising meaning here]</p>
+
+        <h4>✨ Horoscope</h4>
+        <p class="horoscope-text">[Insert today's horoscope here]</p>
     </div>
-  </section>
+
+    <!-- TOMORROW -->
+    <div class="horoscope-day">
+        <h3>🔮 Tomorrow</h3>
+
+        <h4>🌞 Sun Sign Meaning</h4>
+        <p class="sun-meaning">[Insert Sun meaning here]</p>
+
+        <h4>🌙 Moon Sign Meaning</h4>
+        <p class="moon-meaning">[Insert Moon meaning here]</p>
+
+        <h4>⬆️ Rising Sign Meaning</h4>
+        <p class="rising-meaning">[Insert Rising meaning here]</p>
+
+        <h4>✨ Horoscope</h4>
+        <p class="horoscope-text">[Insert tomorrow's horoscope here]</p>
+    </div>
+
+    <!-- DAY AFTER TOMORROW -->
+    <div class="horoscope-day">
+        <h3>🔮 The Day After Tomorrow</h3>
+
+        <h4>🌞 Sun Sign Meaning</h4>
+        <p class="sun-meaning">[Insert Sun meaning here]</p>
+
+        <h4>🌙 Moon Sign Meaning</h4>
+        <p class="moon-meaning">[Insert Moon meaning here]</p>
+
+        <h4>⬆️ Rising Sign Meaning</h4>
+        <p class="rising-meaning">[Insert Rising meaning here]</p>
+
+        <h4>✨ Horoscope</h4>
+        <p class="horoscope-text">[Insert day‑after‑tomorrow horoscope here]</p>
+    </div>
+
+</section>
+
 
 
   <!-- ══ HOUSE PLACEMENT GUIDE ══════════════════════════════════════════ -->
