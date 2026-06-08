@@ -327,61 +327,103 @@
     </div>
   </section>
 
-  <!-- ─── TAROT SECTION ─────────────────────────────────────────────────── -->
-  <section id="tarot" class="section section-dark">
-    <div class="section-inner">
+ /* ============================================================
+   TAROT DECK (Major Arcana only — add more if you want)
+============================================================ */
+const TAROT_DECK = [
+  { name: "The Fool", image: "images/tarot/fool.png", meaning: "New beginnings, innocence, leap of faith." },
+  { name: "The Magician", image: "images/tarot/magician.png", meaning: "Manifestation, skill, willpower." },
+  { name: "The High Priestess", image: "images/tarot/high-priestess.png", meaning: "Intuition, mystery, inner knowing." },
+  { name: "The Empress", image: "images/tarot/empress.png", meaning: "Abundance, nurturing, creativity." },
+  { name: "The Emperor", image: "images/tarot/emperor.png", meaning: "Authority, structure, stability." },
+  { name: "The Hierophant", image: "images/tarot/hierophant.png", meaning: "Tradition, spiritual guidance." },
+  { name: "The Lovers", image: "images/tarot/lovers.png", meaning: "Union, choices, harmony." },
+  { name: "The Chariot", image: "images/tarot/chariot.png", meaning: "Determination, victory, willpower." },
+  { name: "Strength", image: "images/tarot/strength.png", meaning: "Courage, compassion, inner strength." },
+  { name: "The Hermit", image: "images/tarot/hermit.png", meaning: "Reflection, solitude, wisdom." },
+  { name: "Wheel of Fortune", image: "images/tarot/wheel-of-fortune.png", meaning: "Cycles, fate, turning point." },
+  { name: "Justice", image: "images/tarot/justice.png", meaning: "Truth, fairness, cause and effect." },
+  { name: "The Hanged Man", image: "images/tarot/hanged-man.png", meaning: "Surrender, new perspective." },
+  { name: "Death", image: "images/tarot/death.png", meaning: "Transformation, endings, rebirth." },
+  { name: "Temperance", image: "images/tarot/temperance.png", meaning: "Balance, healing, moderation." },
+  { name: "The Devil", image: "images/tarot/devil.png", meaning: "Shadow work, attachment, temptation." },
+  { name: "The Tower", image: "images/tarot/tower.png", meaning: "Sudden change, revelation." },
+  { name: "The Star", image: "images/tarot/star.png", meaning: "Hope, renewal, inspiration." },
+  { name: "The Moon", image: "images/tarot/moon.png", meaning: "Illusion, intuition, subconscious." },
+  { name: "The Sun", image: "images/tarot/sun.png", meaning: "Joy, vitality, success." },
+  { name: "Judgement", image: "images/tarot/judgement.png", meaning: "Awakening, reflection, purpose." },
+  { name: "The World", image: "images/tarot/world.png", meaning: "Completion, wholeness, fulfillment." }
+];
 
-      <!-- ── Tab switcher ─────────────────────────────────────────── -->
-      <div class="tarot-tabs">
-        <button class="tarot-tab active" onclick="switchTarotTab('pull', this)">🃏 Daily Card Pull</button>
-        <button class="tarot-tab" onclick="switchTarotTab('search', this)">🔍 Search a Card</button>
-      </div>
+/* ============================================================
+   DAILY CARD PULL
+============================================================ */
+function pullDailyCard() {
+  const card = TAROT_DECK[Math.floor(Math.random() * TAROT_DECK.length)];
+  const reversed = Math.random() < 0.5;
 
-      <!-- ── DAILY PULL ────────────────────────────────────────────── -->
-      <div id="tarot-panel-pull" class="tarot-panel">
-        <div class="tarot-card-display">
-          <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
-          <p class="tarot-label">
-            <span id="tarot-card-name">Your card will appear here</span>
-            <br />
-            <span id="tarot-card-orientation"></span>
-          </p>
-          <div id="tarot-meaning-box" class="tarot-meaning-box" style="display:none;"></div>
-          <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
-          <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
-        </div>
-      </div>
+  const img = document.getElementById("tarot-card-image");
+  const name = document.getElementById("tarot-card-name");
+  const orientation = document.getElementById("tarot-card-orientation");
+  const meaningBox = document.getElementById("tarot-meaning-box");
 
-      <!-- ── CARD SEARCH ───────────────────────────────────────────── -->
-      <div id="tarot-panel-search" class="tarot-panel" style="display:none;">
-        <div class="tarot-search-wrap">
-          <div class="tarot-search-bar">
-            <input
-              type="text"
-              id="tarot-search-input"
-              placeholder="Type a card name — e.g. The Moon, Strength, The Tower..."
-              oninput="filterTarotCards(this.value)"
-              autocomplete="off"
-            />
-          </div>
-          <div id="tarot-search-results" class="tarot-search-results"></div>
-          <div id="tarot-search-detail" class="tarot-search-detail" style="display:none;"></div>
-        </div>
-      </div>
+  img.src = card.image;
+  name.textContent = card.name;
+  orientation.textContent = reversed ? "(Reversed)" : "(Upright)";
+  meaningBox.style.display = "block";
 
-      <div class="info-box" style="margin-top:1.5rem;">
-        <h3>Full Tarot Reading — $9.95</h3>
-        <p>
-          For $9.95, receive a full email reading tailored to your question or situation. I'll pull a spread,
-          interpret each card, and share clear, compassionate guidance.
-        </p>
-        <p class="small-note">
-          To request a full reading, email me with your question and "Full Tarot Reading" in the subject line.
-        </p>
-      </div>
+  meaningBox.innerHTML = `
+    <strong>Meaning:</strong><br>
+    ${card.meaning}
+    ${reversed ? "<br><em>Reversed: inner blocks, delays, shadow aspects.</em>" : ""}
+  `;
 
-    </div><!-- /.section-inner -->
-  </section>
+  img.classList.toggle("reversed", reversed);
+}
+
+/* ============================================================
+   TAB SWITCHER
+============================================================ */
+function switchTarotTab(panel, btn) {
+  document.querySelectorAll(".tarot-tab").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.getElementById("tarot-panel-pull").style.display = panel === "pull" ? "block" : "none";
+  document.getElementById("tarot-panel-search").style.display = panel === "search" ? "block" : "none";
+}
+
+/* ============================================================
+   SEARCH A CARD
+============================================================ */
+function filterTarotCards(query) {
+  const results = document.getElementById("tarot-search-results");
+  const detail = document.getElementById("tarot-search-detail");
+
+  results.innerHTML = "";
+  detail.style.display = "none";
+
+  if (!query.trim()) return;
+
+  const matches = TAROT_DECK.filter(c =>
+    c.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  results.innerHTML = matches
+    .map(c => `<div class="tarot-result-item" onclick="showTarotCardDetail('${c.name}')">${c.name}</div>`)
+    .join("");
+}
+
+function showTarotCardDetail(name) {
+  const card = TAROT_DECK.find(c => c.name === name);
+  const detail = document.getElementById("tarot-search-detail");
+
+  detail.style.display = "block";
+  detail.innerHTML = `
+    <h3>${card.name}</h3>
+    <img src="${card.image}" class="tarot-image" />
+    <p>${card.meaning}</p>
+  `;
+}
 
   <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
   <section class="section section-light" id="birth-chart">
