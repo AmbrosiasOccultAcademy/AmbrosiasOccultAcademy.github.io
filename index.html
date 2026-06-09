@@ -9,6 +9,8 @@
   <!-- html2canvas for saving readings as images -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
+  <script src="birth-chart-enhanced.js"></script>
+
   <style>
     /* ── Tarot card sizing ───────────────────────────────────────────────── */
     .tarot-image {
@@ -434,11 +436,13 @@
             <input type="text" id="birth-location" placeholder="City, State or Country" />
           </div>
         </div>
-        <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
+        <button class="btn primary" onclick="generateEnhancedBirthChart()">Reveal My Cosmic Blueprint</button>
       </div>
 
       <!-- RESULTS (hidden until chart is generated) -->
-      <div id="birth-results" class="info-box" style="display:none;">
+      <div id="houses-results" class="info-box" style="display:none;">
+  <!-- House placements will render here -->
+</div>
         <h3>✨ Your Big Three</h3>
 
         <!-- Sun Sign -->
