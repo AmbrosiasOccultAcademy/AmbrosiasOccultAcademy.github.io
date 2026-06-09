@@ -439,16 +439,41 @@
 
       <!-- RESULTS (hidden until chart is generated) -->
       <div id="birth-results" class="info-box" style="display:none;">
-        <h3>Your Big Three</h3>
-        <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
-        <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
-        <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
-        <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
-          🏠 <strong style="color:#d7e2ff;">Want to understand what your placements mean?</strong>
+        <h3>✨ Your Big Three</h3>
+
+        <!-- Sun Sign -->
+        <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(165,107,255,0.12);">
+          <p style="margin-bottom:0.35rem;">
+            <strong style="color:#f1c40f;">☀️ Sun Sign:</strong>
+            <span id="sun-sign" style="color:#d7e2ff;font-weight:600;margin-left:0.4rem;"></span>
+          </p>
+          <p id="sun-meaning" style="font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin:0;"></p>
+        </div>
+
+        <!-- Moon Sign -->
+        <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(165,107,255,0.12);">
+          <p style="margin-bottom:0.35rem;">
+            <strong style="color:#4bb4ff;">🌙 Moon Sign:</strong>
+            <span id="moon-sign" style="color:#d7e2ff;font-weight:600;margin-left:0.4rem;"></span>
+          </p>
+          <p id="moon-meaning" style="font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin:0;"></p>
+        </div>
+
+        <!-- Rising Sign -->
+        <div style="margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid rgba(165,107,255,0.12);">
+          <p style="margin-bottom:0.35rem;">
+            <strong style="color:#a56bff;">⬆️ Rising Sign:</strong>
+            <span id="rising-sign" style="color:#d7e2ff;font-weight:600;margin-left:0.4rem;"></span>
+          </p>
+          <p id="rising-meaning" style="font-size:0.85rem;color:var(--text-muted);line-height:1.65;margin:0;"></p>
+        </div>
+
+        <p class="small-note" style="margin-top:0.25rem;">
+          🏠 <strong style="color:#d7e2ff;">Want to go deeper?</strong>
           Visit <a href="astrology-thursday.html#house-guide" style="color:#a56bff;">Astrology Thursday</a>
-          for our House Placement Guide — covering what every planet means in your 1st, 2nd, and 3rd house.
+          for our House Placement Guide, or <a href="services.html" style="color:#a56bff;">book a full reading</a> with Jennifer.
         </p>
-        <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
+        <button class="btn outline" onclick="saveBirthReading()" style="margin-top:0.75rem;">Save This Reading</button>
       </div>
 
       <!-- UPSELL -->
@@ -805,109 +830,214 @@
   <script>
 
     // ── Copyright year ──────────────────────────────────────────────────────
-   document.getElementById("year").textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
 
 
     /* =====================================================================
        TAROT — deck data with upright + reversed meanings
     ===================================================================== */
-/* ============================================================
-   TAROT DECK (Major Arcana only — add more if you want)
-============================================================ */
-const TAROT_DECK = [
-  { name: "The Fool", image: "images/tarot/fool.png", meaning: "New beginnings, innocence, leap of faith." },
-  { name: "The Magician", image: "images/tarot/magician.png", meaning: "Manifestation, skill, willpower." },
-  { name: "The High Priestess", image: "images/tarot/high-priestess.png", meaning: "Intuition, mystery, inner knowing." },
-  { name: "The Empress", image: "images/tarot/empress.png", meaning: "Abundance, nurturing, creativity." },
-  { name: "The Emperor", image: "images/tarot/emperor.png", meaning: "Authority, structure, stability." },
-  { name: "The Hierophant", image: "images/tarot/hierophant.png", meaning: "Tradition, spiritual guidance." },
-  { name: "The Lovers", image: "images/tarot/lovers.png", meaning: "Union, choices, harmony." },
-  { name: "The Chariot", image: "images/tarot/chariot.png", meaning: "Determination, victory, willpower." },
-  { name: "Strength", image: "images/tarot/strength.png", meaning: "Courage, compassion, inner strength." },
-  { name: "The Hermit", image: "images/tarot/hermit.png", meaning: "Reflection, solitude, wisdom." },
-  { name: "Wheel of Fortune", image: "images/tarot/wheel-of-fortune.png", meaning: "Cycles, fate, turning point." },
-  { name: "Justice", image: "images/tarot/justice.png", meaning: "Truth, fairness, cause and effect." },
-  { name: "The Hanged Man", image: "images/tarot/hanged-man.png", meaning: "Surrender, new perspective." },
-  { name: "Death", image: "images/tarot/death.png", meaning: "Transformation, endings, rebirth." },
-  { name: "Temperance", image: "images/tarot/temperance.png", meaning: "Balance, healing, moderation." },
-  { name: "The Devil", image: "images/tarot/devil.png", meaning: "Shadow work, attachment, temptation." },
-  { name: "The Tower", image: "images/tarot/tower.png", meaning: "Sudden change, revelation." },
-  { name: "The Star", image: "images/tarot/star.png", meaning: "Hope, renewal, inspiration." },
-  { name: "The Moon", image: "images/tarot/moon.png", meaning: "Illusion, intuition, subconscious." },
-  { name: "The Sun", image: "images/tarot/sun.png", meaning: "Joy, vitality, success." },
-  { name: "Judgement", image: "images/tarot/judgement.png", meaning: "Awakening, reflection, purpose." },
-  { name: "The World", image: "images/tarot/world.png", meaning: "Completion, wholeness, fulfillment." }
-];
+    const tarotDeck = [
+      { name: "The Fool",           numeral: "0",     image: "images/tarot/fool.png",
+        upright:  "New beginnings, spontaneity, a leap of faith, innocence, free spirit, adventure.",
+        reversed: "Recklessness, risk-taking without thought, naivety, holding back out of fear." },
+      { name: "The Magician",       numeral: "I",     image: "images/tarot/magician.png",
+        upright:  "Willpower, skill, resourcefulness, manifestation, inspired action, concentration.",
+        reversed: "Manipulation, poor planning, untapped talents, trickery, illusion." },
+      { name: "The High Priestess", numeral: "II",    image: "images/tarot/high-priestess.png",
+        upright:  "Intuition, sacred knowledge, divine feminine, the subconscious, mystery, inner knowing.",
+        reversed: "Secrets, disconnection from intuition, withdrawal, repressed feelings, surface knowledge." },
+      { name: "The Empress",        numeral: "III",   image: "images/tarot/empress.png",
+        upright:  "Femininity, beauty, nature, nurturing, abundance, fertility, sensuality, creativity.",
+        reversed: "Creative block, dependence on others, smothering, emptiness, neglect of self." },
+      { name: "The Emperor",        numeral: "IV",    image: "images/tarot/emperor.png",
+        upright:  "Authority, structure, control, fatherhood, solid foundation, discipline, leadership.",
+        reversed: "Domination, rigidity, inflexibility, loss of control, abuse of power, obstruction." },
+      { name: "The Hierophant",     numeral: "V",     image: "images/tarot/hierophant.png",
+        upright:  "Tradition, conformity, morality, ethics, spiritual wisdom, institutions, mentorship.",
+        reversed: "Personal belief systems, freedom, challenging tradition, unconventionality, rebellion." },
+      { name: "The Lovers",         numeral: "VI",    image: "images/tarot/lovers.png",
+        upright:  "Love, harmony, relationships, values alignment, choices, partnerships, deep connection.",
+        reversed: "Self-love deficit, disharmony, imbalance, misalignment of values, poor decisions." },
+      { name: "The Chariot",        numeral: "VII",   image: "images/tarot/chariot.png",
+        upright:  "Control, willpower, victory, determination, ambition, direction, hard-won success.",
+        reversed: "Aggression, no direction, scattered energy, defeat, lack of self-control, opposition." },
+      { name: "Strength",           numeral: "VIII",  image: "images/tarot/strength.png",
+        upright:  "Courage, persuasion, influence, compassion, inner strength, patience, soft power.",
+        reversed: "Inner conflict, self-doubt, low energy, raw emotion overwhelming reason, cowardice." },
+      { name: "The Hermit",         numeral: "IX",    image: "images/tarot/hermit.png",
+        upright:  "Soul-searching, introspection, solitude, inner guidance, contemplation, withdrawal.",
+        reversed: "Isolation, loneliness, withdrawal from the world, lost, rejection of guidance." },
+      { name: "Wheel of Fortune",   numeral: "X",     image: "images/tarot/wheel-of-fortune.png",
+        upright:  "Good luck, karma, life cycles, destiny, a turning point, fortune, synchronicity.",
+        reversed: "Bad luck, resistance to change, breaking cycles, clinging to control, setbacks." },
+      { name: "Justice",            numeral: "XI",    image: "images/tarot/justice.png",
+        upright:  "Justice, fairness, truth, cause and effect, law, accountability, integrity.",
+        reversed: "Unfairness, dishonesty, lack of accountability, avoidance of truth, legal complications." },
+      { name: "The Hanged Man",     numeral: "XII",   image: "images/tarot/hanged-man.png",
+        upright:  "Surrender, new perspectives, pause, letting go, sacrifice, suspension, enlightenment.",
+        reversed: "Delays, resistance, stalling, indecision, avoiding sacrifice, martyrdom." },
+      { name: "Death",              numeral: "XIII",  image: "images/tarot/death.png",
+        upright:  "Endings, change, transformation, transition, letting go, the inevitable, new cycles.",
+        reversed: "Resistance to change, inability to move on, stagnation, decay, personal transformation delayed." },
+      { name: "Temperance",         numeral: "XIV",   image: "images/tarot/temperance.png",
+        upright:  "Balance, moderation, patience, purpose, meaning, alchemy, divine timing, flow.",
+        reversed: "Imbalance, excess, lack of long-term vision, re-alignment needed, self-indulgence." },
+      { name: "The Devil",          numeral: "XV",    image: "images/tarot/devil.png",
+        upright:  "Shadow self, attachment, addiction, restriction, materialism, bondage, sexuality.",
+        reversed: "Releasing limiting beliefs, exploring darkness, detachment, freedom, reclaiming power." },
+      { name: "The Tower",          numeral: "XVI",   image: "images/tarot/tower.png",
+        upright:  "Sudden change, upheaval, chaos, revelation, awakening, the necessary destruction of false structures.",
+        reversed: "Personal transformation, fear of change, averting disaster, delaying the inevitable." },
+      { name: "The Star",           numeral: "XVII",  image: "images/tarot/star.png",
+        upright:  "Hope, faith, purpose, renewal, spirituality, serenity, inspiration, healing after hardship.",
+        reversed: "Lack of faith, despair, disconnection, discouragement, creative blocks." },
+      { name: "The Moon",           numeral: "XVIII", image: "images/tarot/moon.png",
+        upright:  "Illusion, fear, the unconscious, intuition, confusion, complexity, the hidden self.",
+        reversed: "Release of fear, repressed emotion coming to surface, confusion lifting, inner confusion." },
+      { name: "The Sun",            numeral: "XIX",   image: "images/tarot/sun.png",
+        upright:  "Positivity, fun, warmth, success, vitality, joy, clarity, confidence, optimism.",
+        reversed: "Temporary depression, lack of success, inner child work needed, overly optimistic." },
+      { name: "Judgement",          numeral: "XX",    image: "images/tarot/judgement.png",
+        upright:  "Judgement, rebirth, inner calling, absolution, awakening, reflection, reckoning.",
+        reversed: "Self-doubt, refusal of self-examination, ignoring the call, harsh self-judgement." },
+      { name: "The World",          numeral: "XXI",   image: "images/tarot/world.png",
+        upright:  "Completion, integration, accomplishment, travel, the end of a major life cycle, wholeness.",
+        reversed: "Seeking closure, incomplete goals, short-cuts, delays in completion." }
+    ];
 
-/* ============================================================
-   DAILY CARD PULL
-============================================================ */
-function pullDailyCard() {
-  const card = TAROT_DECK[Math.floor(Math.random() * TAROT_DECK.length)];
-  const reversed = Math.random() < 0.5;
+    // ── Tab switching ───────────────────────────────────────────────────────
+    function switchTarotTab(tab, el) {
+      document.querySelectorAll('.tarot-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('tarot-panel-pull').style.display   = tab === 'pull'   ? '' : 'none';
+      document.getElementById('tarot-panel-search').style.display  = tab === 'search' ? '' : 'none';
+      if (tab === 'search') {
+        filterTarotCards('');
+        setTimeout(() => document.getElementById('tarot-search-input').focus(), 50);
+      }
+    }
 
-  const img = document.getElementById("tarot-card-image");
-  const name = document.getElementById("tarot-card-name");
-  const orientation = document.getElementById("tarot-card-orientation");
-  const meaningBox = document.getElementById("tarot-meaning-box");
+    // ── Pull Daily Card ─────────────────────────────────────────────────────
+    function pullDailyCard() {
+      const card       = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+      const isReversed = Math.random() < 0.5;
 
-  img.src = card.image;
-  name.textContent = card.name;
-  orientation.textContent = reversed ? "(Reversed)" : "(Upright)";
-  meaningBox.style.display = "block";
+      const img         = document.getElementById("tarot-card-image");
+      const nameEl      = document.getElementById("tarot-card-name");
+      const orientEl    = document.getElementById("tarot-card-orientation");
+      const displayArea = document.querySelector(".tarot-card-display");
+      const meaningBox  = document.getElementById("tarot-meaning-box");
 
-  meaningBox.innerHTML = `
-    <strong>Meaning:</strong><br>
-    ${card.meaning}
-    ${reversed ? "<br><em>Reversed: inner blocks, delays, shadow aspects.</em>" : ""}
-  `;
+      img.src            = card.image;
+      nameEl.textContent = card.name;
 
-  img.classList.toggle("reversed", reversed);
-}
+      if (isReversed) {
+        img.classList.add("reversed");
+        orientEl.textContent = "(Reversed)";
+      } else {
+        img.classList.remove("reversed");
+        orientEl.textContent = "(Upright)";
+      }
 
-/* ============================================================
-   TAB SWITCHER
-============================================================ */
-function switchTarotTab(panel, btn) {
-  document.querySelectorAll(".tarot-tab").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
+      // Sparkle on reversed
+      const oldSparkle = displayArea.querySelector(".sparkle");
+      if (oldSparkle) oldSparkle.remove();
+      if (isReversed) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        img.insertAdjacentElement("afterend", sparkle);
+      }
 
-  document.getElementById("tarot-panel-pull").style.display = panel === "pull" ? "block" : "none";
-  document.getElementById("tarot-panel-search").style.display = panel === "search" ? "block" : "none";
-}
+      // Show meaning box
+      meaningBox.style.display = 'block';
+      meaningBox.innerHTML = \`
+        <div class="tm-upright">
+          <div class="tm-label">⬆ Upright</div>
+          <div class="tm-keywords">\${card.upright}</div>
+        </div>
+        <div class="tm-reversed">
+          <div class="tm-label">⬇ Reversed</div>
+          <div class="tm-keywords">\${card.reversed}</div>
+        </div>
+      \`;
+    }
 
-/* ============================================================
-   SEARCH A CARD
-============================================================ */
-function filterTarotCards(query) {
-  const results = document.getElementById("tarot-search-results");
-  const detail = document.getElementById("tarot-search-detail");
+    // ── Save Reading ────────────────────────────────────────────────────────
+    function saveReading() {
+      const cardName = document.getElementById("tarot-card-name").textContent.trim();
+      if (cardName === "Your card will appear here") {
+        alert("Please pull a card first before saving your reading!");
+        return;
+      }
+      html2canvas(document.querySelector(".tarot-card-display"), {
+        backgroundColor: null, useCORS: true
+      }).then(canvas => {
+        const link    = document.createElement("a");
+        link.download = "tarot-reading.png";
+        link.href     = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(() => alert("Sorry, the reading couldn't be saved. Please try again."));
+    }
 
-  results.innerHTML = "";
-  detail.style.display = "none";
+    // ── Card Search ─────────────────────────────────────────────────────────
+    function filterTarotCards(query) {
+      const resultsEl = document.getElementById('tarot-search-results');
+      const detailEl  = document.getElementById('tarot-search-detail');
+      detailEl.style.display = 'none';
 
-  if (!query.trim()) return;
+      const q       = query.trim().toLowerCase();
+      const matches = q === ''
+        ? tarotDeck
+        : tarotDeck.filter(c => c.name.toLowerCase().includes(q));
 
-  const matches = TAROT_DECK.filter(c =>
-    c.name.toLowerCase().includes(query.toLowerCase())
-  );
+      if (matches.length === 0) {
+        resultsEl.innerHTML = '<p style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem 0;">No cards found — try a different name.</p>';
+        return;
+      }
 
-  results.innerHTML = matches
-    .map(c => `<div class="tarot-result-item" onclick="showTarotCardDetail('${c.name}')">${c.name}</div>`)
-    .join("");
-}
+      resultsEl.innerHTML = matches.map((card, i) => {
+        const idx = tarotDeck.indexOf(card);
+        return \`<button class="tarot-result-btn" onclick="showCardDetail(\${idx})">
+          <span class="tr-num">\${card.numeral}</span>
+          \${card.name}
+        </button>\`;
+      }).join('');
+    }
 
-function showTarotCardDetail(name) {
-  const card = TAROT_DECK.find(c => c.name === name);
-  const detail = document.getElementById("tarot-search-detail");
+    function showCardDetail(idx) {
+      const card    = tarotDeck[idx];
+      const detail  = document.getElementById('tarot-search-detail');
+      const results = document.getElementById('tarot-search-results');
 
-  detail.style.display = "block";
-  detail.innerHTML = `
-    <h3>${card.name}</h3>
-    <img src="${card.image}" class="tarot-image" />
-    <p>${card.meaning}</p>
-  `;
-}
+      results.style.display = 'none';
+      detail.style.display  = 'block';
+
+      detail.innerHTML = \`
+        <button class="tsd-back-btn" onclick="backToResults()">← Back to all cards</button>
+        <div class="tsd-inner">
+          <div class="tsd-img-wrap">
+            <img src="\${card.image}" alt="\${card.name}" />
+          </div>
+          <div class="tsd-content">
+            <div class="tsd-numeral">\${card.numeral} · Major Arcana</div>
+            <div class="tsd-name">\${card.name}</div>
+            <div class="tsd-block tsd-upright">
+              <div class="tsd-block-label">⬆ Upright Meanings</div>
+              <p>\${card.upright}</p>
+            </div>
+            <div class="tsd-block tsd-reversed">
+              <div class="tsd-block-label">⬇ Reversed Meanings</div>
+              <p>\${card.reversed}</p>
+            </div>
+          </div>
+        </div>
+      \`;
+    }
+
+    function backToResults() {
+      document.getElementById('tarot-search-detail').style.display  = 'none';
+      document.getElementById('tarot-search-results').style.display = '';
+    }
 
     /* =====================================================================
        BIRTH CHART
@@ -999,6 +1129,46 @@ function showTarotCardDetail(name) {
     }
 
     /* ── Generate Birth Chart ───────────────────────────────────────────── */
+    // ── Sign meaning descriptions ──────────────────────────────────────────
+    const signMeanings = {
+      "Aries":       { sun: "Your Sun in Aries makes you a bold, pioneering soul with an instinct to lead. You are energetic, courageous, and direct — you act on instinct and thrive when forging your own path. Your fire is your greatest gift; patience is your greatest lesson.",
+                       moon: "Your Moon in Aries means your emotions are immediate and intense. You feel things fast and strongly, and you need to act on your feelings rather than sit with them. You have a passionate, independent emotional nature and dislike anything that makes you feel restricted.",
+                       rising: "With Aries Rising you project confidence, boldness, and an unmistakable energy that people feel when you walk in. You appear direct, self-assured, and ready for anything — even when you don't feel that way inside." },
+      "Taurus":      { sun: "Your Sun in Taurus makes you a grounded, sensual, and deeply reliable soul. You build slowly and last. Security, beauty, and the pleasures of the physical world are central to your identity. Your steadfastness is your superpower.",
+                       moon: "Your Moon in Taurus gives you an emotional nature that craves stability, comfort, and beauty. You feel safest when your environment is peaceful and your material needs are met. You are deeply loyal and take time to trust — but once you do, you are unwavering.",
+                       rising: "With Taurus Rising you project a calm, magnetic, and deeply sensual presence. Others see you as reliable, composed, and aesthetically aware. You may attract resources and beauty naturally." },
+      "Gemini":      { sun: "Your Sun in Gemini makes you a quick, curious, and brilliantly adaptable soul. Your mind is your greatest tool — you thrive on information, connection, and variety. You can hold many ideas at once and communicate them with effortless wit.",
+                       moon: "Your Moon in Gemini gives you an emotional nature that needs mental stimulation and communication to feel secure. You process feelings through talking and thinking. Your moods shift quickly and you may find it hard to sit with heavy emotions for long.",
+                       rising: "With Gemini Rising you project a lively, youthful, and intellectually engaging energy. Others find you easy to talk to, funny, and endlessly interesting. You appear adaptable and quick-witted." },
+      "Cancer":      { sun: "Your Sun in Cancer makes you a deeply intuitive, nurturing, and emotionally intelligent soul. Home, family, and belonging are at the center of your identity. You feel everything deeply and your empathy is your greatest gift.",
+                       moon: "Your Moon in Cancer is in its home sign — you are extraordinarily emotionally attuned. Your feelings run deep and your intuition is powerful. You need a safe, nurturing environment to thrive and you give this same care freely to those you love.",
+                       rising: "With Cancer Rising you project a warm, gentle, and instinctively nurturing presence. Others feel safe with you immediately. You appear sensitive and caring, and people often come to you when they need comfort." },
+      "Leo":         { sun: "Your Sun in Leo makes you a radiant, generous, and magnetically creative soul. You were born to shine and to lead with heart. Your warmth draws people to you and your creative fire is extraordinary. Recognition matters to you — own it without apology.",
+                       moon: "Your Moon in Leo gives you an emotional nature that needs warmth, appreciation, and creative expression to feel fulfilled. You feel deeply and love dramatically. Your loyalty to those you love is fierce and your emotional generosity is enormous.",
+                       rising: "With Leo Rising you project a radiant, confident, and naturally charismatic presence. Others notice you when you enter a room. You appear warm, proud, and commanding — a natural leader by presence alone." },
+      "Virgo":       { sun: "Your Sun in Virgo makes you a precise, devoted, and deeply service-oriented soul. You notice what others overlook and your ability to analyze, refine, and improve is extraordinary. Your greatest gift is your discernment.",
+                       moon: "Your Moon in Virgo gives you an emotional nature that finds security in order, usefulness, and self-improvement. You process feelings analytically and need to feel useful to feel okay. Your challenge is turning this same discernment on yourself with compassion.",
+                       rising: "With Virgo Rising you project a composed, attentive, and quietly capable presence. Others see you as competent, thoughtful, and trustworthy. You notice details others miss and communicate with precision." },
+      "Libra":       { sun: "Your Sun in Libra makes you a graceful, fair-minded, and deeply relational soul. Balance, beauty, and harmony are your natural language. You thrive in partnership and have an instinctive gift for seeing all sides of any situation.",
+                       moon: "Your Moon in Libra gives you an emotional nature that needs peace, harmony, and beauty to feel at ease. You are uncomfortable with conflict and may go to great lengths to maintain balance in your relationships. You feel best when your world is aesthetically and relationally harmonious.",
+                       rising: "With Libra Rising you project an elegant, charming, and naturally diplomatic presence. Others see you as attractive, balanced, and easy to be around. You lead with grace and a genuine desire for fairness." },
+      "Scorpio":     { sun: "Your Sun in Scorpio makes you an intense, perceptive, and powerfully transformative soul. You go deep in everything — relationships, work, and self-knowledge. You see through surfaces and your emotional resilience is extraordinary.",
+                       moon: "Your Moon in Scorpio gives you an emotional nature of extraordinary depth and intensity. You feel everything below the surface, rarely showing your full emotional truth until you deeply trust. Your intuition is psychic-level sharp and your loyalty is absolute.",
+                       rising: "With Scorpio Rising you project a magnetic, mysterious, and quietly powerful presence. Others sense your depth immediately and find you compelling — sometimes even intimidating. You observe before you act and your gaze misses nothing." },
+      "Sagittarius": { sun: "Your Sun in Sagittarius makes you a philosophical, adventurous, and radiantly optimistic soul. Freedom, truth, and the pursuit of meaning are your driving forces. Your enthusiasm and faith in life are infectious.",
+                       moon: "Your Moon in Sagittarius gives you an emotional nature that needs freedom, adventure, and philosophical expansion to feel alive. You process emotions through movement and exploration. Feeling trapped or confined emotionally is your greatest discomfort.",
+                       rising: "With Sagittarius Rising you project an open, enthusiastic, and naturally inspiring presence. Others see you as adventurous, honest, and larger than life. You appear optimistic and free-spirited, with a laugh that fills the room." },
+      "Capricorn":   { sun: "Your Sun in Capricorn makes you an ambitious, disciplined, and quietly powerful soul. You are here to build something lasting. Patience is your natural gift and your capacity for sustained effort is extraordinary. Mastery is your deepest drive.",
+                       moon: "Your Moon in Capricorn gives you an emotional nature that tends toward self-control and reserve. You feel safest when you are productive and in control of your circumstances. Vulnerability is difficult but when you allow it, your emotional depth is profound.",
+                       rising: "With Capricorn Rising you project a composed, authoritative, and quietly commanding presence. Others see you as reliable, serious, and capable before you even speak. You appear older and wiser than you are — and often, you are." },
+      "Aquarius":    { sun: "Your Sun in Aquarius makes you an original, visionary, and humanitarian soul. You think in systems and futures. Your individuality is your gift to the world and your ability to see what others can't is your superpower.",
+                       moon: "Your Moon in Aquarius gives you an emotional nature that values independence, intellectual connection, and the freedom to be different. You process feelings through ideas and may struggle to access raw emotion directly. Community and friendship are your emotional lifelines.",
+                       rising: "With Aquarius Rising you project an unusual, intellectually magnetic, and distinctly individual presence. Others find you fascinating and a little unpredictable. You appear forward-thinking, friendly, and genuinely unlike anyone else." },
+      "Pisces":      { sun: "Your Sun in Pisces makes you a deeply compassionate, intuitive, and spiritually gifted soul. You feel the world through your whole being. Your empathy, creativity, and connection to the unseen are extraordinary gifts.",
+                       moon: "Your Moon in Pisces gives you one of the most sensitive and psychically receptive emotional natures in the zodiac. You absorb the feelings of those around you and your dreams are rich with meaning. Boundaries are your lifelong practice; unconditional love is your natural state.",
+                       rising: "With Pisces Rising you project a gentle, dreamy, and deeply compassionate presence. Others sense your sensitivity immediately and find you easy to confide in. You appear otherworldly and imaginative — a soul that lives between worlds." }
+    };
+
     function generateBirthChart() {
       const dateInput = document.getElementById("birth-date").value;
       const timeInput = document.getElementById("birth-time").value;
@@ -1012,9 +1182,23 @@ function showTarotCardDetail(name) {
       const [year, month, day] = dateInput.split("-").map(Number);
       const date = new Date(year, month - 1, day);
 
-      document.getElementById("sun-sign").textContent    = getSunSign(date);
-      document.getElementById("moon-sign").textContent   = getMoonSign(date);
-      document.getElementById("rising-sign").textContent = getRisingSign(timeInput);
+      const sunSign    = getSunSign(date);
+      const moonSign   = getMoonSign(date);
+      const risingSign = getRisingSign(timeInput);
+
+      // Set sign names
+      document.getElementById("sun-sign").textContent    = sunSign;
+      document.getElementById("moon-sign").textContent   = moonSign;
+      document.getElementById("rising-sign").textContent = risingSign;
+
+      // Set meanings — look up each sign in signMeanings, fall back gracefully
+      const sunData    = signMeanings[sunSign]    || {};
+      const moonData   = signMeanings[moonSign]   || {};
+      const risingData = signMeanings[risingSign] || {};
+
+      document.getElementById("sun-meaning").textContent    = sunData.sun    || "";
+      document.getElementById("moon-meaning").textContent   = moonData.moon  || "";
+      document.getElementById("rising-meaning").textContent = risingData.rising || "";
 
       document.getElementById("birth-results").style.display = "block";
       document.getElementById("birth-results").scrollIntoView({ behavior: "smooth" });
