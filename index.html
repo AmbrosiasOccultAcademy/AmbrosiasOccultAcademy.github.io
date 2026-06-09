@@ -1048,26 +1048,24 @@
     ===================================================================== */
 
     /* ── Sun Sign ───────────────────────────────────────────────────────── */
-    function getSunSign(date) {
-      const month = date.getMonth() + 1; // 1–12
-      const day   = date.getDate();
+  function getSunSignFromDate(date) {
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // JS months are 0–11
 
-      // Each entry: [sign, cutoff month, cutoff day]
-      // If month === cutoff month AND day <= cutoff day → that sign
-      const signs = [
-        ["Capricorn",   1, 19],
-        ["Aquarius",    2, 18],
-        ["Pisces",      3, 20],
-        ["Aries",       4, 19],
-        ["Taurus",      5, 20],
-        ["Gemini",      6, 20],
-        ["Cancer",      7, 22],
-        ["Leo",         8, 22],
-        ["Virgo",       9, 22],
-        ["Libra",      10, 22],
-        ["Scorpio",    11, 21],
-        ["Sagittarius",12, 21]
-      ];
+  if ((month === 3  && day >= 21) || (month === 4  && day <= 19)) return "Aries";
+  if ((month === 4  && day >= 20) || (month === 5  && day <= 20)) return "Taurus";
+  if ((month === 5  && day >= 21) || (month === 6  && day <= 20)) return "Gemini";
+  if ((month === 6  && day >= 21) || (month === 7  && day <= 22)) return "Cancer";
+  if ((month === 7  && day >= 23) || (month === 8  && day <= 22)) return "Leo";
+  if ((month === 8  && day >= 23) || (month === 9  && day <= 22)) return "Virgo";
+  if ((month === 9  && day >= 23) || (month === 10 && day <= 22)) return "Libra";
+  if ((month === 10 && day >= 23) || (month === 11 && day <= 21)) return "Scorpio";
+  if ((month === 11 && day >= 22) || (month === 12 && day <= 21)) return "Sagittarius";
+  if ((month === 12 && day >= 22) || (month === 1  && day <= 19)) return "Capricorn";
+  if ((month === 1  && day >= 20) || (month === 2  && day <= 18)) return "Aquarius";
+  if ((month === 2  && day >= 19) || (month === 3  && day <= 20)) return "Pisces";
+}
+
 
       for (const [sign, m, d] of signs) {
         if (month === m && day <= d) return sign;
@@ -1186,7 +1184,10 @@
       const [year, month, day] = dateInput.split("-").map(Number);
       const date = new Date(year, month - 1, day);
 
-      const sunSign    = getSunSign(date);
+      // Example: building a Date from your form
+      const birthDate = new Date(`${year}-${month}-${day}T${hour24}:${minute}:00`);
+      const sunSign = getSunSignFromDate(birthDate);
+
       const moonSign   = getMoonSign(date);
       const risingSign = getRisingSign(timeInput);
 
