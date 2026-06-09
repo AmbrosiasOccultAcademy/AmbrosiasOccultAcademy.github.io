@@ -1067,19 +1067,6 @@
 }
 
 
-      for (const [sign, m, d] of signs) {
-        if (month === m && day <= d) return sign;
-        if (month === m && day > d) {
-          // Past the cutoff for this month — next sign starts
-          // (handled by next iteration or fallback)
-          continue;
-        }
-        if (month < m) return sign; // haven't reached this cutoff month yet
-      }
-      // Dec 22–31 → Capricorn
-      return "Capricorn";
-    }
-
     /* ── Moon Sign (simplified estimate) ───────────────────────────────── */
     function getMoonSign(date) {
       const cycle        = 29.53;
