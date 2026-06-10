@@ -586,6 +586,70 @@
 
     </div>
   </section>
+	<!-- ─── BIRTH CHART TOOL ──────────────────────────────────────────────────── -->
+<section id="birth-chart" class="info-box">
+  <h2>🌙 Your Cosmic Blueprint</h2>
+  <p class="section-subtitle">Discover your Sun, Moon, and Rising signs + House placements</p>
+  
+  <div class="birth-chart-form">
+    <div class="form-group">
+      <label for="birth-date">Birth Date:</label>
+      <input type="date" id="birth-date" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="birth-time">Birth Time (24-hour):</label>
+      <input type="time" id="birth-time" required />
+    </div>
+    
+    <div class="form-group">
+      <label for="birth-location">Birth City:</label>
+      <input type="text" id="birth-location" placeholder="e.g., Las Vegas" required />
+    </div>
+    
+    <button class="btn primary" onclick="generateEnhancedBirthChart()">Reveal My Cosmic Blueprint</button>
+  </div>
+  
+  <!-- Results Container -->
+  <div id="birth-results" style="display:none; margin-top: 2rem;">
+    <div class="big3-card">
+      <div class="big3-card-header">
+        <span class="big3-card-icon">☀️</span>
+        <div>
+          <span class="big3-card-label">Sun Sign</span>
+          <span class="big3-card-sign" id="sun-sign">—</span>
+        </div>
+      </div>
+      <p class="big3-card-meaning" id="sun-meaning"></p>
+    </div>
+    
+    <div class="big3-card">
+      <div class="big3-card-header">
+        <span class="big3-card-icon">🌙</span>
+        <div>
+          <span class="big3-card-label">Moon Sign</span>
+          <span class="big3-card-sign" id="moon-sign">—</span>
+        </div>
+      </div>
+      <p class="big3-card-meaning" id="moon-meaning"></p>
+    </div>
+    
+    <div class="big3-card">
+      <div class="big3-card-header">
+        <span class="big3-card-icon">⬆️</span>
+        <div>
+          <span class="big3-card-label">Rising Sign (Ascendant)</span>
+          <span class="big3-card-sign" id="rising-sign">—</span>
+        </div>
+      </div>
+      <p class="big3-card-meaning" id="rising-meaning"></p>
+    </div>
+    
+    <div id="houses-results" style="margin-top: 1.5rem;"></div>
+    
+    <button class="btn secondary" onclick="saveBirthChartReading()" style="margin-top: 1rem;">📸 Save as Image</button>
+  </div>
+</section>
 
 
    <!-- ─── INLINE STYLES for Freaky Friday additions ─────────────────────── -->
