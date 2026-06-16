@@ -381,47 +381,6 @@
     </div>
   </section>
 
-  <!-- ─── TAROT SECTION ─────────────────────────────────────────────────── -->
-  <section id="tarot" class="section section-dark">
-    <div class="section-inner">
-
-      <!-- ── Tab switcher ─────────────────────────────────────────── -->
-      <div class="tarot-tabs">
-        <button class="tarot-tab active" onclick="switchTarotTab('pull', this)">🃏 Daily Card Pull</button>
-        <button class="tarot-tab" onclick="switchTarotTab('search', this)">🔍 Search a Card</button>
-      </div>
-
-      <!-- ── DAILY PULL ────────────────────────────────────────────── -->
-      <div id="tarot-panel-pull" class="tarot-panel">
-        <div class="tarot-card-display">
-          <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
-          <p class="tarot-label">
-            <span id="tarot-card-name">Your card will appear here</span>
-            <br />
-            <span id="tarot-card-orientation"></span>
-          </p>
-          <div id="tarot-meaning-box" class="tarot-meaning-box" style="display:none;"></div>
-          <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
-          <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
-        </div>
-      </div>
-
-      <!-- ── CARD SEARCH ───────────────────────────────────────────── -->
-      <div id="tarot-panel-search" class="tarot-panel" style="display:none;">
-        <div class="tarot-search-wrap">
-          <div class="tarot-search-bar">
-            <input
-              type="text"
-              id="tarot-search-input"
-              placeholder="Type a card name — e.g. The Moon, Strength, The Tower..."
-              oninput="filterTarotCards(this.value)"
-              autocomplete="off"
-            />
-          </div>
-          <div id="tarot-search-results" class="tarot-search-results"></div>
-          <div id="tarot-search-detail" class="tarot-search-detail" style="display:none;"></div>
-        </div>
-      </div>
 
       <div class="info-box" style="margin-top:1.5rem;">
         <h3>Full Tarot Reading — $9.95</h3>
