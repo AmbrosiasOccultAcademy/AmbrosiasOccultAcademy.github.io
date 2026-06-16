@@ -8,7 +8,7 @@
 
   <!-- html2canvas for saving readings as images -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="birth-chart-fixed.js"></script>
+
   <style>
     /* ── Tarot card sizing ───────────────────────────────────────────────── */
     .tarot-image {
@@ -173,60 +173,6 @@
       .tsd-img-wrap img { width: 120px; }
     }
 
-    /* ── Big Three result cards ─────────────────────────────────────────── */
-    .big3-card {
-      background: rgba(0,0,0,0.2);
-      border-radius: 10px;
-      padding: 1rem 1.1rem;
-      margin-bottom: 0.85rem;
-      border-left: 3px solid #a56bff;
-    }
-    .big3-card:last-of-type { margin-bottom: 0; }
-    .big3-card-header {
-      display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.35rem;
-    }
-    .big3-card-icon { font-size: 1.3rem; }
-    .big3-card-label {
-      font-size: 0.65rem; letter-spacing: 0.13em;
-      text-transform: uppercase; color: #a56bff; display: block;
-    }
-    .big3-card-sign {
-      font-size: 1rem; font-weight: 700; color: #d7e2ff;
-    }
-    .big3-card-meaning {
-      font-size: 0.84rem; color: var(--text-muted);
-      line-height: 1.68; margin: 0; padding-left: 1.9rem;
-    }
-
-    /* ── House result cards ──────────────────────────────────────────────── */
-    .house-result-card {
-      background: rgba(0,0,0,0.18);
-      border-radius: 10px;
-      padding: 0.9rem 1rem;
-      margin-bottom: 0.75rem;
-    }
-    .house-result-card:last-child { margin-bottom: 0; }
-    .house-result-header {
-      border-left: 3px solid #a56bff;
-      padding-left: 0.75rem;
-      margin-bottom: 0.5rem;
-    }
-    .house-result-num {
-      font-size: 0.65rem; letter-spacing: 0.13em;
-      text-transform: uppercase; color: #a56bff; margin-bottom: 0.1rem;
-    }
-    .house-result-sign {
-      font-size: 1rem; font-weight: 700; color: #d7e2ff; margin-bottom: 0.1rem;
-    }
-    .house-result-theme {
-      font-size: 0.7rem; color: rgba(165,107,255,0.6);
-      letter-spacing: 0.04em;
-    }
-    .house-result-meaning {
-      font-size: 0.84rem; color: var(--text-muted);
-      line-height: 1.68; margin: 0; padding-left: 0;
-    }
-
   </style>
 </head>
 <body>
@@ -381,6 +327,47 @@
     </div>
   </section>
 
+  <!-- ─── TAROT SECTION ─────────────────────────────────────────────────── -->
+  <section id="tarot" class="section section-dark">
+    <div class="section-inner">
+
+      <!-- ── Tab switcher ─────────────────────────────────────────── -->
+      <div class="tarot-tabs">
+        <button class="tarot-tab active" onclick="switchTarotTab('pull', this)">🃏 Daily Card Pull</button>
+        <button class="tarot-tab" onclick="switchTarotTab('search', this)">🔍 Search a Card</button>
+      </div>
+
+      <!-- ── DAILY PULL ────────────────────────────────────────────── -->
+      <div id="tarot-panel-pull" class="tarot-panel">
+        <div class="tarot-card-display">
+          <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
+          <p class="tarot-label">
+            <span id="tarot-card-name">Your card will appear here</span>
+            <br />
+            <span id="tarot-card-orientation"></span>
+          </p>
+          <div id="tarot-meaning-box" class="tarot-meaning-box" style="display:none;"></div>
+          <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
+          <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
+        </div>
+      </div>
+
+      <!-- ── CARD SEARCH ───────────────────────────────────────────── -->
+      <div id="tarot-panel-search" class="tarot-panel" style="display:none;">
+        <div class="tarot-search-wrap">
+          <div class="tarot-search-bar">
+            <input
+              type="text"
+              id="tarot-search-input"
+              placeholder="Type a card name — e.g. The Moon, Strength, The Tower..."
+              oninput="filterTarotCards(this.value)"
+              autocomplete="off"
+            />
+          </div>
+          <div id="tarot-search-results" class="tarot-search-results"></div>
+          <div id="tarot-search-detail" class="tarot-search-detail" style="display:none;"></div>
+        </div>
+      </div>
 
       <div class="info-box" style="margin-top:1.5rem;">
         <h3>Full Tarot Reading — $9.95</h3>
@@ -392,6 +379,8 @@
           To request a full reading, email me with your question and "Full Tarot Reading" in the subject line.
         </p>
       </div>
+
+    </div><!-- /.section-inner -->
   </section>
 
   <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
@@ -444,91 +433,22 @@
             <label for="birth-location">Birth Location</label>
             <input type="text" id="birth-location" placeholder="City, State or Country" />
           </div>
+        </div>
+        <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
+      </div>
 
       <!-- RESULTS (hidden until chart is generated) -->
       <div id="birth-results" class="info-box" style="display:none;">
-
-        <!-- BIG THREE -->
-        <h3 style="margin-bottom:1rem;">✨ Your Big Three</h3>
-
-        <div class="big3-card">
-          <div class="big3-card-header">
-            <span class="big3-card-icon">☀️</span>
-            <div>
-              <span class="big3-card-label">Sun Sign — Your Core Identity</span>
-              <span class="big3-card-sign" id="sun-sign"></span>
-            </div>
-          </div>
-          <p class="big3-card-meaning" id="sun-meaning"></p>
-        </div>
-
-        <div class="big3-card" style="border-left-color:#4bb4ff;">
-          <div class="big3-card-header">
-            <span class="big3-card-icon">🌙</span>
-            <div>
-              <span class="big3-card-label">Moon Sign — Your Emotional Nature</span>
-              <span class="big3-card-sign" id="moon-sign"></span>
-            </div>
-          </div>
-          <p class="big3-card-meaning" id="moon-meaning"></p>
-        </div>
-
-        <div class="big3-card" style="border-left-color:#27ae60;">
-          <div class="big3-card-header">
-            <span class="big3-card-icon">⬆️</span>
-            <div>
-              <span class="big3-card-label">Rising Sign — How the World Sees You</span>
-              <span class="big3-card-sign" id="rising-sign"></span>
-            </div>
-          </div>
-          <p class="big3-card-meaning" id="rising-meaning"></p>
-        </div>
-
-        <!-- WHOLE SIGN HOUSES -->
-        <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(165,107,255,0.15);">
-          <h3 style="margin-bottom:0.25rem;">🏠 Your First Three Houses</h3>
-          <p style="font-size:0.8rem;color:rgba(165,107,255,0.7);margin-bottom:1rem;font-style:italic;">
-            Using the Whole Sign House system — each house covers one full sign, beginning with your Rising sign.
-          </p>
-
-          <div class="house-result-card">
-            <div class="house-result-header" style="border-left-color:#a56bff;">
-              <div class="house-result-num">1st House</div>
-              <div class="house-result-sign" id="house1-sign"></div>
-              <div class="house-result-theme">Identity · Self · Appearance · First Impressions</div>
-            </div>
-            <p class="house-result-meaning" id="house1-meaning"></p>
-          </div>
-
-          <div class="house-result-card">
-            <div class="house-result-header" style="border-left-color:#f1c40f;">
-              <div class="house-result-num">2nd House</div>
-              <div class="house-result-sign" id="house2-sign"></div>
-              <div class="house-result-theme">Money · Values · Possessions · Self-Worth</div>
-            </div>
-            <p class="house-result-meaning" id="house2-meaning"></p>
-          </div>
-
-          <div class="house-result-card">
-            <div class="house-result-header" style="border-left-color:#4bb4ff;">
-              <div class="house-result-num">3rd House</div>
-              <div class="house-result-sign" id="house3-sign"></div>
-              <div class="house-result-theme">Communication · Mind · Siblings · Learning</div>
-            </div>
-            <p class="house-result-meaning" id="house3-meaning"></p>
-          </div>
-
-        </div>
-
-        <p class="small-note" style="margin-top:1.1rem;padding-top:1rem;border-top:1px solid rgba(165,107,255,0.12);">
-          🔭 <strong style="color:#d7e2ff;">Want to know which planets fall in your houses?</strong>
-          Planet placements require a full ephemeris calculation.
-          <a href="services.html" style="color:#a56bff;">Book a full birth chart reading with Jennifer</a>
-          for all 12 houses, planetary aspects, and personalized interpretations — or visit
-          <a href="astrology-thursday.html#house-guide" style="color:#a56bff;">Astrology Thursdays</a>
-          to explore what each planet means in houses 1, 2, and 3.
+        <h3>Your Big Three</h3>
+        <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
+        <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
+        <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
+        <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
+          🏠 <strong style="color:#d7e2ff;">Want to understand what your placements mean?</strong>
+          Visit <a href="astrology-thursday.html#house-guide" style="color:#a56bff;">Astrology Thursday</a>
+          for our House Placement Guide — covering what every planet means in your 1st, 2nd, and 3rd house.
         </p>
-        <button class="btn outline" onclick="saveBirthReading()" style="margin-top:0.75rem;">Save This Reading</button>
+        <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
       </div>
 
       <!-- UPSELL -->
@@ -540,70 +460,6 @@
 
     </div>
   </section>
-	<!-- ─── BIRTH CHART TOOL ──────────────────────────────────────────────────── -->
-<section id="birth-chart" class="info-box">
-  <h2>🌙 Your Cosmic Blueprint</h2>
-  <p class="section-subtitle">Discover your Sun, Moon, and Rising signs + House placements</p>
-  
-  <div class="birth-chart-form">
-    <div class="form-group">
-      <label for="birth-date">Birth Date:</label>
-      <input type="date" id="birth-date" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="birth-time">Birth Time (24-hour):</label>
-      <input type="time" id="birth-time" required />
-    </div>
-    
-    <div class="form-group">
-      <label for="birth-location">Birth City:</label>
-      <input type="text" id="birth-location" placeholder="e.g., Las Vegas" required />
-    </div>
-    
-    <button class="btn primary" onclick="generateEnhancedBirthChart()">Reveal My Cosmic Blueprint</button>
-  </div>
-  
-  <!-- Results Container -->
-  <div id="birth-results" style="display:none; margin-top: 2rem;">
-    <div class="big3-card">
-      <div class="big3-card-header">
-        <span class="big3-card-icon">☀️</span>
-        <div>
-          <span class="big3-card-label">Sun Sign</span>
-          <span class="big3-card-sign" id="sun-sign">—</span>
-        </div>
-      </div>
-      <p class="big3-card-meaning" id="sun-meaning"></p>
-    </div>
-    
-    <div class="big3-card">
-      <div class="big3-card-header">
-        <span class="big3-card-icon">🌙</span>
-        <div>
-          <span class="big3-card-label">Moon Sign</span>
-          <span class="big3-card-sign" id="moon-sign">—</span>
-        </div>
-      </div>
-      <p class="big3-card-meaning" id="moon-meaning"></p>
-    </div>
-    
-    <div class="big3-card">
-      <div class="big3-card-header">
-        <span class="big3-card-icon">⬆️</span>
-        <div>
-          <span class="big3-card-label">Rising Sign (Ascendant)</span>
-          <span class="big3-card-sign" id="rising-sign">—</span>
-        </div>
-      </div>
-      <p class="big3-card-meaning" id="rising-meaning"></p>
-    </div>
-    
-    <div id="houses-results" style="margin-top: 1.5rem;"></div>
-    
-    <button class="btn secondary" onclick="saveBirthChartReading()" style="margin-top: 1rem;">📸 Save as Image</button>
-  </div>
-</section>
 
 
    <!-- ─── INLINE STYLES for Freaky Friday additions ─────────────────────── -->
@@ -943,6 +799,16 @@
     </div>
   </footer>
 
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SCRIPTS — placed at end of body so the DOM is fully loaded first
+  ════════════════════════════════════════════════════════════════════════ -->
+  <script>
+
+    // ── Copyright year ──────────────────────────────────────────────────────
+	document.getElementById("year").textContent = new Date().getFullYear();
+
+
+
     /* =====================================================================
        TAROT — deck data with upright + reversed meanings
     ===================================================================== */
@@ -1038,8 +904,18 @@
       const displayArea = document.querySelector(".tarot-card-display");
       const meaningBox  = document.getElementById("tarot-meaning-box");
 
-      img.src            = card.image;
       nameEl.textContent = card.name;
+
+      // Fix: use onload/onerror so GitHub Pages case-sensitivity issues are visible
+      img.onerror = function() {
+        this.onerror = null;
+        this.src = 'images/tarot/back.png';
+        nameEl.textContent = card.name + ' ⚠ image not found: ' + card.image;
+      };
+      img.onload = function() {
+        nameEl.textContent = card.name;
+      };
+      img.src = card.image + '?v=' + Date.now(); // cache-bust so onerror fires reliably
 
       if (isReversed) {
         img.classList.add("reversed");
@@ -1139,7 +1015,9 @@
               <div class="tsd-block-label">⬇ Reversed Meanings</div>
               <p>\${card.reversed}</p>
             </div>
-         
+          </div>
+        </div>
+      \`;
     }
 
     function backToResults() {
@@ -1236,197 +1114,27 @@
       }
     }
 
-    /* ── Sign meanings — Sun, Moon, Rising ─────────────────────────────── */
-    const signMeanings = {
-      Aries:       { sun: "Bold and pioneering — you lead by instinct, act with courage, and thrive when forging your own path. Patience is your lesson; fearlessness is your gift.",
-                     moon: "Your emotions are immediate and intense. You feel fast, react quickly, and need to act on your feelings rather than sit with them. Passionate and fiercely independent.",
-                     rising: "You project confidence and direct energy before saying a word. Others see you as a natural initiator — bold, self-assured, and ready for anything." },
-      Taurus:      { sun: "Grounded, sensual, and deeply reliable — you build slowly and build to last. Security and beauty are central to who you are. Steadfastness is your superpower.",
-                     moon: "You feel safest when your environment is stable and comfortable. Deeply loyal, slow to trust, but once you do — unwavering. You need beauty and peace to thrive.",
-                     rising: "You project a calm, magnetic presence. Others see you as reliable, composed, and aesthetically aware — someone who attracts resources and beauty naturally." },
-      Gemini:      { sun: "Quick, curious, and brilliantly adaptable — your mind is your greatest tool. You thrive on information, variety, and connection, and communicate with effortless wit.",
-                     moon: "You need mental stimulation to feel emotionally secure. You process feelings by talking and thinking. Moods shift quickly; variety keeps you balanced.",
-                     rising: "You project a lively, youthful energy. Others find you easy to talk to, funny, and endlessly interesting — always curious, always adapting." },
-      Cancer:      { sun: "Deeply intuitive, nurturing, and emotionally intelligent — home and belonging are at your core. You feel everything and your empathy is your greatest gift.",
-                     moon: "Your Moon is in its home sign. Extraordinarily emotionally attuned, your intuition is powerful. You need safety to thrive and give that same care to those you love.",
-                     rising: "You project a warm, gentle, nurturing presence. People feel safe with you immediately and come to you for comfort." },
-      Leo:         { sun: "Radiant, generous, and magnetically creative — you were born to shine. Your warmth draws people to you and your loyalty is fierce. Recognition matters; own it without apology.",
-                     moon: "You need warmth, appreciation, and creative expression to feel fulfilled. You love dramatically and your emotional generosity is enormous.",
-                     rising: "You project radiance and natural charisma. People notice when you enter a room — warm, proud, and commanding by presence alone." },
-      Virgo:       { sun: "Precise, devoted, and service-oriented — you notice what others overlook. Your ability to analyze and refine is extraordinary. Turn your discernment on yourself with compassion.",
-                     moon: "You find emotional security in order, usefulness, and routine. You process feelings analytically and feel best when you're productive and helping.",
-                     rising: "You project a composed, attentive, and quietly capable presence. Others see you as competent, thoughtful, and precise — someone who notices everything." },
-      Libra:       { sun: "Graceful, fair-minded, and deeply relational — balance and harmony are your natural language. You thrive in partnership and have a gift for seeing all sides.",
-                     moon: "You need peace and harmony to feel at ease. Deeply uncomfortable with conflict, you feel best when your relationships and environment are balanced and beautiful.",
-                     rising: "You project an elegant, charming, and naturally diplomatic presence. Others see you as attractive, graceful, and genuinely easy to be around." },
-      Scorpio:     { sun: "Intense, perceptive, and powerfully transformative — you go deep in everything. You see through surfaces and your emotional resilience is extraordinary.",
-                     moon: "Your emotional nature has extraordinary depth. You feel everything below the surface and rarely show your full truth until you deeply trust.",
-                     rising: "You project a magnetic, mysterious, and quietly powerful presence. Others sense your depth and find you compelling." },
-      Sagittarius: { sun: "Philosophical, adventurous, and radiantly optimistic — freedom and truth drive you. Your enthusiasm and belief in life's possibilities are genuinely infectious.",
-                     moon: "You need freedom and adventure to feel emotionally alive. You process emotions through movement and exploration. Feeling restricted is your greatest discomfort.",
-                     rising: "You project an open, enthusiastic, and inspiring presence. Others see you as adventurous, honest, and larger than life." },
-      Capricorn:   { sun: "Ambitious, disciplined, and quietly powerful — you are here to build something lasting. Your capacity for sustained effort is extraordinary. Mastery is your deepest drive.",
-                     moon: "You tend toward emotional self-control and reserve. You feel safest when productive and in control. Vulnerability is difficult but when you allow it your emotional depth is profound.",
-                     rising: "You project a composed, authoritative presence. Others see you as reliable, serious, and capable before you even speak." },
-      Aquarius:    { sun: "Original, visionary, and humanitarian — you think in systems and futures. Your individuality is your gift to the world and your ability to see what others can't is your superpower.",
-                     moon: "You value independence and intellectual connection above all else emotionally. You process feelings through ideas and need community as your emotional anchor.",
-                     rising: "You project an unusual, intellectually magnetic, and distinctly individual presence. Others find you fascinating, forward-thinking, and genuinely unlike anyone else." },
-      Pisces:      { sun: "Deeply compassionate, intuitive, and spiritually gifted — you feel the world through your whole being. Your empathy, creativity, and connection to the unseen are extraordinary gifts.",
-                     moon: "One of the most sensitive and psychically receptive emotional natures in the zodiac. You absorb feelings around you; your dreams carry real meaning. Unconditional love is your natural state.",
-                     rising: "You project a gentle, dreamy, and deeply compassionate presence. Others sense your sensitivity immediately and find you easy to confide in." }
-    };
-
-    /* ── House meanings — what each house governs ───────────────────────── */
-    const houseMeanings = {
-      1: "The 1st House is the house of Self — your identity, physical appearance, and the energy you project into the world. It begins with your Rising sign and governs your instinctive personality and the first impression you make on others.",
-      2: "The 2nd House is the house of Value — your relationship with money, possessions, and self-worth. It governs how you earn, what you accumulate, and the values that guide your choices in the material world.",
-      3: "The 3rd House is the house of Communication — how you think, speak, and share ideas. It governs your learning style, relationships with siblings, short travel, and the everyday workings of your mind."
-    };
-
-    /* ── Zodiac sign order — used for Whole Sign house calculation ──────── */
-    const zodiacOrder = [
-      "Aries","Taurus","Gemini","Cancer","Leo","Virgo",
-      "Libra","Scorpio","Sagittarius","Capricorn","Aquarius","Pisces"
-    ];
-
-    /* ── Sun Sign ────────────────────────────────────────────────────────── */
-    function getSunSign(date) {
-      const month = date.getMonth() + 1;
-      const day   = date.getDate();
-      const signs = [
-        ["Capricorn",1,19],["Aquarius",2,18],["Pisces",3,20],
-        ["Aries",4,19],["Taurus",5,20],["Gemini",6,20],
-        ["Cancer",7,22],["Leo",8,22],["Virgo",9,22],
-        ["Libra",10,22],["Scorpio",11,21],["Sagittarius",12,21]
-      ];
-      for (const [sign, m, d] of signs) {
-        if (month === m && day <= d) return sign;
-        if (month < m) return sign;
-      }
-      return "Capricorn";
-    }
-
-    /* ── Moon Sign ───────────────────────────────────────────────────────── */
-    function getMoonSign(date) {
-      const cycle        = 29.53;
-      const knownNewMoon = new Date("2000-01-06");
-      const diffDays     = (date - knownNewMoon) / (1000 * 60 * 60 * 24);
-      let phase = diffDays % cycle;
-      if (phase < 0) phase += cycle;
-      return zodiacOrder[Math.floor((phase / cycle) * 12)];
-    }
-
-    /* ── Rising Sign ─────────────────────────────────────────────────────── */
-    function getRisingSign(timeStr) {
-      const hour = parseInt(timeStr.split(":")[0], 10);
-      return zodiacOrder[Math.floor((hour % 24) / 2)];
-    }
-
-    /* ── Whole Sign Houses ───────────────────────────────────────────────── */
-    // In Whole Sign houses: 1st house = Rising sign, 2nd = next sign, 3rd = next
-    // This is a legitimate and widely-used house system — fully accurate here
-    function getWholeSignHouses(risingSign) {
-      const startIdx = zodiacOrder.indexOf(risingSign);
-      return {
-        1: zodiacOrder[startIdx],
-        2: zodiacOrder[(startIdx + 1) % 12],
-        3: zodiacOrder[(startIdx + 2) % 12]
-      };
-    }
-
-    /* ── Generate Birth Chart ────────────────────────────────────────────── */
+    /* ── Generate Birth Chart ───────────────────────────────────────────── */
     function generateBirthChart() {
-      const dateInput     = document.getElementById("birth-date").value;
-      const timeInput     = document.getElementById("birth-time").value;
-      const locationInput = document.getElementById("birth-location").value;
+      const dateInput = document.getElementById("birth-date").value;
+      const timeInput = document.getElementById("birth-time").value;
 
       if (!dateInput || !timeInput) {
         alert("Please enter both a birth date and birth time.");
         return;
       }
 
+      // Parse as local date (avoid timezone shift from new Date(string))
       const [year, month, day] = dateInput.split("-").map(Number);
       const date = new Date(year, month - 1, day);
 
-      const sunSign    = getSunSign(date);
-      const moonSign   = getMoonSign(date);
-      const risingSign = getRisingSign(timeInput);
-      const houses     = getWholeSignHouses(risingSign);
+      document.getElementById("sun-sign").textContent    = getSunSign(date);
+      document.getElementById("moon-sign").textContent   = getMoonSign(date);
+      document.getElementById("rising-sign").textContent = getRisingSign(timeInput);
 
-      // ── Big Three ──────────────────────────────────────────────────────
-      document.getElementById("sun-sign").textContent    = sunSign;
-      document.getElementById("moon-sign").textContent   = moonSign;
-      document.getElementById("rising-sign").textContent = risingSign;
-
-      const s = signMeanings[sunSign]    || {};
-      const m = signMeanings[moonSign]   || {};
-      const r = signMeanings[risingSign] || {};
-
-      document.getElementById("sun-meaning").textContent    = s.sun     || "";
-      document.getElementById("moon-meaning").textContent   = m.moon    || "";
-      document.getElementById("rising-meaning").textContent = r.rising  || "";
-
-      // ── Whole Sign Houses ──────────────────────────────────────────────
-      for (let h = 1; h <= 3; h++) {
-        const houseSign = houses[h];
-        document.getElementById("house" + h + "-sign").textContent   = houseSign + " — " + getHouseSignDesc(h, houseSign);
-        document.getElementById("house" + h + "-meaning").textContent = houseMeanings[h];
-      }
-
-      const resultsEl = document.getElementById("birth-results");
-      resultsEl.style.display = "block";
-      resultsEl.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("birth-results").style.display = "block";
+      document.getElementById("birth-results").scrollIntoView({ behavior: "smooth" });
     }
-
-    /* ── House sign description — what a sign brings to a house ─────────── */
-    function getHouseSignDesc(houseNum, sign) {
-      const descriptions = {
-        1: {
-          Aries: "Bold self-expression, natural leadership energy.",
-          Taurus: "Calm, magnetic, and grounded presence.",
-          Gemini: "Curious, adaptable, and communicative identity.",
-          Cancer: "Warm, nurturing, and deeply intuitive presence.",
-          Leo: "Radiant, expressive, and naturally magnetic.",
-          Virgo: "Precise, analytical, and service-oriented energy.",
-          Libra: "Graceful, charming, and relationship-focused presence.",
-          Scorpio: "Intense, magnetic, and quietly powerful energy.",
-          Sagittarius: "Optimistic, expansive, and adventurous presence.",
-          Capricorn: "Composed, authoritative, and disciplined energy.",
-          Aquarius: "Original, forward-thinking, and distinctly individual.",
-          Pisces: "Gentle, compassionate, and deeply intuitive presence."
-        },
-        2: {
-          Aries: "Earns through initiative and entrepreneurial drive.",
-          Taurus: "Natural talent for building lasting wealth and comfort.",
-          Gemini: "Income through communication, writing, or multiple streams.",
-          Cancer: "Financial security tied to home, family, and emotional wellbeing.",
-          Leo: "Attracts abundance through creativity and confident self-expression.",
-          Virgo: "Builds wealth through precision, service, and practical skill.",
-          Libra: "Attracts money through beauty, partnership, and diplomacy.",
-          Scorpio: "Deep relationship with resources — transformative financial power.",
-          Sagittarius: "Abundance through philosophy, travel, and expanding horizons.",
-          Capricorn: "Slow and steady wealth building through discipline and mastery.",
-          Aquarius: "Income through innovation, technology, or humanitarian work.",
-          Pisces: "Financial intuition and creativity — resources flow in mysterious ways."
-        },
-        3: {
-          Aries: "Direct, bold, and passionate communicator.",
-          Taurus: "Thoughtful, deliberate, and pleasingly expressive voice.",
-          Gemini: "Quick-minded, versatile, and naturally gifted with words.",
-          Cancer: "Emotionally attuned communicator — speaks from the heart.",
-          Leo: "Dramatic, warm, and naturally captivating speaker.",
-          Virgo: "Precise, analytical, and detail-oriented in communication.",
-          Libra: "Diplomatic, elegant, and gifted at seeing all sides.",
-          Scorpio: "Penetrating, perceptive, and powerfully persuasive.",
-          Sagittarius: "Philosophical, inspiring, and expansive in thought and speech.",
-          Capricorn: "Serious, careful, and authoritative communicator.",
-          Aquarius: "Original, intellectually innovative, and forward-thinking.",
-          Pisces: "Intuitive, imaginative, and poetically expressive."
-        }
-      };
-      return (descriptions[houseNum] && descriptions[houseNum][sign]) ? descriptions[houseNum][sign] : "";
-    }
-
 
     /* ── Save Birth Reading ─────────────────────────────────────────────── */
     function saveBirthReading() {
@@ -1492,19 +1200,7 @@
 	      });
 	    })();
 
-	    <!-- ═══════════════════════════════════════════════════════════════════════
-       SCRIPTS — placed at end of body so the DOM is fully loaded first
-  ════════════════════════════════════════════════════════════════════════ -->
-  <script>
-
-    // ── Copyright year ──────────────────────────────────────────────────────
-	document.getElementById("year").textContent = new Date().getFullYear();	  
-
 	  </script>
-		 < script src="js/tarot.js"></script>
-		   </script>
-	 
-
 
 	</body>
 	</html>
