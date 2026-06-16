@@ -337,17 +337,49 @@
         <button class="tarot-tab" onclick="switchTarotTab('search', this)">🔍 Search a Card</button>
       </div>
 
-      <!-- ── DAILY PULL ────────────────────────────────────────────── -->
+      <!-- ── DAILY PULL ─ Past / Present / Future 3-card spread ───── -->
       <div id="tarot-panel-pull" class="tarot-panel">
-        <div class="tarot-card-display">
-          <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
-          <p class="tarot-label">
-            <span id="tarot-card-name">Your card will appear here</span>
-            <br />
-            <span id="tarot-card-orientation"></span>
-          </p>
-          <div id="tarot-meaning-box" class="tarot-meaning-box" style="display:none;"></div>
-          <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
+        <p style="text-align:center;color:rgba(255,255,255,0.55);font-size:0.9rem;margin-bottom:1.25rem;">
+          Shuffle your energy, set your intention, then pull three cards.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-bottom:1.25rem;">
+
+          <!-- PAST -->
+          <div class="tarot-card-display" style="flex:1;min-width:180px;max-width:240px;">
+            <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#a56bff;margin-bottom:0.5rem;">Past</div>
+            <img id="tarot-card-image-0" src="images/tarot/back.png" alt="Past Card" class="tarot-image" />
+            <p class="tarot-label">
+              <span id="tarot-card-name-0">—</span><br/>
+              <span id="tarot-card-orientation-0" style="font-size:0.8rem;color:rgba(255,255,255,0.45);"></span>
+            </p>
+            <div id="tarot-meaning-box-0" class="tarot-meaning-box" style="display:none;"></div>
+          </div>
+
+          <!-- PRESENT -->
+          <div class="tarot-card-display" style="flex:1;min-width:180px;max-width:240px;">
+            <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#EF9F27;margin-bottom:0.5rem;">Present</div>
+            <img id="tarot-card-image-1" src="images/tarot/back.png" alt="Present Card" class="tarot-image" />
+            <p class="tarot-label">
+              <span id="tarot-card-name-1">—</span><br/>
+              <span id="tarot-card-orientation-1" style="font-size:0.8rem;color:rgba(255,255,255,0.45);"></span>
+            </p>
+            <div id="tarot-meaning-box-1" class="tarot-meaning-box" style="display:none;"></div>
+          </div>
+
+          <!-- FUTURE -->
+          <div class="tarot-card-display" style="flex:1;min-width:180px;max-width:240px;">
+            <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#4bb4ff;margin-bottom:0.5rem;">Future</div>
+            <img id="tarot-card-image-2" src="images/tarot/back.png" alt="Future Card" class="tarot-image" />
+            <p class="tarot-label">
+              <span id="tarot-card-name-2">—</span><br/>
+              <span id="tarot-card-orientation-2" style="font-size:0.8rem;color:rgba(255,255,255,0.45);"></span>
+            </p>
+            <div id="tarot-meaning-box-2" class="tarot-meaning-box" style="display:none;"></div>
+          </div>
+
+        </div>
+        <div style="text-align:center;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+          <button type="button" class="btn secondary" onclick="pullThreeCards()">🃏 Pull Your Three Cards</button>
           <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
         </div>
       </div>
@@ -894,59 +926,48 @@
     }
 
     // ── Pull Daily Card ─────────────────────────────────────────────────────
-    function pullDailyCard() {
-      const card       = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
-      const isReversed = Math.random() < 0.5;
+    // ── Pull 3-card Past / Present / Future spread ─────────────────────────
+    function pullThreeCards() {
+      // Pick 3 unique cards from the deck
+      const shuffled = [...tarotDeck].sort(() => Math.random() - 0.5);
+      const picks    = shuffled.slice(0, 3);
 
-      const img         = document.getElementById("tarot-card-image");
-      const nameEl      = document.getElementById("tarot-card-name");
-      const orientEl    = document.getElementById("tarot-card-orientation");
-      const displayArea = document.querySelector(".tarot-card-display");
-      const meaningBox  = document.getElementById("tarot-meaning-box");
+      picks.forEach(function(card, i) {
+        const isReversed = Math.random() < 0.5;
+        const img        = document.getElementById('tarot-card-image-' + i);
+        const nameEl     = document.getElementById('tarot-card-name-' + i);
+        const orientEl   = document.getElementById('tarot-card-orientation-' + i);
+        const meaningBox = document.getElementById('tarot-meaning-box-' + i);
 
-      nameEl.textContent = card.name;
+        nameEl.textContent   = card.name;
+        orientEl.textContent = isReversed ? '(Reversed)' : '(Upright)';
+        img.classList.toggle('reversed', isReversed);
 
-      // Fix: use onload/onerror so GitHub Pages case-sensitivity issues are visible
-      img.onerror = function() {
-        this.onerror = null;
-        this.src = 'images/tarot/back.png';
-        nameEl.textContent = card.name + ' ⚠ image not found: ' + card.image;
-      };
-      img.onload = function() {
-        nameEl.textContent = card.name;
-      };
-      img.src = card.image + '?v=' + Date.now(); // cache-bust so onerror fires reliably
+        // Load image — show warning in name if file is missing
+        img.onerror = function() {
+          this.onerror = null;
+          this.src = 'images/tarot/back.png';
+          nameEl.textContent = card.name + ' ⚠ (image missing: ' + card.image + ')';
+        };
+        img.onload = function() { nameEl.textContent = card.name; };
+        img.src = card.image + '?cb=' + Date.now();
 
-      if (isReversed) {
-        img.classList.add("reversed");
-        orientEl.textContent = "(Reversed)";
-      } else {
-        img.classList.remove("reversed");
-        orientEl.textContent = "(Upright)";
-      }
-
-      // Sparkle on reversed
-      const oldSparkle = displayArea.querySelector(".sparkle");
-      if (oldSparkle) oldSparkle.remove();
-      if (isReversed) {
-        const sparkle = document.createElement("div");
-        sparkle.classList.add("sparkle");
-        img.insertAdjacentElement("afterend", sparkle);
-      }
-
-      // Show meaning box
-      meaningBox.style.display = 'block';
-      meaningBox.innerHTML = \`
-        <div class="tm-upright">
-          <div class="tm-label">⬆ Upright</div>
-          <div class="tm-keywords">\${card.upright}</div>
-        </div>
-        <div class="tm-reversed">
-          <div class="tm-label">⬇ Reversed</div>
-          <div class="tm-keywords">\${card.reversed}</div>
-        </div>
-      \`;
+        meaningBox.style.display = 'block';
+        meaningBox.innerHTML = `
+          <div class="tm-upright">
+            <div class="tm-label">⬆ Upright</div>
+            <div class="tm-keywords">${card.upright}</div>
+          </div>
+          <div class="tm-reversed">
+            <div class="tm-label">⬇ Reversed</div>
+            <div class="tm-keywords">${card.reversed}</div>
+          </div>
+        `;
+      });
     }
+
+    // Keep old name working just in case anything else calls it
+    function pullDailyCard() { pullThreeCards(); }
 
     // ── Save Reading ────────────────────────────────────────────────────────
     function saveReading() {
