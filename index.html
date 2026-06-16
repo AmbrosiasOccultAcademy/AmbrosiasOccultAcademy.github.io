@@ -987,16 +987,6 @@
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       SCRIPTS — placed at end of body so the DOM is fully loaded first
-  ════════════════════════════════════════════════════════════════════════ -->
-  <script>
-
-    // ── Copyright year ──────────────────────────────────────────────────────
-	document.getElementById("year").textContent = new Date().getFullYear();
-
-
-
     /* =====================================================================
        TAROT — deck data with upright + reversed meanings
     ===================================================================== */
@@ -1193,9 +1183,7 @@
               <div class="tsd-block-label">⬇ Reversed Meanings</div>
               <p>\${card.reversed}</p>
             </div>
-          </div>
-        </div>
-      \`;
+         
     }
 
     function backToResults() {
@@ -1547,6 +1535,14 @@
 	        }
 	      });
 	    })();
+
+	    <!-- ═══════════════════════════════════════════════════════════════════════
+       SCRIPTS — placed at end of body so the DOM is fully loaded first
+  ════════════════════════════════════════════════════════════════════════ -->
+  <script>
+
+    // ── Copyright year ──────────────────────────────────────────────────────
+	document.getElementById("year").textContent = new Date().getFullYear();	  
 
 	  <script src="js/tarot.js"></script>
 	  </script>
