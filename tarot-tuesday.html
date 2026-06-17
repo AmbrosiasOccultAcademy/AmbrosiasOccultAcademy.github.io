@@ -1,212 +1,721 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tarot Tuesday | Ambrosia's Occult Academy</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Tarot Tuesday at Ambrosia's Occult Academy – Weekly tarot focus, guidance, and rituals.">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Tarot Tip Tuesdays | Ambrosia's Occult Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Page Hero ──────────────────────────────────────────────────────── */
+    .tuesday-hero {
+      position: relative;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #1a0a3a 0%, #050316 55%, #02010b 100%);
+      overflow: hidden;
+    }
+    .tuesday-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(165,107,255,0.2) 0, transparent 50%),
+        radial-gradient(circle at 75% 20%, rgba(239,159,39,0.12) 0, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(212,83,126,0.08) 0, transparent 40%);
+      pointer-events: none;
+    }
+    .tuesday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .tuesday-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .tuesday-hero .day-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 0.75rem;
+    }
+    .tuesday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+    /* ── Jump Nav ───────────────────────────────────────────────────────── */
+    .jump-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1rem 1.5rem;
+      background: rgba(5,3,22,0.96);
+      border-bottom: 1px solid var(--border-soft);
+      position: sticky;
+      top: 0;
+      z-index: 9;
+      backdrop-filter: blur(14px);
+    }
+    .jump-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .jump-nav a:hover {
+      color: #d7e2ff;
+      border-color: rgba(165,107,255,0.5);
+      background: rgba(165,107,255,0.08);
+    }
+
+    /* ── Weekly Update Box ──────────────────────────────────────────────── */
+    .weekly-box {
+      background: linear-gradient(135deg, rgba(165,107,255,0.12), rgba(239,159,39,0.07));
+      border: 1px solid rgba(165,107,255,0.4);
+      border-radius: 16px;
+      padding: 2rem;
+      margin: 0 0 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .weekly-box::before {
+      content: "✏️ UPDATED WEEKLY";
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      color: #a56bff;
+      font-weight: 700;
+    }
+    .weekly-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #d7e2ff;
+      margin-bottom: 1.25rem;
+    }
+    .weekly-item {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(165,107,255,0.15);
+    }
+    .weekly-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+    .weekly-item-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    .weekly-quote {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      line-height: 1.55;
+      color: #f5f5ff;
+      font-style: italic;
+      padding-left: 1.2rem;
+      border-left: 3px solid #EF9F27;
+    }
+    .weekly-quote .attribution {
+      display: block;
+      font-size: 0.8rem;
+      font-style: normal;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      letter-spacing: 0.04em;
+    }
+    .weekly-tip {
+      background: rgba(0,0,0,0.25);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .weekly-tip strong { color: #d7e2ff; }
+
+    /* ── Guide Sections ─────────────────────────────────────────────────── */
+    .guide-section { margin-bottom: 3rem; }
+    .guide-section h2 {
+      font-family: var(--font-display);
+      font-size: 1.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .guide-section .guide-intro {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+      max-width: 820px;
+    }
+
+    /* ── Card Grid ──────────────────────────────────────────────────────── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .card-tile {
+      border-radius: 14px;
+      padding: 1.4rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(165,107,255,0.12), rgba(5,3,22,0.9));
+      box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-tile:hover { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0,0,0,0.55); }
+    .card-tile h3 { margin: 0 0 0.4rem; font-size: 1rem; color: #EF9F27; }
+    .card-tile .card-numeral {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 0.5rem;
+    }
+    .card-tile p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+    .card-tile .meaning-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin: 0.75rem 0 0.25rem;
+      font-weight: 700;
+    }
+
+    /* ── Spread Layout ──────────────────────────────────────────────────── */
+    .spread-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+    .spread-position {
+      flex: 1;
+      min-width: 200px;
+      background: rgba(10,10,30,0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .spread-position .pos-number {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      color: #a56bff;
+      margin-bottom: 0.3rem;
+    }
+    .spread-position h4 { margin: 0 0 0.4rem; font-size: 0.95rem; color: #d7e2ff; }
+    .spread-position p  { margin: 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── Steps List ─────────────────────────────────────────────────────── */
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .steps-list li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      background: rgba(10,10,30,0.7);
+      border: 1px solid var(--border-soft);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+    }
+    .step-num {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      color: #EF9F27;
+      min-width: 2rem;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .step-body h4 { margin: 0 0 0.25rem; font-size: 0.95rem; color: #d7e2ff; }
+    .step-body p  { margin: 0; font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── Tip Box ────────────────────────────────────────────────────────── */
+    .tip-box {
+      background: rgba(165,107,255,0.07);
+      border-left: 3px solid #a56bff;
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin: 1.5rem 0;
+    }
+    .tip-box strong { color: #d7e2ff; }
+
+    /* ── Upsell ─────────────────────────────────────────────────────────── */
+    .upsell-box {
+      background: linear-gradient(135deg, rgba(239,159,39,0.12), rgba(165,107,255,0.08));
+      border: 1px solid rgba(239,159,39,0.35);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+    .upsell-box h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #EF9F27;
+      margin-bottom: 0.5rem;
+    }
+    .upsell-box p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+  </style>
 </head>
-<body class="tarot-page">
-  <header class="site-header">
-    <div class="logo-title">
-      <h1>Ambrosia's Occult Academy</h1>
-      <p class="tagline">Where arcane wisdom meets everyday life.</p>
+<body>
+
+  <!-- ─── HERO ────────────────────────────────────────────────────────── -->
+  <div class="tuesday-hero">
+    <div class="tuesday-hero-content">
+      <div class="day-label">Every Tuesday</div>
+      <h1>🃏 Tarot Tip Tuesdays</h1>
+      <p>Learn the language of the cards one week at a time — tips, spreads, and deep dives into the Major Arcana.</p>
+      <div style="margin-top:1.5rem; display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <a href="#this-week" class="btn secondary">This Week's Content</a>
+        <a href="index.html#themes" class="btn outline">Back to Homepage</a>
+      </div>
     </div>
-    <nav class="main-nav">
-      <a href="index.html">Home</a>
-      <a href="tarot-tuesday.html" class="active">Tarot Tuesday</a>
-      <a href="astrology-thursday.html">Astrology Thursday</a>
-      <a href="about.html">About</a>
-    </nav>
-  </header>
+  </div>
 
-  <main class="content-wrapper">
-    <section class="intro-banner">
-      <div class="banner-text">
-        <h2>Tarot Tuesday</h2>
-        <p class="week-range">Week of June 18 – 25</p>
-        <p class="intro-copy">
-          Each week, we step through the veil with a featured tarot archetype, exploring its lessons,
-          rituals, and reflections for the days ahead. This week, the currents are ruled by
-          <span class="highlight">The High Priestess</span>.
+  <!-- ─── JUMP NAV ─────────────────────────────────────────────────────── -->
+  <nav class="jump-nav">
+    <a href="#this-week">This Week</a>
+    <a href="#card-of-week">Card of the Week</a>
+    <a href="#spread">Spread of the Week</a>
+    <a href="#major-arcana">Major Arcana Guide</a>
+    <a href="#how-to-read">How to Read</a>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       THIS WEEK — update every Tuesday
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="this-week" class="section section-dark">
+    <div class="section-inner">
+
+      <!-- ✏️ UPDATE WEEKLY — Week of June 17, 2026 -->
+      <div class="weekly-box">
+        <h3>✨ This Week — June 17, 2026</h3>
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">🌟 Tarot Tip of the Week</div>
+          <div class="weekly-tip">
+            <strong>Learn the suits before the cards.</strong> Before memorizing all 78 card meanings,
+            get deeply familiar with what each suit represents: Wands = fire and passion,
+            Cups = water and emotion, Swords = air and thought, Pentacles = earth and material life.
+            Once you feel those four energies in your body, the cards start speaking to you intuitively —
+            even ones you haven't studied yet. Start there. The rest follows naturally.
+          </div>
+        </div>
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">🃏 Card of the Week — The High Priestess II</div>
+          <div class="weekly-tip">
+            This week's energy calls you inward. The High Priestess sits between two pillars —
+            the conscious and the unconscious — and reminds you that the answers you seek are already
+            within. Trust what you <em>feel</em> before you trust what you're told. Pay close attention
+            to your dreams and your gut reactions this week. She is not asking you to act.
+            She is asking you to listen.
+            <br /><br />
+            <strong>Upright:</strong> Intuition · Sacred knowledge · Mystery · Inner knowing<br />
+            <strong>Reversed:</strong> Secrets withheld · Disconnection from self · Surface-level thinking
+          </div>
+        </div>
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">🔮 Spread of the Week — The Crossroads</div>
+          <div class="weekly-tip">
+            A 3-card spread for when you're standing at a decision point and need clarity.
+            <br /><br />
+            <strong>Card 1 — What I Know:</strong> The part of the situation already visible to you.<br />
+            <strong>Card 2 — What I'm Missing:</strong> The hidden factor or blind spot.<br />
+            <strong>Card 3 — What to Trust:</strong> The energy or action that will guide you through.
+            <br /><br />
+            Shuffle with intention, hold your question clearly in mind, and pull when ready.
+          </div>
+        </div>
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">📺 This Week on YouTube</div>
+          <div class="weekly-tip">
+            New content dropping this week on the channel. Subscribe so you don't miss it.
+          </div>
+        </div>
+
+      </div>
+      <!-- ✏️ END WEEKLY UPDATE -->
+
+      <!-- Emailed reading upsell -->
+      <div class="upsell-box">
+        <h3>Want Jennifer to Read the Spread for You?</h3>
+        <p>
+          For $9.95, receive a full personalized Crossroads reading by email — your cards pulled,
+          interpreted in the context of your specific question, with compassionate and clear guidance.
         </p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+          <input type="hidden" name="cmd" value="_xclick" />
+          <input type="hidden" name="business" value="AmbrosiasOccultAcademy@gmail.com" />
+          <input type="hidden" name="item_name" value="Tarot Tuesday Emailed Reading" />
+          <input type="hidden" name="amount" value="9.95" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="hidden" name="no_shipping" value="1" />
+          <button type="submit" class="btn secondary">Order My Reading — $9.95</button>
+        </form>
       </div>
-      <div class="banner-image">
-        <!-- Replace src with your High Priestess image path -->
-        <img src="images/tarot/high-priestess.jpg" alt="The High Priestess Tarot Card">
-      </div>
-    </section>
 
-    <section class="card-focus">
-      <h3>The High Priestess – Guardian of the Inner Temple</h3>
-      <p>
-        The High Priestess sits between worlds—between conscious and subconscious, seen and unseen,
-        logic and mystery. She doesn’t shout; she waits. Her power is not in action, but in
-        awareness. When she appears as our guide for the week, she invites us to slow down and
-        listen to what has been whispering beneath the noise.
-      </p>
-      <div class="card-meaning-grid">
-        <div class="meaning-block">
-          <h4>Keywords</h4>
-          <ul>
-            <li>Intuition</li>
-            <li>Mystery</li>
-            <li>Inner knowing</li>
-            <li>Hidden truths</li>
-            <li>Spiritual insight</li>
-          </ul>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CARD OF THE WEEK — expanded breakdown
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="card-of-week" class="section section-light">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>🌟 Card of the Week Deep Dive — The High Priestess</h2>
+        <p class="guide-intro">
+          Each week we go deeper into one card — its imagery, symbolism, numerology, and how it shows
+          up in readings across different life areas.
+        </p>
+
+        <div class="card-grid">
+          <div class="card-tile">
+            <div class="card-numeral">Major Arcana · II</div>
+            <h3>Core Energy</h3>
+            <p>The High Priestess governs the liminal space between the known and unknown. She is mystery, sacred
+            feminine wisdom, and the power of the subconscious mind. She does not reveal — she suggests. She does
+            not speak — she whispers.</p>
+          </div>
+          <div class="card-tile">
+            <div class="card-numeral">Numerology</div>
+            <h3>The Number 2</h3>
+            <p>Two is the number of duality — day and night, visible and hidden, conscious and unconscious.
+            The High Priestess embodies this perfectly, sitting between the black and white pillars of Boaz
+            and Jachin. She is the bridge, not the destination.</p>
+          </div>
+          <div class="card-tile">
+            <div class="card-numeral">Symbolism</div>
+            <h3>The Veil &amp; the Pillars</h3>
+            <p>Behind her hangs a veil of pomegranates — a symbol of fertility and the unconscious. She holds
+            a Torah scroll partially concealed, suggesting that not all wisdom is meant to be shared openly.
+            The crescent moon at her feet grounds lunar intuition.</p>
+          </div>
+          <div class="card-tile">
+            <div class="card-numeral">In a Reading</div>
+            <h3>What She's Telling You</h3>
+            <p>When she appears, the answer you're seeking is already inside you. She asks you to pause,
+            turn inward, and trust your gut before taking action. She frequently appears when someone is
+            ignoring their own knowing in favor of what they've been told to think or feel.</p>
+          </div>
+          <div class="card-tile">
+            <div class="card-numeral">Love &amp; Relationships</div>
+            <h3>In Love Readings</h3>
+            <p>There is something beneath the surface you aren't seeing yet. Secrets, unspoken feelings,
+            or a situation that isn't what it appears to be. She advises patience and observation over
+            action. Do not force a disclosure that isn't ready to emerge.</p>
+          </div>
+          <div class="card-tile">
+            <div class="card-numeral">Career &amp; Purpose</div>
+            <h3>In Work Readings</h3>
+            <p>Trust your instincts over external authority. You may know something intuitively about
+            a situation at work before you have evidence to back it up. She validates that knowing.
+            This is also a strong card for those in healing, counseling, teaching, or creative fields.</p>
+          </div>
         </div>
-        <div class="meaning-block">
-          <h4>Upright Themes</h4>
-          <ul>
-            <li>Trusting your instincts</li>
-            <li>Receiving subtle signs and synchronicities</li>
-            <li>Honoring your emotional tides</li>
-            <li>Letting answers emerge instead of forcing them</li>
-          </ul>
+
+        <div class="tip-box">
+          <strong>Journaling prompts for this card:</strong> Where in your life are you ignoring what you
+          already know to be true? What are your dreams telling you this week? When did you last trust your
+          gut completely — and what happened?
         </div>
-        <div class="meaning-block">
-          <h4>Shadow / Reversed Themes</h4>
-          <ul>
-            <li>Ignoring your inner voice</li>
-            <li>Overthinking and second‑guessing</li>
-            <li>Secrets, half‑truths, or withheld information</li>
-            <li>Spiritual burnout or disconnection</li>
-          </ul>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       SPREAD OF THE WEEK — full breakdown
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="spread" class="section section-dark">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>🔮 Spread of the Week — The Crossroads</h2>
+        <p class="guide-intro">
+          A simple but powerful 3-card spread for moments of decision. Use this any time you feel
+          stuck between paths and need clarity on what you're working with, what you're missing, and
+          where to place your trust.
+        </p>
+
+        <div class="spread-grid">
+          <div class="spread-position">
+            <div class="pos-number">1</div>
+            <h4>What I Know</h4>
+            <p>The part of the situation that's already visible to you. Your current understanding,
+            the facts on the table, what you can see clearly.</p>
+          </div>
+          <div class="spread-position">
+            <div class="pos-number">2</div>
+            <h4>What I'm Missing</h4>
+            <p>The hidden factor, the blind spot, the piece of information or perspective that hasn't
+            come into focus yet. What the High Priestess is concealing behind her veil.</p>
+          </div>
+          <div class="spread-position">
+            <div class="pos-number">3</div>
+            <h4>What to Trust</h4>
+            <p>The energy, quality, or action that will guide you through this crossroads. Not necessarily
+            the answer — the compass that points toward it.</p>
+          </div>
         </div>
+
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <h4>Ground yourself first</h4>
+              <p>Take three slow breaths before you touch the deck. Feel your feet on the floor. You want
+              to come to the cards from a place of stillness, not anxiety — anxiety clouds the reading.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <h4>Formulate a clear question</h4>
+              <p>Don't ask yes/no questions. Instead try: "What do I need to understand about this decision?"
+              or "Show me the full picture of this situation." Open questions get richer answers.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <h4>Shuffle with your question in mind</h4>
+              <p>Shuffle until it feels complete — there's no magic number. When you feel ready to stop,
+              trust that. Cut the deck if that's your practice, then lay three cards left to right.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <h4>Read the cards in relationship to each other</h4>
+              <p>Don't interpret each card in isolation. How does Card 1 relate to Card 2? Does Card 3
+              resolve or complicate the tension? The story between the cards is where the real reading lives.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <h4>Journal your interpretation</h4>
+              <p>Write it down — even a few sentences. Coming back to your notes a week later and seeing
+              how the reading played out is one of the fastest ways to build real trust in your intuition.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="tip-box">
+          <strong>Remember:</strong> Tarot doesn't predict a fixed future. It illuminates the energies
+          already at work in your situation so you can make a more conscious choice. You always have free will.
+          The cards show you the road — you decide whether to walk it.
+        </div>
+
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="weekly-energy">
-      <h3>This Week’s Energy: June 18 – 25</h3>
-      <p>
-        Expect a quieter, more liminal tone to the week. Answers may arrive through dreams,
-        déjà vu, or sudden “knowing” that can’t be logically explained. This is not a time to
-        push outcomes or demand clarity on your schedule. Instead, it’s a time to cultivate
-        trust in your own inner compass.
-      </p>
 
-      <div class="daily-grid">
-        <article class="day-card">
-          <h4>Tuesday – Opening the Veil</h4>
-          <p class="day-label">June 18</p>
-          <p>
-            Set the tone for the week by creating a small sacred space: a candle, a glass of
-            water, your deck, and your High Priestess card. Ask: <em>“What wants to be revealed
-            to me this week?”</em> Pull one clarifying card and write down the first three words
-            that come to mind.
-          </p>
-        </article>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MAJOR ARCANA GUIDE — permanent evergreen content
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="major-arcana" class="section section-light">
+    <div class="section-inner">
+      <div class="guide-section">
 
-        <article class="day-card">
-          <h4>Wednesday – Listening Between the Lines</h4>
-          <p class="day-label">June 19</p>
-          <p>
-            Pay attention to conversations, lyrics, and passing comments. The High Priestess
-            often speaks through subtle echoes. Notice what repeats today. Journal on:
-            <em>“What pattern is trying to get my attention?”</em>
-          </p>
-        </article>
+        <h2>🌙 The Major Arcana — A Quick Reference</h2>
+        <p class="guide-intro">
+          The 22 cards of the Major Arcana represent the big themes and archetypal forces of human experience.
+          When these cards appear in a reading, pay attention — they carry more weight than the Minor Arcana
+          and often signal significant life events or soul-level lessons.
+        </p>
 
-        <article class="day-card">
-          <h4>Thursday – Dreamgate</h4>
-          <p class="day-label">June 20</p>
-          <p>
-            Before sleep, place your High Priestess card by your bed. Ask for a dream message.
-            Upon waking, write down any images, feelings, or fragments—no matter how strange.
-            The meaning may unfold over the next few days.
-          </p>
-        </article>
+        <div class="card-grid">
+          <div class="card-tile"><div class="card-numeral">0</div><h3>The Fool</h3><p>New beginnings, leaps of faith, innocence, and the start of a journey. Pure potential before experience.</p></div>
+          <div class="card-tile"><div class="card-numeral">I</div><h3>The Magician</h3><p>Willpower, resourcefulness, manifestation. You have everything you need — the question is whether you'll use it.</p></div>
+          <div class="card-tile"><div class="card-numeral">II</div><h3>The High Priestess</h3><p>Intuition, mystery, the subconscious, inner knowing. Stop looking outward. The answer is already inside you.</p></div>
+          <div class="card-tile"><div class="card-numeral">III</div><h3>The Empress</h3><p>Abundance, creativity, fertility, sensuality, nurturing. Growth in all its forms — creative, financial, relational.</p></div>
+          <div class="card-tile"><div class="card-numeral">IV</div><h3>The Emperor</h3><p>Authority, structure, discipline, leadership, and solid foundations. Building something that lasts.</p></div>
+          <div class="card-tile"><div class="card-numeral">V</div><h3>The Hierophant</h3><p>Tradition, institutions, spiritual mentorship, and conformity — or the conscious rejection of it.</p></div>
+          <div class="card-tile"><div class="card-numeral">VI</div><h3>The Lovers</h3><p>Love, alignment of values, important choices, and deep connection. About partnership — with another or with yourself.</p></div>
+          <div class="card-tile"><div class="card-numeral">VII</div><h3>The Chariot</h3><p>Determination, victory through willpower, forward momentum. Hard-won success through discipline and focus.</p></div>
+          <div class="card-tile"><div class="card-numeral">VIII</div><h3>Strength</h3><p>Inner courage, patience, compassion as power. True strength is soft — it doesn't force, it persuades.</p></div>
+          <div class="card-tile"><div class="card-numeral">IX</div><h3>The Hermit</h3><p>Solitude, introspection, inner guidance. A time to withdraw from noise and listen to your own wisdom.</p></div>
+          <div class="card-tile"><div class="card-numeral">X</div><h3>Wheel of Fortune</h3><p>Cycles, karma, destiny, turning points. What goes around comes around — and everything changes.</p></div>
+          <div class="card-tile"><div class="card-numeral">XI</div><h3>Justice</h3><p>Truth, fairness, cause and effect, accountability. Actions have consequences. The scales always balance.</p></div>
+          <div class="card-tile"><div class="card-numeral">XII</div><h3>The Hanged Man</h3><p>Surrender, new perspective, necessary pause. The breakthrough comes when you stop struggling.</p></div>
+          <div class="card-tile"><div class="card-numeral">XIII</div><h3>Death</h3><p>Transformation, endings that make room for beginnings. Not literal death — the death of what no longer serves.</p></div>
+          <div class="card-tile"><div class="card-numeral">XIV</div><h3>Temperance</h3><p>Balance, patience, divine timing, alchemy. The middle path. Flow rather than force.</p></div>
+          <div class="card-tile"><div class="card-numeral">XV</div><h3>The Devil</h3><p>Attachment, shadow self, bondage — often self-imposed. The chains are real, but you hold the key.</p></div>
+          <div class="card-tile"><div class="card-numeral">XVI</div><h3>The Tower</h3><p>Sudden upheaval, revelation, necessary destruction of false structures. The lightning bolt that clears the path.</p></div>
+          <div class="card-tile"><div class="card-numeral">XVII</div><h3>The Star</h3><p>Hope, healing, renewal, faith after hardship. After the Tower, the Star. Relief is coming.</p></div>
+          <div class="card-tile"><div class="card-numeral">XVIII</div><h3>The Moon</h3><p>Illusion, fear, the unconscious, hidden depths. Not everything is as it appears. Trust your instincts, not your eyes.</p></div>
+          <div class="card-tile"><div class="card-numeral">XIX</div><h3>The Sun</h3><p>Joy, vitality, clarity, success. One of the most positive cards in the deck. Things are becoming clear.</p></div>
+          <div class="card-tile"><div class="card-numeral">XX</div><h3>Judgement</h3><p>Awakening, reckoning, rebirth, answering a calling. A moment of profound and honest self-assessment.</p></div>
+          <div class="card-tile"><div class="card-numeral">XXI</div><h3>The World</h3><p>Completion, wholeness, accomplishment, the end of a major life cycle. You've earned this.</p></div>
+        </div>
 
-        <article class="day-card">
-          <h4>Friday – Sacred “No”</h4>
-          <p class="day-label">June 21</p>
-          <p>
-            The High Priestess teaches boundaries through intuition. Today, practice saying a
-            gentle but firm “no” to anything that feels off, draining, or misaligned—even if
-            you can’t fully explain why.
-          </p>
-        </article>
-
-        <article class="day-card">
-          <h4>Saturday – Quiet Ritual</h4>
-          <p class="day-label">June 22</p>
-          <p>
-            Choose a simple ritual: a bath, a walk at dusk, or silent candle gazing. Leave your
-            phone behind. Let your mind wander and see what rises when you’re not distracting
-            yourself.
-          </p>
-        </article>
-
-        <article class="day-card">
-          <h4>Sunday – Inner Oracle Spread</h4>
-          <p class="day-label">June 23</p>
-          <p>
-            Try this 3‑card spread: (1) <strong>What my intuition is already telling me</strong>,
-            (2) <strong>What my mind is afraid of</strong>, (3) <strong>How to honor my inner
-            knowing</strong>. Place the High Priestess above the spread as the overseeing guide.
-          </p>
-        </article>
-
-        <article class="day-card">
-          <h4>Monday – Integration</h4>
-          <p class="day-label">June 24–25</p>
-          <p>
-            Review your notes, dreams, and spreads from the week. Ask:
-            <em>“What have I learned about the way my intuition speaks?”</em>
-            Write a short “Intuition Manifesto” for yourself—three promises about how you’ll
-            listen to your inner voice moving forward.
-          </p>
-        </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="ritual-section">
-      <h3>3‑Minute Intuition Check‑In</h3>
-      <p>
-        Use this simple practice any day this week when you feel scattered or unsure:
-      </p>
-      <ol>
-        <li><strong>Be still:</strong> Sit comfortably, close your eyes, and take three slow breaths.</li>
-        <li><strong>Ask:</strong> “What does my inner voice want me to know right now?”</li>
-        <li><strong>Receive:</strong> Write down the very first sentence, image, or phrase that arises—no editing.</li>
-      </ol>
-      <p>
-        Over time, you’ll start to recognize the unique “tone” of your intuition versus fear,
-        habit, or outside influence.
-      </p>
-    </section>
 
-    <section class="deck-project">
-      <h3>Ambrosia’s Tarot Deck in Progress</h3>
-      <p>
-        This week’s Tarot Tuesday features my original artwork for
-        <span class="highlight">The High Priestess</span>, part of my upcoming Major Arcana deck.
-        I’m currently working card by card to complete the full series.
-      </p>
-      <p>
-        Once the deck is finished, you’ll be able to:
-      </p>
-      <ul>
-        <li><strong>Download a PDF</strong> version of the deck</li>
-        <li><strong>Print your own cards</strong> at home or through a print shop</li>
-        <li><strong>Use the images digitally</strong> for journaling, spellwork, or readings</li>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HOW TO READ TAROT — permanent beginner guide
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="how-to-read" class="section section-dark">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>🕯️ How to Start Reading Tarot</h2>
+        <p class="guide-intro">
+          You don't need years of study or a special gift to read tarot. You need curiosity, a willingness
+          to trust yourself, and consistent practice. This is where to begin.
+        </p>
+
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            <div class="step-body">
+              <h4>Choose a deck that speaks to you visually</h4>
+              <p>Don't start with a deck because someone told you it's the "right" one. Pick up the Rider-Waite-Smith
+              if you want the most widely referenced imagery, or choose based purely on what draws your eye.
+              Your relationship with your deck matters. The Rider-Waite is recommended for beginners because
+              most learning resources reference its imagery directly.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div class="step-body">
+              <h4>Start with the Major Arcana only</h4>
+              <p>Pull the 22 Major Arcana cards out of the deck and work with just those for the first few
+              weeks. They represent the core themes of human experience and learning them first gives you a
+              powerful foundation before adding the 56 Minor Arcana cards.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div class="step-body">
+              <h4>Pull a daily card every morning</h4>
+              <p>Before you check your phone, shuffle your deck, ask "What do I need to know today?" and pull
+              one card. Look at the imagery. What do you notice? How does it feel? Don't look up the meaning
+              first — sit with your own impression. Then check it against a reference. This builds intuition
+              faster than memorization alone.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div class="step-body">
+              <h4>Keep a tarot journal</h4>
+              <p>Write down the card you pulled, what you felt when you saw it, your interpretation, and what
+              actually happened during the day. Reviewing your journal after a few weeks reveals patterns and
+              builds an incredibly personalized understanding of how each card speaks specifically to you.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            <div class="step-body">
+              <h4>Learn the suits and their elements</h4>
+              <p>Wands (Fire — passion, drive, creativity), Cups (Water — emotion, relationships, intuition),
+              Swords (Air — thought, communication, conflict), Pentacles (Earth — money, body, material world).
+              Once you feel these four energies, you can interpret any Minor Arcana card even if you've never
+              studied it before.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">6</span>
+            <div class="step-body">
+              <h4>Read for yourself before others</h4>
+              <p>Practice on yourself until reading feels natural. When you do read for friends, tell them
+              you're learning. Most people are generous and appreciative with students. Your confidence will
+              build with every reading you give, even the imperfect ones — especially the imperfect ones.</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="tip-box">
+          <strong>The most important thing:</strong> Tarot is a tool for reflection, not a source of fixed
+          answers. The real magic happens when the cards hold up a mirror and you recognize something true.
+          That moment of recognition is yours — the cards just asked the right question.
+        </div>
+
+        <!-- Full reading upsell -->
+        <div class="upsell-box" style="margin-top:2rem;">
+          <h3>Ready for a Full Personal Reading?</h3>
+          <p>
+            If you'd like Jennifer to read for you personally — a full spread interpreted for your specific
+            question or situation — emailed readings are available for $9.95.
+          </p>
+          <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+            <input type="hidden" name="cmd" value="_xclick" />
+            <input type="hidden" name="business" value="AmbrosiasOccultAcademy@gmail.com" />
+            <input type="hidden" name="item_name" value="Personal Tarot Reading — Emailed" />
+            <input type="hidden" name="amount" value="9.95" />
+            <input type="hidden" name="currency_code" value="USD" />
+            <input type="hidden" name="no_shipping" value="1" />
+            <button type="submit" class="btn secondary">Order a Reading — $9.95</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="section-inner">
+      <h2>More from the Academy</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin: 1rem 0 1.5rem;">
+        <a href="manifest-monday.html"     class="btn outline" style="font-size:0.82rem;">🌙 Manifest Monday</a>
+        <a href="bewitching-wednesday.html" class="btn outline" style="font-size:0.82rem;">🌿 Bewitching Wednesday</a>
+        <a href="astrology-thursday.html"  class="btn outline" style="font-size:0.82rem;">♑ Astrology Thursday</a>
+        <a href="freaky-friday.html"       class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
+        <a href="spellbound-saturday.html" class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
+        <a href="palmistry-sunday.html"    class="btn outline" style="font-size:0.82rem;">🤲 Palmistry Sunday</a>
+      </div>
+      <ul class="footer-links">
+        <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
+        <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
       </ul>
-      <p class="coming-soon">
-        Stay tuned—future Tarot Tuesdays will unveil new cards as they’re completed, along with
-        spreads and prompts tailored to each archetype.
-      </p>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Ambrosia's Occult Academy · Tarot Tuesday</p>
+      <p style="margin-top:1rem;"><a href="index.html" class="btn outline" style="font-size:0.85rem;">Back to Main Site</a></p>
+      <p class="footer-copy">&copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.</p>
+    </div>
   </footer>
 
   <script>
-    // Simple year updater
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
