@@ -609,3 +609,29 @@ body {
   margin: 0.5rem 0 0;
 }
 .house-interpretation { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+.bigthree-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.bigthree-card {
+  background: rgba(10,10,30,0.85);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 1.1rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.bigthree-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(165,107,255,0.4);
+}
+
+.bigthree-card h4 {
+  margin: 0 0 0.4rem 0;
+  font-size: 0.92rem;
+  color: #d7e2ff;
+}
+
