@@ -383,83 +383,95 @@
     </div><!-- /.section-inner -->
   </section>
 
-  <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
-  <section class="section section-light" id="birth-chart">
-    <div class="section-inner">
+ <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
+<section class="section section-light" id="birth-chart">
+  <div class="section-inner">
 
-      <h2 class="section-title">Birth Chart Mini‑Reading</h2>
-      <p class="section-intro">Reveal your Sun, Moon, and Rising signs through the Academy's Arcane Seal.</p>
+    <h2 class="section-title">Birth Chart Mini‑Reading</h2>
+    <p class="section-intro">
+      Discover your <strong>Sun</strong>, <strong>Moon</strong>, and <strong>Rising</strong> signs — 
+      the three celestial constellations that shape your identity, emotions, and outward presence.
+    </p>
 
-      <!-- SVG OCCULT ACADEMY SEAL -->
-      <div class="birthchart-seal-container">
-        <svg id="academy-seal" viewBox="0 0 300 300">
-          <!-- Outer Circle -->
-          <circle cx="150" cy="150" r="140" stroke="#EF9F27" stroke-width="3" fill="none"/>
+    <!-- SVG OCCULT ACADEMY SEAL -->
+    <div class="birthchart-seal-container">
+      <svg id="academy-seal" viewBox="0 0 300 300">
+        <!-- Outer Circle -->
+        <circle cx="150" cy="150" r="140" stroke="#EF9F27" stroke-width="3" fill="none"/>
 
-          <!-- Inner Star -->
-          <polygon points="
-            150,40
-            200,110
-            260,130
-            210,190
-            220,260
-            150,230
-            80,260
-            90,190
-            40,130
-            100,110
-          " stroke="#EF9F27" stroke-width="2" fill="none"/>
+        <!-- Inner Star -->
+        <polygon points="
+          150,40
+          200,110
+          260,130
+          210,190
+          220,260
+          150,230
+          80,260
+          90,190
+          40,130
+          100,110
+        " stroke="#EF9F27" stroke-width="2" fill="none"/>
 
-          <!-- 12 House Lines — drawn by JS after DOM is ready -->
-          <g id="house-lines"></g>
+        <!-- 12 House Lines — drawn by JS -->
+        <g id="house-lines"></g>
 
-          <!-- Glyph placeholders -->
-          <g id="glyph-layer"></g>
-        </svg>
-      </div>
-
-      <!-- INPUT FORM -->
-      <div class="info-box">
-        <div class="form-grid">
-          <div class="form-field">
-            <label for="birth-date">Birth Date</label>
-            <input type="date" id="birth-date" />
-          </div>
-          <div class="form-field">
-            <label for="birth-time">Birth Time</label>
-            <input type="time" id="birth-time" />
-          </div>
-          <div class="form-field">
-            <label for="birth-location">Birth Location</label>
-            <input type="text" id="birth-location" placeholder="City, State or Country" />
-          </div>
-        </div>
-        <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
-      </div>
-
-      <!-- RESULTS (hidden until chart is generated) -->
-      <div id="birth-results" class="info-box" style="display:none;">
-        <h3>Your Big Three</h3>
-        <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
-        <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
-        <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
-        <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
-          🏠 <strong style="color:#d7e2ff;">Want to understand what your placements mean?</strong>
-          Visit <a href="astrology-thursday.html#house-guide" style="color:#a56bff;">Astrology Thursday</a>
-          for our House Placement Guide — covering what every planet means in your 1st, 2nd, and 3rd house.
-        </p>
-        <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
-      </div>
-
-      <!-- UPSELL -->
-      <div class="info-box upsell-box">
-        <h3>Unlock Your Full Birth Chart — $9.95</h3>
-        <p>Receive a 3‑page PDF with all 12 houses, planetary aspects, elemental balance, and personalized interpretations.</p>
-        <button class="btn secondary">Purchase Full Reading</button>
-      </div>
-
+        <!-- Glyph placeholders -->
+        <g id="glyph-layer"></g>
+      </svg>
     </div>
-  </section>
+
+    <!-- INPUT FORM -->
+    <div class="info-box">
+      <div class="form-grid">
+        <div class="form-field">
+          <label for="birth-date">Birth Date</label>
+          <input type="date" id="birth-date" />
+        </div>
+        <div class="form-field">
+          <label for="birth-time">Birth Time</label>
+          <input type="time" id="birth-time" />
+        </div>
+        <div class="form-field">
+          <label for="birth-location">Birth Location</label>
+          <input type="text" id="birth-location" placeholder="City, State or Country" />
+        </div>
+      </div>
+      <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div id="birth-results" class="info-box" style="display:none;">
+      <h3>Your Big Three</h3>
+
+      <p><strong>☀️ Sun Sign:</strong> <span id="sun-sign"></span></p>
+      <p><strong>🌙 Moon Sign:</strong> <span id="moon-sign"></span></p>
+      <p><strong>⬆️ Rising Sign:</strong> <span id="rising-sign"></span></p>
+
+      <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
+        ✨ <strong style="color:#d7e2ff;">Want to understand what your Big Three mean?</strong><br>
+        Visit <a href="astrology-thursday.html#big-three" style="color:#a56bff;">Astrology Thursday</a> 
+        for interpretations of your Sun, Moon, and Rising signs — plus a full guide to the 12 houses.
+      </p>
+
+      <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
+    </div>
+
+    <!-- UPSELL -->
+    <div class="info-box upsell-box">
+      <h3>Go Deeper Into Your Cosmic Blueprint</h3>
+
+      <p><strong>✧ Celestial Birth Chart Portrait — $9.95</strong><br>
+      A beautifully rendered image of your full chart wheel, including all 12 houses and planetary placements.</p>
+
+      <p><strong>✧ Complete Cosmic Blueprint Reading — $19.95</strong><br>
+      A detailed, intuitive interpretation of your entire birth chart — Sun, Moon, Rising, planets, houses, aspects, and more.</p>
+
+      <button class="btn secondary">Purchase Full Reading</button>
+    </div>
+
+  </div>
+</section>
 
 
    <!-- ─── INLINE STYLES for Freaky Friday additions ─────────────────────── -->
