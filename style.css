@@ -635,3 +635,12 @@ body {
   color: #d7e2ff;
 }
 
+.transit-image {
+  width: 100%;
+  max-width: 500px;
+  margin: 1.25rem auto 0;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(165,107,255,0.25);
+  box-shadow: 0 0 18px rgba(75,180,255,0.15);
+}
