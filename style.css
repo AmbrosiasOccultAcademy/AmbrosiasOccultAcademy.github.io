@@ -972,3 +972,13 @@ a:hover {
   box-shadow: 0 0 18px rgba(165,107,255,0.25);
 }
 
+.arcana-thumb {
+  width: 80px;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 0.5rem auto;
+  box-shadow: 0 0 10px rgba(165,107,255,0.25);
+}
+
+
