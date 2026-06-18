@@ -981,6 +981,10 @@ a:hover {
   box-shadow: 0 0 10px rgba(165,107,255,0.25);
   object-fit: contain;
 }
+.card-tile img.arcana-thumb {
+  width: 60px !important;
+}
+
 
 
 
