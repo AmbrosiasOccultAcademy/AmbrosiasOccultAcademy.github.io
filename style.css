@@ -973,12 +973,14 @@ a:hover {
 }
 
 .arcana-thumb {
-  width: 80px;
-  height: auto;
+  width: 60px !important;
+  height: auto !important;
   border-radius: 8px;
   display: block;
   margin: 0.5rem auto;
   box-shadow: 0 0 10px rgba(165,107,255,0.25);
+  object-fit: contain;
 }
+
 
 
