@@ -951,7 +951,7 @@ a:hover {
     grid-template-columns: 1fr;
   }
 .tarot-card-img {
-  width: 100px;
+  width: 60px;
   border-radius: 12px;
   display: block;
   margin: 0 auto;
