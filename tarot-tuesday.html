@@ -304,6 +304,7 @@
     <a href="#this-week">This Week</a>
     <a href="#card-of-week">Card of the Week</a>
     <a href="#spread">Spread of the Week</a>
+    <a href="#numerology">🔢 Numerology</a>
     <a href="#major-arcana">Major Arcana Guide</a>
     <a href="#how-to-read">How to Read</a>
   </nav>
@@ -359,6 +360,24 @@
           <div class="weekly-item-label">📺 This Week on YouTube</div>
           <div class="weekly-tip">
             New content dropping this week on the channel. Subscribe so you don't miss it.
+          </div>
+        </div>
+
+        <div class="weekly-item">
+          <div class="weekly-item-label">🔢 Number of the Week</div>
+          <div class="weekly-tip">
+            <strong>The Number 3 — Week of June 18, 2026</strong><br><br>
+            This week carries the energy of the number 3 — creativity, self-expression, communication,
+            and the joy of creation. Three is the number of the triangle, the first stable geometric
+            form, and in numerology it represents the synthesis of opposites: 1 (self) + 2 (other) = 3
+            (something new). This is a week to create, speak, write, make, and share.<br><br>
+            <strong>In the tarot:</strong> The Empress (III) rules this energy — abundance, creative
+            fertility, and the power that comes from being fully, unapologetically yourself.<br><br>
+            <strong>This week ask yourself:</strong> Where am I holding back my creative voice? What
+            wants to be made, said, or shared that I've been sitting on?<br><br>
+            <strong>Your personal week number:</strong> Add your Life Path number to 3.
+            If the result is above 9, reduce it (e.g. 12 = 1+2 = 3). That's your personal
+            energy for the week.
           </div>
         </div>
 
@@ -553,6 +572,148 @@
   <!-- ═══════════════════════════════════════════════════════════════════════
        MAJOR ARCANA GUIDE — permanent evergreen content
   ════════════════════════════════════════════════════════════════════════ -->
+  <!-- ══ NUMEROLOGY ══════════════════════════════════════════════════════ -->
+  <section id="numerology" class="section section-dark">
+    <div class="section-inner">
+      <div class="guide-section">
+
+        <h2>🔢 Numerology — The Language of Numbers</h2>
+        <p class="guide-intro">
+          Numerology is one of the oldest esoteric sciences — the study of the vibrational meaning of
+          numbers and how they shape personality, timing, and life experience. Every number carries a
+          distinct energy, and learning to read those energies unlocks a second layer of meaning in your
+          tarot practice, your birth chart, and the patterns of your daily life.
+        </p>
+
+        <!-- Life Path Calculator -->
+        <div style="background:linear-gradient(135deg,rgba(165,107,255,0.12),rgba(239,159,39,0.07));border:1px solid rgba(165,107,255,0.4);border-radius:16px;padding:1.75rem 2rem;margin-bottom:2.5rem;">
+          <h3 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.06em;text-transform:uppercase;color:#d7e2ff;margin-bottom:0.5rem;">🔢 Calculate Your Life Path Number</h3>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.25rem;">
+            Your Life Path is the most important number in numerology — it reveals your core purpose
+            and the overarching theme of your life. Enter your full birth date to calculate it.
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-end;margin-bottom:1rem;">
+            <div>
+              <label style="display:block;font-size:0.78rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.4rem;">Birth Date</label>
+              <input type="date" id="num-birthdate" style="background:rgba(0,0,0,0.4);border:1px solid rgba(165,107,255,0.3);border-radius:8px;padding:0.6rem 0.9rem;color:#d7e2ff;font-size:0.95rem;" />
+            </div>
+            <button onclick="calculateLifePath()" class="btn secondary" style="height:fit-content;">Calculate</button>
+          </div>
+          <div id="lifepath-result" style="display:none;background:rgba(0,0,0,0.3);border-radius:10px;padding:1.1rem 1.2rem;margin-top:0.5rem;">
+            <div style="font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;color:#a56bff;margin-bottom:0.4rem;">Your Life Path Number</div>
+            <div id="lifepath-number" style="font-family:var(--font-display);font-size:2.5rem;color:#EF9F27;margin-bottom:0.4rem;"></div>
+            <div id="lifepath-name" style="font-size:1rem;color:#d7e2ff;margin-bottom:0.6rem;font-weight:600;"></div>
+            <div id="lifepath-meaning" style="font-size:0.9rem;color:var(--text-muted);line-height:1.7;"></div>
+            <div id="lifepath-tarot" style="margin-top:0.75rem;font-size:0.85rem;color:#a56bff;"></div>
+          </div>
+        </div>
+
+        <!-- The Nine Core Numbers -->
+        <h3 style="font-family:var(--font-display);letter-spacing:0.06em;color:#d7e2ff;margin-bottom:1rem;font-size:1.1rem;text-transform:uppercase;">The Nine Core Numbers</h3>
+        <div class="card-grid">
+
+          <div class="card-tile">
+            <div class="card-numeral">1 · The Leader</div>
+            <h3>Independence &amp; Originality</h3>
+            <p>One is the number of the self, the pioneer, and the individual will. People with strong 1 energy are here to forge their own path, lead by example, and develop unshakable self-reliance. The shadow of 1 is ego, stubbornness, and difficulty receiving help.</p>
+            <div class="meaning-label">Tarot: The Magician (I) · The Sun (XIX)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">2 · The Peacemaker</div>
+            <h3>Balance &amp; Partnership</h3>
+            <p>Two is the number of duality, cooperation, and the art of holding opposites in tension without forcing resolution. Two energy is sensitive, diplomatic, and deeply attuned to others — sometimes to the point of losing themselves in relationship. The shadow of 2 is codependency and indecision.</p>
+            <div class="meaning-label">Tarot: The High Priestess (II) · Justice (XI)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">3 · The Creator</div>
+            <h3>Expression &amp; Joy</h3>
+            <p>Three is creative fire — the number of communication, artistic expression, social connection, and the joy of making things. Three energy is optimistic and magnetic but can scatter its gifts across too many directions. The shadow of 3 is superficiality and the fear of being truly seen.</p>
+            <div class="meaning-label">Tarot: The Empress (III) · The World (XXI)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">4 · The Builder</div>
+            <h3>Structure &amp; Foundation</h3>
+            <p>Four is the number of earth, stability, hard work, and the patience to build something that lasts. Four energy is reliable, methodical, and deeply trustworthy — and can tip into rigidity, workaholism, and resistance to change. The shadow of 4 is being so focused on security that joy is sacrificed for it.</p>
+            <div class="meaning-label">Tarot: The Emperor (IV) · The Wheel (X)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">5 · The Adventurer</div>
+            <h3>Freedom &amp; Change</h3>
+            <p>Five is the number of the senses, movement, and the hunger for experience. Five energy is adaptable, curious, and alive — and can become restless, impulsive, and commitment-phobic when the shadow takes over. The lesson of 5 is learning that freedom chosen consciously is different from freedom used as escape.</p>
+            <div class="meaning-label">Tarot: The Hierophant (V) · The Lovers (VI)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">6 · The Nurturer</div>
+            <h3>Responsibility &amp; Love</h3>
+            <p>Six is the number of home, family, healing, and service. Six energy is warm, protective, and deeply caring — and can slide into martyrdom, control, and giving so much that resentment builds underneath. The shadow of 6 is confusing love with self-erasure.</p>
+            <div class="meaning-label">Tarot: The Lovers (VI) · The Chariot (VII)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">7 · The Seeker</div>
+            <h3>Wisdom &amp; Inner Truth</h3>
+            <p>Seven is the most spiritually charged number — the number of the mystic, the analyst, and the seeker of hidden truth. Seven energy needs solitude, depth, and time to think. Its shadow is isolation, suspicion, and the tendency to mistake analysis for understanding.</p>
+            <div class="meaning-label">Tarot: The Chariot (VII) · The Hermit (IX)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">8 · The Achiever</div>
+            <h3>Power &amp; Abundance</h3>
+            <p>Eight is the number of material mastery, ambition, and the ability to move between the material and spiritual worlds (the lemniscate — the infinity sign — is an 8 on its side). Eight energy builds empires and changes systems. Its shadow is using power as a substitute for genuine connection.</p>
+            <div class="meaning-label">Tarot: Strength (VIII) · The Star (XVII)</div>
+          </div>
+
+          <div class="card-tile">
+            <div class="card-numeral">9 · The Wise One</div>
+            <h3>Completion &amp; Compassion</h3>
+            <p>Nine is the number of the old soul — the humanitarian, the artist, the healer who has lived many cycles and carries their accumulated wisdom. Nine energy is compassionate, idealistic, and drawn toward service. Its shadow is difficulty letting go of what has already completed, and a tendency toward martyrdom.</p>
+            <div class="meaning-label">Tarot: The Hermit (IX) · The Moon (XVIII)</div>
+          </div>
+
+        </div>
+
+        <!-- Master Numbers -->
+        <div style="background:rgba(165,107,255,0.07);border-left:3px solid #a56bff;border-radius:0 10px 10px 0;padding:1rem 1.2rem;font-size:0.9rem;color:var(--text-muted);line-height:1.7;margin:1.5rem 0;">
+          <strong style="color:#d7e2ff;">The Master Numbers — 11, 22, and 33:</strong> When your Life Path
+          calculation produces 11, 22, or 33 before final reduction, these are Master Numbers — they carry
+          amplified energy and are not reduced further. <strong style="color:#d7e2ff;">11</strong> is the
+          Intuitive Visionary (double 1 energy, intensified). <strong style="color:#d7e2ff;">22</strong>
+          is the Master Builder — the most powerful Life Path, capable of turning visionary ideas into
+          real-world structures. <strong style="color:#d7e2ff;">33</strong> is the Master Teacher —
+          rare, and carries a calling toward uplifting others at scale.
+        </div>
+
+        <!-- Numerology + Tarot connection -->
+        <h3 style="font-family:var(--font-display);letter-spacing:0.06em;color:#d7e2ff;margin:2rem 0 0.75rem;font-size:1.1rem;text-transform:uppercase;">How Numerology Deepens Your Tarot Readings</h3>
+        <p style="color:var(--text-muted);font-size:0.92rem;line-height:1.75;margin-bottom:1.25rem;">
+          The tarot is built on numerological structure. Every pip card in the Minor Arcana (Ace through Ten
+          in each suit) carries the energy of its number across all four suits — the Fours are always about
+          stability and structure, the Fives are always about disruption and change, the Eights are always
+          about movement and momentum. When you know numerology, you can read any Minor Arcana card you've
+          never studied simply by feeling the number's energy through the suit's element.
+        </p>
+        <div class="card-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
+          <div class="card-tile"><div class="card-numeral">Aces · 1</div><h3>New Beginnings</h3><p>Pure potential, the seed of the suit's element. An unopened gift. Every Ace is an invitation.</p></div>
+          <div class="card-tile"><div class="card-numeral">Twos · 2</div><h3>Choice &amp; Balance</h3><p>Duality, decision, and the pause between action. The moment before the path diverges.</p></div>
+          <div class="card-tile"><div class="card-numeral">Threes · 3</div><h3>Growth &amp; Collaboration</h3><p>The initial vision begins to take form through effort and relationship. Early results.</p></div>
+          <div class="card-tile"><div class="card-numeral">Fours · 4</div><h3>Stability &amp; Rest</h3><p>Consolidation, foundation, and the pause after effort. Can be restful or stagnant depending on context.</p></div>
+          <div class="card-tile"><div class="card-numeral">Fives · 5</div><h3>Conflict &amp; Change</h3><p>Disruption, challenge, and the discomfort that precedes growth. The Fives are rarely comfortable.</p></div>
+          <div class="card-tile"><div class="card-numeral">Sixes · 6</div><h3>Harmony &amp; Recovery</h3><p>Resolution after the Fives, generosity, and the return to balance. Often cards of healing.</p></div>
+          <div class="card-tile"><div class="card-numeral">Sevens · 7</div><h3>Reflection &amp; Assessment</h3><p>Introspection, strategy, and the inner work required before the next move. What's real versus what's imagined.</p></div>
+          <div class="card-tile"><div class="card-numeral">Eights · 8</div><h3>Movement &amp; Mastery</h3><p>Action, momentum, and the application of skill. The Eights are cards of doing, not just knowing.</p></div>
+          <div class="card-tile"><div class="card-numeral">Nines · 9</div><h3>Completion &amp; Integration</h3><p>Near-completion, the final integration before the end of the cycle. Wisdom earned through experience.</p></div>
+          <div class="card-tile"><div class="card-numeral">Tens · 10</div><h3>Endings &amp; Transition</h3><p>The full expression and completion of the suit's energy — and the threshold into a new cycle.</p></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <section id="major-arcana" class="section section-light">
     <div class="section-inner">
       <div class="guide-section">
@@ -869,6 +1030,51 @@
 
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    var lifePaths = {
+      1:  { name: "The Leader",      meaning: "You are here to forge your own path and develop complete self-reliance. Your life theme is independence, originality, and learning to lead without losing your authenticity. The challenge is moving from ego-driven ambition toward genuine courage.", tarot: "Your Major Arcana cards: The Magician (I) — you have every tool you need. Trust that." },
+      2:  { name: "The Peacemaker",  meaning: "You are here to master the art of relationship, cooperation, and holding space for others without losing yourself. Your life theme is balance, sensitivity, and learning that your needs matter as much as anyone else's.", tarot: "Your Major Arcana cards: The High Priestess (II) — trust your intuition above all external noise." },
+      3:  { name: "The Creator",     meaning: "You are here to express, create, and bring joy into the world through your unique voice. Your life theme is communication, creativity, and learning to share your gifts without editing yourself down to something more comfortable for others.", tarot: "Your Major Arcana cards: The Empress (III) — abundance follows authentic expression." },
+      4:  { name: "The Builder",     meaning: "You are here to build — systems, structures, foundations, and things that last. Your life theme is discipline, reliability, and learning that stability is a gift, not a prison. The shadow work is releasing rigidity without losing groundedness.", tarot: "Your Major Arcana cards: The Emperor (IV) — structure is your superpower when used with wisdom." },
+      5:  { name: "The Adventurer",  meaning: "You are here to experience, adapt, and embrace the full spectrum of what life offers. Your life theme is freedom, change, and learning the difference between liberation and avoidance. You need variety like others need air.", tarot: "Your Major Arcana cards: The Hierophant (V) — freedom means something different when chosen consciously." },
+      6:  { name: "The Nurturer",    meaning: "You are here to love, heal, and take responsibility for those in your care — including yourself. Your life theme is service, family, and learning that boundaries are not the opposite of love. They are love's necessary structure.", tarot: "Your Major Arcana cards: The Lovers (VI) — the deepest relationship you'll ever have is with yourself." },
+      7:  { name: "The Seeker",      meaning: "You are here to go deep — into knowledge, into mystery, into the nature of reality itself. Your life theme is wisdom, analysis, and learning that true understanding cannot be found entirely through the mind. Some truths require experience.", tarot: "Your Major Arcana cards: The Chariot (VII) and The Hermit (IX) — the inner journey is the real one." },
+      8:  { name: "The Achiever",    meaning: "You are here to master the material world and demonstrate that spiritual and material power are not opposites. Your life theme is abundance, ambition, and learning to use power in service of something larger than personal gain.", tarot: "Your Major Arcana cards: Strength (VIII) — real power is composed, not forceful." },
+      9:  { name: "The Wise One",    meaning: "You are here to complete, release, and serve. Your life theme is compassion, humanitarian vision, and the wisdom to let go of what has already ended so something new can begin. You carry more lifetimes than most.", tarot: "Your Major Arcana cards: The Hermit (IX) — your light is meant to guide others, not to hide." },
+      11: { name: "The Visionary",   meaning: "Master Number 11 — you carry the sensitivity of a 2 amplified into a channel for higher inspiration. You are here to bridge the intuitive and the practical, to be a light for others while doing the hard inner work that sensitivity demands.", tarot: "Your Major Arcana cards: The High Priestess (II) and Strength (VIII) — intuition backed by inner power." },
+      22: { name: "The Master Builder", meaning: "Master Number 22 — the most powerful Life Path in numerology. You are here to turn visionary dreams into concrete reality at scale. The 22 carries the spiritual depth of an 11 with the practical capacity of a 4. The challenge is not shrinking from what you're actually capable of.", tarot: "Your Major Arcana cards: The Emperor (IV) and The Fool (0) — bold vision, disciplined execution." },
+      33: { name: "The Master Teacher", meaning: "Master Number 33 — the rarest Life Path, combining the creativity of a 3 with the nurturing of a 6, amplified into a calling toward teaching, healing, and uplifting others at the highest level. You are here to give something lasting to the world.", tarot: "Your Major Arcana cards: The Empress (III) and The Lovers (VI) — love in action, at scale." }
+    };
+
+    function reduceNumber(n) {
+      if (n === 11 || n === 22 || n === 33) return n;
+      while (n > 9) {
+        var sum = 0;
+        var digits = String(n).split('');
+        for (var i = 0; i < digits.length; i++) { sum += parseInt(digits[i]); }
+        n = sum;
+        if (n === 11 || n === 22 || n === 33) return n;
+      }
+      return n;
+    }
+
+    function calculateLifePath() {
+      var input = document.getElementById('num-birthdate').value;
+      if (!input) { alert('Please enter your birth date.'); return; }
+      var parts = input.split('-');
+      var year = parts[0], month = parts[1], day = parts[2];
+      var allDigits = (year + month + day).split('');
+      var total = 0;
+      for (var i = 0; i < allDigits.length; i++) { total += parseInt(allDigits[i]); }
+      var lifePathNum = reduceNumber(total);
+      var data = lifePaths[lifePathNum];
+      if (!data) return;
+      document.getElementById('lifepath-number').textContent = lifePathNum;
+      document.getElementById('lifepath-name').textContent = data.name;
+      document.getElementById('lifepath-meaning').textContent = data.meaning;
+      document.getElementById('lifepath-tarot').textContent = data.tarot;
+      document.getElementById('lifepath-result').style.display = 'block';
+    }
   </script>
 
 </body>
