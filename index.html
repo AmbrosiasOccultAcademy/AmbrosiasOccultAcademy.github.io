@@ -173,6 +173,28 @@
       .tsd-img-wrap img { width: 120px; }
     }
 
+
+    /* ── Theme preview cards ─────────────────────────────────────────────── */
+    .tc-day {
+      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #a56bff; font-weight: 700; margin-bottom: 0.3rem;
+    }
+    .tc-list {
+      list-style: none; padding: 0; margin: 0.6rem 0 0.9rem;
+      display: flex; flex-direction: column; gap: 0.25rem;
+    }
+    .tc-list li {
+      font-size: 0.79rem; color: rgba(255,255,255,0.42);
+      padding-left: 1rem; position: relative; line-height: 1.45;
+    }
+    .tc-list li::before { content: "·"; position: absolute; left: 0; color: #a56bff; }
+    .tc-cta {
+      font-size: 0.78rem; color: #EF9F27; font-weight: 600;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 0.55rem; margin-top: auto; display: block;
+    }
+    .theme-card { display: flex; flex-direction: column; }
+    .theme-card p { flex: 1; }
   </style>
 </head>
 <body>
@@ -295,34 +317,104 @@
         Explore the Academy one day at a time — each theme opens a different doorway into the occult.
       </p>
       <div class="theme-grid">
+
         <a href="palmistry-sunday.html" class="theme-card">
-          <h3>Palmistry Sundays</h3>
-          <p>Lines, mounts, and the stories written in your hands.</p>
+          <div class="tc-day">Sunday</div>
+          <h3>🤲 Palmistry Sundays</h3>
+          <p>Learn to read the map written in your own hands — every line, mount, and marking tells a story.</p>
+          <ul class="tc-list">
+            <li>Major &amp; minor line breakdowns</li>
+            <li>Mount meanings &amp; rare markings</li>
+            <li>Illustrated hand diagrams</li>
+          </ul>
+          <span class="tc-cta">Explore Palmistry &rarr;</span>
         </a>
+
         <a href="manifest-monday.html" class="theme-card">
-          <h3>Manifest, Meditate &amp; Motivate Mondays</h3>
-          <p>Rituals, affirmations, and meditations to shape your reality.</p>
+          <div class="tc-day">Monday</div>
+          <h3>🌙 Manifest Mondays</h3>
+          <p>Start every week with intention. Rituals, affirmations, and meditations to align your energy with what you are calling in.</p>
+          <ul class="tc-list">
+            <li>Weekly manifestation ritual</li>
+            <li>Moon-aligned affirmations</li>
+            <li>Guided meditation practices</li>
+          </ul>
+          <span class="tc-cta">Set Your Intentions &rarr;</span>
         </a>
+
         <a href="tarot-tuesday.html" class="theme-card">
-          <h3>Tarot Tip Tuesdays</h3>
-          <p>Tarot tips, spreads, and a daily card to guide your path.</p>
+          <div class="tc-day">Tuesday</div>
+          <h3>🃏 Tarot Tip Tuesdays</h3>
+          <p>Learn the language of the cards one week at a time — plus numerology, a Life Path calculator, and a free 3-card spread.</p>
+          <ul class="tc-list">
+            <li>Weekly tip, card &amp; spread</li>
+            <li>Number of the week + Life Path calculator</li>
+            <li>Full Major Arcana reference guide</li>
+            <li>How to start reading tarot</li>
+          </ul>
+          <span class="tc-cta">Learn Tarot &rarr;</span>
         </a>
+
         <a href="bewitching-wednesday.html" class="theme-card">
-          <h3>Bewitching Wednesdays</h3>
-          <p>Spells, herbs, and witchcraft education for modern practitioners.</p>
+          <div class="tc-day">Wednesday</div>
+          <h3>🌿 Bewitching Wednesdays</h3>
+          <p>Weekly spellwork, herb magic, shadow work journaling, and the craft education every modern witch needs.</p>
+          <ul class="tc-list">
+            <li>Spell of the week with full instructions</li>
+            <li>Shadow work &amp; inner alchemy prompts</li>
+            <li>Herb magic &amp; correspondence guide</li>
+            <li>Book of Shadows tips</li>
+          </ul>
+          <span class="tc-cta">Enter the Craft &rarr;</span>
         </a>
+
         <a href="astrology-thursday.html" class="theme-card">
-          <h3>Astrology Thursdays</h3>
-          <p>Zodiac insights, transits, and cosmic weather reports.</p>
+          <div class="tc-day">Thursday</div>
+          <h3>&#9805; Astrology Thursdays</h3>
+          <p>Weekly cosmic weather, planetary transits, and your free Big 3 reading — Sun, Moon, and Rising signs decoded.</p>
+          <ul class="tc-list">
+            <li>Weekly transit forecast</li>
+            <li>Free Big 3 sign calculator</li>
+            <li>All 12 zodiac sign deep dives</li>
+            <li>Houses, aspects &amp; chart basics</li>
+          </ul>
+          <span class="tc-cta">Read the Stars &rarr;</span>
         </a>
+
         <a href="freaky-friday.html" class="theme-card">
-          <h3>Freaky Fridays</h3>
-          <p>Ghosts, UFOs, cryptids, and the paranormal side of reality.</p>
+          <div class="tc-day">Friday</div>
+          <h3>&#128123; Freaky Fridays</h3>
+          <p>New ghost story and cryptid feature every week, live paranormal cams, and an interactive haunted map of America you can add to.</p>
+          <ul class="tc-list">
+            <li>Featured ghost story &amp; cryptid of the week</li>
+            <li>Interactive haunted map of all 50 states</li>
+            <li>Live ghost, cryptid &amp; UFO cams</li>
+            <li>Submit your own paranormal story</li>
+          </ul>
+          <span class="tc-cta">Enter if You Dare &rarr;</span>
         </a>
+
         <a href="spellbound-saturday.html" class="theme-card">
-          <h3>Spellbound Saturdays</h3>
-          <p>Weekly occult lessons, deep dives, and magical practice.</p>
+          <div class="tc-day">Saturday</div>
+          <h3>&#128302; Spellbound Saturdays</h3>
+          <p>The deep education wing of the Academy — ancient traditions, esoteric history, crystals, sacred tools, and grimoire studies.</p>
+          <ul class="tc-list">
+            <li>Ancient traditions: Egypt, Kabbalah, Gnosticism</li>
+            <li>Hermeticism &amp; the great grimoires</li>
+            <li>Crystal &amp; sacred tool guide</li>
+            <li>Beginner altar setup tutorials</li>
+          </ul>
+          <span class="tc-cta">Study the Old Ways &rarr;</span>
         </a>
+
+      </div>
+
+      <div style="margin-top:1.75rem;padding:1.4rem 1.75rem;background:linear-gradient(135deg,rgba(239,159,39,0.12),rgba(165,107,255,0.08));border:1px solid rgba(239,159,39,0.3);border-radius:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+        <div>
+          <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#EF9F27;font-weight:700;margin-bottom:0.25rem;">Readings &amp; Shop</div>
+          <p style="margin:0;font-size:0.9rem;color:var(--text-muted);">Personal tarot readings, birth chart reports, crystal kits, journals, altar setups, and Jennifer's original tarot deck.</p>
+        </div>
+        <a href="services.html" class="btn secondary" style="white-space:nowrap;">Visit the Shop &rarr;</a>
       </div>
     </div>
   </section>
@@ -798,27 +890,33 @@
   <!-- ─── FUTURE SHOP ───────────────────────────────────────────────────── -->
   <section id="shop" class="section section-dark">
     <div class="section-inner">
-      <h2>Future Apothecary &amp; Candle Shop</h2>
-      <p class="section-intro">
-        Coming soon: hand‑poured candles, spell tools, and celestial creations aligned with each zodiac sign.
-      </p>
+      <h2>&#128717; Shop &amp; Services</h2>
+      <p class="section-intro">Personal readings, birth charts, and handcrafted tools for your practice.</p>
       <div class="shop-grid">
         <div class="info-box">
-          <h3>Zodiac Candles</h3>
-          <p>
-            Soy candles crafted for each sign — with colors, scents, and gemstone chips chosen to match your cosmic energy.
-          </p>
+          <h3>&#9986; Emailed Tarot Reading — $9.95</h3>
+          <p>A full personalized spread read for your specific question, with compassionate guidance delivered to your inbox.</p>
+          <a href="https://paypal.me/ambrosiasoccultacad/9.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $9.95</a>
         </div>
         <div class="info-box">
-          <h3>Spell Candles</h3>
-          <p>
-            Intention‑based candles dressed with herbs, oils, and crystals to support your rituals and manifestations.
-          </p>
+          <h3>&#127769; Full Birth Chart Report — $19.95</h3>
+          <p>All 12 houses, planetary aspects, and personalized interpretations generated with Jennifer's custom program.</p>
+          <a href="https://paypal.me/ambrosiasoccultacad/19.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $19.95</a>
+        </div>
+        <div class="info-box">
+          <h3>&#128142; Crystal Starter Kit — $24.95</h3>
+          <p>Six foundational stones plus a selenite charging plate — everything you need to begin working with crystals.</p>
+          <a href="https://paypal.me/ambrosiasoccultacad/24.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $24.95</a>
+        </div>
+        <div class="info-box">
+          <h3>&#128214; Book of Shadows Journal — $14.95</h3>
+          <p>Lay-flat binding, thick pages, and section dividers for spells, moon work, herbs, crystals, and dreams.</p>
+          <a href="https://paypal.me/ambrosiasoccultacad/14.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $14.95</a>
         </div>
       </div>
-      <p class="small-note">
-        Check back soon or follow my YouTube channel for launch updates.
-      </p>
+      <div style="text-align:center;margin-top:1.5rem;">
+        <a href="services.html" class="btn outline">See All Products &amp; Services &rarr;</a>
+      </div>
     </div>
   </section>
 
