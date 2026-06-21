@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarot Reading Request | Ambrosia’s Occult Academy</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .form-container {
+      max-width: 650px;
+      margin: 2rem auto;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(165,107,255,0.25);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-family: var(--font-display);
+      letter-spacing: 0.05em;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.35rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+    .form-success, .form-error {
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 6px;
+      display: none;
+    }
+    [data-fs-success] {
+      background: #d7ffe2;
+      color: #0a7a2a;
+      display: none;
+    }
+    [data-fs-error] {
+      background: #ffe0e0;
+      color: #a30000;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="section section-light">
+    <div class="section-inner">
+      <div class="form-container">
+
+        <h2>🃏 Tarot Reading Request</h2>
+        <p style="text-align:center;color:var(--text-muted);margin-bottom:1.5rem;">
+          Complete payment first, then submit your question below.  
+          Jennifer will deliver your full tarot reading within 3–5 business days.
+        </p>
+
+        <!-- Success + Error Messages -->
+        <div data-fs-success></div>
+        <div data-fs-error></div>
+
+        <form id="tarot-form">
+
+          <!-- Name -->
+          <label for="name">Your Name *</label>
+          <input type="text" id="name" name="name" data-fs-field required>
+          <span data-fs-error="name"></span>
+
+          <!-- Email -->
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" data-fs-field required>
+          <span data-fs-error="email"></span>
+
+          <!-- Reading Type -->
+          <label for="readingType">Reading Type *</label>
+          <select id="readingType" name="readingType" data-fs-field required>
+            <option value="">Select one...</option>
+            <option>Full Tarot Reading — $9.95</option>
+            <option>Combined Package — $24.95</option>
+          </select>
+          <span data-fs-error="readingType"></span>
+
+          <!-- Your Question -->
+          <label for="question">Your Question *</label>
+          <textarea id="question" name="question" data-fs-field required placeholder="What would you like guidance on?"></textarea>
+          <span data-fs-error="question"></span>
+
+          <!-- Background Context -->
+          <label for="context">Background Context (optional)</label>
+          <textarea id="context" name="context" data-fs-field placeholder="Any details that might help?"></textarea>
+          <span data-fs-error="context"></span>
+
+          <!-- Consent -->
+          <label style="margin-top:1rem;">
+            <input type="checkbox" name="consent" data-fs-field required>
+            I agree this reading is for entertainment/spiritual guidance purposes.
+          </label>
+          <span data-fs-error="consent"></span>
+
+          <button type="submit" class="btn primary" data-fs-submit-btn>
+            ✨ Submit Tarot Reading Request
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Formspree AJAX Loader -->
+  <script>
+    window.formspree = window.formspree || function () {
+      (formspree.q = formspree.q || []).push(arguments);
+    };
+    formspree('initForm', { formElement: '#tarot-form', formId: 'mzdlpwql' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
