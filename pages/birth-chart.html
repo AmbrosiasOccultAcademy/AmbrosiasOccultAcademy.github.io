@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birth Chart Request | Ambrosia’s Occult Academy</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .form-container {
+      max-width: 650px;
+      margin: 2rem auto;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(165,107,255,0.25);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-family: var(--font-display);
+      letter-spacing: 0.05em;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.35rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+    [data-fs-success] {
+      background: #d7ffe2;
+      color: #0a7a2a;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    [data-fs-error] {
+      background: #ffe0e0;
+      color: #a30000;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="section section-light">
+    <div class="section-inner">
+      <div class="form-container">
+
+        <h2>⭐ Birth Chart Portrait Request</h2>
+        <p style="text-align:center;color:var(--text-muted);margin-bottom:1.5rem;">
+          Complete payment first, then submit your birth details below.  
+          Jennifer will deliver your portrait (and optional full reading) via email.
+        </p>
+
+        <!-- Success + Error Messages -->
+        <div data-fs-success></div>
+        <div data-fs-error></div>
+
+        <form id="birthchart-form">
+
+          <!-- Name -->
+          <label for="name">Your Name *</label>
+          <input type="text" id="name" name="name" data-fs-field required>
+          <span data-fs-error="name"></span>
+
+          <!-- Email -->
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" data-fs-field required>
+          <span data-fs-error="email"></span>
+
+          <!-- Birth Date -->
+          <label for="birthdate">Birth Date *</label>
+          <input type="date" id="birthdate" name="birthdate" data-fs-field required>
+          <span data-fs-error="birthdate"></span>
+
+          <!-- Birth Time -->
+          <label for="birthtime">Birth Time *</label>
+          <input type="time" id="birthtime" name="birthtime" data-fs-field required>
+          <span data-fs-error="birthtime"></span>
+
+          <!-- Birth Location -->
+          <label for="birthlocation">Birth Location (City, State, Country) *</label>
+          <input type="text" id="birthlocation" name="birthlocation" data-fs-field required placeholder="Example: Las Vegas, NV, USA">
+          <span data-fs-error="birthlocation"></span>
+
+          <!-- Reading Type -->
+          <label for="readingType">Choose Your Option *</label>
+          <select id="readingType" name="readingType" data-fs-field required>
+            <option value="">Select one...</option>
+            <option>Birth Chart Portrait Only — $9.95</option>
+            <option>Portrait + Full Reading — $19.95</option>
+          </select>
+          <span data-fs-error="readingType"></span>
+
+          <!-- Additional Notes -->
+          <label for="notes">Additional Notes (optional)</label>
+          <textarea id="notes" name="notes" data-fs-field placeholder="Anything you'd like Jennifer to know?"></textarea>
+          <span data-fs-error="notes"></span>
+
+          <!-- Consent -->
+          <label style="margin-top:1rem;">
+            <input type="checkbox" name="consent" data-fs-field required>
+            I agree this reading is for entertainment/spiritual guidance purposes.
+          </label>
+          <span data-fs-error="consent"></span>
+
+          <button type="submit" class="btn primary" data-fs-submit-btn>
+            ✨ Submit Birth Chart Details
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Formspree AJAX Loader -->
+  <script>
+    window.formspree = window.formspree || function () {
+      (formspree.q = formspree.q || []).push(arguments);
+    };
+formspree('initForm', { formElement: '#birthchart-form', formId: 'xkolwlkv' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
