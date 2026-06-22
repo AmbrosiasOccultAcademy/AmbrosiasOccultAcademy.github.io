@@ -982,10 +982,11 @@
 
   function allPins() { return APINS.concat(userPins); }
 
-  // lat/lng to SVG coords — viewBox 900x500, continental US
+  // lat/lng to SVG coords — calibrated to match state rect layout
   function proj(lat, lng) {
-    var x = (lng - (-125)) / ((-66) - (-125)) * 820 + 40;
-    var y = (50 - lat) / (50 - 24) * 430 + 35;
+    // Tuned to match the manual state rectangle positions
+    var x = (lng - (-127)) / ((-64) - (-127)) * 840 + 30;
+    var y = (51 - lat) / (51 - 23) * 450 + 22;
     return { x: Math.round(x*10)/10, y: Math.round(y*10)/10 };
   }
 
@@ -1010,50 +1011,110 @@
     var NS = 'http://www.w3.org/2000/svg';
     svg.innerHTML = '';
 
-    function el(tag, attrs) {
+    function el(tag, attrs, txt) {
       var e = document.createElementNS(NS, tag);
       for (var k in attrs) e.setAttribute(k, attrs[k]);
+      if (txt) e.textContent = txt;
       return e;
     }
 
     // Background
-    svg.appendChild(el('rect',{width:900,height:500,fill:'#06040f'}));
+    svg.appendChild(el('rect', {width:900, height:500, fill:'#06040f'}));
 
-    // Subtle grid
-    var g;
-    for (var lat2=25;lat2<=50;lat2+=5) {
-      var p1=proj(lat2,-125),p2=proj(lat2,-66);
-      svg.appendChild(el('line',{x1:p1.x,y1:p1.y,x2:p2.x,y2:p2.y,stroke:'rgba(165,107,255,0.07)','stroke-width':1}));
-    }
-    for (var lng2=-120;lng2<=-65;lng2+=10) {
-      var p1b=proj(24,lng2),p2b=proj(50,lng2);
-      svg.appendChild(el('line',{x1:p1b.x,y1:p1b.y,x2:p2b.x,y2:p2b.y,stroke:'rgba(165,107,255,0.07)','stroke-width':1}));
-    }
+    // Each state as an approximate rectangle [stateAbbr, x, y, w, h, label-x, label-y]
+    // Coordinates are manually tuned to approximate continental US geography
+    var states = [
+      // West Coast
+      ['WA',  40,  38, 72, 58, 76,  67],
+      ['OR',  40,  96, 72, 65, 76, 128],
+      ['CA',  40, 161, 65,130, 72, 226],
+      ['NV',  105, 130, 62, 90,136, 175],
+      ['ID',  105,  38, 62, 92,136,  84],
+      // Mountain
+      ['MT',  167,  38,105, 68,219,  72],
+      ['WY',  167, 106,105, 68,219, 140],
+      ['CO',  167, 174,105, 68,219, 208],
+      ['UT',  105, 220, 62, 54,136, 247],
+      ['AZ',  105, 274, 80, 76,145, 312],
+      ['NM',  167, 242,105, 76,219, 280],
+      // Plains
+      ['ND',  272,  38,105, 58,324,  67],
+      ['SD',  272,  96,105, 58,324, 125],
+      ['NE',  272, 154,105, 58,324, 183],
+      ['KS',  272, 212,105, 58,324, 241],
+      ['OK',  272, 270,105, 58,324, 299],
+      ['TX',  230, 308,145,110,302, 363],
+      ['MN',  377,  38, 90, 80,422,  78],
+      ['IA',  377, 118, 90, 58,422, 147],
+      ['MO',  377, 176, 90, 68,422, 210],
+      ['AR',  377, 244, 90, 58,422, 273],
+      ['LA',  377, 302, 90, 58,422, 331],
+      // Great Lakes
+      ['WI',  467,  56, 72, 80,503,  96],
+      ['MI',  539,  38, 72, 90,575,  83],
+      ['IL',  467, 136, 72, 80,503, 176],
+      ['IN',  539, 136, 52, 70,565, 171],
+      ['OH',  591, 118, 72, 70,627, 153],
+      ['KY',  467, 216, 90, 52,512, 242],
+      ['TN',  467, 268, 90, 46,512, 291],
+      ['MS',  467, 314, 72, 58,503, 343],
+      ['AL',  539, 292, 60, 80,569, 332],
+      // Southeast
+      ['GA',  591, 268, 72, 80,627, 308],
+      ['FL',  591, 348, 72,110,627, 403],
+      ['SC',  639, 250, 58, 52,668, 276],
+      ['NC',  591, 210, 96, 52,639, 236],
+      ['VA',  591, 162, 96, 52,639, 188],
+      ['WV',  591, 136, 60, 44,621, 158],
+      // Northeast
+      ['PA',  663, 118, 80, 52,703, 144],
+      ['NY',  663,  56, 90, 68,708,  90],
+      ['MD',  703, 162, 54, 28,730, 176],
+      ['DE',  743, 152, 28, 28,757, 166],
+      ['NJ',  743, 118, 36, 40,761, 138],
+      ['CT',  753,  90, 36, 28,771, 104],
+      ['RI',  789,  90, 24, 24,801, 102],
+      ['MA',  743,  68, 70, 28,778,  82],
+      ['VT',  743,  38, 36, 34,761,  55],
+      ['NH',  779,  38, 34, 46,796,  61],
+      ['ME',  779,  38, 80, 58,819,  67]
+    ];
 
-    // State labels
-    Object.keys(SC).forEach(function(ab) {
-      var c=SC[ab]; if(c.a<24||c.a>50||c.o<-125||c.o>-66) return;
-      var p=proj(c.a,c.o);
-      var t=el('text',{x:p.x,y:p.y,'text-anchor':'middle','dominant-baseline':'middle',
-        fill:'rgba(165,107,255,0.22)','font-size':9,'font-family':'sans-serif',
-        'font-weight':'600','pointer-events':'none'});
-      t.textContent=ab; svg.appendChild(t);
+    // Draw state fills
+    states.forEach(function(s) {
+      var abbr=s[0], x=s[1], y=s[2], w=s[3], h=s[4], lx=s[5], ly=s[6];
+      // Highlight Alabama (featured state)
+      var fillColor = abbr==='AL' ? 'rgba(165,107,255,0.22)' : 'rgba(165,107,255,0.08)';
+      var strokeColor = abbr==='AL' ? 'rgba(165,107,255,0.7)' : 'rgba(165,107,255,0.3)';
+      svg.appendChild(el('rect', {x:x, y:y, width:w, height:h,
+        fill:fillColor, stroke:strokeColor, 'stroke-width':1, rx:2}));
+      var t = el('text', {x:lx, y:ly, 'text-anchor':'middle', 'dominant-baseline':'middle',
+        fill: abbr==='AL' ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.35)',
+        'font-size': abbr==='AL' ? 11 : 9,
+        'font-weight': abbr==='AL' ? '700' : '400',
+        'font-family':'sans-serif', 'pointer-events':'none'});
+      t.textContent = abbr;
+      svg.appendChild(t);
     });
 
-    // Border
-    svg.appendChild(el('rect',{x:40,y:35,width:820,height:430,fill:'none',
-      stroke:'rgba(165,107,255,0.15)','stroke-width':1,rx:3}));
+    // "Featured this week" label over Alabama
+    var alLabel = el('text', {x:569, y:315,
+      'text-anchor':'middle', fill:'#EF9F27', 'font-size':8,
+      'font-family':'sans-serif', 'pointer-events':'none', 'font-weight':'700'});
+    alLabel.textContent = 'THIS WEEK';
+    svg.appendChild(alLabel);
 
     // Legend
-    svg.appendChild(el('circle',{cx:50,cy:488,r:5,fill:'#a56bff'}));
-    var lt1=el('text',{x:60,y:492,fill:'rgba(255,255,255,0.35)','font-size':10,'font-family':'sans-serif'});
-    lt1.textContent='Academy locations'; svg.appendChild(lt1);
-    svg.appendChild(el('circle',{cx:220,cy:488,r:5,fill:'#4bb464'}));
-    var lt2=el('text',{x:230,y:492,fill:'rgba(255,255,255,0.35)','font-size':10,'font-family':'sans-serif'});
-    lt2.textContent='Your pins'; svg.appendChild(lt2);
+    svg.appendChild(el('rect', {x:0, y:472, width:900, height:28, fill:'rgba(0,0,0,0.4)'}));
+    svg.appendChild(el('circle', {cx:20, cy:486, r:5, fill:'#a56bff'}));
+    svg.appendChild(el('text',   {x:30, y:490, fill:'rgba(255,255,255,0.5)', 'font-size':10, 'font-family':'sans-serif'}, 'Academy locations (click skull pin)'));
+    svg.appendChild(el('circle', {cx:230,cy:486, r:5, fill:'#4bb464'}));
+    svg.appendChild(el('text',   {x:240,cy:490, y:490, fill:'rgba(255,255,255,0.5)', 'font-size':10, 'font-family':'sans-serif'}, 'Your community pins'));
+    svg.appendChild(el('text',   {x:880, y:490, 'text-anchor':'end', fill:'rgba(165,107,255,0.5)', 'font-size':10, 'font-family':'sans-serif'}, 'Haunted Map of America — Ambrosia's Occult Academy'));
 
     drawPins(svg, NS);
   }
+
 
   function drawPins(svg, NS) {
     NS = NS || 'http://www.w3.org/2000/svg';
