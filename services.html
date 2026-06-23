@@ -477,128 +477,47 @@
      
 
 
-  <!-- ══ PALM PHOTO SUBMISSION FORM ══════════════════════════════════════ -->
-  <section id="palm-form" class="section section-light">
-    <div class="section-inner">
-      <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🤲 Palm Reading Request Form</h2>
-      <p style="color:var(--text-muted);margin-bottom:1.75rem;font-size:0.95rem;line-height:1.7;">
-        Complete payment above first, then fill out this form so Jennifer has everything she needs to prepare your reading.
-        For other reading types, email <a href="mailto:AmbrosiasOccultAcademy@gmail.com" style="color:#a56bff;">AmbrosiasOccultAcademy@gmail.com</a> directly.
-      </p>
+<!-- PALMISTRY READING -->
+<div class="service-card">
+  <div class="service-card-header">
+    <div class="service-icon">✋</div>
+    <h3>Palmistry Reading</h3>
+    <div class="service-price">$14.95 <span>/ reading</span></div>
+  </div>
 
-      <div class="reading-form-wrap">
-        <h3>📋 Submit Your Palm Reading Details</h3>
-        <p class="form-note">
-          For the best reading, photograph both hands in natural light against a plain background.
-          Hold your hand open and relaxed — don't press it flat. Submit photos of your
-          <strong style="color:#d7e2ff;">left hand</strong> (your soul's blueprint) and
-          <strong style="color:#d7e2ff;">right hand</strong> (your lived path) separately.
-        </p>
+  <div class="service-card-body">
+    <p>An intuitive and detailed analysis of your palms, revealing insights about your personality, life path, emotional patterns, strengths, and spiritual lessons. Jennifer examines your major and minor lines, mounts, hand shape, and unique markings.</p>
 
-        <!--
-          FORMSPREE SETUP:
-          1. Go to https://formspree.io — create a free account
-          2. Create a new form — you'll get a URL like https://formspree.io/f/xyzabcde
-          3. Replace YOUR_FORMSPREE_ID below with your actual ID
-          Note: Formspree free tier supports file uploads up to 25MB.
-        -->
-        <form id="palm-reading-form"
-              action="https://formspree.io/f/xdaronwg"
-              method="POST"
-              enctype="multipart/form-data">
+    <ul class="service-includes">
+      <li>Major & minor line interpretation</li>
+      <li>Mount analysis (Venus, Jupiter, Apollo, etc.)</li>
+      <li>Hand shape & elemental type</li>
+      <li>Life path & emotional tendencies</li>
+      <li>Unique markings & spiritual indicators</li>
+      <li>Delivered via email</li>
+    </ul>
 
-          <div class="reading-form-grid">
+    <p class="service-turnaround">⏱ Delivered within 1–2 business days</p>
+  </div>
 
-            <div class="rf-field">
-              <label for="pr-name">Your Name <span style="color:#a56bff">*</span></label>
-              <input type="text" id="pr-name" name="name" placeholder="Your full name" required />
-            </div>
-
-            <div class="rf-field">
-              <label for="pr-email">Email Address <span style="color:#a56bff">*</span></label>
-              <input type="email" id="pr-email" name="email" placeholder="Where to send your reading" required />
-            </div>
-
-            <div class="rf-field">
-              <label for="pr-dominant">Dominant Hand</label>
-              <select id="pr-dominant" name="dominant_hand">
-                <option value="">— Select —</option>
-                <option value="right">Right hand</option>
-                <option value="left">Left hand</option>
-                <option value="ambidextrous">Ambidextrous</option>
-              </select>
-            </div>
-
-            <div class="rf-field">
-              <label for="pr-reading-type">Reading Type <span style="color:#a56bff">*</span></label>
-              <select id="pr-reading-type" name="reading_type" required>
-                <option value="">— Select —</option>
-                <option value="palm">Palm Reading — $14.95</option>
-                <option value="bundle">Combined Package — $24.95</option>
-              </select>
-            </div>
-
-            <div class="rf-field full">
-              <label for="pr-question">Your Question or Focus (optional)</label>
-              <textarea id="pr-question" name="question" rows="3"
-                placeholder="Is there a specific area of your life you'd like Jennifer to focus on? Love, career, life path, health... or leave blank for a general reading."></textarea>
-            </div>
-
-            <!-- LEFT HAND PHOTO -->
-            <div class="rf-field full">
-              <label>Left Hand Photo <span style="color:#a56bff">*</span></label>
-              <div class="photo-upload-area" id="left-upload-area">
-                <input type="file" name="left_hand_photo" accept="image/*"
-                       onchange="previewPhoto(this, 'left-preview')" required />
-                <div class="photo-upload-icon">🤚</div>
-                <p>Click to upload your <strong style="color:#d7e2ff;">left hand</strong> photo</p>
-                <p class="upload-hint">JPG, PNG or HEIC · Max 10MB · Natural light preferred</p>
-              </div>
-              <div id="left-preview"></div>
-            </div>
-
-            <!-- RIGHT HAND PHOTO -->
-            <div class="rf-field full">
-              <label>Right Hand Photo <span style="color:#a56bff">*</span></label>
-              <div class="photo-upload-area" id="right-upload-area">
-                <input type="file" name="right_hand_photo" accept="image/*"
-                       onchange="previewPhoto(this, 'right-preview')" required />
-                <div class="photo-upload-icon">✋</div>
-                <p>Click to upload your <strong style="color:#d7e2ff;">right hand</strong> photo</p>
-                <p class="upload-hint">JPG, PNG or HEIC · Max 10MB · Natural light preferred</p>
-              </div>
-              <div id="right-preview"></div>
-            </div>
-
-            <div class="rf-field full">
-              <label for="pr-notes">Anything Else Jennifer Should Know?</label>
-              <textarea id="pr-notes" name="notes" rows="3"
-                placeholder="Any additional context, special circumstances, or things you'd like Jennifer to know before your reading..."></textarea>
-            </div>
-
-          </div>
-
-          <input type="hidden"  name="_subject" value="🤲 New Palm Reading Request" />
-          <input type="text"    name="_gotcha"  style="display:none" />
-
-          <button type="submit" class="btn primary" style="margin-top:0.5rem;">
-            ✨ Submit My Palm Reading Request
-          </button>
-
-          <div class="rf-message" id="palm-form-message"></div>
-
-        </form>
-      </div>
-
-      <div class="tip-box">
-        <strong>📸 Photo tips for the best reading:</strong> Natural daylight gives the clearest lines.
-        Hold your hand open and relaxed — don't press it against a surface or force it flat.
-        A plain white or light background works best. Take the photo straight-on from above.
-        Both hands together in one shot is fine, but separate photos are better.
-      </div>
-
+  <div class="service-card-footer">
+    <div class="paypal-wrap">
+      <a href="https://paypal.me/ambrosiasoccultacad/14.95" 
+         target="_blank" 
+         class="btn secondary" 
+         style="display:inline-block;text-align:center;">
+        💳 Pay $14.95 via PayPal
+      </a>
     </div>
-  </section>
+
+    <a href="/pages/palmistry-form.html" 
+       class="btn outline" 
+       style="width:100%;display:flex;justify-content:center;margin-top:0.5rem;">
+      📋 Submit Palmistry Details
+    </a>
+  </div>
+</div>
+
 
 
 
