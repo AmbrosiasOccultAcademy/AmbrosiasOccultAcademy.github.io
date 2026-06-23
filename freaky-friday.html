@@ -1011,138 +1011,293 @@
     VA:{a:37.8,o:-78.2},WA:{a:47.4,o:-121.5},WV:{a:38.6,o:-80.6},WI:{a:44.3,o:-89.6},WY:{a:43.0,o:-107.6}
   };
 
-  // ── Build the visible map ─────────────────────────────────────────────────
-  function buildMap() {
-    var svg = document.getElementById('hmap');
-    if (!svg) { console.log('hmap not found'); return; }
-    svg.innerHTML = '';
+ // ── Build the visible map ─────────────────────────────────────────────────
+function buildMap() {
+  var svg = document.getElementById('hmap');
+  if (!svg) {
+    console.warn('haunted map: #hmap SVG not found');
+    return;
+  }
 
-    // Dark background
-    svg.appendChild(svgEl('rect', {width:900, height:500, fill:'#08051a'}));
+  // Clear any previous content
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
 
-    // State rectangles — [abbr, x, y, w, h, featured?]
-    // Laid out to approximate the continental US shape
-    var states = [
-      // Far West
-      ['WA',  42, 40, 74, 58, false], ['OR',  42,100, 74, 68, false], ['CA',  42,170, 66,142, false],
-      ['NV', 110,128, 64, 96, false], ['ID', 110, 40, 64, 88, false],
-      // Mountain
-      ['MT', 176, 40,108, 70, false], ['WY', 176,112,108, 70, false], ['CO', 176,184,108, 70, false],
-      ['UT', 110,226, 66, 58, false], ['AZ', 110,286, 84, 78, false], ['NM', 176,256,108, 78, false],
-      // Plains
-      ['ND', 286, 40,108, 60, false], ['SD', 286,102,108, 60, false], ['NE', 286,164,108, 60, false],
-      ['KS', 286,226,108, 60, false], ['OK', 286,288,108, 58, false], ['TX', 240,320,154,116, false],
-      // Midwest
-      ['MN', 396, 40, 92, 82, false], ['IA', 396,124, 92, 60, false], ['MO', 396,186, 92, 70, false],
-      ['AR', 396,258, 92, 60, false], ['LA', 396,320, 92, 60, false],
-      // Great Lakes
-      ['WI', 490, 58, 74, 82, false], ['IL', 490,142, 74, 82, false], ['IN', 566,138, 54, 72, false],
-      ['MI', 566, 40, 74, 96, false], ['OH', 622,120, 74, 72, false],
-      ['KY', 490,226, 94, 54, false], ['TN', 490,282, 94, 48, false],
-      ['MS', 490,332, 74, 60, false], ['AL', 566,288, 60, 82, true],
-      // Southeast
-      ['GA', 622,272, 74, 82, false], ['FL', 622,356, 74,112, false],
-      ['SC', 648,252, 56, 54, false], ['NC', 598,214, 96, 54, false],
-      ['VA', 598,164, 96, 52, false], ['WV', 598,138, 62, 46, false],
-      // Northeast
-      ['PA', 662,120, 82, 52, false], ['NY', 662, 58, 94, 68, false],
-      ['MD', 706,164, 54, 30, false], ['DE', 746,154, 28, 28, false],
-      ['NJ', 746,120, 36, 40, false], ['CT', 756, 92, 36, 28, false],
-      ['RI', 794, 92, 24, 24, false], ['MA', 746, 70, 72, 28, false],
-      ['VT', 746, 40, 36, 36, false], ['NH', 784, 40, 34, 48, false],
-      ['ME', 784, 40, 80, 60, false]
-    ];
+  // Ensure basic attributes
+  svg.setAttribute('viewBox', '0 0 900 500');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-    // Draw fills first
-    states.forEach(function(s) {
-      var ab=s[0],x=s[1],y=s[2],w=s[3],h=s[4],featured=s[5];
-      svg.appendChild(svgEl('rect', {
-        x:x, y:y, width:w, height:h,
-        fill: featured ? 'rgba(165,107,255,0.35)' : 'rgba(165,107,255,0.10)',
-        stroke: featured ? '#a56bff' : 'rgba(165,107,255,0.40)',
-        'stroke-width': featured ? 2 : 1,
-        rx: 2
-      }));
-    });
+  // Dark background
+  svg.appendChild(svgEl('rect', {
+    x: 0, y: 0, width: 900, height: 500, fill: '#08051a'
+  }));
 
-    // Draw labels on top
-    states.forEach(function(s) {
-      var ab=s[0],x=s[1],y=s[2],w=s[3],h=s[4],featured=s[5];
-      var cx = x + w/2, cy = y + h/2;
+  // State rectangles — [abbr, x, y, w, h, featured?]
+  var states = [
+    // Far West
+    ['WA',  42, 40, 74, 58, false], ['OR',  42,100, 74, 68, false], ['CA',  42,170, 66,142, false],
+    ['NV', 110,128, 64, 96, false], ['ID', 110, 40, 64, 88, false],
+    // Mountain
+    ['MT', 176, 40,108, 70, false], ['WY', 176,112,108, 70, false], ['CO', 176,184,108, 70, false],
+    ['UT', 110,226, 66, 58, false], ['AZ', 110,286, 84, 78, false], ['NM', 176,256,108, 78, false],
+    // Plains
+    ['ND', 286, 40,108, 60, false], ['SD', 286,102,108, 60, false], ['NE', 286,164,108, 60, false],
+    ['KS', 286,226,108, 60, false], ['OK', 286,288,108, 58, false], ['TX', 240,320,154,116, false],
+    // Midwest
+    ['MN', 396, 40, 92, 82, false], ['IA', 396,124, 92, 60, false], ['MO', 396,186, 92, 70, false],
+    ['AR', 396,258, 92, 60, false], ['LA', 396,320, 92, 60, false],
+    // Great Lakes
+    ['WI', 490, 58, 74, 82, false], ['IL', 490,142, 74, 82, false], ['IN', 566,138, 54, 72, false],
+    ['MI', 566, 40, 74, 96, false], ['OH', 622,120, 74, 72, false],
+    ['KY', 490,226, 94, 54, false], ['TN', 490,282, 94, 48, false],
+    ['MS', 490,332, 74, 60, false], ['AL', 566,288, 60, 82, true],
+    // Southeast
+    ['GA', 622,272, 74, 82, false], ['FL', 622,356, 74,112, false],
+    ['SC', 648,252, 56, 54, false], ['NC', 598,214, 96, 54, false],
+    ['VA', 598,164, 96, 52, false], ['WV', 598,138, 62, 46, false],
+    // Northeast
+    ['PA', 662,120, 82, 52, false], ['NY', 662, 58, 94, 68, false],
+    ['MD', 706,164, 54, 30, false], ['DE', 746,154, 28, 28, false],
+    ['NJ', 746,120, 36, 40, false], ['CT', 756, 92, 36, 28, false],
+    ['RI', 794, 92, 24, 24, false], ['MA', 746, 70, 72, 28, false],
+    ['VT', 746, 40, 36, 36, false], ['NH', 784, 40, 34, 48, false],
+    ['ME', 784, 40, 80, 60, false]
+  ];
+
+  // Draw state fills
+  states.forEach(function(s) {
+    var ab = s[0], x = s[1], y = s[2], w = s[3], h = s[4], featured = s[5];
+    svg.appendChild(svgEl('rect', {
+      x: x, y: y, width: w, height: h,
+      fill: featured ? 'rgba(165,107,255,0.35)' : 'rgba(165,107,255,0.10)',
+      stroke: featured ? '#a56bff' : 'rgba(165,107,255,0.40)',
+      'stroke-width': featured ? 2 : 1,
+      rx: 2
+    }));
+  });
+
+  // Draw state labels
+  states.forEach(function(s) {
+    var ab = s[0], x = s[1], y = s[2], w = s[3], h = s[4], featured = s[5];
+    var cx = x + w / 2, cy = y + h / 2;
+
+    svg.appendChild(svgEl('text', {
+      x: cx, y: cy + 1,
+      'text-anchor': 'middle',
+      'dominant-baseline': 'middle',
+      fill: featured ? '#ffffff' : 'rgba(255,255,255,0.50)',
+      'font-size': featured ? 12 : 9,
+      'font-weight': featured ? '700' : '400',
+      'font-family': 'sans-serif',
+      'pointer-events': 'none'
+    }, ab));
+
+    if (featured) {
       svg.appendChild(svgEl('text', {
-        x:cx, y:cy+1,
-        'text-anchor':'middle', 'dominant-baseline':'middle',
-        fill: featured ? '#ffffff' : 'rgba(255,255,255,0.50)',
-        'font-size': featured ? 12 : 9,
-        'font-weight': featured ? '700' : '400',
-        'font-family':'sans-serif',
-        'pointer-events':'none'
-      }, ab));
-      if (featured) {
-        svg.appendChild(svgEl('text', {
-          x:cx, y:cy+15,
-          'text-anchor':'middle', 'dominant-baseline':'middle',
-          fill:'#EF9F27', 'font-size':7, 'font-weight':'700',
-          'font-family':'sans-serif', 'pointer-events':'none'
-        }, 'THIS WEEK'));
-      }
+        x: cx, y: cy + 15,
+        'text-anchor': 'middle',
+        'dominant-baseline': 'middle',
+        fill: '#EF9F27',
+        'font-size': 7,
+        'font-weight': '700',
+        'font-family': 'sans-serif',
+        'pointer-events': 'none'
+      }, 'THIS WEEK'));
+    }
+  });
+
+  // Legend bar
+  svg.appendChild(svgEl('rect', {
+    x: 0, y: 474, width: 900, height: 26, fill: 'rgba(0,0,0,0.5)'
+  }));
+  svg.appendChild(svgEl('circle', { cx: 14, cy: 487, r: 5, fill: '#a56bff' }));
+  svg.appendChild(svgEl('text', {
+    x: 24, y: 491, fill: 'rgba(255,255,255,0.45)',
+    'font-size': 10, 'font-family': 'sans-serif'
+  }, 'Academy locations'));
+  svg.appendChild(svgEl('circle', { cx: 160, cy: 487, r: 5, fill: '#4bb464' }));
+  svg.appendChild(svgEl('text', {
+    x: 170, y: 491, fill: 'rgba(255,255,255,0.45)',
+    'font-size': 10, 'font-family': 'sans-serif'
+  }, 'Community pins (click to read)'));
+  svg.appendChild(svgEl('text', {
+    x: 886, y: 491, 'text-anchor': 'end',
+    fill: 'rgba(165,107,255,0.4)', 'font-size': 9,
+    'font-family': 'sans-serif'
+  }, "Ambrosia's Occult Academy — Haunted Map of America"));
+
+  // Finally, draw pins
+  drawPins();
+}
+
+// ── Projection for lat/lng to map coords ───────────────────────────────────
+function proj(lat, lng) {
+  // Tuned to match the state rectangle layout above
+  var x = (lng - (-127)) / ((-64) - (-127)) * 852 + 24;
+  var y = (51.5 - lat) / (51.5 - 22.5) * 462 + 12;
+  return {
+    x: Math.round(x * 10) / 10,
+    y: Math.round(y * 10) / 10
+  };
+}
+
+// ── Draw pins on the map ──────────────────────────────────────────────────
+function drawPins() {
+  var svg = document.getElementById('hmap');
+  if (!svg) return;
+
+  // Remove old pins
+  var old = svg.querySelectorAll('.hpin');
+  for (var i = 0; i < old.length; i++) {
+    if (old[i].parentNode) old[i].parentNode.removeChild(old[i]);
+  }
+
+  allPins().forEach(function(pin) {
+    if (!pin.lat || !pin.lng) return;
+
+    var p = proj(pin.lat, pin.lng);
+    var isUser = pin.src === 'user';
+    var color  = isUser ? '#4bb464' : '#c084fc';
+    var glow   = isUser ? 'rgba(75,180,100,0.5)' : 'rgba(192,132,252,0.5)';
+
+    var g = svgEl('g', {
+      class: 'hpin',
+      transform: 'translate(' + p.x + ',' + p.y + ')'
     });
+    g.style.cursor = 'pointer';
 
-    // Legend bar
-    svg.appendChild(svgEl('rect', {x:0, y:474, width:900, height:26, fill:'rgba(0,0,0,0.5)'}));
-    svg.appendChild(svgEl('circle', {cx:14, cy:487, r:5, fill:'#a56bff'}));
-    svg.appendChild(svgEl('text', {x:24, y:491, fill:'rgba(255,255,255,0.45)',
-      'font-size':10, 'font-family':'sans-serif'}, 'Academy locations'));
-    svg.appendChild(svgEl('circle', {cx:160, cy:487, r:5, fill:'#4bb464'}));
-    svg.appendChild(svgEl('text', {x:170, y:491, fill:'rgba(255,255,255,0.45)',
-      'font-size':10, 'font-family':'sans-serif'}, 'Community pins (click to read)'));
-    svg.appendChild(svgEl('text', {x:886, y:491, 'text-anchor':'end',
-      fill:'rgba(165,107,255,0.4)', 'font-size':9,
-      'font-family':'sans-serif'}, "Ambrosia's Occult Academy — Haunted Map of America"));
+    var pulse = svgEl('circle', { r: 11, fill: glow, opacity: 0.5 });
+    var dot   = svgEl('circle', { r: 6, fill: color, stroke: '#fff', 'stroke-width': 1.5 });
+    var label = svgEl('text', {
+      'text-anchor': 'middle',
+      y: -13,
+      'font-size': 13,
+      'pointer-events': 'none'
+    }, isUser ? '📍' : '💀');
 
-    drawPins();
+    g.appendChild(pulse);
+    g.appendChild(dot);
+    g.appendChild(label);
+
+    (function(pid) {
+      g.addEventListener('click', function() { openPin(pid); });
+    })(pin.id);
+
+    svg.appendChild(g);
+  });
+}
+
+// ── Popup ─────────────────────────────────────────────────────────────────
+function openPin(pinId) {
+  var pin = null;
+  allPins().forEach(function(p) {
+    if (String(p.id) === String(pinId)) pin = p;
+  });
+  if (!pin) return;
+
+  var typeMap = {
+    haunted: 'Haunted Location',
+    cemetery: 'Cemetery',
+    cryptid: 'Cryptid Area',
+    ufo: 'UFO Hotspot',
+    other: 'Paranormal'
+  };
+
+  document.getElementById('pp-badge').textContent =
+    (pin.state || '') + '  —  ' + (typeMap[pin.type] || 'Paranormal');
+  document.getElementById('pp-name').textContent    = pin.name;
+  document.getElementById('pp-city').textContent    = pin.city || '';
+  document.getElementById('pp-history').textContent = pin.history || '';
+
+  var acc = document.getElementById('pp-access');
+  acc.textContent   = pin.access ? '  ' + pin.access : '';
+  acc.style.display = pin.access ? 'block' : 'none';
+
+  var lnkEl = document.getElementById('pp-link');
+  lnkEl.innerHTML = '';
+  if (pin.link) {
+    var a = document.createElement('a');
+    a.href = pin.link;
+    a.target = '_blank';
+    a.textContent = pin.linklabel || pin.link;
+    a.style.cssText =
+      'display:inline-block;padding:0.3rem 0.8rem;border-radius:999px;' +
+      'border:1px solid rgba(165,107,255,0.4);color:#a56bff;text-decoration:none;font-size:0.8rem;';
+    lnkEl.appendChild(a);
   }
 
-  // ── Draw pins on the map ──────────────────────────────────────────────────
-  function proj(lat, lng) {
-    // Tuned to match the state rectangle layout above
-    var x = (lng - (-127)) / ((-64) - (-127)) * 852 + 24;
-    var y = (51.5 - lat) / (51.5 - 22.5) * 462 + 12;
-    return { x: Math.round(x*10)/10, y: Math.round(y*10)/10 };
+  document.getElementById('hpopup').style.display  = 'block';
+  document.getElementById('hoverlay').style.display = 'block';
+}
+
+function closePopup() {
+  document.getElementById('hpopup').style.display  = 'none';
+  document.getElementById('hoverlay').style.display = 'none';
+}
+
+// ── Add user pin ──────────────────────────────────────────────────────────
+function addUserPin() {
+  var name   = (document.getElementById('pin-name').value  || '').trim();
+  var loc    = (document.getElementById('pin-loc').value   || '').trim();
+  var story  = (document.getElementById('pin-story').value || '').trim();
+  var type   = document.getElementById('pin-type').value;
+  var acSel  = document.getElementById('pin-access');
+  var access = acSel.options[acSel.selectedIndex].text;
+  var msg    = document.getElementById('pin-msg');
+
+  if (!name || !loc) {
+    msg.style.display = 'block';
+    msg.style.color   = '#ff6b6b';
+    msg.textContent   = 'Please enter the place name and city/state.';
+    return;
   }
 
-  function drawPins() {
-    var svg = document.getElementById('hmap');
-    if (!svg) return;
-    var old = svg.querySelectorAll('.hpin');
-    old.forEach(function(n) { n.parentNode.removeChild(n); });
+  var parts  = loc.split(',');
+  var stAb   = parts.length > 1 ? parts[parts.length - 1].trim().toUpperCase() : '';
+  var center = SC[stAb] || { a: 39.5, o: -98.4 };
+  var lat    = center.a + (Math.random() - 0.5) * 1.8;
+  var lng    = center.o + (Math.random() - 0.5) * 1.8;
 
-    allPins().forEach(function(pin) {
-      if (!pin.lat || !pin.lng) return;
-      var p = proj(pin.lat, pin.lng);
-      var isUser = pin.src === 'user';
-      var color  = isUser ? '#4bb464' : '#c084fc';
-      var glow   = isUser ? 'rgba(75,180,100,0.5)' : 'rgba(192,132,252,0.5)';
+  var newPin = {
+    id: 'u' + Date.now(),
+    name: name,
+    city: loc,
+    state: stAb,
+    lat: lat,
+    lng: lng,
+    type: type,
+    history: story || 'Community submission.',
+    access: access,
+    link: '',
+    linklabel: '',
+    src: 'user'
+  };
 
-      var g = document.createElementNS(NS, 'g');
-      g.setAttribute('class', 'hpin');
-      g.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ')');
-      g.style.cursor = 'pointer';
+  userPins.push(newPin);
+  try {
+    sessionStorage.setItem('ff_upins', JSON.stringify(userPins));
+  } catch (e) {}
 
-      var pulse = svgEl('circle', {r:11, fill:glow, opacity:0.5});
-      var dot   = svgEl('circle', {r:6,  fill:color, stroke:'#fff', 'stroke-width':1.5});
-      var label = svgEl('text',   {'text-anchor':'middle', y:-13, 'font-size':13,
-        'pointer-events':'none'});
-      label.textContent = isUser ? '📍' : '💀';
+  drawPins();
 
-      g.appendChild(pulse);
-      g.appendChild(dot);
-      g.appendChild(label);
+  document.getElementById('pin-name').value  = '';
+  document.getElementById('pin-loc').value   = '';
+  document.getElementById('pin-story').value = '';
 
-      (function(pid) { g.addEventListener('click', function() { openPin(pid); }); })(pin.id);
-      svg.appendChild(g);
-    });
+  msg.style.display = 'block';
+  msg.style.color   = '#4bb464';
+  msg.textContent   = 'Pinned! Find your green pin on the map and click it.';
+  setTimeout(function() { openPin(newPin.id); }, 400);
+}
+
+// ── Init on page load ─────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    buildMap();
+  } catch (e) {
+    console.error('haunted map error:', e);
   }
+});
+
 
   // ── Popup ─────────────────────────────────────────────────────────────────
   function openPin(pinId) {
