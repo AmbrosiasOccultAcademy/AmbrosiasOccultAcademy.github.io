@@ -236,30 +236,6 @@
     @media(max-width:640px){
       .cam-grid { grid-template-columns: 1fr; }
     }
-
-    /* ── Weekly feature box ─────────────────────────────────────────────── */
-    .wfbox { background:linear-gradient(135deg,rgba(165,107,255,0.12),rgba(212,83,126,0.07)); border:1px solid rgba(165,107,255,0.4); border-radius:16px; padding:2rem; position:relative; overflow:hidden; }
-    .wfbox-badge { position:absolute; top:0.75rem; right:1rem; font-size:0.63rem; letter-spacing:0.13em; color:#a56bff; font-weight:700; text-transform:uppercase; }
-    .wfbox-title { font-family:var(--font-display); font-size:1.1rem; letter-spacing:0.06em; text-transform:uppercase; color:#d7e2ff; margin:0 0 1.4rem; }
-    .wfbox-item { margin-bottom:1.4rem; padding-bottom:1.4rem; border-bottom:1px solid rgba(165,107,255,0.15); }
-    .wfbox-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
-    .wfbox-label { font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase; color:#a56bff; margin-bottom:0.4rem; font-weight:700; }
-    .wfbox-name { font-family:var(--font-display); font-size:1rem; color:#d7e2ff; margin-bottom:0.6rem; }
-    .wfbox-body { background:rgba(0,0,0,0.25); border-radius:10px; padding:1rem 1.2rem; color:var(--text-muted); font-size:0.9rem; line-height:1.75; }
-    /* ── Haunted location cards ─────────────────────────────────────────── */
-    .hcard { cursor:pointer; border-radius:14px; padding:1.2rem; border:1px solid rgba(165,107,255,0.2); background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9)); transition:transform 0.2s,box-shadow 0.2s; }
-    .hcard:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(0,0,0,0.6); }
-    .hcard-state { font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:#a56bff; margin-bottom:0.3rem; }
-    .hcard-name { color:#d7e2ff; font-size:0.95rem; font-weight:600; margin-bottom:0.4rem; }
-    .hcard-desc { font-size:0.84rem; color:var(--text-muted); line-height:1.6; margin:0 0 0.5rem; }
-    .hcard-access { font-size:0.76rem; color:#4bb464; }
-    /* ── Add pin form ───────────────────────────────────────────────────── */
-    .addpin-box { background:linear-gradient(135deg,rgba(75,180,100,0.1),rgba(5,3,22,0.9)); border:1px solid rgba(75,180,100,0.3); border-radius:16px; padding:1.75rem; }
-    .addpin-label { display:block; font-size:0.73rem; letter-spacing:0.1em; text-transform:uppercase; color:#4bb464; margin-bottom:0.35rem; }
-    .addpin-input { width:100%; background:rgba(0,0,0,0.4); border:1px solid rgba(75,180,100,0.3); border-radius:8px; padding:0.6rem 0.9rem; color:#d7e2ff; font-size:0.9rem; box-sizing:border-box; font-family:inherit; }
-    /* ── SVG map pins ───────────────────────────────────────────────────── */
-    .hpin { cursor:pointer; transition:transform 0.15s; transform-box:fill-box; transform-origin:center; }
-    .hpin:hover { transform:scale(1.5); }
   </style>
 </head>
 <body>
@@ -302,24 +278,26 @@
   <!-- ══ THIS WEEK ════════════════════════════════════════════════════════ -->
   <section id="this-week" class="section section-dark">
     <div class="section-inner">
-      <div class="wfbox">
-        <div class="wfbox-badge">UPDATED WEEKLY</div>
-        <h3 class="wfbox-title">Featured This Week — June 20, 2026</h3>
+      <div style="background:linear-gradient(135deg,rgba(165,107,255,0.12),rgba(212,83,126,0.07));border:1px solid rgba(165,107,255,0.4);border-radius:16px;padding:2rem;position:relative;overflow:hidden;margin-bottom:2rem;">
+        <div style="position:absolute;top:0.75rem;right:1rem;font-size:0.65rem;letter-spacing:0.12em;color:#a56bff;font-weight:700;">UPDATED WEEKLY</div>
+        <h3 style="font-family:var(--font-display);font-size:1.15rem;letter-spacing:0.06em;text-transform:uppercase;color:#d7e2ff;margin:0 0 1.4rem;">Featured This Week — June 20, 2026</h3>
 
-        <div class="wfbox-item">
-          <div class="wfbox-label">Ghost Story of the Week</div>
-          <div class="wfbox-name">The Drish House — Tuscaloosa, Alabama</div>
-          <div class="wfbox-body">Built in 1837 by Dr. John Drish, the Drish House has one of the most persistently documented hauntings in the American South. When Dr. Drish died in 1867, his wife Sarah became fixated on recreating his funeral exactly — she saved the specific candles used at his service and insisted they be relit at her own funeral. She kept those candles for seventeen years. When Sarah died in 1884, her wishes were honored.<br><br>
-            What has been reported ever since: on certain nights, flames appear in the tower of the long-abandoned house. A tower with no electricity. No candles. No living occupants. Witnesses across generations describe light that looks exactly like candlelight — flickering, warm, real — that leaves no trace of burning. Some report a woman's silhouette in the tower window. The phenomenon has been reported continuously for over 140 years.</div>
+        <div style="margin-bottom:1.4rem;padding-bottom:1.4rem;border-bottom:1px solid rgba(165,107,255,0.15);">
+          <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#a56bff;margin-bottom:0.4rem;font-weight:700;">Ghost Story of the Week</div>
+          <div style="font-family:var(--font-display);font-size:1rem;color:#d7e2ff;margin-bottom:0.6rem;">The Drish House — Tuscaloosa, Alabama</div>
+          <div style="background:rgba(0,0,0,0.25);border-radius:10px;padding:1rem 1.2rem;color:var(--text-muted);font-size:0.91rem;line-height:1.75;">
+            Built in 1837 by Dr. John Drish, the Drish House has one of the most persistently documented hauntings in the American South. When Dr. Drish died in 1867, his wife Sarah became fixated on recreating his funeral exactly — she saved the specific candles used at his service and insisted they be relit at her own funeral. She kept those candles for seventeen years. When Sarah died in 1884, her wishes were honored.<br><br>
+            What has been reported ever since: on certain nights, flames appear in the tower of the long-abandoned house. A tower with no electricity, no candles, and no living occupants. Witnesses across generations describe light that looks exactly like candlelight — flickering, warm, real — that leaves no trace of burning. Some report a woman's silhouette standing in the tower window. The phenomenon has been documented continuously for over 140 years.
+          </div>
         </div>
 
-        <div class="wfbox-item">
-          <div class="wfbox-label">Cryptid of the Week</div>
-          <div class="wfbox-name">The White Thang — Northern Alabama</div>
-          <div class="wfbox-body">Since the early 1900s, residents of Morgan, Etowah, and Jefferson counties in northern Alabama have reported encounters with a creature called the White Thang — large, white, bipedal, seven to eight feet tall, moving silently through the woods at speeds witnesses describe as impossible for something that size.<br><br>
-            Unlike Bigfoot, the White Thang is almost never described as aggressive. It is most often seen standing at the tree line at dusk, watching, and then vanishing. Reports span generations and come from hunters, police officers, and ordinary drivers on back roads — with no obvious motive to fabricate. Northern Alabama has been seeing the White Thang for over a hundred years. No one has explained it.</div>
+        <div>
+          <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#a56bff;margin-bottom:0.4rem;font-weight:700;">Cryptid of the Week</div>
+          <div style="font-family:var(--font-display);font-size:1rem;color:#d7e2ff;margin-bottom:0.6rem;">The White Thang — Northern Alabama</div>
+          <div style="background:rgba(0,0,0,0.25);border-radius:10px;padding:1rem 1.2rem;color:var(--text-muted);font-size:0.91rem;line-height:1.75;">
+            Since the early 1900s, residents of Morgan, Etowah, and Jefferson counties in northern Alabama have reported encounters with a creature called the White Thang — large, white, bipedal, seven to eight feet tall, moving silently through the woods at speeds witnesses describe as impossible for its size. Unlike Bigfoot, it is almost never described as aggressive. It watches from the tree line at dusk, then vanishes. Reports span generations and come from hunters, police officers, and ordinary drivers on back roads at night. Northern Alabama has been seeing the White Thang for over a hundred years. No one has explained it.
+          </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -328,14 +306,13 @@
   <!-- ══ HAUNTED MAP ════════════════════════════════════════════════════════ -->
   <section id="haunted-map" class="section section-light">
     <div class="section-inner">
-
       <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.4rem;">The Haunted Map of America</h2>
-      <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.75;margin-bottom:0.5rem;max-width:820px;">Each week we feature the most haunted places in one US state — going alphabetically. Click any skull pin to read the haunted history. Add your own scary place with the form below — your green pin appears on the map instantly.</p>
-      <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);margin-bottom:1.25rem;">Current state: <strong style="color:#a56bff;">Alabama</strong> &nbsp;·&nbsp; Next week: Alaska &nbsp;·&nbsp; <span style="color:#4bb464;">Green pins</span> = your submissions</p>
+      <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.75;margin-bottom:0.5rem;max-width:820px;">Each week we feature the most haunted places in one US state — going alphabetically. Click any skull pin to read the haunted history. Add your own scary place with the form below.</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Current state: <strong style="color:#a56bff;">Alabama</strong> &nbsp;|&nbsp; Next week: Alaska &nbsp;|&nbsp; <span style="color:#4bb464;">Green pins</span> = community submissions</p>
 
-      <!-- MAP SVG -->
-      <div style="position:relative;background:#06040f;border-radius:14px;border:1px solid rgba(165,107,255,0.3);overflow:hidden;margin-bottom:1.5rem;">
-        <svg id="hmap" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;cursor:default;"></svg>
+      <!-- THE MAP -->
+      <div id="map-wrap" style="background:#08051a;border-radius:14px;border:1px solid rgba(165,107,255,0.35);overflow:hidden;margin-bottom:1.5rem;">
+        <svg id="hmap" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;"></svg>
       </div>
 
       <!-- POPUP -->
@@ -350,64 +327,58 @@
       </div>
       <div id="hoverlay" onclick="closePopup()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:999;"></div>
 
-      <!-- LOCATION CARDS -->
+      <!-- ALABAMA CARDS -->
       <h3 style="font-family:var(--font-display);letter-spacing:0.07em;text-transform:uppercase;color:#d7e2ff;font-size:1rem;margin-bottom:0.3rem;">5 Most Haunted Places in Alabama</h3>
-      <p style="font-size:0.82rem;color:rgba(255,255,255,0.35);margin-bottom:1rem;">Click a card or a map pin to open the full story.</p>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1rem;">Click a card or a skull pin on the map to open the full story.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:2rem;">
-
-        <div class="hcard" onclick="openPin('drish')">
-          <div class="hcard-state">Tuscaloosa, AL</div>
-          <div class="hcard-name">The Drish House</div>
-          <p class="hcard-desc">Phantom candlelight in an empty tower — reported for 140 years since Sarah Drish's 1884 funeral.</p>
-          <div class="hcard-access">Tours via local paranormal groups</div>
+        <div onclick="openPin(0)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Tuscaloosa, AL</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Drish House</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Phantom candlelight in an empty tower — reported for 140 years since Sarah Drish's 1884 funeral.</p>
+          <div style="font-size:0.76rem;color:#4bb464;">Tours via local paranormal groups</div>
         </div>
-
-        <div class="hcard" onclick="openPin('maple')">
-          <div class="hcard-state">Huntsville, AL</div>
-          <div class="hcard-name">Maple Hill Cemetery</div>
-          <p class="hcard-desc">Alabama's oldest cemetery. Civil War soldier apparitions, shadow figures, and a ghost child near the iron gate.</p>
-          <div class="hcard-access">Public access · Seasonal ghost tours</div>
+        <div onclick="openPin(1)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Huntsville, AL</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Maple Hill Cemetery</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Alabama's oldest cemetery. Civil War soldier apparitions, shadow figures, ghost child near the iron gate.</p>
+          <div style="font-size:0.76rem;color:#4bb464;">Public access · Seasonal ghost tours</div>
         </div>
-
-        <div class="hcard" onclick="openPin('cahawba')">
-          <div class="hcard-state">Cahaba, AL</div>
-          <div class="hcard-name">Old Cahawba</div>
-          <p class="hcard-desc">Alabama's first state capital. The Cahawba Lights — intelligent floating orbs — documented since the 1800s.</p>
-          <div class="hcard-access">State park open to visitors · cahawba.com</div>
+        <div onclick="openPin(2)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Cahaba, AL</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Old Cahawba</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Alabama's first state capital. The Cahawba Lights — intelligent floating orbs — documented since the 1800s.</p>
+          <div style="font-size:0.76rem;color:#4bb464;">State park · Guided tours · cahawba.com</div>
         </div>
-
-        <div class="hcard" onclick="openPin('exchange')">
-          <div class="hcard-state">Montgomery, AL</div>
-          <div class="hcard-name">The Exchange Hotel</div>
-          <p class="hcard-desc">Former Confederate HQ. Full-body apparitions in period clothing, doors that lock from inside empty rooms.</p>
-          <div class="hcard-access" style="color:#EF9F27;">Bookable — overnight stays available</div>
+        <div onclick="openPin(3)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Montgomery, AL</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Exchange Hotel</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Former Confederate HQ. Full-body apparitions, doors that lock from inside empty rooms.</p>
+          <div style="font-size:0.76rem;color:#EF9F27;">Bookable — overnight stays available</div>
         </div>
-
-        <div class="hcard" onclick="openPin('anniston')">
-          <div class="hcard-state">Anniston, AL</div>
-          <div class="hcard-name">Anniston Museum of Natural History</div>
-          <p class="hcard-desc">Objects move overnight, a Victorian woman walks the exhibits after hours, EVP recordings capture voices.</p>
-          <div class="hcard-access">Public museum · Seasonal paranormal events</div>
+        <div onclick="openPin(4)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Anniston, AL</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Anniston Museum of Natural History</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Objects move overnight, a Victorian woman walks the exhibits after hours, EVP voices captured on recordings.</p>
+          <div style="font-size:0.76rem;color:#4bb464;">Public museum · Seasonal paranormal events</div>
         </div>
-
       </div>
 
-      <!-- ADD YOUR PIN -->
-      <div class="addpin-box">
+      <!-- ADD YOUR PIN FORM -->
+      <div style="background:linear-gradient(135deg,rgba(75,180,100,0.1),rgba(5,3,22,0.9));border:1px solid rgba(75,180,100,0.3);border-radius:16px;padding:1.75rem;">
         <h3 style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;text-transform:uppercase;color:#d7e2ff;margin:0 0 0.3rem;">Add Your Favorite Scary Place</h3>
-        <p style="font-size:0.87rem;color:var(--text-muted);margin:0 0 1.1rem;">Know a haunted location? Pin it to the map for the whole community to find.</p>
+        <p style="font-size:0.87rem;color:var(--text-muted);margin:0 0 1.1rem;">Pin a haunted location to the map for the whole community to find.</p>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:0.75rem;margin-bottom:0.75rem;">
           <div>
-            <label class="addpin-label">Place Name *</label>
-            <input id="pin-name" type="text" placeholder="e.g. The Stanley Hotel" class="addpin-input" />
+            <label style="display:block;font-size:0.73rem;letter-spacing:0.1em;text-transform:uppercase;color:#4bb464;margin-bottom:0.35rem;">Place Name *</label>
+            <input id="pin-name" type="text" placeholder="e.g. The Stanley Hotel" style="width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(75,180,100,0.3);border-radius:8px;padding:0.6rem 0.9rem;color:#d7e2ff;font-size:0.9rem;box-sizing:border-box;font-family:inherit;" />
           </div>
           <div>
-            <label class="addpin-label">City, State *</label>
-            <input id="pin-loc" type="text" placeholder="e.g. Estes Park, CO" class="addpin-input" />
+            <label style="display:block;font-size:0.73rem;letter-spacing:0.1em;text-transform:uppercase;color:#4bb464;margin-bottom:0.35rem;">City, State *</label>
+            <input id="pin-loc" type="text" placeholder="e.g. Estes Park, CO" style="width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(75,180,100,0.3);border-radius:8px;padding:0.6rem 0.9rem;color:#d7e2ff;font-size:0.9rem;box-sizing:border-box;font-family:inherit;" />
           </div>
           <div>
-            <label class="addpin-label">Type</label>
-            <select id="pin-type" class="addpin-input">
+            <label style="display:block;font-size:0.73rem;letter-spacing:0.1em;text-transform:uppercase;color:#4bb464;margin-bottom:0.35rem;">Type</label>
+            <select id="pin-type" style="width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(75,180,100,0.3);border-radius:8px;padding:0.6rem 0.9rem;color:#d7e2ff;font-size:0.9rem;box-sizing:border-box;font-family:inherit;">
               <option value="haunted">Haunted Location</option>
               <option value="cemetery">Cemetery</option>
               <option value="cryptid">Cryptid Area</option>
@@ -416,8 +387,8 @@
             </select>
           </div>
           <div>
-            <label class="addpin-label">Can people visit?</label>
-            <select id="pin-access" class="addpin-input">
+            <label style="display:block;font-size:0.73rem;letter-spacing:0.1em;text-transform:uppercase;color:#4bb464;margin-bottom:0.35rem;">Can people visit?</label>
+            <select id="pin-access" style="width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(75,180,100,0.3);border-radius:8px;padding:0.6rem 0.9rem;color:#d7e2ff;font-size:0.9rem;box-sizing:border-box;font-family:inherit;">
               <option>Open to public</option>
               <option>Tours available</option>
               <option>Overnight stays bookable</option>
@@ -427,13 +398,12 @@
           </div>
         </div>
         <div style="margin-bottom:0.85rem;">
-          <label class="addpin-label">What makes it haunted?</label>
-          <textarea id="pin-story" rows="3" placeholder="Tell us what happens there..." class="addpin-input" style="resize:vertical;"></textarea>
+          <label style="display:block;font-size:0.73rem;letter-spacing:0.1em;text-transform:uppercase;color:#4bb464;margin-bottom:0.35rem;">What makes it haunted?</label>
+          <textarea id="pin-story" rows="3" placeholder="Tell us what happens there..." style="width:100%;background:rgba(0,0,0,0.4);border:1px solid rgba(75,180,100,0.3);border-radius:8px;padding:0.6rem 0.9rem;color:#d7e2ff;font-size:0.9rem;box-sizing:border-box;font-family:inherit;resize:vertical;"></textarea>
         </div>
         <button onclick="addUserPin()" class="btn secondary">Pin It to the Map</button>
         <div id="pin-msg" style="display:none;margin-top:0.65rem;font-size:0.85rem;"></div>
       </div>
-
     </div>
   </section>
 
@@ -880,7 +850,7 @@
           3. Replace YOUR_FORMSPREE_ID below with the ID from that URL (e.g. xyzabcde)
           Free tier = 50 submissions/month. No backend or server needed.
         -->
-        <form id="ghost-story-form" action="https://formspree.io/f/mvzjpjnw" method="POST">
+        <form id="ghost-story-form" action="https://formspree.io/f/xpwzgqkb" method="POST">
 
           <div class="ghost-form-grid">
             <div class="ghost-form-field">
@@ -963,375 +933,191 @@
   <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  // ── Global SVG helper ─────────────────────────────────────────────────────
   var NS = 'http://www.w3.org/2000/svg';
-  function svgEl(tag, attrs, txt) {
+
+  function mk(tag, attrs, txt) {
     var e = document.createElementNS(NS, tag);
-    for (var k in attrs) e.setAttribute(k, attrs[k]);
-    if (txt !== undefined) e.textContent = txt;
+    for (var k in attrs) { e.setAttribute(k, attrs[k]); }
+    if (txt !== undefined) { e.textContent = txt; }
     return e;
   }
 
-  // ── Pin data ──────────────────────────────────────────────────────────────
-  var APINS = [
-    { id:'drish',    name:'The Drish House',                    city:'Tuscaloosa, AL',  state:'AL', lat:33.21, lng:-87.57, type:'haunted',
-      history:'Built 1837. Sarah Drish saved the candles from her husband's 1867 funeral and had them relit at her own in 1884. Since that night phantom candlelight has appeared in the empty tower — documented for over 140 years.',
-      access:'Exterior viewable from street. Tours via local Tuscaloosa paranormal groups.', link:'', linklabel:'' },
-    { id:'maple',    name:'Maple Hill Cemetery',                city:'Huntsville, AL',  state:'AL', lat:34.73, lng:-86.59, type:'cemetery',
-      history:'Alabama's oldest and largest municipal cemetery (est. 1822). Civil War soldier apparitions, shadow figures between headstones, a child ghost near the iron gate, and EVP recordings with unexplained responses.',
+  var PINS = [
+    { id:0, name:'The Drish House',                    city:'Tuscaloosa, AL',  state:'AL', lat:33.21, lng:-87.57, type:'haunted',
+      history:'Built 1837. Sarah Drish saved the candles from her husband's 1867 funeral and had them relit at her own in 1884. Since that night, phantom candlelight has appeared in the empty tower — documented continuously for over 140 years.',
+      access:'Exterior viewable from the street. Tours available through local Tuscaloosa paranormal groups.', link:'', linklabel:'' },
+    { id:1, name:'Maple Hill Cemetery',                city:'Huntsville, AL',  state:'AL', lat:34.73, lng:-86.59, type:'cemetery',
+      history:'Alabama's oldest and largest municipal cemetery, established 1822. Civil War soldier apparitions, shadow figures between headstones, a child ghost near the iron gate, and EVP recordings with unexplained responses.',
       access:'Public access year-round. Seasonal ghost tours by Huntsville paranormal companies.', link:'', linklabel:'' },
-    { id:'cahawba',  name:'Old Cahawba',                        city:'Cahaba, AL',      state:'AL', lat:32.32, lng:-87.12, type:'haunted',
-      history:'Alabama's first state capital, abandoned after the Civil War. The Cahawba Lights — orbs that float above the old cemetery and appear to change direction with apparent intelligence — documented since the 1800s.',
+    { id:2, name:'Old Cahawba',                        city:'Cahaba, AL',      state:'AL', lat:32.32, lng:-87.12, type:'haunted',
+      history:'Alabama's first state capital, abandoned after the Civil War. The Cahawba Lights — orbs that float above the old cemetery and appear to move with intelligence — have been documented since the 1800s.',
       access:'Open as a state archaeological park. Guided tours available.', link:'https://cahawba.com', linklabel:'cahawba.com' },
-    { id:'exchange', name:'The Exchange Hotel',                 city:'Montgomery, AL',  state:'AL', lat:32.38, lng:-86.31, type:'haunted',
-      history:'Antebellum hotel used as Confederate headquarters. Guests report full-body apparitions in period clothing, doors locking from inside empty rooms, concentrated cold spots in specific hallways.',
-      access:'Fully bookable — overnight stays available.', link:'', linklabel:'' },
-    { id:'anniston', name:'Anniston Museum of Natural History', city:'Anniston, AL',    state:'AL', lat:33.66, lng:-85.83, type:'haunted',
+    { id:3, name:'The Exchange Hotel',                 city:'Montgomery, AL',  state:'AL', lat:32.38, lng:-86.31, type:'haunted',
+      history:'Antebellum hotel used as Confederate headquarters during the Civil War. Guests report full-body apparitions in period clothing, doors locking from inside empty rooms, and concentrated cold spots in specific hallways.',
+      access:'Fully bookable — overnight stays available. One of Alabama's most accessible haunted locations.', link:'', linklabel:'' },
+    { id:4, name:'Anniston Museum of Natural History', city:'Anniston, AL',    state:'AL', lat:33.66, lng:-85.83, type:'haunted',
       history:'Staff report objects moving overnight, a Victorian-era woman walking through exhibit halls after closing, motion sensors triggering in empty rooms, and EVP recordings capturing voices.',
-      access:'Public museum during regular hours. Seasonal paranormal events — check museum website.', link:'', linklabel:'' }
+      access:'Public museum during regular hours. Seasonal paranormal investigation events — check the museum website for dates.', link:'', linklabel:'' }
   ];
 
   var userPins = [];
-  try { var s = sessionStorage.getItem('ff_upins'); if (s) userPins = JSON.parse(s); } catch(e) {}
-  function allPins() { return APINS.concat(userPins); }
+  try { var sv = sessionStorage.getItem('ff_up'); if (sv) { userPins = JSON.parse(sv); } } catch(e) {}
 
-  // ── State center coords ───────────────────────────────────────────────────
+  function allPins() { return PINS.concat(userPins); }
+
   var SC = {
-    AL:{a:32.8,o:-86.8},AK:{a:64.2,o:-153},AZ:{a:34.3,o:-111.1},AR:{a:34.9,o:-92.4},
-    CA:{a:36.7,o:-119.7},CO:{a:39.0,o:-105.5},CT:{a:41.6,o:-72.7},DE:{a:39.0,o:-75.5},
-    FL:{a:27.8,o:-81.7},GA:{a:32.9,o:-83.4},ID:{a:44.1,o:-114.5},IL:{a:40.0,o:-89.2},
-    IN:{a:39.9,o:-86.3},IA:{a:42.0,o:-93.2},KS:{a:38.5,o:-98.4},KY:{a:37.7,o:-84.9},
-    LA:{a:30.9,o:-91.9},ME:{a:45.3,o:-69.0},MD:{a:39.1,o:-76.8},MA:{a:42.2,o:-71.5},
-    MI:{a:44.3,o:-85.4},MN:{a:46.4,o:-93.1},MS:{a:32.7,o:-89.7},MO:{a:38.5,o:-92.5},
-    MT:{a:46.9,o:-110.4},NE:{a:41.5,o:-99.9},NV:{a:38.5,o:-117.1},NH:{a:44.0,o:-71.6},
-    NJ:{a:40.1,o:-74.5},NM:{a:34.5,o:-106.2},NY:{a:42.2,o:-74.9},NC:{a:35.6,o:-79.8},
-    ND:{a:47.5,o:-100.5},OH:{a:40.4,o:-82.8},OK:{a:35.6,o:-96.9},OR:{a:44.6,o:-122.1},
-    PA:{a:40.6,o:-77.2},RI:{a:41.7,o:-71.5},SC:{a:33.9,o:-80.9},SD:{a:44.4,o:-100.2},
-    TN:{a:35.9,o:-86.7},TX:{a:31.5,o:-99.3},UT:{a:39.3,o:-111.1},VT:{a:44.1,o:-72.7},
-    VA:{a:37.8,o:-78.2},WA:{a:47.4,o:-121.5},WV:{a:38.6,o:-80.6},WI:{a:44.3,o:-89.6},WY:{a:43.0,o:-107.6}
+    AL:{a:32.8,o:-86.8}, AK:{a:64.2,o:-153}, AZ:{a:34.3,o:-111.1}, AR:{a:34.9,o:-92.4},
+    CA:{a:36.7,o:-119.7}, CO:{a:39.0,o:-105.5}, CT:{a:41.6,o:-72.7}, DE:{a:39.0,o:-75.5},
+    FL:{a:27.8,o:-81.7},  GA:{a:32.9,o:-83.4},  ID:{a:44.1,o:-114.5}, IL:{a:40.0,o:-89.2},
+    IN:{a:39.9,o:-86.3},  IA:{a:42.0,o:-93.2},  KS:{a:38.5,o:-98.4},  KY:{a:37.7,o:-84.9},
+    LA:{a:30.9,o:-91.9},  ME:{a:45.3,o:-69.0},  MD:{a:39.1,o:-76.8},  MA:{a:42.2,o:-71.5},
+    MI:{a:44.3,o:-85.4},  MN:{a:46.4,o:-93.1},  MS:{a:32.7,o:-89.7},  MO:{a:38.5,o:-92.5},
+    MT:{a:46.9,o:-110.4}, NE:{a:41.5,o:-99.9},  NV:{a:38.5,o:-117.1}, NH:{a:44.0,o:-71.6},
+    NJ:{a:40.1,o:-74.5},  NM:{a:34.5,o:-106.2}, NY:{a:42.2,o:-74.9},  NC:{a:35.6,o:-79.8},
+    ND:{a:47.5,o:-100.5}, OH:{a:40.4,o:-82.8},  OK:{a:35.6,o:-96.9},  OR:{a:44.6,o:-122.1},
+    PA:{a:40.6,o:-77.2},  RI:{a:41.7,o:-71.5},  SC:{a:33.9,o:-80.9},  SD:{a:44.4,o:-100.2},
+    TN:{a:35.9,o:-86.7},  TX:{a:31.5,o:-99.3},  UT:{a:39.3,o:-111.1}, VT:{a:44.1,o:-72.7},
+    VA:{a:37.8,o:-78.2},  WA:{a:47.4,o:-121.5}, WV:{a:38.6,o:-80.6},  WI:{a:44.3,o:-89.6},
+    WY:{a:43.0,o:-107.6}
   };
 
- // ── Build the visible map ─────────────────────────────────────────────────
-function buildMap() {
-  var svg = document.getElementById('hmap');
-  if (!svg) {
-    console.warn('haunted map: #hmap SVG not found');
-    return;
-  }
-
-  // Clear any previous content
-  while (svg.firstChild) svg.removeChild(svg.firstChild);
-
-  // Ensure basic attributes
-  svg.setAttribute('viewBox', '0 0 900 500');
-  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-
-  // Dark background
-  svg.appendChild(svgEl('rect', {
-    x: 0, y: 0, width: 900, height: 500, fill: '#08051a'
-  }));
-
-  // State rectangles — [abbr, x, y, w, h, featured?]
-  var states = [
-    // Far West
-    ['WA',  42, 40, 74, 58, false], ['OR',  42,100, 74, 68, false], ['CA',  42,170, 66,142, false],
-    ['NV', 110,128, 64, 96, false], ['ID', 110, 40, 64, 88, false],
-    // Mountain
-    ['MT', 176, 40,108, 70, false], ['WY', 176,112,108, 70, false], ['CO', 176,184,108, 70, false],
-    ['UT', 110,226, 66, 58, false], ['AZ', 110,286, 84, 78, false], ['NM', 176,256,108, 78, false],
-    // Plains
-    ['ND', 286, 40,108, 60, false], ['SD', 286,102,108, 60, false], ['NE', 286,164,108, 60, false],
-    ['KS', 286,226,108, 60, false], ['OK', 286,288,108, 58, false], ['TX', 240,320,154,116, false],
-    // Midwest
-    ['MN', 396, 40, 92, 82, false], ['IA', 396,124, 92, 60, false], ['MO', 396,186, 92, 70, false],
-    ['AR', 396,258, 92, 60, false], ['LA', 396,320, 92, 60, false],
-    // Great Lakes
-    ['WI', 490, 58, 74, 82, false], ['IL', 490,142, 74, 82, false], ['IN', 566,138, 54, 72, false],
-    ['MI', 566, 40, 74, 96, false], ['OH', 622,120, 74, 72, false],
-    ['KY', 490,226, 94, 54, false], ['TN', 490,282, 94, 48, false],
-    ['MS', 490,332, 74, 60, false], ['AL', 566,288, 60, 82, true],
-    // Southeast
-    ['GA', 622,272, 74, 82, false], ['FL', 622,356, 74,112, false],
-    ['SC', 648,252, 56, 54, false], ['NC', 598,214, 96, 54, false],
-    ['VA', 598,164, 96, 52, false], ['WV', 598,138, 62, 46, false],
-    // Northeast
-    ['PA', 662,120, 82, 52, false], ['NY', 662, 58, 94, 68, false],
-    ['MD', 706,164, 54, 30, false], ['DE', 746,154, 28, 28, false],
-    ['NJ', 746,120, 36, 40, false], ['CT', 756, 92, 36, 28, false],
-    ['RI', 794, 92, 24, 24, false], ['MA', 746, 70, 72, 28, false],
-    ['VT', 746, 40, 36, 36, false], ['NH', 784, 40, 34, 48, false],
-    ['ME', 784, 40, 80, 60, false]
+  // State rects: [abbr, x, y, w, h, featured]
+  var STATES = [
+    ['WA',42,42,74,58,false],  ['OR',42,102,74,68,false], ['CA',42,172,66,140,false],
+    ['NV',110,130,64,96,false], ['ID',110,42,64,88,false],
+    ['MT',176,42,108,70,false], ['WY',176,114,108,70,false], ['CO',176,186,108,70,false],
+    ['UT',110,228,66,58,false], ['AZ',110,288,84,78,false], ['NM',176,258,108,76,false],
+    ['ND',286,42,108,60,false], ['SD',286,104,108,60,false], ['NE',286,166,108,60,false],
+    ['KS',286,228,108,60,false], ['OK',286,290,108,58,false], ['TX',244,322,152,112,false],
+    ['MN',396,42,92,82,false],  ['IA',396,126,92,60,false],  ['MO',396,188,92,70,false],
+    ['AR',396,260,92,60,false], ['LA',396,322,92,60,false],
+    ['WI',490,60,74,82,false],  ['IL',490,144,74,82,false], ['IN',566,140,54,72,false],
+    ['MI',566,42,74,96,false],  ['OH',622,122,74,72,false],
+    ['KY',490,228,94,54,false], ['TN',490,284,94,48,false],
+    ['MS',490,334,74,58,false], ['AL',566,290,60,80,true],
+    ['GA',622,274,74,80,false], ['FL',622,358,74,110,false],
+    ['SC',648,254,56,52,false], ['NC',598,216,96,52,false],
+    ['VA',598,166,96,52,false], ['WV',598,140,62,44,false],
+    ['PA',662,122,82,52,false], ['NY',662,60,92,68,false],
+    ['MD',706,166,54,30,false], ['DE',746,156,28,28,false],
+    ['NJ',746,122,36,40,false], ['CT',756,94,36,28,false],
+    ['RI',794,94,24,24,false],  ['MA',746,72,72,28,false],
+    ['VT',746,42,36,36,false],  ['NH',784,42,34,48,false],
+    ['ME',784,42,78,58,false]
   ];
 
-  // Draw state fills
-  states.forEach(function(s) {
-    var ab = s[0], x = s[1], y = s[2], w = s[3], h = s[4], featured = s[5];
-    svg.appendChild(svgEl('rect', {
-      x: x, y: y, width: w, height: h,
-      fill: featured ? 'rgba(165,107,255,0.35)' : 'rgba(165,107,255,0.10)',
-      stroke: featured ? '#a56bff' : 'rgba(165,107,255,0.40)',
-      'stroke-width': featured ? 2 : 1,
-      rx: 2
-    }));
-  });
-
-  // Draw state labels
-  states.forEach(function(s) {
-    var ab = s[0], x = s[1], y = s[2], w = s[3], h = s[4], featured = s[5];
-    var cx = x + w / 2, cy = y + h / 2;
-
-    svg.appendChild(svgEl('text', {
-      x: cx, y: cy + 1,
-      'text-anchor': 'middle',
-      'dominant-baseline': 'middle',
-      fill: featured ? '#ffffff' : 'rgba(255,255,255,0.50)',
-      'font-size': featured ? 12 : 9,
-      'font-weight': featured ? '700' : '400',
-      'font-family': 'sans-serif',
-      'pointer-events': 'none'
-    }, ab));
-
-    if (featured) {
-      svg.appendChild(svgEl('text', {
-        x: cx, y: cy + 15,
-        'text-anchor': 'middle',
-        'dominant-baseline': 'middle',
-        fill: '#EF9F27',
-        'font-size': 7,
-        'font-weight': '700',
-        'font-family': 'sans-serif',
-        'pointer-events': 'none'
-      }, 'THIS WEEK'));
-    }
-  });
-
-  // Legend bar
-  svg.appendChild(svgEl('rect', {
-    x: 0, y: 474, width: 900, height: 26, fill: 'rgba(0,0,0,0.5)'
-  }));
-  svg.appendChild(svgEl('circle', { cx: 14, cy: 487, r: 5, fill: '#a56bff' }));
-  svg.appendChild(svgEl('text', {
-    x: 24, y: 491, fill: 'rgba(255,255,255,0.45)',
-    'font-size': 10, 'font-family': 'sans-serif'
-  }, 'Academy locations'));
-  svg.appendChild(svgEl('circle', { cx: 160, cy: 487, r: 5, fill: '#4bb464' }));
-  svg.appendChild(svgEl('text', {
-    x: 170, y: 491, fill: 'rgba(255,255,255,0.45)',
-    'font-size': 10, 'font-family': 'sans-serif'
-  }, 'Community pins (click to read)'));
-  svg.appendChild(svgEl('text', {
-    x: 886, y: 491, 'text-anchor': 'end',
-    fill: 'rgba(165,107,255,0.4)', 'font-size': 9,
-    'font-family': 'sans-serif'
-  }, "Ambrosia's Occult Academy — Haunted Map of America"));
-
-  // Finally, draw pins
-  drawPins();
-}
-
-// ── Projection for lat/lng to map coords ───────────────────────────────────
-function proj(lat, lng) {
-  // Tuned to match the state rectangle layout above
-  var x = (lng - (-127)) / ((-64) - (-127)) * 852 + 24;
-  var y = (51.5 - lat) / (51.5 - 22.5) * 462 + 12;
-  return {
-    x: Math.round(x * 10) / 10,
-    y: Math.round(y * 10) / 10
-  };
-}
-
-// ── Draw pins on the map ──────────────────────────────────────────────────
-function drawPins() {
-  var svg = document.getElementById('hmap');
-  if (!svg) return;
-
-  // Remove old pins
-  var old = svg.querySelectorAll('.hpin');
-  for (var i = 0; i < old.length; i++) {
-    if (old[i].parentNode) old[i].parentNode.removeChild(old[i]);
+  function proj(lat, lng) {
+    var x = (lng - (-127)) / ((-64) - (-127)) * 852 + 24;
+    var y = (51.5 - lat) / (51.5 - 22.5) * 458 + 14;
+    return { x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 };
   }
 
-  allPins().forEach(function(pin) {
-    if (!pin.lat || !pin.lng) return;
+  function buildMap() {
+    var svg = document.getElementById('hmap');
+    if (!svg) { return; }
+    svg.innerHTML = '';
 
-    var p = proj(pin.lat, pin.lng);
-    var isUser = pin.src === 'user';
-    var color  = isUser ? '#4bb464' : '#c084fc';
-    var glow   = isUser ? 'rgba(75,180,100,0.5)' : 'rgba(192,132,252,0.5)';
+    svg.appendChild(mk('rect', {width:900, height:500, fill:'#08051a'}));
 
-    var g = svgEl('g', {
-      class: 'hpin',
-      transform: 'translate(' + p.x + ',' + p.y + ')'
+    STATES.forEach(function(s) {
+      var ab=s[0], x=s[1], y=s[2], w=s[3], h=s[4], feat=s[5];
+      svg.appendChild(mk('rect', {
+        x:x, y:y, width:w, height:h,
+        fill:   feat ? 'rgba(165,107,255,0.30)' : 'rgba(165,107,255,0.09)',
+        stroke: feat ? '#b07eff' : 'rgba(165,107,255,0.38)',
+        'stroke-width': feat ? 2 : 1,
+        rx: 2
+      }));
+      svg.appendChild(mk('text', {
+        x: x + w/2, y: y + h/2 + 1,
+        'text-anchor':'middle', 'dominant-baseline':'middle',
+        fill: feat ? '#ffffff' : 'rgba(255,255,255,0.55)',
+        'font-size': feat ? 13 : 9,
+        'font-weight': feat ? '700' : '400',
+        'font-family':'sans-serif', 'pointer-events':'none'
+      }, ab));
+      if (feat) {
+        svg.appendChild(mk('text', {
+          x: x + w/2, y: y + h/2 + 16,
+          'text-anchor':'middle', 'dominant-baseline':'middle',
+          fill:'#EF9F27', 'font-size':7, 'font-weight':'700',
+          'font-family':'sans-serif', 'pointer-events':'none'
+        }, 'THIS WEEK'));
+      }
     });
-    g.style.cursor = 'pointer';
 
-    var pulse = svgEl('circle', { r: 11, fill: glow, opacity: 0.5 });
-    var dot   = svgEl('circle', { r: 6, fill: color, stroke: '#fff', 'stroke-width': 1.5 });
-    var label = svgEl('text', {
-      'text-anchor': 'middle',
-      y: -13,
-      'font-size': 13,
-      'pointer-events': 'none'
-    }, isUser ? '📍' : '💀');
+    svg.appendChild(mk('rect', {x:0, y:475, width:900, height:25, fill:'rgba(0,0,0,0.55)'}));
+    svg.appendChild(mk('circle', {cx:14, cy:487, r:5, fill:'#a56bff'}));
+    svg.appendChild(mk('text', {x:24, y:491, fill:'rgba(255,255,255,0.45)', 'font-size':10, 'font-family':'sans-serif'}, 'Academy locations'));
+    svg.appendChild(mk('circle', {cx:160, cy:487, r:5, fill:'#4bb464'}));
+    svg.appendChild(mk('text', {x:170, y:491, fill:'rgba(255,255,255,0.45)', 'font-size':10, 'font-family':'sans-serif'}, 'Community pins'));
+    svg.appendChild(mk('text', {x:886, y:491, 'text-anchor':'end', fill:'rgba(165,107,255,0.4)', 'font-size':9, 'font-family':'sans-serif'}, "Ambrosia's Occult Academy"));
 
-    g.appendChild(pulse);
-    g.appendChild(dot);
-    g.appendChild(label);
-
-    (function(pid) {
-      g.addEventListener('click', function() { openPin(pid); });
-    })(pin.id);
-
-    svg.appendChild(g);
-  });
-}
-
-// ── Popup ─────────────────────────────────────────────────────────────────
-function openPin(pinId) {
-  var pin = null;
-  allPins().forEach(function(p) {
-    if (String(p.id) === String(pinId)) pin = p;
-  });
-  if (!pin) return;
-
-  var typeMap = {
-    haunted: 'Haunted Location',
-    cemetery: 'Cemetery',
-    cryptid: 'Cryptid Area',
-    ufo: 'UFO Hotspot',
-    other: 'Paranormal'
-  };
-
-  document.getElementById('pp-badge').textContent =
-    (pin.state || '') + '  —  ' + (typeMap[pin.type] || 'Paranormal');
-  document.getElementById('pp-name').textContent    = pin.name;
-  document.getElementById('pp-city').textContent    = pin.city || '';
-  document.getElementById('pp-history').textContent = pin.history || '';
-
-  var acc = document.getElementById('pp-access');
-  acc.textContent   = pin.access ? '  ' + pin.access : '';
-  acc.style.display = pin.access ? 'block' : 'none';
-
-  var lnkEl = document.getElementById('pp-link');
-  lnkEl.innerHTML = '';
-  if (pin.link) {
-    var a = document.createElement('a');
-    a.href = pin.link;
-    a.target = '_blank';
-    a.textContent = pin.linklabel || pin.link;
-    a.style.cssText =
-      'display:inline-block;padding:0.3rem 0.8rem;border-radius:999px;' +
-      'border:1px solid rgba(165,107,255,0.4);color:#a56bff;text-decoration:none;font-size:0.8rem;';
-    lnkEl.appendChild(a);
+    drawPins();
   }
 
-  document.getElementById('hpopup').style.display  = 'block';
-  document.getElementById('hoverlay').style.display = 'block';
-}
+  function drawPins() {
+    var svg = document.getElementById('hmap');
+    if (!svg) { return; }
+    var old = svg.querySelectorAll('.hpin');
+    for (var i = 0; i < old.length; i++) { old[i].parentNode.removeChild(old[i]); }
 
-function closePopup() {
-  document.getElementById('hpopup').style.display  = 'none';
-  document.getElementById('hoverlay').style.display = 'none';
-}
-
-// ── Add user pin ──────────────────────────────────────────────────────────
-function addUserPin() {
-  var name   = (document.getElementById('pin-name').value  || '').trim();
-  var loc    = (document.getElementById('pin-loc').value   || '').trim();
-  var story  = (document.getElementById('pin-story').value || '').trim();
-  var type   = document.getElementById('pin-type').value;
-  var acSel  = document.getElementById('pin-access');
-  var access = acSel.options[acSel.selectedIndex].text;
-  var msg    = document.getElementById('pin-msg');
-
-  if (!name || !loc) {
-    msg.style.display = 'block';
-    msg.style.color   = '#ff6b6b';
-    msg.textContent   = 'Please enter the place name and city/state.';
-    return;
+    allPins().forEach(function(pin) {
+      if (!pin.lat || !pin.lng) { return; }
+      var p = proj(pin.lat, pin.lng);
+      var isUser = pin.src === 'user';
+      var color  = isUser ? '#4bb464' : '#c084fc';
+      var glow   = isUser ? 'rgba(75,180,100,0.45)' : 'rgba(192,132,252,0.45)';
+      var g = document.createElementNS(NS, 'g');
+      g.setAttribute('class', 'hpin');
+      g.setAttribute('transform', 'translate(' + p.x + ',' + p.y + ')');
+      g.style.cursor = 'pointer';
+      g.appendChild(mk('circle', {r:11, fill:glow, opacity:0.5}));
+      g.appendChild(mk('circle', {r:6, fill:color, stroke:'#fff', 'stroke-width':1.5}));
+      var em = document.createElementNS(NS, 'text');
+      em.setAttribute('text-anchor', 'middle');
+      em.setAttribute('y', '-13');
+      em.setAttribute('font-size', '14');
+      em.setAttribute('pointer-events', 'none');
+      em.textContent = isUser ? '!' : 'X';
+      g.appendChild(em);
+      (function(pid) { g.addEventListener('click', function() { openPin(pid); }); })(pin.id);
+      svg.appendChild(g);
+    });
   }
 
-  var parts  = loc.split(',');
-  var stAb   = parts.length > 1 ? parts[parts.length - 1].trim().toUpperCase() : '';
-  var center = SC[stAb] || { a: 39.5, o: -98.4 };
-  var lat    = center.a + (Math.random() - 0.5) * 1.8;
-  var lng    = center.o + (Math.random() - 0.5) * 1.8;
-
-  var newPin = {
-    id: 'u' + Date.now(),
-    name: name,
-    city: loc,
-    state: stAb,
-    lat: lat,
-    lng: lng,
-    type: type,
-    history: story || 'Community submission.',
-    access: access,
-    link: '',
-    linklabel: '',
-    src: 'user'
-  };
-
-  userPins.push(newPin);
-  try {
-    sessionStorage.setItem('ff_upins', JSON.stringify(userPins));
-  } catch (e) {}
-
-  drawPins();
-
-  document.getElementById('pin-name').value  = '';
-  document.getElementById('pin-loc').value   = '';
-  document.getElementById('pin-story').value = '';
-
-  msg.style.display = 'block';
-  msg.style.color   = '#4bb464';
-  msg.textContent   = 'Pinned! Find your green pin on the map and click it.';
-  setTimeout(function() { openPin(newPin.id); }, 400);
-}
-
-// ── Init on page load ─────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', function () {
-  try {
-    buildMap();
-  } catch (e) {
-    console.error('haunted map error:', e);
-  }
-});
-
-
-  // ── Popup ─────────────────────────────────────────────────────────────────
   function openPin(pinId) {
     var pin = null;
-    allPins().forEach(function(p) { if (String(p.id) === String(pinId)) pin = p; });
-    if (!pin) return;
-    var typeMap = {haunted:'Haunted Location', cemetery:'Cemetery',
-      cryptid:'Cryptid Area', ufo:'UFO Hotspot', other:'Paranormal'};
-    document.getElementById('pp-badge').textContent   = (pin.state||'') + '  —  ' + (typeMap[pin.type]||'Paranormal');
+    var all = allPins();
+    for (var i = 0; i < all.length; i++) {
+      if (String(all[i].id) === String(pinId)) { pin = all[i]; break; }
+    }
+    if (!pin) { return; }
+    var typeMap = {haunted:'Haunted Location', cemetery:'Cemetery', cryptid:'Cryptid Area', ufo:'UFO Hotspot', other:'Paranormal'};
+    document.getElementById('pp-badge').textContent   = (pin.state || '') + '  -  ' + (typeMap[pin.type] || 'Paranormal');
     document.getElementById('pp-name').textContent    = pin.name;
     document.getElementById('pp-city').textContent    = pin.city || '';
     document.getElementById('pp-history').textContent = pin.history || '';
     var acc = document.getElementById('pp-access');
-    acc.textContent    = pin.access ? '  ' + pin.access : '';
-    acc.style.display  = pin.access ? 'block' : 'none';
+    acc.textContent   = pin.access ? pin.access : '';
+    acc.style.display = pin.access ? 'block' : 'none';
     var lnkEl = document.getElementById('pp-link');
     lnkEl.innerHTML = '';
     if (pin.link) {
       var a = document.createElement('a');
-      a.href = pin.link; a.target = '_blank';
-      a.textContent = pin.linklabel || pin.link;
+      a.href = pin.link; a.target = '_blank'; a.textContent = pin.linklabel || pin.link;
       a.style.cssText = 'display:inline-block;padding:0.3rem 0.8rem;border-radius:999px;border:1px solid rgba(165,107,255,0.4);color:#a56bff;text-decoration:none;font-size:0.8rem;';
       lnkEl.appendChild(a);
     }
-    document.getElementById('hpopup').style.display  = 'block';
+    document.getElementById('hpopup').style.display   = 'block';
     document.getElementById('hoverlay').style.display = 'block';
   }
 
   function closePopup() {
-    document.getElementById('hpopup').style.display  = 'none';
+    document.getElementById('hpopup').style.display   = 'none';
     document.getElementById('hoverlay').style.display = 'none';
   }
 
-  // ── Add user pin ──────────────────────────────────────────────────────────
   function addUserPin() {
     var name   = (document.getElementById('pin-name').value  || '').trim();
     var loc    = (document.getElementById('pin-loc').value   || '').trim();
@@ -1340,69 +1126,52 @@ document.addEventListener('DOMContentLoaded', function () {
     var acSel  = document.getElementById('pin-access');
     var access = acSel.options[acSel.selectedIndex].text;
     var msg    = document.getElementById('pin-msg');
-
     if (!name || !loc) {
       msg.style.display = 'block'; msg.style.color = '#ff6b6b';
       msg.textContent = 'Please enter the place name and city/state.'; return;
     }
-
     var parts  = loc.split(',');
-    var stAb   = parts.length > 1 ? parts[parts.length-1].trim().toUpperCase() : '';
+    var stAb   = parts.length > 1 ? parts[parts.length - 1].trim().toUpperCase() : '';
     var center = SC[stAb] || {a:39.5, o:-98.4};
-    var lat    = center.a + (Math.random()-0.5)*1.8;
-    var lng    = center.o + (Math.random()-0.5)*1.8;
-
-    var newPin = {
-      id:'u'+Date.now(), name:name, city:loc, state:stAb,
-      lat:lat, lng:lng, type:type,
-      history: story || 'Community submission.',
-      access:access, link:'', linklabel:'', src:'user'
-    };
+    var lat    = center.a + (Math.random() - 0.5) * 1.8;
+    var lng    = center.o + (Math.random() - 0.5) * 1.8;
+    var newPin = { id:'u' + Date.now(), name:name, city:loc, state:stAb, lat:lat, lng:lng,
+      type:type, history:story || 'Community submission.', access:access, link:'', linklabel:'', src:'user' };
     userPins.push(newPin);
-    try { sessionStorage.setItem('ff_upins', JSON.stringify(userPins)); } catch(e){}
-
+    try { sessionStorage.setItem('ff_up', JSON.stringify(userPins)); } catch(e) {}
     drawPins();
     document.getElementById('pin-name').value  = '';
     document.getElementById('pin-loc').value   = '';
     document.getElementById('pin-story').value = '';
-
     msg.style.display = 'block'; msg.style.color = '#4bb464';
     msg.textContent = 'Pinned! Find your green pin on the map and click it.';
     setTimeout(function() { openPin(newPin.id); }, 400);
   }
 
-  // ── Ghost story form ──────────────────────────────────────────────────────
   (function() {
     var form  = document.getElementById('ghost-story-form');
     var msgEl = document.getElementById('ghost-form-message');
-    if (!form) return;
+    if (!form) { return; }
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       var btn = form.querySelector("button[type='submit']");
       btn.disabled = true; btn.textContent = 'Sending...';
-      fetch(form.action, {
-        method:'POST', body:new FormData(form),
-        headers:{Accept:'application/json'}
-      }).then(function(res) {
-        if (res.ok) {
-          msgEl.className = 'success'; msgEl.style.display = 'block';
-          msgEl.textContent = 'Your story has been received! Jennifer will read it personally.';
-          form.reset();
-        } else { throw new Error(); }
-      }).catch(function() {
-        msgEl.className = 'error'; msgEl.style.display = 'block';
-        msgEl.innerHTML = 'Something went wrong. Please email your story directly to AmbrosiasOccultAcademy@gmail.com';
-      }).finally(function() {
-        btn.disabled = false; btn.textContent = 'Submit My Story';
-      });
+      fetch(form.action, { method:'POST', body:new FormData(form), headers:{Accept:'application/json'} })
+        .then(function(res) {
+          if (res.ok) {
+            msgEl.style.display = 'block'; msgEl.style.color = '#4bb464';
+            msgEl.textContent = 'Your story has been received! Jennifer will read it personally.';
+            form.reset();
+          } else { throw new Error('fail'); }
+        }).catch(function() {
+          msgEl.style.display = 'block'; msgEl.style.color = '#ff6b6b';
+          msgEl.textContent = 'Something went wrong. Please email your story to AmbrosiasOccultAcademy@gmail.com';
+        }).finally(function() { btn.disabled = false; btn.textContent = 'Submit My Story'; });
     });
   })();
 
-  </script>
-
- <script>buildMap();</script>
-
-
+  window.onload = function() { buildMap(); };
+</script>
 
 </body>
 </html>
