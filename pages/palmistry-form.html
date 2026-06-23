@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Palmistry Reading Request | Ambrosia’s Occult Academy</title>
+  <link rel="stylesheet" href="../style.css">
+
+  <style>
+    .form-container {
+      max-width: 650px;
+      margin: 2rem auto;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(165,107,255,0.25);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-family: var(--font-display);
+      letter-spacing: 0.05em;
+    }
+    label {
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-top: 0.35rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+    button {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+    [data-fs-success] {
+      background: #d7ffe2;
+      color: #0a7a2a;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+    [data-fs-error] {
+      background: #ffe0e0;
+      color: #a30000;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="section section-light">
+    <div class="section-inner">
+      <div class="form-container">
+
+        <h2>✋ Palmistry Reading Request</h2>
+        <p style="text-align:center;color:var(--text-muted);margin-bottom:1.5rem;">
+          Thank you for purchasing a Palmistry Reading.  
+          Please upload clear photos of your palms below.
+        </p>
+
+        <!-- Success + Error Messages -->
+        <div data-fs-success></div>
+        <div data-fs-error></div>
+
+        <form id="palmistry-form">
+
+          <!-- Name -->
+          <label for="name">Your Name *</label>
+          <input type="text" id="name" name="name" data-fs-field required>
+          <span data-fs-error="name"></span>
+
+          <!-- Email -->
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" data-fs-field required>
+          <span data-fs-error="email"></span>
+
+          <!-- Palm Photos -->
+          <h3 style="margin-top:2rem;">Palm Photos</h3>
+          <p style="color:var(--text-muted);margin-bottom:0.5rem;">
+            Please upload clear, well-lit photos of your <strong>left</strong> and <strong>right</strong> palms.
+          </p>
+
+          <label for="leftPalm">Left Palm Photo *</label>
+          <input type="file" id="leftPalm" name="leftPalm" data-fs-field required accept="image/*">
+          <span data-fs-error="leftPalm"></span>
+
+          <label for="rightPalm">Right Palm Photo *</label>
+          <input type="file" id="rightPalm" name="rightPalm" data-fs-field required accept="image/*">
+          <span data-fs-error="rightPalm"></span>
+
+          <!-- Optional Close-Ups -->
+          <label for="closeups">Optional Close-Up Photos (lines, mounts, etc.)</label>
+          <input type="file" id="closeups" name="closeups" data-fs-field accept="image/*" multiple>
+          <span data-fs-error="closeups"></span>
+
+          <!-- Additional Notes -->
+          <label for="notes">Additional Notes (optional)</label>
+          <textarea id="notes" name="notes" data-fs-field placeholder="Anything you'd like Jennifer to know?"></textarea>
+          <span data-fs-error="notes"></span>
+
+          <!-- Hidden Reading Type -->
+          <input type="hidden" name="readingType" value="Palmistry Reading — $14.95" data-fs-field>
+
+          <!-- Consent -->
+          <label style="margin-top:1rem;">
+            <input type="checkbox" name="consent" data-fs-field required>
+            I agree this reading is for entertainment/spiritual guidance purposes.
+          </label>
+          <span data-fs-error="consent"></span>
+
+          <button type="submit" class="btn primary" data-fs-submit-btn>
+            ✨ Submit Palmistry Details
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Formspree AJAX Loader -->
+  <script>
+    window.formspree = window.formspree || function () {
+      (formspree.q = formspree.q || []).push(arguments);
+    };
+    formspree('initForm', { formElement: '#palmistry-form', formId: 'xdaronwg' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>
