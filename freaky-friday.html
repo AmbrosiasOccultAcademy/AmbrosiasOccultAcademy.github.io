@@ -1022,10 +1022,10 @@ function proj(lat, lng) {
   const h = map.clientHeight;
 
   // Adjust these if needed to fine‑tune alignment
-  const MIN_LNG = -125;
-  const MAX_LNG = -66;
-  const MIN_LAT = 24;
-  const MAX_LAT = 50;
+  const MIN_LNG = -120;
+  const MAX_LNG = -60;
+  const MIN_LAT = 20;
+  const MAX_LAT = 45;
 
   const x = ((lng - MIN_LNG) / (MAX_LNG - MIN_LNG)) * w;
   const y = ((MAX_LAT - lat) / (MAX_LAT - MIN_LAT)) * h;
