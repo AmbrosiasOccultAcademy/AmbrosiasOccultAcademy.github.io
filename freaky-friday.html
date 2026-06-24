@@ -1020,16 +1020,72 @@
     drawPins(ctx, W, H);
   }
 
-  function drawPins(ctx, W, H) {
-    if (!ctx) {
-      var canvas = document.getElementById('hmap');
-      if (!canvas) return;
-      ctx = canvas.getContext('2d');
-      W = canvas.width; H = canvas.height;
-      // Redraw base
-      buildMap();
-      return;
+ // Safe drawPins that does not call buildMap()
+function drawPins(ctx) {
+  // If ctx not provided, try to get it without calling buildMap() (avoid recursion)
+  if (!ctx) {
+    var canvas = document.getElementById('hmap');
+    if (!canvas) return;             // nothing we can do
+    ctx = canvas.getContext('2d');
+    if (!ctx) return;                // still nothing -> bail safely
+  }
+
+  // Clear/prepare any pinHitAreas before drawing
+  pinHitAreas = pinHitAreas || [];
+  pinHitAreas.length = 0;
+
+  // Draw pins for all pins
+  var pins = allPins();
+  pins.forEach(function(p) {
+    try {
+      var pos = proj(p.lat, p.lng);
+      // Simple pin: outer halo + filled circle
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = (p.type === 'haunted') ? 'rgba(165,107,255,0.95)' : 'rgba(75,180,255,0.95)';
+      ctx.strokeStyle = 'rgba(0,0,0,0.45)';
+      ctx.lineWidth = 1;
+      // halo
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.arc(pos.x, pos.y, 10, 0, Math.PI * 2);
+      ctx.fill();
+      // pin center
+      ctx.beginPath();
+      ctx.fillStyle = (p.type === 'haunted') ? '#a56bff' : '#4bb4ff';
+      ctx.arc(pos.x, pos.y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+
+      // record hit area (simple circle)
+      pinHitAreas.push({id: p.id, x: pos.x, y: pos.y, r: 10, data: p});
+    } catch (err) {
+      // Don't break the loop if a single pin throws
+      console.error('drawPins: error drawing pin', p, err);
     }
+  });
+}
+
+
+function buildMap() {
+  var canvas = document.getElementById('hmap');
+  if (!canvas) { return; }
+  var ctx = canvas.getContext('2d');
+  if (!ctx) { return; }
+
+  var W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+
+  // ... existing map drawing code (states/etc) ...
+
+  // draw pins with the live ctx (do not let drawPins try to re-call buildMap)
+  drawPins(ctx);
+}
+
+  // draw pins with the live ctx (do not let drawPins try to re-call buildMap)
+  drawPins(ctx);
+}
     pinHitAreas = [];
     allPins().forEach(function(pin) {
       if (!pin.lat || !pin.lng) return;
@@ -1163,5 +1219,7 @@
     });
   })();
 </script>
+
+  <script src="assets/js/freaky-map-fix.js"></script>
 </body>
 </html>
