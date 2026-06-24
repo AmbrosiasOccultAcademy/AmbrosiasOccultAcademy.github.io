@@ -994,17 +994,24 @@
   var ALB_MINX=-0.5437, ALB_MAXX=0.5440, ALB_MINY=-0.3992, ALB_MAXY=0.4293;
   var SVG_W=900, SVG_H=560, SVG_M=20;
 
-  function proj(lat, lng) {
-    var latr = lat * Math.PI/180;
-    var lngr = lng * Math.PI/180;
-    var p = Math.sqrt(ALB_C - 2*ALB_N*Math.sin(latr)) / ALB_N;
-    var th = ALB_N * (lngr - ALB_LNG0);
-    var ax = p * Math.sin(th);
-    var ay = ALB_P0 - p * Math.cos(th);
-    var sx = (ax - ALB_MINX)/(ALB_MAXX - ALB_MINX)*(SVG_W - 2*SVG_M) + SVG_M;
-    var sy = SVG_H - ((ay - ALB_MINY)/(ALB_MAXY - ALB_MINY)*(SVG_H - 2*SVG_M) + SVG_M);
-    return {x: Math.round(sx*10)/10, y: Math.round(sy*10)/10};
-  }
+  function latLngToXY(lat, lng) {
+  const map = document.getElementById('us-map');
+  const w = map.clientWidth;
+  const h = map.clientHeight;
+
+  // US bounding box (approx)
+  const MIN_LNG = -125;
+  const MAX_LNG = -66;
+  const MIN_LAT = 24;
+  const MAX_LAT = 50;
+
+  const x = ((lng - MIN_LNG) / (MAX_LNG - MIN_LNG)) * w;
+  const y = ((MAX_LAT - lat) / (MAX_LAT - MIN_LAT)) * h;
+
+  return { x, y };
+}
+
+  
 
   // ── Pan / zoom state ──────────────────────────────────────────────────────
   var viewX=0, viewY=0, viewScale=1;
