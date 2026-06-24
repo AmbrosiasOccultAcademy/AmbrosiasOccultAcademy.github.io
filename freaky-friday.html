@@ -288,10 +288,32 @@
 
 
   <!-- ══ HAUNTED MAP ════════════════════════════════════════════════════════ -->
- <div id="map-wrapper">
-  <img id="us-map" src="images/us-map.png">
-</div>
+  <section id="haunted-map" class="section section-light">
+    <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.4rem;">The Haunted Map of America</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.75;margin-bottom:0.5rem;max-width:820px;">Each week we feature the most haunted places in one US state going alphabetically. Click any pin to read the haunted history and visiting info. Add your own scary place with the form below.</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Current state: <strong style="color:#a56bff;">Alabama</strong> &nbsp;|&nbsp; Next week: Alaska &nbsp;|&nbsp; <span style="color:#4bb464;">Green pins</span> = your submissions</p>
 
+      <div id="map-wrap" style="background:#06030f;border-radius:14px;border:1px solid rgba(165,107,255,0.35);overflow:hidden;margin-bottom:1.5rem;position:relative;">
+        <div id="map-zoom-controls" style="position:absolute;top:10px;right:10px;z-index:10;display:flex;flex-direction:column;gap:4px;">
+          <button onclick="zoomMap(1.3)" style="width:32px;height:32px;background:rgba(10,10,30,0.9);border:1px solid rgba(165,107,255,0.5);color:#d7e2ff;border-radius:6px;cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;">+</button>
+          <button onclick="zoomMap(0.77)" style="width:32px;height:32px;background:rgba(10,10,30,0.9);border:1px solid rgba(165,107,255,0.5);color:#d7e2ff;border-radius:6px;cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;">-</button>
+          <button onclick="resetZoom()" style="width:32px;height:32px;background:rgba(10,10,30,0.9);border:1px solid rgba(165,107,255,0.5);color:#d7e2ff;border-radius:6px;cursor:pointer;font-size:10px;line-height:1;display:flex;align-items:center;justify-content:center;">RST</button>
+        </div>
+        <div id="map-tip" style="position:absolute;bottom:10px;left:50%;transform:translateX(-50%);font-size:0.72rem;color:rgba(255,255,255,0.35);pointer-events:none;">Scroll to zoom &nbsp;|&nbsp; Drag to pan &nbsp;|&nbsp; Click pins to read</div>
+        <svg id="hmap" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;cursor:grab;min-height:480px;">
+          <rect width="900" height="560" fill="#06030f"/>
+          <g id="map-states"></g>
+          <g id="map-pins"></g>
+          <g id="map-legend">
+            <rect x="0" y="534" width="900" height="26" fill="rgba(0,0,0,0.65)"/>
+            <circle cx="14" cy="547" r="5" fill="#a56bff"/>
+            <text x="24" y="547" fill="rgba(255,255,255,0.55)" font-size="10" font-family="Arial" dominant-baseline="middle">Academy pins (click to read)</text>
+            <circle cx="220" cy="547" r="5" fill="#4bb464"/>
+            <text x="230" y="547" fill="rgba(255,255,255,0.55)" font-size="10" font-family="Arial" dominant-baseline="middle">Your community pins</text>
+          </g>
+        </svg>
+      </div>
 
       <div id="hpopup" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;background:#0d0b1e;border:1px solid rgba(165,107,255,0.5);border-radius:16px;padding:1.75rem 2rem;max-width:500px;width:92%;box-shadow:0 24px 64px rgba(0,0,0,0.85);max-height:82vh;overflow-y:auto;">
         <button onclick="closePopup()" style="position:absolute;top:0.85rem;right:1rem;background:none;border:none;color:rgba(255,255,255,0.4);font-size:1.5rem;cursor:pointer;line-height:1;">&times;</button>
@@ -994,24 +1016,17 @@
   var ALB_MINX=-0.5437, ALB_MAXX=0.5440, ALB_MINY=-0.3992, ALB_MAXY=0.4293;
   var SVG_W=900, SVG_H=560, SVG_M=20;
 
-  function latLngToXY(lat, lng) {
-  const map = document.getElementById('us-map');
-  const w = map.clientWidth;
-  const h = map.clientHeight;
-
-  // US bounding box (approx)
-  const MIN_LNG = -125;
-  const MAX_LNG = -66;
-  const MIN_LAT = 24;
-  const MAX_LAT = 50;
-
-  const x = ((lng - MIN_LNG) / (MAX_LNG - MIN_LNG)) * w;
-  const y = ((MAX_LAT - lat) / (MAX_LAT - MIN_LAT)) * h;
-
-  return { x, y };
-}
-
-  
+  function proj(lat, lng) {
+    var latr = lat * Math.PI/180;
+    var lngr = lng * Math.PI/180;
+    var p = Math.sqrt(ALB_C - 2*ALB_N*Math.sin(latr)) / ALB_N;
+    var th = ALB_N * (lngr - ALB_LNG0);
+    var ax = p * Math.sin(th);
+    var ay = ALB_P0 - p * Math.cos(th);
+    var sx = (ax - ALB_MINX)/(ALB_MAXX - ALB_MINX)*(SVG_W - 2*SVG_M) + SVG_M;
+    var sy = SVG_H - ((ay - ALB_MINY)/(ALB_MAXY - ALB_MINY)*(SVG_H - 2*SVG_M) + SVG_M);
+    return {x: Math.round(sx*10)/10, y: Math.round(sy*10)/10};
+  }
 
   // ── Pan / zoom state ──────────────────────────────────────────────────────
   var viewX=0, viewY=0, viewScale=1;
