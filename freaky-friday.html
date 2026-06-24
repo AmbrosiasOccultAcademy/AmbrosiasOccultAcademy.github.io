@@ -901,20 +901,20 @@
 
   var PINS = [
     {id:0, name:'The Drish House', city:'Tuscaloosa, AL', state:'AL', lat:33.21, lng:-87.57, type:'haunted',
-     history:"Built 1837. Sarah Drish saved her husband's funeral candles from 1867 and had them relit at her own funeral in 1884. Since that night, phantom candlelight has appeared in the empty tower -- documented for over 140 years.",
-     access:'Exterior viewable from street. Tours via local Tuscaloosa paranormal groups.', link:'', linklabel:''},
+     history:"Built 1837. Sarah Drish saved her husband's funeral candles from 1867 and relit them at her own funeral in 1884. Since that night, phantom candlelight has appeared in the empty tower -- documented for over 140 years.",
+     access:"Exterior viewable from street. Tours via local Tuscaloosa paranormal groups.", link:'', linklabel:''},
     {id:1, name:'Maple Hill Cemetery', city:'Huntsville, AL', state:'AL', lat:34.73, lng:-86.59, type:'cemetery',
-     history:"Alabama's oldest and largest municipal cemetery, established 1822. Civil War soldier apparitions, shadow figures between headstones, a child ghost near the iron gate, and EVP recordings with unexplained responses.",
-     access:'Public access year-round. Seasonal ghost tours by Huntsville paranormal companies.', link:'', linklabel:''},
+     history:"Alabama's oldest and largest municipal cemetery, established 1822. Civil War soldier apparitions, shadow figures, a child ghost near the iron gate, and EVP recordings with unexplained responses.",
+     access:"Public access year-round. Seasonal ghost tours by Huntsville paranormal companies.", link:'', linklabel:''},
     {id:2, name:'Old Cahawba', city:'Cahaba, AL', state:'AL', lat:32.32, lng:-87.12, type:'haunted',
-     history:"Alabama's first state capital, abandoned after the Civil War. The Cahawba Lights -- orbs above the old cemetery that appear to move with intelligence -- have been documented since the 1800s.",
-     access:'Open as a state archaeological park. Guided tours available.', link:'https://cahawba.com', linklabel:'cahawba.com'},
+     history:"Alabama's first state capital, abandoned after the Civil War. The Cahawba Lights -- orbs above the old cemetery that appear to move with intelligence -- documented since the 1800s.",
+     access:"Open as a state archaeological park. Guided tours available.", link:'https://cahawba.com', linklabel:'cahawba.com'},
     {id:3, name:'The Exchange Hotel', city:'Montgomery, AL', state:'AL', lat:32.38, lng:-86.31, type:'haunted',
      history:"Antebellum hotel used as Confederate headquarters. Guests report full-body apparitions in period clothing, doors locking from inside empty rooms, and cold spots in specific hallways.",
-     access:'Fully bookable -- overnight stays available.', link:'', linklabel:''},
+     access:"Fully bookable -- overnight stays available.", link:'', linklabel:''},
     {id:4, name:'Anniston Museum', city:'Anniston, AL', state:'AL', lat:33.66, lng:-85.83, type:'haunted',
      history:"Staff report objects moving overnight, a Victorian woman walking exhibit halls after closing, motion sensors triggering in empty rooms, and EVP recordings capturing voices.",
-     access:'Public museum. Seasonal paranormal events -- check museum website.', link:'', linklabel:''}
+     access:"Public museum. Seasonal paranormal events -- check museum website.", link:'', linklabel:''}
   ];
 
   var userPins = [];
@@ -977,7 +977,6 @@
     var H = canvas.height;
 
     ctx.clearRect(0, 0, W, H);
-
     ctx.fillStyle = '#08051a';
     ctx.fillRect(0, 0, W, H);
 
@@ -1026,23 +1025,18 @@
       isUser = pin.src === 'user';
       color  = isUser ? '#4bb464' : '#c084fc';
       glow   = isUser ? 'rgba(75,180,100,0.4)' : 'rgba(192,132,252,0.4)';
-
       ctx.beginPath(); ctx.arc(p.x, p.y, 11, 0, Math.PI * 2);
       ctx.fillStyle = glow; ctx.fill();
-
       ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI * 2);
       ctx.fillStyle = color; ctx.fill();
       ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.5; ctx.stroke();
-
       ctx.fillStyle = '#ffffff'; ctx.font = 'bold 8px Arial';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(isUser ? 'U' : String(pin.id + 1), p.x, p.y);
-
       shortName = pin.name.length > 16 ? pin.name.substring(0, 14) + '..' : pin.name;
       ctx.fillStyle = isUser ? '#4bb464' : '#e0baff';
       ctx.font = '8px Arial'; ctx.textBaseline = 'bottom';
       ctx.fillText(shortName, p.x, p.y - 12);
-
       pinHits.push({id: pin.id, x: p.x, y: p.y, r: 12});
     }
   }
