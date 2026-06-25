@@ -973,78 +973,22 @@ var GEO_STATES=[
 
 // ── Pin data ────────────────────────────────────────────────────────────────
 var PINS = [
-var PINS = [
-  {
-    id:0,
-    name:"The Drish House",
-    city:"Tuscaloosa, AL",
-    state:"AL",
-    lat:33.21,
-    lng:-87.57,
-    type:"haunted",
-    history:"Built 1837. Sarah Drish saved her husband's funeral candles and had them relit at her own funeral in 1884. Since that night, phantom candlelight has appeared in the empty tower - documented for over 140 years.",
-    access:"Exterior viewable from street. Tours via local Tuscaloosa paranormal groups.",
-    link:"https://historicdrishhouse.com",
-    linklabel:"historicdrishhouse.com"
-  },
-
-  {
-    id:1,
-    name:"Maple Hill Cemetery",
-    city:"Huntsville, AL",
-    state:"AL",
-    lat:34.73,
-    lng:-86.59,
-    type:"cemetery",
-    history:"Alabama's oldest and largest municipal cemetery, established 1822. Civil War apparitions, shadow figures, a child ghost near the iron gate, and EVP recordings.",
-    access:"Public access year-round. Seasonal ghost tours available.",
-    link:"https://www.huntsvilleal.gov/environment/parks/maple-hill-cemetery",
-    linklabel:"huntsvilleal.gov"
-  },
-
-  {
-    id:2,
-    name:"Old Cahawba",
-    city:"Cahaba, AL",
-    state:"AL",
-    lat:32.32,
-    lng:-87.12,
-    type:"haunted",
-    history:"Alabama's first state capital. The Cahawba Lights - intelligent floating orbs above the old cemetery - documented since the 1800s.",
-    access:"Open as a state archaeological park. Guided tours available.",
-    link:"https://cahawba.com",
-    linklabel:"cahawba.com"
-  },
-
-  {
-    id:3,
-    name:"The Exchange Hotel",
-    city:"Montgomery, AL",
-    state:"AL",
-    lat:32.38,
-    lng:-86.31,
-    type:"haunted",
-    history:"Former Confederate headquarters. Full-body apparitions in period clothing, doors locking from inside empty rooms, cold spots in specific hallways.",
-    access:"Fully bookable - overnight stays available.",
-    link:"https://www.theexchangehotelmuseum.org",
-    linklabel:"theexchangehotelmuseum.org"
-  },
-
-  {
-    id:4,
-    name:"Anniston Museum",
-    city:"Anniston, AL",
-    state:"AL",
-    lat:33.66,
-    lng:-85.83,
-    type:"haunted",
-    history:"Objects move overnight, a Victorian woman walks exhibit halls after closing, motion sensors trigger in empty rooms, EVP recordings capture voices.",
-    access:"Public museum. Seasonal paranormal events - check museum website.",
-    link:"https://www.exploreamag.org",
-    linklabel:"exploreamag.org"
-  }
+  {id:0,name:"The Drish House",city:"Tuscaloosa, AL",state:"AL",lat:33.21,lng:-87.57,type:"haunted",
+   history:"Built 1837. Sarah Drish saved her husband's funeral candles and had them relit at her own funeral in 1884. Since that night, phantom candlelight has appeared in the empty tower - documented for over 140 years.",
+   access:"Exterior viewable from street. Tours via local Tuscaloosa paranormal groups.",link:"",linklabel:""},
+  {id:1,name:"Maple Hill Cemetery",city:"Huntsville, AL",state:"AL",lat:34.73,lng:-86.59,type:"cemetery",
+   history:"Alabama's oldest and largest municipal cemetery, established 1822. Civil War apparitions, shadow figures, a child ghost near the iron gate, and EVP recordings.",
+   access:"Public access year-round. Seasonal ghost tours available.",link:"",linklabel:""},
+  {id:2,name:"Old Cahawba",city:"Cahaba, AL",state:"AL",lat:32.32,lng:-87.12,type:"haunted",
+   history:"Alabama's first state capital. The Cahawba Lights - intelligent floating orbs above the old cemetery - documented since the 1800s.",
+   access:"Open as a state archaeological park. Guided tours available.",link:"https://cahawba.com",linklabel:"cahawba.com"},
+  {id:3,name:"The Exchange Hotel",city:"Montgomery, AL",state:"AL",lat:32.38,lng:-86.31,type:"haunted",
+   history:"Former Confederate headquarters. Full-body apparitions in period clothing, doors locking from inside empty rooms, cold spots in specific hallways.",
+   access:"Fully bookable - overnight stays available.",link:"",linklabel:""},
+  {id:4,name:"Anniston Museum",city:"Anniston, AL",state:"AL",lat:33.66,lng:-85.83,type:"haunted",
+   history:"Objects move overnight, a Victorian woman walks exhibit halls after closing, motion sensors trigger in empty rooms, EVP recordings capture voices.",
+   access:"Public museum. Seasonal paranormal events - check museum website.",link:"",linklabel:""}
 ];
-
 
 var userPins=[];
 try{var sv=sessionStorage.getItem("ff_up");if(sv)userPins=JSON.parse(sv);}catch(e){}
