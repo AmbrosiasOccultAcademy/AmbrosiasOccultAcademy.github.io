@@ -52,6 +52,10 @@ body {
   overflow: hidden;
 }
 
+/* Site logo in header / .site-logo { height: 72px; / change to taste */ max-width: 100%; display: block; }
+
+/* Smaller logo on narrow screens */ @media (max-width: 600px) { .site-logo { height: 48px; } }
+
 .hero::before,
 .hero::after {
   content: "";
