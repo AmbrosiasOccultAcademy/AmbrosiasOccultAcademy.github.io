@@ -59,6 +59,12 @@ body {
   margin: 0 auto;    /* centers it */
 }
 
+  #logo-wrapper {
+  background: #120018;   /* deep dark purple */
+  padding: 20px 0;
+  text-align: center;
+}
+
 
 .hero::before,
 .hero::after {
