@@ -998,6 +998,85 @@ a:hover {
 .card-tile img.arcana-thumb {
   width: 60px !important;
 }
+#logo-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+#logo-wrapper::before,
+#logo-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Layer 1 — small stars */
+#logo-wrapper::before {
+  background-image: radial-gradient(2px 2px at 20% 30%, #ffffff 60%, transparent),
+                    radial-gradient(2px 2px at 80% 70%, #ffffff 60%, transparent),
+                    radial-gradient(1.5px 1.5px at 50% 10%, #ffffff 60%, transparent),
+                    radial-gradient(1.5px 1.5px at 10% 80%, #ffffff 60%, transparent);
+  animation: star-drift 18s linear infinite;
+}
+
+/* Layer 2 — faint nebula glow */
+#logo-wrapper::after {
+  background: radial-gradient(circle at 30% 40%, rgba(150,80,255,0.25), transparent 60%),
+              radial-gradient(circle at 70% 60%, rgba(100,50,200,0.2), transparent 70%);
+  animation: nebula-flow 12s ease-in-out infinite alternate;
+}
+
+@keyframes star-drift {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-200px); }
+}
+
+@keyframes nebula-flow {
+  0%   { opacity: 0.25; transform: scale(1); }
+  100% { opacity: 0.55; transform: scale(1.2); }
+}
+
+@keyframes purple-shimmer {
+  0%   { filter: drop-shadow(0 0 4px #7b4bff) brightness(1); }
+  50%  { filter: drop-shadow(0 0 14px #b38aff) brightness(1.15); }
+  100% { filter: drop-shadow(0 0 4px #7b4bff) brightness(1); }
+}
+
+.site-logo {
+  animation: purple-shimmer 4s ease-in-out infinite;
+}
+@keyframes aura-breath {
+  0%   { box-shadow: 0 0 20px #5a2b8f; }
+  50%  { box-shadow: 0 0 45px #8d4bff; }
+  100% { box-shadow: 0 0 20px #5a2b8f; }
+}
+
+#logo-wrapper {
+  animation: aura-breath 8s ease-in-out infinite;
+}
+.site-logo {
+  transform: scaleY(1.08) translateY(-2px);
+}
+#logo-wrapper {
+  width: 75vw;
+  height: 25vh;
+  background: #120018;
+  margin: 20px auto;
+  border-radius: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  overflow: hidden;
+}
+
+
+
 
 
 
