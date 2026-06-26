@@ -1015,11 +1015,17 @@ a:hover {
     margin: 0 auto;
     box-shadow: 0 0 18px rgba(165,107,255,0.25);
   }
-
-  .banner-image {
-    order: -1;
-  }
+  
+.banner-img,
+.site-logo {
+  width: auto;
+  height: 80%;        /* keeps it proportional */
+  max-height: 80%;    /* prevents overflow */
+  object-fit: contain;
+  z-index: 3;         /* keeps it above effects */
+  display: block;
 }
+
 
 .tarot-card-img {
   width: 220px !important;
@@ -1043,3 +1049,74 @@ a:hover {
 .card-tile img.arcana-thumb {
   width: 60px !important;
 }
+#banner-wrapper {
+  width: 75vw;              /* centered width */
+  height: 35vh;             /* taller banner */
+  margin: 0 auto;           /* centers the wrapper */
+  position: relative;
+  overflow: hidden;
+  background: #120018;
+  border-radius: 16px;
+
+  display: block;
+  justify-content: center;
+  align-items: center;
+
+}
+
+/* Fade-in reveal */
+@keyframes banner-reveal {
+  0% { opacity: 0; transform: scale(0.96); filter: blur(6px); }
+  60% { opacity: 1; transform: scale(1.02); filter: blur(0); }
+  100% { transform: scale(1); }
+}
+
+#banner-wrapper {
+  animation: banner-reveal 2.2s ease-out forwards;
+  box-shadow: 0 0 25px rgba(255, 215, 130, 0.35),
+              0 0 45px rgba(255, 200, 90, 0.25);
+  border: 1px solid rgba(255, 220, 150, 0.35);
+}
+
+/* Celestial shimmer */
+#banner-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(180,120,255,0.15) 40%,
+    rgba(255,255,255,0) 80%
+  );
+  mix-blend-mode: screen;
+  animation: shimmer-slide 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmer-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Parallax nebula */
+#banner-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(150,80,255,0.25), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(100,50,200,0.2), transparent 70%);
+  animation: nebula-parallax 18s ease-in-out infinite alternate;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+@keyframes nebula-parallax {
+  0%   { transform: translateX(-10px) scale(1); opacity: 0.35; }
+  100% { transform: translateX(10px) scale(1.15); opacity: 0.55; }
+}
+
+
