@@ -952,10 +952,6 @@ a:hover {
     flex-wrap: wrap;
   }
 
-  .intro-banner {
-    grid-template-columns: 1fr;
-  }
-
   .tarot-card-img {
     width: 60px;
     border-radius: 12px;
@@ -1063,9 +1059,9 @@ a:hover {
 /* Logo inside banner */
 .banner-img,
 .site-logo {
-  height: 80%;          /* keeps logo proportional */
+  height: 50%;          /* keeps logo proportional */
   width: auto;          /* prevents stretching */
-  max-height: 80%;      /* ensures effects stay visible */
+  max-height: 50%;      /* ensures effects stay visible */
   object-fit: contain;
   z-index: 3;           /* above shimmer + nebula */
   display: block;
