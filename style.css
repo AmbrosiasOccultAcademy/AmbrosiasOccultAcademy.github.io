@@ -987,9 +987,9 @@ a:hover {
    ──────────────────────────────── */
 
 #banner-wrapper {
-  width: 75vw;               /* centered width */
-  height: 32vh;              /* controlled height */
-  margin: 2rem auto;         /* centers the wrapper */
+  width: 75vw;
+  height: 32vh;
+  margin: 2rem auto;
   background: #120018;
   border-radius: 16px;
   position: relative;
@@ -999,10 +999,8 @@ a:hover {
   justify-content: center;
   align-items: center;
 
-  /* fade-in reveal */
   animation: banner-reveal 2.2s ease-out forwards;
 
-  /* gold glow */
   box-shadow:
     0 0 25px rgba(255, 215, 130, 0.35),
     0 0 45px rgba(255, 200, 90, 0.25);
@@ -1059,11 +1057,10 @@ a:hover {
 /* Logo inside banner */
 .banner-img,
 .site-logo {
-  height: 70%;          /* keeps logo proportional */
-  width: auto;          /* prevents stretching */
-  max-height: 70%;      /* ensures effects stay visible */
+  height: 70%;
+  width: auto;
+  max-height: 70%;
   object-fit: contain;
-  z-index: 3;           /* above shimmer + nebula */
+  z-index: 3;
   display: block;
 }
-
