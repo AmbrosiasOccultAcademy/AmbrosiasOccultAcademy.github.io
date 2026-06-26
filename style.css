@@ -47,26 +47,31 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 4rem 1.5rem 3rem;
+  padding: 2rem 1.5rem;
   background: radial-gradient(circle at top, #4b3b9b 0, #050316 55%, #02010b 100%);
   overflow: hidden;
 }
 
-.site-logo {
-  width: 75vw;           /* 75% of viewport width */
-  max-width: 1000px;     /* Cap it on very wide screens */
-  height: auto;          /* Keep proportions */
-  display: block;
-  margin: 0 auto;        /* centers it */
-  aspect-ratio: 4 / 1;   /* 4:1 ratio for width-to-height */
-}
-
-  #logo-wrapper {
-  background: #120018;   /* deep dark purple */
-  padding: 20px 0;
+#logo-wrapper {
+  background: #120018;
+  padding: 2rem 1.5rem;
   text-align: center;
+  max-width: 90vw;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
+.site-logo {
+  width: 75vw;
+  max-width: 1000px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  margin: 0 auto;
+}
 
 .hero::before,
 .hero::after {
@@ -107,8 +112,9 @@ body {
 
 .hero-content {
   position: relative;
-  max-width: 800px;
+  max-width: 100%;
   z-index: 1;
+  width: 100%;
 }
 
 .hero h1 {
@@ -458,13 +464,19 @@ body {
   }
 
   .hero {
-    padding-top: 3.5rem;
+    padding-top: 1rem;
   }
 
   .main-nav ul {
     gap: 0.9rem;
   }
+
+  .site-logo {
+    width: 90vw;
+    max-width: 600px;
+  }
 }
+
 .birthchart-seal-container {
   display: flex;
   justify-content: center;
@@ -480,61 +492,89 @@ body {
 .upsell-box {
   border-color: rgba(239,159,39,0.5);
   background: rgba(239,159,39,0.08);
-}  /* ── TAROT FIXES ─────────────────────────────────── */
-  .tarot-card-display {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
+}
 
-  .tarot-image {
-    width: 220px;
-    height: 380px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-    transition: transform 0.4s ease;
-    display: block;
-    max-width: none !important;
-  }
+/* ── TAROT FIXES ─────────────────────────────────── */
+.tarot-card-display {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
 
-  .tarot-image.reversed {
-    transform: rotate(180deg);
-  }
+.tarot-image {
+  width: 220px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.4s ease;
+  display: block;
+  max-width: none !important;
+}
 
-  /* Gradient sparkle — no image file needed */
-  .sparkle {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    border-radius: 12px;
-    background:
-      radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.55) 0%, transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(180, 130, 255, 0.45) 0%, transparent 40%),
-      radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0%, transparent 30%);
-    animation: sparkle-pulse 1.6s ease-in-out infinite alternate;
-    width: auto;
-    height: auto;
-  }
+.tarot-image.reversed {
+  transform: rotate(180deg);
+}
 
-  @keyframes sparkle-pulse {
-    from { opacity: 0.6; }
-    to   { opacity: 1; }
-  }
-.houses-container { display: grid; gap: 1rem; margin-top: 1.5rem; }
+/* Gradient sparkle — no image file needed */
+.sparkle {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 12px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.55) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(180, 130, 255, 0.45) 0%, transparent 40%),
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.4) 0%, transparent 30%);
+  animation: sparkle-pulse 1.6s ease-in-out infinite alternate;
+  width: auto;
+  height: auto;
+}
+
+@keyframes sparkle-pulse {
+  from { opacity: 0.6; }
+  to   { opacity: 1; }
+}
+
+.houses-container { 
+  display: grid; 
+  gap: 1rem; 
+  margin-top: 1.5rem; 
+}
+
 .house-result-card {
   background: rgba(10,10,30,0.9);
   border: 1px solid rgba(165,107,255,0.2);
   border-radius: 12px;
   padding: 1.25rem;
 }
-.house-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem; }
-.house-number { color: #a56bff; font-weight: 700; }
-.house-theme { font-size: 0.75rem; color: #4bb4ff; letter-spacing: 0.08em; }
-.house-placement { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(165,107,255,0.12); }
+
+.house-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: start; 
+  margin-bottom: 1rem; 
+}
+
+.house-number { 
+  color: #a56bff; 
+  font-weight: 700; 
+}
+
+.house-theme { 
+  font-size: 0.75rem; 
+  color: #4bb4ff; 
+  letter-spacing: 0.08em; 
+}
+
+.house-placement { 
+  margin-top: 1rem; 
+  padding-top: 1rem; 
+  border-top: 1px solid rgba(165,107,255,0.12); 
+}
 
 /* Birth Chart Form */
 .birth-chart-form {
@@ -624,7 +664,7 @@ body {
   line-height: 1.65;
   margin: 0.5rem 0 0;
 }
-.house-interpretation { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+
 .bigthree-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
@@ -660,6 +700,7 @@ body {
   border: 1px solid rgba(165,107,255,0.25);
   box-shadow: 0 0 18px rgba(75,180,255,0.15);
 }
+
 /* ===== Global Reset ===== */
 *,
 *::before,
@@ -966,13 +1007,14 @@ a:hover {
   .intro-banner {
     grid-template-columns: 1fr;
   }
-.tarot-card-img {
-  width: 60px;
-  border-radius: 12px;
-  display: block;
-  margin: 0 auto;
-  box-shadow: 0 0 18px rgba(165,107,255,0.25);
-}
+
+  .tarot-card-img {
+    width: 60px;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto;
+    box-shadow: 0 0 18px rgba(165,107,255,0.25);
+  }
 
   .banner-image {
     order: -1;
@@ -997,140 +1039,7 @@ a:hover {
   box-shadow: 0 0 10px rgba(165,107,255,0.25);
   object-fit: contain;
 }
+
 .card-tile img.arcana-thumb {
   width: 60px !important;
 }
-#logo-wrapper {
-  position: relative;
-  overflow: hidden;
-}
-
-#logo-wrapper::before,
-#logo-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-repeat: repeat;
-  pointer-events: none;
-  opacity: 0.4;
-}
-
-/* Layer 1 — small stars */
-#logo-wrapper::before {
-  background-image: radial-gradient(2px 2px at 20% 30%, #ffffff 60%, transparent),
-                    radial-gradient(2px 2px at 80% 70%, #ffffff 60%, transparent),
-                    radial-gradient(1.5px 1.5px at 50% 10%, #ffffff 60%, transparent),
-                    radial-gradient(1.5px 1.5px at 10% 80%, #ffffff 60%, transparent);
-  animation: star-drift 18s linear infinite;
-}
-
-/* Layer 2 — faint nebula glow */
-#logo-wrapper::after {
-  background: radial-gradient(circle at 30% 40%, rgba(150,80,255,0.25), transparent 60%),
-              radial-gradient(circle at 70% 60%, rgba(100,50,200,0.2), transparent 70%);
-  animation: nebula-flow 12s ease-in-out infinite alternate;
-}
-
-@keyframes star-drift {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-200px); }
-}
-
-@keyframes nebula-flow {
-  0%   { opacity: 0.25; transform: scale(1); }
-  100% { opacity: 0.55; transform: scale(1.2); }
-}
-
-@keyframes purple-shimmer {
-  0%   { filter: drop-shadow(0 0 4px #7b4bff) brightness(1); }
-  50%  { filter: drop-shadow(0 0 14px #b38aff) brightness(1.15); }
-  100% { filter: drop-shadow(0 0 4px #7b4bff) brightness(1); }
-}
-
-.site-logo {
-  animation: purple-shimmer 4s ease-in-out infinite;
-}
-@keyframes aura-breath {
-  0%   { box-shadow: 0 0 20px #5a2b8f; }
-  50%  { box-shadow: 0 0 45px #8d4bff; }
-  100% { box-shadow: 0 0 20px #5a2b8f; }
-}
-
-#logo-wrapper {
-  animation: aura-breath 8s ease-in-out infinite;
-}
-.site-logo {
-  transform: scaleY(1.08) translateY(-2px);
-}
-#logo-wrapper {
-  width: 75vw;
-  height: 25vh;
-  background: #120018;
-  margin: 20px auto;
-  border-radius: 14px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: relative;
-  overflow: hidden;
-}
-
-@keyframes banner-reveal {
-  0% { opacity: 0; transform: scale(0.96); filter: blur(6px); }
-  60% { opacity: 1; transform: scale(1.02); filter: blur(0); }
-  100% { transform: scale(1); }
-}
-
-#banner-wrapper {
-  animation: banner-reveal 2.2s ease-out forwards;
-  box-shadow: 0 0 25px rgba(255, 215, 130, 0.35),
-              0 0 45px rgba(255, 200, 90, 0.25);
-  border: 1px solid rgba(255, 220, 150, 0.35);
-  border-radius: 16px;
-
-   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(180,120,255,0.15) 40%,
-    rgba(255,255,255,0) 80%
-  );
-  mix-blend-mode: screen;
-  animation: shimmer-slide 8s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes shimmer-slide {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-
-  height: 35vh;              /* increase this number to make it taller */
-  background: #120018;       /* your mystical purple */
-  border-radius: 12px;
-  overflow: hidden;
-
-  width: 75vw;
-  height: 35vh;
-  margin: 0 auto;
-
-}
-.banner-img {
-  max-width: 90%;
-  max-height: 90%;
-  height: auto;
-  width: auto;
-  display: block;
-  z-index: 2; /* keeps it above shimmer + nebula */
-}
-
-
-
-
-
-
-
-
-
