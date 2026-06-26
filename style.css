@@ -450,11 +450,6 @@ body {
     gap: 0.9rem;
   }
 
-  .site-logo {
-    width: 90vw;
-    max-width: 600px;
-  }
-}
 
 .birthchart-seal-container {
   display: flex;
