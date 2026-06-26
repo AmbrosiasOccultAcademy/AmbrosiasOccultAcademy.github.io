@@ -53,7 +53,6 @@ body {
 }
 
 .site-logo {
- .site-logo {
   width: 75vw;           /* 75% of viewport width */
   max-width: 1000px;     /* Cap it on very wide screens */
   height: auto;          /* Keep proportions */
