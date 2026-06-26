@@ -53,10 +53,13 @@ body {
 }
 
 .site-logo {
-  width: 180px;      /* controls size cleanly */
-  height: auto;      /* keeps proportions */
+ .site-logo {
+  width: 75vw;           /* 75% of viewport width */
+  max-width: 1000px;     /* Cap it on very wide screens */
+  height: auto;          /* Keep proportions */
   display: block;
-  margin: 0 auto;    /* centers it */
+  margin: 0 auto;        /* centers it */
+  aspect-ratio: 4 / 1;   /* 4:1 ratio for width-to-height */
 }
 
   #logo-wrapper {
