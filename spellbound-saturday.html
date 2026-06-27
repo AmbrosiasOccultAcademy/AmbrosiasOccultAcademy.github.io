@@ -123,6 +123,19 @@
     .crystal-card:hover { transform: translateY(-3px); }
     .crystal-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
     .crystal-card h3 { margin: 0 0 0.3rem; font-size: 1rem; color: #d7e2ff; }
+    .crystal-img-wrap {
+      width: 100%; height: 140px; border-radius: 10px; overflow: hidden;
+      margin-bottom: 0.75rem; background: rgba(0,0,0,0.3);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .crystal-img-wrap img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 10px;
+      transition: transform 0.4s ease;
+    }
+    .crystal-card:hover .crystal-img-wrap img { transform: scale(1.05); }
+    .crystal-img-wrap .crystal-emoji-fallback {
+      font-size: 3rem; line-height: 1;
+    }
     .crystal-card .crystal-type {
       font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
       color: #a56bff; margin-bottom: 0.6rem;
@@ -269,7 +282,13 @@
       <div class="crystal-grid">
 
         <div class="crystal-card">
-          <span class="crystal-icon">🤍</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/clear-quartz.jpg"
+                 alt="Clear Quartz"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">🤍</span>
+          </div>
           <h3>Clear Quartz</h3>
           <div class="crystal-type">The Master Amplifier</div>
           <p>The most versatile crystal in existence. Clear Quartz amplifies the energy of any intention,
@@ -279,7 +298,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">💜</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/amethyst.jpg"
+                 alt="Amethyst"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">💜</span>
+          </div>
           <h3>Amethyst</h3>
           <div class="crystal-type">The Stone of Spiritual Wisdom</div>
           <p>Amethyst has been used in spiritual practice for thousands of years — from Egyptian amulets
@@ -289,7 +314,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">🖤</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/black-tourmaline.jpg"
+                 alt="Black Tourmaline"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">🖤</span>
+          </div>
           <h3>Black Tourmaline</h3>
           <div class="crystal-type">The Protector</div>
           <p>The premier stone for psychic protection and energetic boundaries. Place it at the four
@@ -300,7 +331,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">💛</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/citrine.jpg"
+                 alt="Citrine"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">💛</span>
+          </div>
           <h3>Citrine</h3>
           <div class="crystal-type">The Merchant's Stone</div>
           <p>One of the only crystals that never needs cleansing — it transmutes negative energy rather
@@ -311,7 +348,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">🌹</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/rose-quartz.jpg"
+                 alt="Rose Quartz"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">🌹</span>
+          </div>
           <h3>Rose Quartz</h3>
           <div class="crystal-type">The Heart Stone</div>
           <p>The stone of unconditional love — for others, and crucially, for yourself. Rose Quartz
@@ -321,7 +364,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">🔴</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/carnelian.jpg"
+                 alt="Carnelian"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">🔴</span>
+          </div>
           <h3>Carnelian</h3>
           <div class="crystal-type">The Stone of Action</div>
           <p>Where Rose Quartz opens the heart, Carnelian ignites the will. It is the stone of courage,
@@ -332,7 +381,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">🌙</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/moonstone.jpg"
+                 alt="Moonstone"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">🌙</span>
+          </div>
           <h3>Moonstone</h3>
           <div class="crystal-type">The Stone of New Beginnings</div>
           <p>Sacred to moon goddesses across cultures, Moonstone enhances intuition, emotional
@@ -343,7 +398,13 @@
         </div>
 
         <div class="crystal-card">
-          <span class="crystal-icon">💙</span>
+          <div class="crystal-img-wrap">
+            <img src="images/crystals/lapis-lazuli.jpg"
+                 alt="Lapis Lazuli"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='block';"
+                 onload="this.nextElementSibling.style.display='none';" />
+            <span class="crystal-emoji-fallback" style="display:none;">💙</span>
+          </div>
           <h3>Lapis Lazuli</h3>
           <div class="crystal-type">The Stone of Truth</div>
           <p>One of the oldest spiritual stones in the world — ground into powder by the Egyptians
