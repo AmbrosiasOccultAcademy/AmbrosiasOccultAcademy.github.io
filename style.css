@@ -1057,8 +1057,8 @@ a:hover {
 /* Logo inside banner */
 .banner-img,
 .site-logo {
-  height: 70%;
-  width: auto;
+  height: 35%;
+  width: 35;
   max-height: 70%;
   object-fit: contain;
   z-index: 3;
