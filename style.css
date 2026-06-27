@@ -1073,3 +1073,20 @@ a:hover {
   z-index: 3;
   display: block;
 }
+.crystal-img-wrap {
+  width: 100%;
+  height: auto;          /* allow natural height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;      /* prevents layout break */
+  padding: 0.5rem;       /* optional aesthetic */
+}
+
+.crystal-img-wrap img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;   /* prevents cropping */
+  border-radius: 12px;
+  display: block;
+}
