@@ -999,6 +999,15 @@ a:hover {
   justify-content: center;
   align-items: center;
 
+  /* constrain banner logo so it can't overflow */
+  #banner-wrapper .site-logo {
+    display: block;
+    max-width: 85%;
+    max-height: 85%; 
+    width: auto;
+    height: auto;
+    object-fit: contain; }
+
   animation: banner-reveal 2.2s ease-out forwards;
 
   box-shadow:
