@@ -1080,5 +1080,15 @@ a:hover {
 .transit-center img {
   display: inline-block;
 }
+  /* Crystal of the Week image sizing */
+.crystal-of-week-img img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+}
 
 
