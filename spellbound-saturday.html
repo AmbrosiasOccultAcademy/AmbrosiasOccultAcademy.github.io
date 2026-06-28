@@ -128,7 +128,7 @@
       margin-bottom: 0.75rem; background: rgba(0,0,0,0.3);
       display: flex; align-items: center; justify-content: center;
     }
-    .crystal-img-wrap {
+   .crystal-img-wrap {
   width: 100%;
   height: auto;
   padding: 0.5rem;
@@ -137,17 +137,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden; /* keeps layout clean but no cropping because image is contained */
+  overflow: hidden;
   margin-bottom: 0.75rem;
 }
 
 .crystal-img-wrap img {
   width: 100%;
   height: auto;
-  object-fit: contain;   /* ← THIS prevents cropping */
+  object-fit: contain;
   border-radius: 10px;
   display: block;
 }
+
 
     .crystal-card:hover .crystal-img-wrap img { transform: scale(1.05); }
     .crystal-img-wrap .crystal-emoji-fallback {
