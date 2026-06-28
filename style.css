@@ -1073,3 +1073,8 @@ a:hover {
   z-index: 3;
   display: block;
 }
+  .transit-image {
+  display: block;
+  margin: 0 auto;
+}
+
