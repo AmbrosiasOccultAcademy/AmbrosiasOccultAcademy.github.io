@@ -1073,8 +1073,12 @@ a:hover {
   z-index: 3;
   display: block;
 }
-  .transit-image {
-  display: block;
-  margin: 0 auto;
+  .transit-center {
+  text-align: center;
 }
+
+.transit-center img {
+  display: inline-block;
+}
+
 
