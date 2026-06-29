@@ -450,7 +450,6 @@ body {
     gap: 0.9rem;
   }
 
-
 .birthchart-seal-container {
   display: flex;
   justify-content: center;
@@ -458,10 +457,35 @@ body {
 }
 
 #academy-seal {
-  width: 260px;
-  height: 260px;
-  filter: drop-shadow(0 0 12px rgba(239,159,39,0.4));
+  width: 200px;        /* smaller, elegant */
+  height: 200px;
+  padding: 10px;       /* breathing room */
+  filter: drop-shadow(0 0 10px rgba(239,159,39,0.45));
 }
+#academy-seal {
+  position: relative;
+}
+
+#academy-seal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(239,159,39,0.25) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  mix-blend-mode: screen;
+  animation: seal-shimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes seal-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 
 .upsell-box {
   border-color: rgba(239,159,39,0.5);
