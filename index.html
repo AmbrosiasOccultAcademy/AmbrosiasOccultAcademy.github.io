@@ -602,30 +602,62 @@
 
     <!-- SVG OCCULT ACADEMY SEAL -->
     <div class="birthchart-seal-container">
-      <svg id="academy-seal" viewBox="0 0 300 300">
-        <!-- Outer Circle -->
-        <circle cx="150" cy="150" r="140" stroke="#EF9F27" stroke-width="3" fill="none"/>
+    <svg id="academy-seal" viewBox="0 0 300 300">
 
-        <!-- Inner Star -->
-        <polygon points="
-          150,40
-          200,110
-          260,130
-          210,190
-          220,260
-          150,230
-          80,260
-          90,190
-          40,130
-          100,110
-        " stroke="#EF9F27" stroke-width="2" fill="none"/>
+  <!-- Outer Circle -->
+  <circle cx="150" cy="150" r="140"
+          stroke="#EF9F27" stroke-width="3" fill="none"/>
 
-        <!-- 12 House Lines — drawn by JS -->
-        <g id="house-lines"></g>
+  <!-- Inner Glow Circle -->
+  <circle cx="150" cy="150" r="115"
+          stroke="rgba(239,159,39,0.45)" stroke-width="1.5"
+          stroke-dasharray="6 4" fill="none"/>
 
-        <!-- Glyph placeholders -->
-        <g id="glyph-layer"></g>
-      </svg>
+  <!-- Arcane Star -->
+  <polygon points="
+    150,40
+    200,110
+    260,130
+    210,190
+    220,260
+    150,230
+    80,260
+    90,190
+    40,130
+    100,110
+  " stroke="#EF9F27" stroke-width="2" fill="none"/>
+
+  <!-- Runic Ring -->
+  <g id="runic-ring">
+    <text x="150" y="60" text-anchor="middle"
+          fill="#EF9F27" font-size="12" font-family="Cinzel">
+      ✦ ᚠ ᚨ ᛉ ᛞ ✦
+    </text>
+    <text x="150" y="285" text-anchor="middle"
+          fill="#EF9F27" font-size="12" font-family="Cinzel">
+      ✦ ᛟ ᚾ ᚱ ᛇ ✦
+    </text>
+  </g>
+
+  <!-- Crescent Moons -->
+  <path d="M110 150
+           A40 40 0 1 1 109 149
+           A30 40 0 1 0 110 150"
+        stroke="#EF9F27" stroke-width="1.5" fill="none"/>
+
+  <path d="M190 150
+           A40 40 0 1 0 191 151
+           A30 40 0 1 1 190 150"
+        stroke="#EF9F27" stroke-width="1.5" fill="none"/>
+
+  <!-- 12 House Lines — drawn by JS -->
+  <g id="house-lines"></g>
+
+  <!-- Glyph placeholders -->
+  <g id="glyph-layer"></g>
+
+</svg>
+
     </div>
 
     <!-- INPUT FORM -->
