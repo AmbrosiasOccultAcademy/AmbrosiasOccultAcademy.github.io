@@ -1114,5 +1114,41 @@ a:hover {
   margin: 0 auto;
   border-radius: 12px;
 }
+/* FINAL override for birth chart seal size */
+.birthchart-seal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+#academy-seal {
+  width: 160px !important;
+  height: 160px !important;
+  max-width: 160px !important;
+  max-height: 160px !important;
+  padding: 8px;
+  filter: drop-shadow(0 0 10px rgba(239,159,39,0.45));
+}
+  #academy-seal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0) 0%,
+    rgba(239,159,39,0.25) 50%,
+    rgba(255,255,255,0) 100%
+  );
+  mix-blend-mode: screen;
+  animation: seal-shimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes seal-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
 
 
