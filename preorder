@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dream Journal Pre‑Order</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body style="background:#0d0d1a; color:white; font-family:Arial, sans-serif;">
+
+<div style="max-width:600px; margin:2rem auto; padding:2rem; background:#1a1a2e; border-radius:12px; box-shadow:0 0 20px rgba(0,0,0,0.4);">
+
+  <h2 style="text-align:center; margin-bottom:1rem;">🌙 Dream Journal Hardcover Pre‑Order</h2>
+
+  <p style="text-align:center; margin-bottom:1.5rem;">
+    Please fill out the form below to reserve your printed hardcover edition.<br>
+    You will receive a confirmation email once your pre‑order is submitted.
+  </p>
+
+  <form action="https://formspree.io/f/mzdlpwql" method="POST">
+
+    <label>Full Name</label>
+    <input type="text" name="name" required style="width:100%; padding:10px; margin-bottom:1rem; border-radius:6px;">
+
+    <label>Email Address</label>
+    <input type="email" name="email" required style="width:100%; padding:10px; margin-bottom:1rem; border-radius:6px;">
+
+    <label>Phone Number</label>
+    <input type="tel" name="phone" required style="width:100%; padding:10px; margin-bottom:1rem; border-radius:6px;">
+
+    <label>Shipping Address</label>
+    <textarea name="address" required rows="3" style="width:100%; padding:10px; margin-bottom:1rem; border-radius:6px;"></textarea>
+
+    <label>Choose Hardcover Version</label>
+    <select name="version" required style="width:100%; padding:10px; margin-bottom:1rem; border-radius:6px;">
+      <option value="30-Day Hardcover ($25)">30‑Day Hardcover — $25</option>
+      <option value="90-Day Hardcover ($45)">90‑Day Hardcover — $45</option>
+    </select>
+
+    <label>Notes (Optional)</label>
+    <textarea name="notes" rows="3" style="width:100%; padding:10px; margin-bottom:1rem; border-radius:6px;"></textarea>
+
+    <label style="display:flex; align-items:center; margin-bottom:1rem;">
+      <input type="checkbox" name="consent" required style="margin-right:8px;">
+      I understand this is a pre‑order and payment will be collected when ready.
+    </label>
+
+    <button type="submit" 
+            style="width:100%; padding:12px; background:#6a4bc4; color:white; border:none; border-radius:8px; font-size:1rem;">
+      💫 Submit Pre‑Order
+    </button>
+
+  </form>
+
+</div>
+
+</body>
+</html>
