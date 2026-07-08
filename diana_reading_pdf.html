@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<title>Birth Chart Reading — Princess Diana of Wales</title>
+<style>
+  body { font-family: Georgia, serif; background: #f5f0eb; margin: 0; padding: 2rem; color: #1a0a2e; }
+  .doc { max-width: 750px; margin: 0 auto; background: #1a0a2e; color: #f0e6d3; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #2d1b5e, #1a0a2e); padding: 2.5rem; border-bottom: 2px solid #EF9F27; text-align: center; }
+  .header h1 { margin: 0 0 0.25rem; font-size: 1.5rem; color: #EF9F27; letter-spacing: 0.06em; }
+  .header h2 { margin: 0.5rem 0 0.25rem; font-size: 1.1rem; color: #f0e6d3; font-weight: normal; }
+  .header p  { margin: 0.2rem 0; font-size: 0.82rem; color: rgba(240,230,211,0.55); }
+  .header .tagline { font-style: italic; color: rgba(239,159,39,0.7); font-size: 0.8rem; margin-top: 0.75rem; }
+  .edu-note { background: rgba(239,159,39,0.1); border: 1px solid rgba(239,159,39,0.3); border-radius: 8px; padding: 0.6rem 1rem; margin-top: 1rem; font-size: 0.75rem; color: rgba(240,230,211,0.6); font-style: italic; }
+
+  /* SNAPSHOT BAR */
+  .snapshot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(239,159,39,0.2); border-top: 1px solid rgba(239,159,39,0.2); border-bottom: 1px solid rgba(239,159,39,0.2); }
+  .snap-item { background: #1a0a2e; padding: 1rem; text-align: center; }
+  .snap-item .glyph { font-size: 1.4rem; display: block; margin-bottom: 0.25rem; }
+  .snap-item .label { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: #EF9F27; display: block; }
+  .snap-item .value { font-size: 0.95rem; color: #f0e6d3; display: block; margin-top: 0.2rem; }
+
+  /* SECTIONS */
+  .section { padding: 1.75rem 2.5rem; border-bottom: 1px solid rgba(239,159,39,0.12); }
+  .section:last-of-type { border-bottom: none; }
+  .section h3 { margin: 0 0 1rem; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: #EF9F27; }
+  .section p { margin: 0.6rem 0; font-size: 0.9rem; line-height: 1.75; color: rgba(240,230,211,0.85); }
+  .section p strong { color: #EF9F27; }
+
+  /* PLANET ROWS */
+  .planet-row { display: grid; grid-template-columns: 2.5rem 1fr; gap: 0.75rem; align-items: start; padding: 0.85rem 0; border-bottom: 1px solid rgba(239,159,39,0.08); }
+  .planet-row:last-child { border-bottom: none; }
+  .planet-glyph { font-size: 1.2rem; text-align: center; padding-top: 0.1rem; }
+  .planet-text .planet-name { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #EF9F27; display: block; margin-bottom: 0.2rem; }
+  .planet-text p { margin: 0; font-size: 0.87rem; line-height: 1.65; color: rgba(240,230,211,0.8); }
+
+  /* ASPECT TABLE */
+  .aspect-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .aspect-table th { text-align: left; padding: 0.4rem 0.6rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #EF9F27; border-bottom: 1px solid rgba(239,159,39,0.3); }
+  .aspect-table td { padding: 0.5rem 0.6rem; border-bottom: 1px solid rgba(239,159,39,0.07); color: rgba(240,230,211,0.75); vertical-align: top; }
+  .aspect-table tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.68rem; font-weight: bold; letter-spacing: 0.05em; }
+  .badge.harm { background: rgba(46,204,113,0.15); color: #2ecc71; border: 1px solid rgba(46,204,113,0.3); }
+  .badge.tense { background: rgba(231,76,60,0.15); color: #e74c3c; border: 1px solid rgba(231,76,60,0.3); }
+
+  /* HIGHLIGHT BOX */
+  .highlight { background: rgba(239,159,39,0.07); border-left: 3px solid #EF9F27; border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1rem 0; }
+  .highlight p { margin: 0; font-size: 0.88rem; line-height: 1.7; color: rgba(240,230,211,0.85); font-style: italic; }
+
+  /* THROUGHLINE */
+  .throughline { background: linear-gradient(135deg, rgba(45,27,94,0.6), rgba(26,10,46,0.8)); border: 1px solid rgba(239,159,39,0.3); border-radius: 12px; padding: 1.5rem; margin-top: 0.5rem; }
+  .throughline p { margin: 0.5rem 0; font-size: 0.9rem; line-height: 1.8; color: rgba(240,230,211,0.88); }
+
+  /* ELEMENTS BAR */
+  .elements { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.75rem; margin: 0.75rem 0; }
+  .elem { text-align: center; background: rgba(255,255,255,0.04); border-radius: 8px; padding: 0.6rem; border: 1px solid rgba(239,159,39,0.12); }
+  .elem .e-name { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: #EF9F27; display: block; }
+  .elem .e-count { font-size: 1.2rem; color: #f0e6d3; display: block; margin-top: 0.2rem; }
+
+  /* FOOTER */
+  .footer { background: rgba(0,0,0,0.3); padding: 1.25rem 2.5rem; text-align: center; border-top: 1px solid rgba(239,159,39,0.2); }
+  .footer p { margin: 0.2rem 0; font-size: 0.75rem; color: rgba(240,230,211,0.4); }
+  .footer .brand { color: #EF9F27; font-size: 0.82rem; margin-bottom: 0.4rem; }
+
+  /* PRINT */
+  @media print { body { background: white; padding: 0; } .doc { box-shadow: none; } }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>🌙 AMBROSIA'S OCCULT ACADEMY</h1>
+    <h2>Natal Birth Chart Reading</h2>
+    <h2 style="color:#EF9F27; font-size:1.2rem; margin-top:0.5rem;">Princess Diana of Wales</h2>
+    <p>July 1, 1961 · 2:43 AM · Sandringham, England</p>
+    <p class="tagline">"Celestial guidance, mystical education, and practical magic for modern seekers."</p>
+    <div class="edu-note">
+      ✨ This is an educational example reading using publicly available birth data for a historical public figure.
+      It is intended to demonstrate how a full birth chart reading from Ambrosia's Occult Academy is structured and delivered.
+    </div>
+  </div>
+
+  <!-- BIG THREE SNAPSHOT -->
+  <div class="snapshot">
+    <div class="snap-item">
+      <span class="glyph">☀️</span>
+      <span class="label">Sun Sign</span>
+      <span class="value">Cancer</span>
+    </div>
+    <div class="snap-item">
+      <span class="glyph">🌙</span>
+      <span class="label">Moon Sign</span>
+      <span class="value">Aquarius</span>
+    </div>
+    <div class="snap-item">
+      <span class="glyph">⬆️</span>
+      <span class="label">Rising Sign</span>
+      <span class="value">Gemini</span>
+    </div>
+  </div>
+
+  <!-- BIG THREE -->
+  <div class="section">
+    <h3>☀️ 🌙 ⬆️ The Big Three</h3>
+
+    <div class="planet-row">
+      <div class="planet-glyph">☀️</div>
+      <div class="planet-text">
+        <span class="planet-name">Sun in Cancer — House 2 (Values & Self-Worth)</span>
+        <p>Cancer is the nurturer, the empath, and the fierce protector of those she loves. With her Sun in House 2, Diana's core identity was inseparable from her values — not her title, not her position, but the people and causes she held dear. Everything about her public life confirmed this: she led with her heart. Her sense of self was rooted in what she gave, not what she was given.</p>
+      </div>
+    </div>
+
+    <div class="planet-row">
+      <div class="planet-glyph">🌙</div>
+      <div class="planet-text">
+        <span class="planet-name">Moon in Aquarius — House 9 (Philosophy & Higher Purpose)</span>
+        <p>This is one of the most striking tensions in her chart. A Cancer Sun craves intimate emotional connection, while an Aquarius Moon needs freedom and connection to something far bigger than any one relationship — humanity itself. House 9 rules higher purpose, long journeys, and universal ideals. Diana could sit with a child dying of AIDS and a head of state in the same afternoon and make both feel completely seen. Her emotional home wasn't in the palace — it was in the world.</p>
+      </div>
+    </div>
+
+    <div class="planet-row">
+      <div class="planet-glyph">⬆️</div>
+      <div class="planet-text">
+        <span class="planet-name">Rising in Gemini — The Face She Showed the World</span>
+        <p>Gemini rising gives instantly adaptable, communicative, magnetic first impressions. She could shift registers effortlessly — playful with children, dignified in ceremony, raw in interview. Gemini rising is also the eternal student: curious, never fully pinned down, and impossible to truly define. This is why she was both universally familiar and perpetually surprising.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEFINING ASPECT -->
+  <div class="section">
+    <h3>⭐ Most Defining Aspect — Sun Trine Neptune (orb: 0.34°)</h3>
+    <div class="highlight">
+      <p>At less than half a degree, this is extraordinarily rare. This wasn't just an aspect in her chart — it was her essence. Her identity (Sun) and the divine, compassionate, universal (Neptune) flowed together effortlessly and naturally from birth.</p>
+    </div>
+    <p>Neptune dissolves the boundaries between self and other. Diana quite literally could not help absorbing other people's pain — and reflecting it back as something beautiful. This aspect also bestows an almost otherworldly quality. People didn't just admire her; they felt something approaching the sacred in her presence.</p>
+    <p>Neptune rules sacrifice, idealism, compassion, and the intangible. The "People's Princess" was not a media invention. <strong>It was written in her stars.</strong></p>
+  </div>
+
+  <!-- PERSONAL PLANETS -->
+  <div class="section">
+    <h3>🪐 Personal Planets</h3>
+
+    <div class="planet-row">
+      <div class="planet-glyph">☿</div>
+      <div class="planet-text">
+        <span class="planet-name">Mercury in Cancer — House 2</span>
+        <p>She communicated from the heart, always. Her words were emotional, personal, and protective of what she valued. Her 1995 Panorama interview is a perfect Mercury in Cancer moment — deeply personal, vulnerable, and fiercely self-protective all at once.</p>
+      </div>
+    </div>
+
+    <div class="planet-row">
+      <div class="planet-glyph">♀</div>
+      <div class="planet-text">
+        <span class="planet-name">Venus in Taurus — House 12 (Hidden & Spiritual)</span>
+        <p>Venus in Taurus loves deeply, loyally, and steadfastly — but House 12 is the house of secrets, hidden matters, and what's concealed from public view. Her love life was largely hidden, complicated, and privately painful. Venus in the 12th often indicates relationships that are secret, sacrificial, or restricted. This placement quietly tells the story of her marriage and beyond.</p>
+      </div>
+    </div>
+
+    <div class="planet-row">
+      <div class="planet-glyph">♂</div>
+      <div class="planet-text">
+        <span class="planet-name">Mars in Virgo — House 4 (Home & Family)</span>
+        <p>Mars in Virgo is precise and service-oriented — its fire channeled into House 4, the home and family. Her fighting spirit expressed itself through her children, through creating a safe home, through quietly and methodically protecting what she loved. Combined with Pluto also in House 4, this house carries enormous transformative energy around family — and tells much of her story with the royal family.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY ASPECTS -->
+  <div class="section">
+    <h3>⚡ Key Aspects</h3>
+    <table class="aspect-table">
+      <tr>
+        <th>Aspect</th>
+        <th>Type</th>
+        <th>What It Means for Her</th>
+      </tr>
+      <tr>
+        <td><strong>Sun △ Neptune</strong> (0.34°)</td>
+        <td><span class="badge harm">Trine</span></td>
+        <td>Her defining aspect. Identity and the divine flowed as one — she was built to be a symbol, to embody compassion, to belong to the world.</td>
+      </tr>
+      <tr>
+        <td><strong>Venus □ Uranus</strong> (0.37°)</td>
+        <td><span class="badge tense">Square</span></td>
+        <td>The second tightest aspect. She craved stable, loyal love (Venus in Taurus) while simultaneously attracting and creating unpredictable, disruptive relationships. Her entire love life is this one aspect.</td>
+      </tr>
+      <tr>
+        <td><strong>Moon □ Neptune</strong> (5.90°)</td>
+        <td><span class="badge tense">Square</span></td>
+        <td>Emotional boundaries were porous. She felt everything, absorbed everyone's pain, and was prone to both idealizing others and being idealized herself.</td>
+      </tr>
+      <tr>
+        <td><strong>Jupiter ☌ Saturn</strong> (7.31°)</td>
+        <td><span class="badge harm">Conjunction</span></td>
+        <td>Enormous hope (Jupiter) fused with enormous duty (Saturn) in House 9 — her humanitarian work was where these two finally merged meaningfully.</td>
+      </tr>
+      <tr>
+        <td><strong>Venus △ Saturn</strong> (4.19°)</td>
+        <td><span class="badge harm">Trine</span></td>
+        <td>Despite the chaos of Venus square Uranus, this aspect gave her a core loyalty and commitment in love — she didn't give up easily, even when she should have.</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ELEMENTS & MODALITY -->
+  <div class="section">
+    <h3>🌍 Elemental & Modality Balance</h3>
+    <div class="elements">
+      <div class="elem"><span class="e-name">🔥 Fire</span><span class="e-count">1</span></div>
+      <div class="elem" style="border-color:rgba(239,159,39,0.4);"><span class="e-name">🌱 Earth</span><span class="e-count" style="color:#EF9F27;">4 ★</span></div>
+      <div class="elem" style="border-color:rgba(239,159,39,0.4);"><span class="e-name">💨 Air</span><span class="e-count" style="color:#EF9F27;">4 ★</span></div>
+      <div class="elem"><span class="e-name">💧 Water</span><span class="e-count">3</span></div>
+    </div>
+    <p><strong>Dominant Element: Earth & Air (tied)</strong> — Despite her deeply emotional Cancer Sun, Diana's chart is anchored in Earth (practical, action-oriented, grounded in the physical world) and Air (communicative, idealistic, connected to ideas and people). She didn't just feel deeply — she acted. She didn't just care about landmines theoretically — she walked through minefields. The emotion was real; so was the doing.</p>
+    <p><strong>Dominant Modality: Fixed (6 placements)</strong> — Fixed signs are persistent, determined, and immovable once committed. She did not give up easily — on her marriage, on her children, on her causes. Fixed energy also means difficulty letting go, and sometimes remaining in situations longer than is healthy.</p>
+  </div>
+
+  <!-- NORTH NODE -->
+  <div class="section">
+    <h3>☊ North Node in Leo — House 3 (Soul Direction)</h3>
+    <p>The North Node reveals the direction of soul growth in this lifetime — where we are being called to evolve. Diana's North Node in Leo points toward <strong>confident self-expression, stepping fully into her own star power, and owning her creative light.</strong></p>
+    <p>In House 3 — the house of communication, voice, and messages — her entire soul journey was about finding and using her OWN voice on her OWN terms. She was born into a world that expected her to be silent, decorative, and compliant. Her soul had other plans. The Panorama interview. The landmine campaign. The way she looked directly into cameras and spoke directly to people. All of it: <strong>North Node Leo in House 3, claiming its purpose.</strong></p>
+  </div>
+
+  <!-- SATURN -->
+  <div class="section">
+    <h3>♄ Saturn in Capricorn — House 8 (Life Lessons)</h3>
+    <p>Saturn in its home sign of Capricorn, placed in House 8 — the house of transformation, shared resources, power, and the taboo — carries heavy karmic weight. Her greatest life lessons came through loss, power struggles, and profound transformation. The battles over money after the divorce. The stripping of her HRH title. The public and private power plays of the royal institution. All Saturn in Capricorn, House 8: <strong>karmic lessons delivered through structures of power and control.</strong></p>
+  </div>
+
+  <!-- THROUGHLINE -->
+  <div class="section">
+    <h3>🌟 The Throughline — Putting It All Together</h3>
+    <div class="throughline">
+      <p>Diana's chart tells the story of a woman cosmically designed to feel everything (Cancer Sun, Moon square Neptune), to belong to everyone (Sun trine Neptune, Aquarius Moon in House 9), to love both deeply and disruptively (Venus in Taurus square Uranus), and to ultimately find her power not in the institution that tried to contain her (Saturn in House 8) but in her own voice and humanitarian mission (North Node Leo, House 3).</p>
+      <p>The tension between her Cancer need for private, protected love and her Aquarius Moon's need to mother the entire world was never fully resolved in her lifetime — but it produced someone the world genuinely has not forgotten nearly three decades after her death.</p>
+      <p>Her chart doesn't read like someone who was meant to live a small, quiet life. It reads like someone who was never meant to — and who, despite everything, didn't.</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p class="brand">🌙 Ambrosia's Occult Academy</p>
+    <p>Jennifer Ambrosia · Las Vegas, Nevada</p>
+    <p>ambrosiasoccultacademy@gmail.com · youtube.com/@AmbrosiasOccultAcademy</p>
+    <p style="margin-top:0.75rem;">Readings are provided for entertainment and spiritual guidance purposes only.</p>
+    <p>This is an educational example using publicly available data for a historical public figure.</p>
+  </div>
+
+</div>
+</body>
+</html>
