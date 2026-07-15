@@ -1178,93 +1178,483 @@ target="_blank"
     ===================================================================== */
     const tarotDeck = [
 
-  // ── MAJOR ARCANA (existing paths unchanged) ───────────────────
-  { name: "The Fool",           suit: "Major Arcana", image: "images/tarot/major/fool.png" },
-  { name: "The Magician",       suit: "Major Arcana", image: "images/tarot/major/magician.png" },
-  { name: "The High Priestess", suit: "Major Arcana", image: "images/tarot/major/high-priestess.png" },
-  { name: "The Empress",        suit: "Major Arcana", image: "images/tarot/major/empress.png" },
-  { name: "The Emperor",        suit: "Major Arcana", image: "images/tarot/major/emperor.png" },
-  { name: "The Hierophant",     suit: "Major Arcana", image: "images/tarot/major/hierophant.png" },
-  { name: "The Lovers",         suit: "Major Arcana", image: "images/tarot/major/lovers.png" },
-  { name: "The Chariot",        suit: "Major Arcana", image: "images/tarot/major/chariot.png" },
-  { name: "Strength",           suit: "Major Arcana", image: "images/tarot/major/strength.png" },
-  { name: "The Hermit",         suit: "Major Arcana", image: "images/tarot/major/hermit.png" },
-  { name: "Wheel of Fortune",   suit: "Major Arcana", image: "images/tarot/major/wheel-of-fortune.png" },
-  { name: "Justice",            suit: "Major Arcana", image: "images/tarot/major/justice.png" },
-  { name: "The Hanged Man",     suit: "Major Arcana", image: "images/tarot/major/hanged-man.png" },
-  { name: "Death",              suit: "Major Arcana", image: "images/tarot/major/death.png" },
-  { name: "Temperance",         suit: "Major Arcana", image: "images/tarot/major/temperance.png" },
-  { name: "The Devil",          suit: "Major Arcana", image: "images/tarot/major/devil.png" },
-  { name: "The Tower",          suit: "Major Arcana", image: "images/tarot/major/tower.png" },
-  { name: "The Star",           suit: "Major Arcana", image: "images/tarot/major/star.png" },
-  { name: "The Moon",           suit: "Major Arcana", image: "images/tarot/major/moon.png" },
-  { name: "The Sun",            suit: "Major Arcana", image: "images/tarot/major/sun.png" },
-  { name: "Judgement",          suit: "Major Arcana", image: "images/tarot/major/judgement.png" },
-  { name: "The World",          suit: "Major Arcana", image: "images/tarot/major/world.png" },
+  // ── MAJOR ARCANA ──────────────────────────────────────────────
+  {
+    name: "The Fool", numeral: "0", suit: "Major Arcana",
+    image: "images/tarot/major/fool.png",
+    upright: "New beginnings, innocence, spontaneity, free spirit, leap of faith",
+    reversed: "Recklessness, risk-taking, poor judgment, naivety, holding back"
+  },
+  {
+    name: "The Magician", numeral: "I", suit: "Major Arcana",
+    image: "images/tarot/major/magician.png",
+    upright: "Manifestation, willpower, skill, resourcefulness, inspired action",
+    reversed: "Manipulation, poor planning, untapped talent, trickery, illusion"
+  },
+  {
+    name: "The High Priestess", numeral: "II", suit: "Major Arcana",
+    image: "images/tarot/major/high-priestess.png",
+    upright: "Intuition, sacred knowledge, divine feminine, inner wisdom, mystery",
+    reversed: "Secrets, disconnected intuition, withdrawal, repressed feelings"
+  },
+  {
+    name: "The Empress", numeral: "III", suit: "Major Arcana",
+    image: "images/tarot/major/empress.png",
+    upright: "Femininity, abundance, nurturing, nature, fertility, creativity",
+    reversed: "Creative block, dependence, smothering, emptiness, neglect"
+  },
+  {
+    name: "The Emperor", numeral: "IV", suit: "Major Arcana",
+    image: "images/tarot/major/emperor.png",
+    upright: "Authority, structure, stability, leadership, protection, fatherhood",
+    reversed: "Domination, rigidity, control, excessive discipline, lack of authority"
+  },
+  {
+    name: "The Hierophant", numeral: "V", suit: "Major Arcana",
+    image: "images/tarot/major/hierophant.png",
+    upright: "Tradition, conformity, spiritual guidance, institutions, shared beliefs",
+    reversed: "Rebellion, unconventional path, breaking tradition, forging your own way"
+  },
+  {
+    name: "The Lovers", numeral: "VI", suit: "Major Arcana",
+    image: "images/tarot/major/lovers.png",
+    upright: "Love, harmony, relationships, values alignment, choices, partnership",
+    reversed: "Disharmony, imbalance, misaligned values, bad choices, conflict"
+  },
+  {
+    name: "The Chariot", numeral: "VII", suit: "Major Arcana",
+    image: "images/tarot/major/chariot.png",
+    upright: "Control, willpower, victory, determination, success through effort",
+    reversed: "Lack of control, aggression, no direction, scattered energy, defeat"
+  },
+  {
+    name: "Strength", numeral: "VIII", suit: "Major Arcana",
+    image: "images/tarot/major/strength.png",
+    upright: "Inner strength, courage, patience, compassion, soft control",
+    reversed: "Self-doubt, weakness, insecurity, raw emotion, lack of confidence"
+  },
+  {
+    name: "The Hermit", numeral: "IX", suit: "Major Arcana",
+    image: "images/tarot/major/hermit.png",
+    upright: "Solitude, inner guidance, introspection, withdrawal, seeking truth",
+    reversed: "Isolation, loneliness, withdrawal gone too far, refusing guidance"
+  },
+  {
+    name: "Wheel of Fortune", numeral: "X", suit: "Major Arcana",
+    image: "images/tarot/major/wheel-of-fortune.png",
+    upright: "Good luck, karma, life cycles, destiny, turning point, fate",
+    reversed: "Bad luck, resistance to change, breaking cycles, no control"
+  },
+  {
+    name: "Justice", numeral: "XI", suit: "Major Arcana",
+    image: "images/tarot/major/justice.png",
+    upright: "Justice, fairness, truth, cause and effect, law, accountability",
+    reversed: "Unfairness, lack of accountability, dishonesty, avoiding consequences"
+  },
+  {
+    name: "The Hanged Man", numeral: "XII", suit: "Major Arcana",
+    image: "images/tarot/major/hanged-man.png",
+    upright: "Pause, surrender, letting go, new perspective, sacrifice",
+    reversed: "Martyrdom, stalling, resistance, indecision, refusing to let go"
+  },
+  {
+    name: "Death", numeral: "XIII", suit: "Major Arcana",
+    image: "images/tarot/major/death.png",
+    upright: "Endings, transformation, transition, letting go, new beginnings",
+    reversed: "Resistance to change, inability to move on, stagnation, fear of endings"
+  },
+  {
+    name: "Temperance", numeral: "XIV", suit: "Major Arcana",
+    image: "images/tarot/major/temperance.png",
+    upright: "Balance, moderation, patience, purpose, meaning, divine timing",
+    reversed: "Imbalance, excess, lack of patience, conflict, re-alignment needed"
+  },
+  {
+    name: "The Devil", numeral: "XV", suit: "Major Arcana",
+    image: "images/tarot/major/devil.png",
+    upright: "Shadow self, addiction, restriction, materialism, bondage, patterns",
+    reversed: "Releasing limiting beliefs, freedom, reclaiming power, detachment"
+  },
+  {
+    name: "The Tower", numeral: "XVI", suit: "Major Arcana",
+    image: "images/tarot/major/tower.png",
+    upright: "Sudden upheaval, chaos, revelation, disruption, awakening",
+    reversed: "Avoiding disaster, fear of change, averting crisis, personal upheaval"
+  },
+  {
+    name: "The Star", numeral: "XVII", suit: "Major Arcana",
+    image: "images/tarot/major/star.png",
+    upright: "Hope, renewal, serenity, inspiration, faith, healing, clarity",
+    reversed: "Despair, lack of faith, disconnection, hopelessness, creative block"
+  },
+  {
+    name: "The Moon", numeral: "XVIII", suit: "Major Arcana",
+    image: "images/tarot/major/moon.png",
+    upright: "Illusion, fear, the subconscious, dreams, uncertainty, confusion",
+    reversed: "Releasing fear, repressed emotion, inner confusion clearing, truth emerging"
+  },
+  {
+    name: "The Sun", numeral: "XIX", suit: "Major Arcana",
+    image: "images/tarot/major/sun.png",
+    upright: "Joy, success, vitality, positivity, confidence, abundance, clarity",
+    reversed: "Temporary sadness, inner child blocked, overly optimistic, clouds blocking light"
+  },
+  {
+    name: "Judgement", numeral: "XX", suit: "Major Arcana",
+    image: "images/tarot/major/judgement.png",
+    upright: "Reflection, reckoning, awakening, absolution, inner calling",
+    reversed: "Self-doubt, refusal of self-examination, ignoring the call, harsh self-judgment"
+  },
+  {
+    name: "The World", numeral: "XXI", suit: "Major Arcana",
+    image: "images/tarot/major/world.png",
+    upright: "Completion, integration, accomplishment, wholeness, fulfillment",
+    reversed: "Incompletion, shortcuts, delays, lack of closure, unfinished business"
+  },
 
   // ── WANDS ─────────────────────────────────────────────────────
-  { name: "Ace of Wands",    suit: "Wands", image: "images/tarot/wands/Ace_wands.png" },
-  { name: "Two of Wands",    suit: "Wands", image: "images/tarot/wands/2_wands.png" },
-  { name: "Three of Wands",  suit: "Wands", image: "images/tarot/wands/3_wands.png" },
-  { name: "Four of Wands",   suit: "Wands", image: "images/tarot/wands/4_wands.png" },
-  { name: "Five of Wands",   suit: "Wands", image: "images/tarot/wands/5_wands.png" },
-  { name: "Six of Wands",    suit: "Wands", image: "images/tarot/wands/6_wands.png" },
-  { name: "Seven of Wands",  suit: "Wands", image: "images/tarot/wands/7_wands.png" },
-  { name: "Eight of Wands",  suit: "Wands", image: "images/tarot/wands/8_wands.png" },
-  { name: "Nine of Wands",   suit: "Wands", image: "images/tarot/wands/9_wands.png" },
-  { name: "Ten of Wands",    suit: "Wands", image: "images/tarot/wands/10_wands.png" },
-  { name: "Page of Wands",   suit: "Wands", image: "images/tarot/wands/Page_wands.png" },
-  { name: "Knight of Wands", suit: "Wands", image: "images/tarot/wands/Knight_wands.png" },
-  { name: "Queen of Wands",  suit: "Wands", image: "images/tarot/wands/Queen_wands.png" },
-  { name: "King of Wands",   suit: "Wands", image: "images/tarot/wands/King_wands.png" },
+  {
+    name: "Ace of Wands", numeral: "Ace", suit: "Wands",
+    image: "images/tarot/wands/Ace_wands.png",
+    upright: "New beginnings, creative inspiration, passion, career opportunity, raw potential",
+    reversed: "Delays, creative blocks, false starts, lack of motivation, misdirected energy"
+  },
+  {
+    name: "Two of Wands", numeral: "2", suit: "Wands",
+    image: "images/tarot/wands/2_wands.png",
+    upright: "Future planning, bold vision, personal power, expansion, moving forward",
+    reversed: "Fear of change, lack of planning, playing it safe, indecision, staying small"
+  },
+  {
+    name: "Three of Wands", numeral: "3", suit: "Wands",
+    image: "images/tarot/wands/3_wands.png",
+    upright: "Expansion, foresight, overseas opportunities, waiting for results, confidence",
+    reversed: "Delays, obstacles to expansion, lack of foresight, plans not returning as hoped"
+  },
+  {
+    name: "Four of Wands", numeral: "4", suit: "Wands",
+    image: "images/tarot/wands/4_wands.png",
+    upright: "Celebration, homecoming, harmony, milestone achieved, community, joy",
+    reversed: "Lack of support, instability, delayed celebration, disharmony, feeling unwelcome"
+  },
+  {
+    name: "Five of Wands", numeral: "5", suit: "Wands",
+    image: "images/tarot/wands/5_wands.png",
+    upright: "Competition, conflict, disagreement, rivalry, healthy challenge, diverse opinions",
+    reversed: "Avoiding conflict, inner tension, pointless arguments, suppressed aggression"
+  },
+  {
+    name: "Six of Wands", numeral: "6", suit: "Wands",
+    image: "images/tarot/wands/6_wands.png",
+    upright: "Victory, public recognition, success, achievement, leadership, confidence",
+    reversed: "Egotism, delayed success, fall from grace, lack of recognition, seeking validation"
+  },
+  {
+    name: "Seven of Wands", numeral: "7", suit: "Wands",
+    image: "images/tarot/wands/7_wands.png",
+    upright: "Perseverance, standing your ground, protecting your position, courage under pressure",
+    reversed: "Giving up, feeling overwhelmed, capitulating, exhaustion from constant defense"
+  },
+  {
+    name: "Eight of Wands", numeral: "8", suit: "Wands",
+    image: "images/tarot/wands/8_wands.png",
+    upright: "Rapid movement, swift action, momentum, travel, events happening fast, alignment",
+    reversed: "Delays, miscommunication, things grinding to a halt, misdirection, chaos"
+  },
+  {
+    name: "Nine of Wands", numeral: "9", suit: "Wands",
+    image: "images/tarot/wands/9_wands.png",
+    upright: "Resilience, persistence, last stand, courage despite exhaustion, defensive strength",
+    reversed: "Paranoia, giving up at the last moment, stubbornness, old wounds reopened"
+  },
+  {
+    name: "Ten of Wands", numeral: "10", suit: "Wands",
+    image: "images/tarot/wands/10_wands.png",
+    upright: "Burden, overcommitment, taking on too much, exhaustion, nearing end of heavy journey",
+    reversed: "Refusing to delegate, martyrdom, unnecessary burden, inability to ask for help"
+  },
+  {
+    name: "Page of Wands", numeral: "Page", suit: "Wands",
+    image: "images/tarot/wands/Page_wands.png",
+    upright: "Enthusiasm, new ideas, free spirit, adventurous energy, inspired beginnings, curiosity",
+    reversed: "Immaturity, recklessness, lack of follow-through, scattered energy, creative blocks"
+  },
+  {
+    name: "Knight of Wands", numeral: "Knight", suit: "Wands",
+    image: "images/tarot/wands/Knight_wands.png",
+    upright: "Action, adventure, fearlessness, passion in motion, confidence, rapid progress",
+    reversed: "Recklessness, arrogance, scattered energy, hot-headed decisions, burnout"
+  },
+  {
+    name: "Queen of Wands", numeral: "Queen", suit: "Wands",
+    image: "images/tarot/wands/Queen_wands.png",
+    upright: "Confidence, charisma, passion, warmth, independence, creativity, natural leadership",
+    reversed: "Jealousy, insecurity beneath bravado, demanding behavior, burnout, manipulation"
+  },
+  {
+    name: "King of Wands", numeral: "King", suit: "Wands",
+    image: "images/tarot/wands/King_wands.png",
+    upright: "Natural leader, bold vision, entrepreneurship, inspiring others, mastery of creative fire",
+    reversed: "Impulsiveness, arrogance, forceful control, ruthlessness, hot temper"
+  },
 
   // ── CUPS ──────────────────────────────────────────────────────
-  { name: "Ace of Cups",    suit: "Cups", image: "images/tarot/cups/Ace_cups.png" },
-  { name: "Two of Cups",    suit: "Cups", image: "images/tarot/cups/2_cups.png" },
-  { name: "Three of Cups",  suit: "Cups", image: "images/tarot/cups/3_cups.png" },
-  { name: "Four of Cups",   suit: "Cups", image: "images/tarot/cups/4_cups.png" },
-  { name: "Five of Cups",   suit: "Cups", image: "images/tarot/cups/5_cups.png" },
-  { name: "Six of Cups",    suit: "Cups", image: "images/tarot/cups/6_cups.png" },
-  { name: "Seven of Cups",  suit: "Cups", image: "images/tarot/cups/7_cups.png" },
-  { name: "Eight of Cups",  suit: "Cups", image: "images/tarot/cups/8_cups.png" },
-  { name: "Nine of Cups",   suit: "Cups", image: "images/tarot/cups/9_cups.png" },
-  { name: "Ten of Cups",    suit: "Cups", image: "images/tarot/cups/10_cups.png" },
-  { name: "Page of Cups",   suit: "Cups", image: "images/tarot/cups/Page_cups.png" },
-  { name: "Knight of Cups", suit: "Cups", image: "images/tarot/cups/Knight_cups.png" },
-  { name: "Queen of Cups",  suit: "Cups", image: "images/tarot/cups/Queen_cups.png" },
-  { name: "King of Cups",   suit: "Cups", image: "images/tarot/cups/King_cups.png" },
+  {
+    name: "Ace of Cups", numeral: "Ace", suit: "Cups",
+    image: "images/tarot/cups/Ace_cups.png",
+    upright: "New love, emotional awakening, intuition, compassion, spiritual connection, creative flow",
+    reversed: "Emotional repression, blocked feelings, unrequited love, fear of vulnerability"
+  },
+  {
+    name: "Two of Cups", numeral: "2", suit: "Cups",
+    image: "images/tarot/cups/2_cups.png",
+    upright: "Partnership, mutual love, deep connection, romantic union, harmony, soul recognition",
+    reversed: "Disharmony, broken bonds, imbalance, separation, miscommunication, codependency"
+  },
+  {
+    name: "Three of Cups", numeral: "3", suit: "Cups",
+    image: "images/tarot/cups/3_cups.png",
+    upright: "Friendship, celebration, community, creative collaboration, joy shared, abundance",
+    reversed: "Overindulgence, gossip, exclusion, third party issues, superficial friendships"
+  },
+  {
+    name: "Four of Cups", numeral: "4", suit: "Cups",
+    image: "images/tarot/cups/4_cups.png",
+    upright: "Contemplation, apathy, withdrawal, missing opportunities, emotional reassessment",
+    reversed: "New motivation, emerging from withdrawal, accepting what is offered, renewed interest"
+  },
+  {
+    name: "Five of Cups", numeral: "5", suit: "Cups",
+    image: "images/tarot/cups/5_cups.png",
+    upright: "Loss, grief, disappointment, focusing on what is gone, regret, mourning",
+    reversed: "Moving on, acceptance, finding hope after grief, turning toward what remains"
+  },
+  {
+    name: "Six of Cups", numeral: "6", suit: "Cups",
+    image: "images/tarot/cups/6_cups.png",
+    upright: "Nostalgia, innocence, childhood memories, past returning, kindness, simple joy",
+    reversed: "Living in the past, inability to move forward, unresolved childhood patterns"
+  },
+  {
+    name: "Seven of Cups", numeral: "7", suit: "Cups",
+    image: "images/tarot/cups/7_cups.png",
+    upright: "Illusion, fantasy, wishful thinking, too many choices, temptation, lack of focus",
+    reversed: "Clarity after confusion, making a decision, seeing through illusion, focus returning"
+  },
+  {
+    name: "Eight of Cups", numeral: "8", suit: "Cups",
+    image: "images/tarot/cups/8_cups.png",
+    upright: "Walking away, seeking deeper meaning, emotional withdrawal, courage to leave, transition",
+    reversed: "Fear of moving on, staying in unfulfilling situations, drifting without purpose"
+  },
+  {
+    name: "Nine of Cups", numeral: "9", suit: "Cups",
+    image: "images/tarot/cups/9_cups.png",
+    upright: "Wishes fulfilled, contentment, emotional satisfaction, abundance, dreams realized",
+    reversed: "Overindulgence, inner emptiness despite outer success, greed, dissatisfaction"
+  },
+  {
+    name: "Ten of Cups", numeral: "10", suit: "Cups",
+    image: "images/tarot/cups/10_cups.png",
+    upright: "Lasting happiness, emotional fulfillment, family harmony, peace, alignment of heart and home",
+    reversed: "Broken family dynamics, dysfunctional relationships, unhappy home, fractured ideals"
+  },
+  {
+    name: "Page of Cups", numeral: "Page", suit: "Cups",
+    image: "images/tarot/cups/Page_cups.png",
+    upright: "Creative messages, intuitive gifts, dreamy imagination, emotional openness, wonder",
+    reversed: "Emotional immaturity, creative blocks, bad news, ignoring intuition, escapism"
+  },
+  {
+    name: "Knight of Cups", numeral: "Knight", suit: "Cups",
+    image: "images/tarot/cups/Knight_cups.png",
+    upright: "Romance, charm, idealism, following the heart, creative pursuit, emotional messenger",
+    reversed: "Moodiness, unreliability, manipulation, disappointing promises, emotional unavailability"
+  },
+  {
+    name: "Queen of Cups", numeral: "Queen", suit: "Cups",
+    image: "images/tarot/cups/Queen_cups.png",
+    upright: "Emotional intelligence, deep intuition, compassion, empathy, nurturing wisdom, inner knowing",
+    reversed: "Emotional manipulation, codependency, martyrdom, oversensitivity, smothering"
+  },
+  {
+    name: "King of Cups", numeral: "King", suit: "Cups",
+    image: "images/tarot/cups/King_cups.png",
+    upright: "Emotional mastery, wisdom, diplomacy, compassionate authority, calm under pressure",
+    reversed: "Emotional manipulation, moodiness, addiction, volatility beneath a calm surface"
+  },
 
   // ── SWORDS ────────────────────────────────────────────────────
-  { name: "Ace of Swords",    suit: "Swords", image: "images/tarot/swords/Ace_swords.png" },
-  { name: "Two of Swords",    suit: "Swords", image: "images/tarot/swords/2_swords.png" },
-  { name: "Three of Swords",  suit: "Swords", image: "images/tarot/swords/3_swords.png" },
-  { name: "Four of Swords",   suit: "Swords", image: "images/tarot/swords/4_swords.png" },
-  { name: "Five of Swords",   suit: "Swords", image: "images/tarot/swords/5_swords.png" },
-  { name: "Six of Swords",    suit: "Swords", image: "images/tarot/swords/6_swords.png" },
-  { name: "Seven of Swords",  suit: "Swords", image: "images/tarot/swords/7_swords.png" },
-  { name: "Eight of Swords",  suit: "Swords", image: "images/tarot/swords/8_swords.png" },
-  { name: "Nine of Swords",   suit: "Swords", image: "images/tarot/swords/9_swords.png" },
-  { name: "Ten of Swords",    suit: "Swords", image: "images/tarot/swords/10_swords.png" },
-  { name: "Page of Swords",   suit: "Swords", image: "images/tarot/swords/Page_swords.png" },
-  { name: "Knight of Swords", suit: "Swords", image: "images/tarot/swords/Knight_swords.png" },
-  { name: "Queen of Swords",  suit: "Swords", image: "images/tarot/swords/Queen_swords.png" },
-  { name: "King of Swords",   suit: "Swords", image: "images/tarot/swords/King_swords.png" },
+  {
+    name: "Ace of Swords", numeral: "Ace", suit: "Swords",
+    image: "images/tarot/swords/Ace_swords.png",
+    upright: "Mental clarity, breakthrough, truth revealed, new idea, cutting through confusion",
+    reversed: "Confusion, mental fog, lies, poor decisions, using intellect destructively"
+  },
+  {
+    name: "Two of Swords", numeral: "2", suit: "Swords",
+    image: "images/tarot/swords/2_swords.png",
+    upright: "Indecision, avoidance, stalemate, blocked emotions, self-imposed blindness",
+    reversed: "Indecision broken, facing truth, removing the blindfold, forced decision"
+  },
+  {
+    name: "Three of Swords", numeral: "3", suit: "Swords",
+    image: "images/tarot/swords/3_swords.png",
+    upright: "Heartbreak, grief, sorrow, painful truth, separation, betrayal, loss",
+    reversed: "Recovery from heartbreak, releasing grief, healing slowly, forgiving"
+  },
+  {
+    name: "Four of Swords", numeral: "4", suit: "Swords",
+    image: "images/tarot/swords/4_swords.png",
+    upright: "Rest, recuperation, meditation, withdrawal for recovery, healing through pause",
+    reversed: "Restlessness, inability to recover, forced back into action, burnout"
+  },
+  {
+    name: "Five of Swords", numeral: "5", suit: "Swords",
+    image: "images/tarot/swords/5_swords.png",
+    upright: "Conflict, defeat, underhanded tactics, winning at a cost, hollow victory",
+    reversed: "Reconciliation, moving past conflict, releasing the need to win, making peace"
+  },
+  {
+    name: "Six of Swords", numeral: "6", suit: "Swords",
+    image: "images/tarot/swords/6_swords.png",
+    upright: "Transition, moving on, mental passage, leaving difficulty behind, calmer waters ahead",
+    reversed: "Inability to move on, resisting necessary transition, carrying too much baggage forward"
+  },
+  {
+    name: "Seven of Swords", numeral: "7", suit: "Swords",
+    image: "images/tarot/swords/7_swords.png",
+    upright: "Deception, strategy, cunning, getting away with something, avoiding confrontation",
+    reversed: "Exposure, getting caught, confession, deception backfiring, coming clean"
+  },
+  {
+    name: "Eight of Swords", numeral: "8", suit: "Swords",
+    image: "images/tarot/swords/8_swords.png",
+    upright: "Self-imprisonment, limiting beliefs, feeling trapped, paralysis by fear or thought",
+    reversed: "Release from restriction, new perspective, recognizing self-imposed limitations"
+  },
+  {
+    name: "Nine of Swords", numeral: "9", suit: "Swords",
+    image: "images/tarot/swords/9_swords.png",
+    upright: "Anxiety, nightmares, mental anguish, worst-case thinking, insomnia, guilt",
+    reversed: "Hope after despair, releasing shame, seeking help, confronting inner demons"
+  },
+  {
+    name: "Ten of Swords", numeral: "10", suit: "Swords",
+    image: "images/tarot/swords/10_swords.png",
+    upright: "Painful endings, total defeat, rock bottom, betrayal, end of a cycle, dawn follows",
+    reversed: "Resisting inevitable ending, prolonging suffering, slow crawl back upward"
+  },
+  {
+    name: "Page of Swords", numeral: "Page", suit: "Swords",
+    image: "images/tarot/swords/Page_swords.png",
+    upright: "Curiosity, mental energy, truth-seeking, new ideas, vigilance, witty communication",
+    reversed: "Gossip, hasty words, deception, scattered thinking, all talk no follow-through"
+  },
+  {
+    name: "Knight of Swords", numeral: "Knight", suit: "Swords",
+    image: "images/tarot/swords/Knight_swords.png",
+    upright: "Ambition, action, fast thinking, determination, speaking truth boldly, moving fast",
+    reversed: "Recklessness, aggression, rushing in without a plan, sharp words used as weapons"
+  },
+  {
+    name: "Queen of Swords", numeral: "Queen", suit: "Swords",
+    image: "images/tarot/swords/Queen_swords.png",
+    upright: "Clear thinking, honest communication, independence, wisdom from experience, discernment",
+    reversed: "Coldness, cruelty disguised as honesty, bitterness, using truth as a weapon"
+  },
+  {
+    name: "King of Swords", numeral: "King", suit: "Swords",
+    image: "images/tarot/swords/King_swords.png",
+    upright: "Intellectual authority, clear judgment, truth above all, ethical leadership, fairness",
+    reversed: "Manipulation, abuse of power, tyrannical thinking, cold detachment, dishonesty"
+  },
 
   // ── PENTACLES ─────────────────────────────────────────────────
-  { name: "Ace of Pentacles",    suit: "Pentacles", image: "images/tarot/pentacles/Ace_pentacles.png" },
-  { name: "Two of Pentacles",    suit: "Pentacles", image: "images/tarot/pentacles/2_pentacles.png" },
-  { name: "Three of Pentacles",  suit: "Pentacles", image: "images/tarot/pentacles/3_pentacles.png" },
-  { name: "Four of Pentacles",   suit: "Pentacles", image: "images/tarot/pentacles/4_pentacles.png" },
-  { name: "Five of Pentacles",   suit: "Pentacles", image: "images/tarot/pentacles/5_pentacles.png" },
-  { name: "Six of Pentacles",    suit: "Pentacles", image: "images/tarot/pentacles/6_pentacles.png" },
-  { name: "Seven of Pentacles",  suit: "Pentacles", image: "images/tarot/pentacles/7_pentacles.png" },
-  { name: "Eight of Pentacles",  suit: "Pentacles", image: "images/tarot/pentacles/8_pentacles.png" },
-  { name: "Nine of Pentacles",   suit: "Pentacles", image: "images/tarot/pentacles/9_pentacles.png" },
-  { name: "Ten of Pentacles",    suit: "Pentacles", image: "images/tarot/pentacles/10_pentacles.png" },
-  { name: "Page of Pentacles",   suit: "Pentacles", image: "images/tarot/pentacles/Page_pentacles.png" },
-  { name: "Knight of Pentacles", suit: "Pentacles", image: "images/tarot/pentacles/Knight_pentacles.png" },
-  { name: "Queen of Pentacles",  suit: "Pentacles", image: "images/tarot/pentacles/Queen_pentacles.png" },
-  { name: "King of Pentacles",   suit: "Pentacles", image: "images/tarot/pentacles/King_pentacles.png" }
+  {
+    name: "Ace of Pentacles", numeral: "Ace", suit: "Pentacles",
+    image: "images/tarot/pentacles/Ace_pentacles.png",
+    upright: "New financial opportunity, material beginnings, prosperity, grounded new start, manifestation",
+    reversed: "Missed opportunity, poor financial planning, scarcity mindset, lost investment"
+  },
+  {
+    name: "Two of Pentacles", numeral: "2", suit: "Pentacles",
+    image: "images/tarot/pentacles/2_pentacles.png",
+    upright: "Balance, adaptability, juggling priorities, managing finances, finding rhythm in chaos",
+    reversed: "Imbalance, overwhelm, dropping the ball financially, poor time management"
+  },
+  {
+    name: "Three of Pentacles", numeral: "3", suit: "Pentacles",
+    image: "images/tarot/pentacles/3_pentacles.png",
+    upright: "Teamwork, skilled craftsmanship, collaboration, learning, recognition of skill",
+    reversed: "Lack of teamwork, corners cut, poor workmanship, disorganization, unrecognized effort"
+  },
+  {
+    name: "Four of Pentacles", numeral: "4", suit: "Pentacles",
+    image: "images/tarot/pentacles/4_pentacles.png",
+    upright: "Security, control, holding onto resources, financial caution, stability through restriction",
+    reversed: "Releasing control, generosity returning, financial loss, loosening grip"
+  },
+  {
+    name: "Five of Pentacles", numeral: "5", suit: "Pentacles",
+    image: "images/tarot/pentacles/5_pentacles.png",
+    upright: "Financial hardship, poverty mindset, exclusion, material loss, help nearby but unseen",
+    reversed: "Recovery from hardship, accepting help, improving finances, renewed hope"
+  },
+  {
+    name: "Six of Pentacles", numeral: "6", suit: "Pentacles",
+    image: "images/tarot/pentacles/6_pentacles.png",
+    upright: "Generosity, giving and receiving, charity, balance of resources, fair exchange",
+    reversed: "Strings attached, one-sided giving, debt, gifts with conditions, withholding as control"
+  },
+  {
+    name: "Seven of Pentacles", numeral: "7", suit: "Pentacles",
+    image: "images/tarot/pentacles/7_pentacles.png",
+    upright: "Patience, long-term investment, assessing progress, awaiting results, sustainable growth",
+    reversed: "Impatience, poor investment, lack of progress, working hard with little reward"
+  },
+  {
+    name: "Eight of Pentacles", numeral: "8", suit: "Pentacles",
+    image: "images/tarot/pentacles/8_pentacles.png",
+    upright: "Diligence, skill development, apprenticeship, focused work, dedication to mastery",
+    reversed: "Perfectionism, shortcuts, lack of focus, poor quality work, working without growth"
+  },
+  {
+    name: "Nine of Pentacles", numeral: "9", suit: "Pentacles",
+    image: "images/tarot/pentacles/9_pentacles.png",
+    upright: "Abundance, financial independence, self-sufficiency, luxury earned, success from effort",
+    reversed: "Financial dependence, living beyond means, false success, losing what was built"
+  },
+  {
+    name: "Ten of Pentacles", numeral: "10", suit: "Pentacles",
+    image: "images/tarot/pentacles/10_pentacles.png",
+    upright: "Legacy, generational wealth, family stability, lasting success, long-term security",
+    reversed: "Family conflict over money, failed legacy, unstable foundations, financial insecurity"
+  },
+  {
+    name: "Page of Pentacles", numeral: "Page", suit: "Pentacles",
+    image: "images/tarot/pentacles/Page_pentacles.png",
+    upright: "Ambition, diligence, new financial goals, studious energy, manifesting through focus",
+    reversed: "Procrastination, lack of focus, get-rich-quick thinking, poor financial habits"
+  },
+  {
+    name: "Knight of Pentacles", numeral: "Knight", suit: "Pentacles",
+    image: "images/tarot/pentacles/Knight_pentacles.png",
+    upright: "Reliability, hard work, methodical progress, responsibility, patience, thoroughness",
+    reversed: "Stubbornness, stagnation, perfectionism as paralysis, inflexibility, workaholic"
+  },
+  {
+    name: "Queen of Pentacles", numeral: "Queen", suit: "Pentacles",
+    image: "images/tarot/pentacles/Queen_pentacles.png",
+    upright: "Nurturing, practicality, financial security, abundance, grounded warmth, sensual wisdom",
+    reversed: "Self-neglect, financial insecurity, smothering, materialism, disconnection from body"
+  },
+  {
+    name: "King of Pentacles", numeral: "King", suit: "Pentacles",
+    image: "images/tarot/pentacles/King_pentacles.png",
+    upright: "Financial mastery, abundance, security, disciplined success, generous provider",
+    reversed: "Materialism, greed, stubbornness, using wealth as control, financial recklessness"
+  }
 
 ];
 
