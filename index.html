@@ -1672,32 +1672,52 @@ target="_blank"
 
     // ── Pull Daily Card ─────────────────────────────────────────────────────
     // -- Pull 3-card Past / Present / Future spread
-    function pullThreeCards() {
-      var deck = tarotDeck.slice().sort(function() { return Math.random() - 0.5; });
-      var picks = deck.slice(0, 3);
-      picks.forEach(function(card, i) {
-        var isReversed = Math.random() < 0.5;
-        var img        = document.getElementById('tarot-card-image-' + i);
-        var nameEl     = document.getElementById('tarot-card-name-' + i);
-        var orientEl   = document.getElementById('tarot-card-orientation-' + i);
-        var meaningBox = document.getElementById('tarot-meaning-box-' + i);
-        if (!img) return;
-        nameEl.textContent   = card.name;
-        orientEl.textContent = isReversed ? '(Reversed)' : '(Upright)';
-        if (isReversed) { img.classList.add('reversed'); } else { img.classList.remove('reversed'); }
-        img.src = '';
-        img.src = card.image;
-       img.onerror = function() {
-  this.onerror = null;
-  nameEl.textContent = card.name + ' [missing: ' + card.image + ']';
-};
-        var upHtml   = '<div class="tm-upright"><div class="tm-label">Upright</div><div class="tm-keywords">' + card.upright + '</div></div>';
-        var downHtml = '<div class="tm-reversed"><div class="tm-label">Reversed</div><div class="tm-keywords">' + card.reversed + '</div></div>';
-        meaningBox.innerHTML     = upHtml + downHtml;
-        meaningBox.style.display = 'block';
-      });
+   function pullThreeCards() {
+  var deck  = tarotDeck.slice().sort(function() { return Math.random() - 0.5; });
+  var picks = deck.slice(0, 3);
+
+  picks.forEach(function(card, i) {
+    var isReversed = Math.random() < 0.5;
+    var img        = document.getElementById('tarot-card-image-'   + i);
+    var nameEl     = document.getElementById('tarot-card-name-'    + i);
+    var orientEl   = document.getElementById('tarot-card-orientation-' + i);
+    var meaningBox = document.getElementById('tarot-meaning-box-'  + i);
+
+    // Guard — if any element is missing, skip this card
+    if (!img || !nameEl || !orientEl || !meaningBox) return;
+
+    nameEl.textContent   = card.name;
+    orientEl.textContent = isReversed ? '(Reversed)' : '(Upright)';
+
+    if (isReversed) {
+      img.classList.add('reversed');
+    } else {
+      img.classList.remove('reversed');
     }
-    function pullDailyCard() { pullThreeCards(); }
+
+    img.src = '';
+    img.src = card.image;
+
+    // onerror — use indexed nameEl, no suit element needed
+    img.onerror = function() {
+      this.onerror = null;
+      nameEl.textContent = card.name + ' [missing image]';
+    };
+
+    // Build meaning box
+    var upHtml   = '<div class="tm-upright">'  +
+                     '<div class="tm-label">Upright</div>'  +
+                     '<div class="tm-keywords">' + (card.upright  || 'No meaning found') + '</div>' +
+                   '</div>';
+    var downHtml = '<div class="tm-reversed">' +
+                     '<div class="tm-label">Reversed</div>' +
+                     '<div class="tm-keywords">' + (card.reversed || 'No meaning found') + '</div>' +
+                   '</div>';
+
+    meaningBox.innerHTML     = upHtml + downHtml;
+    meaningBox.style.display = 'block';
+  });
+}
 
     // ── Save Reading ────────────────────────────────────────────────────────
     function saveReading() {
