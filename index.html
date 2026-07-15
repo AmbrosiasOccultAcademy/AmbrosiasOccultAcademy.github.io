@@ -53,6 +53,72 @@
       align-items: center;
       gap: 0.75rem;
     }
+    /* ── Deck showcase (cover image + PDF / pre-order boxes) ─────────────── */
+    .deck-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 950px;
+      margin: 0 auto 2rem;
+    }
+    .deck-cover-image {
+      width: 260px;
+      max-width: 80vw;
+      border-radius: 14px;
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
+      flex-shrink: 0;
+    }
+    .deck-showcase-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      flex: 1 1 320px;
+      min-width: 280px;
+    }
+    .deck-showcase-info .info-box .btn {
+      margin-top: 0.75rem;
+    }
+
+    /* ── Three-card spread (Past / Present / Future) ────────────────────── */
+    .tarot-spread-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+    }
+    .tarot-spread-slot {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .tarot-spread-slot .tarot-image {
+      width: 150px;
+      height: 260px;
+      margin-bottom: 0;
+    }
+    .tarot-spread-position {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #a56bff;
+    }
+    .tarot-spread-slot .tm-keywords {
+      font-size: 0.78rem;
+    }
+    .tarot-spread-slot .tarot-meaning-box {
+      max-width: none;
+      padding: 0.85rem 1rem;
+    }
+    @media (max-width: 700px) {
+      .tarot-spread-grid { grid-template-columns: 1fr; max-width: 320px; }
+    }
+
     /* ── Tarot tabs ─────────────────────────────────────────────────────── */
     .tarot-tabs {
       display: flex; gap: 0.5rem; margin-bottom: 1.5rem; justify-content: center;
@@ -173,89 +239,6 @@
       .tsd-img-wrap img { width: 120px; }
     }
 
-
-    /* ── Theme preview cards ─────────────────────────────────────────────── */
-    .tc-day {
-      font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: #a56bff; font-weight: 700; margin-bottom: 0.3rem;
-    }
-    .tc-list {
-      list-style: none; padding: 0; margin: 0.6rem 0 0.9rem;
-      display: flex; flex-direction: column; gap: 0.25rem;
-    }
-    .tc-list li {
-      font-size: 0.79rem; color: rgba(255,255,255,0.42);
-      padding-left: 1rem; position: relative; line-height: 1.45;
-    }
-    .tc-list li::before { content: "·"; position: absolute; left: 0; color: #a56bff; }
-    .tc-cta {
-      font-size: 0.78rem; color: #EF9F27; font-weight: 600;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding-top: 0.55rem; margin-top: auto; display: block;
-    }
-    .theme-card { display: flex; flex-direction: column; }
-    .theme-card p { flex: 1; }
-
-    /* ── Hero logo ──────────────────────────────────────────────────────── */
-    .hero-logo-wrap {
-      position: relative;
-      width: 200px;
-      height: 200px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-logo-glow {
-      position: absolute;
-      inset: -24px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(165,107,255,0.6) 0%, rgba(239,159,39,0.25) 50%, transparent 75%);
-      animation: logo-pulse 3s ease-in-out infinite;
-      z-index: 0;
-    }
-    @keyframes logo-pulse {
-      0%,100% { transform: scale(1);   opacity: 0.7; }
-      50%      { transform: scale(1.12); opacity: 1;  }
-    }
-    .hero-logo-img {
-      position: relative;
-      z-index: 1;
-      width: 180px;
-      height: 180px;
-      object-fit: contain;
-      border-radius: 50%;
-      filter: drop-shadow(0 0 18px rgba(165,107,255,0.8)) drop-shadow(0 0 40px rgba(239,159,39,0.4));
-    }
-    /* ── Hero stars ─────────────────────────────────────────────────────── */
-    .hero-stars { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-    .hstar {
-      position: absolute;
-      width: 3px; height: 3px;
-      background: #fff;
-      border-radius: 50%;
-      animation: star-twinkle 2.5s ease-in-out infinite;
-    }
-    .hstar::after {
-      content: "";
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
-    }
-    @keyframes star-twinkle {
-      0%,100% { opacity: 0.2; transform: scale(0.8); }
-      50%      { opacity: 1;   transform: scale(1.5); }
-    }
-    /* ── Fade-in animation ──────────────────────────────────────────────── */
-    .hero-fade-in {
-      opacity: 0;
-      transform: translateY(16px);
-      animation: fade-up 0.9s ease forwards;
-    }
-    @keyframes fade-up {
-      to { opacity: 1; transform: translateY(0); }
-    }
   </style>
 </head>
 <body>
@@ -263,37 +246,15 @@
   <!-- ─── HEADER / HERO ──────────────────────────────────────────────────── -->
   <header class="hero">
     <div class="hero-overlay"></div>
-
-    <!-- Floating stars -->
-    <div class="hero-stars" aria-hidden="true">
-      <span class="hstar" style="top:8%;left:12%;animation-delay:0s;"></span>
-      <span class="hstar" style="top:15%;left:72%;animation-delay:0.6s;"></span>
-      <span class="hstar" style="top:28%;left:38%;animation-delay:1.2s;"></span>
-      <span class="hstar" style="top:55%;left:88%;animation-delay:0.3s;"></span>
-      <span class="hstar" style="top:70%;left:22%;animation-delay:0.9s;"></span>
-      <span class="hstar" style="top:82%;left:60%;animation-delay:1.5s;"></span>
-      <span class="hstar" style="top:40%;left:5%;animation-delay:0.7s;"></span>
-      <span class="hstar" style="top:20%;left:55%;animation-delay:1.8s;"></span>
-      <span class="hstar" style="top:65%;left:45%;animation-delay:0.4s;"></span>
-      <span class="hstar" style="top:10%;left:90%;animation-delay:1.1s;"></span>
-    </div>
-
     <div class="hero-content">
-
-      <!-- Logo with glow ring -->
-      <div class="hero-logo-wrap">
-        <div class="hero-logo-glow"></div>
-        <img src="images/AOA-Logo.png" alt="Ambrosia's Occult Academy" class="hero-logo-img" />
-      </div>
-
-      <h1 class="hero-fade-in">Ambrosia's Occult Academy</h1>
-      <p class="hero-subtitle hero-fade-in" style="animation-delay:0.3s;">
+      <h1>Ambrosia's Occult Academy</h1>
+      <p class="hero-subtitle">
         Celestial guidance, mystical education, and practical magic for modern seekers.
       </p>
-      <div class="hero-buttons hero-fade-in" style="animation-delay:0.6s;">
+      <div class="hero-buttons">
         <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">Visit YouTube</a>
         <a href="#tarot" class="btn secondary">Free Daily Tarot</a>
-        <a href="#-chart" class="btn outline"> Chart Tool</a>
+        <a href="#birth-chart" class="btn outline">Birth Chart Tool</a>
       </div>
     </div>
   </header>
@@ -303,11 +264,11 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#themes">Daily Themes</a></li>
-      <li><a href="#-chart"> Charts</a></li>
-      <li><a href="#tarot">Free 3-Card Tarot Pull</a></li>
-      <li><a href="#freaky">Live Paranormal Cams</a></li>
-	  <li><a href="#shop">Readings</a></li>
-      <li><a href="#shop">Services / Shop</a></li>
+      <li><a href="#birth-chart">Birth Charts</a></li>
+      <li><a href="#tarot">Tarot Readings</a></li>
+      <li><a href="#deck">The Deck</a></li>
+      <li><a href="#freaky">Freaky Fridays</a></li>
+      <li><a href="#shop">Future Shop</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -401,104 +362,34 @@
         Explore the Academy one day at a time — each theme opens a different doorway into the occult.
       </p>
       <div class="theme-grid">
-
         <a href="palmistry-sunday.html" class="theme-card">
-          <div class="tc-day">Sunday</div>
-          <h3>🤲 Palmistry Sundays</h3>
-          <p>Learn to read the map written in your own hands — every line, mount, and marking tells a story.</p>
-          <ul class="tc-list">
-            <li>Major &amp; minor line breakdowns</li>
-            <li>Mount meanings &amp; rare markings</li>
-            <li>Illustrated hand diagrams</li>
-          </ul>
-          <span class="tc-cta">Explore Palmistry &rarr;</span>
+          <h3>Palmistry Sundays</h3>
+          <p>Lines, mounts, and the stories written in your hands.</p>
         </a>
-
         <a href="manifest-monday.html" class="theme-card">
-          <div class="tc-day">Monday</div>
-          <h3>🌙 Manifest Mondays</h3>
-          <p>Start every week with intention. Rituals, affirmations, and meditations to align your energy with what you are calling in.</p>
-          <ul class="tc-list">
-            <li>Weekly manifestation ritual</li>
-            <li>Moon-aligned affirmations</li>
-            <li>Guided meditation practices</li>
-          </ul>
-          <span class="tc-cta">Set Your Intentions &rarr;</span>
+          <h3>Manifest, Meditate &amp; Motivate Mondays</h3>
+          <p>Rituals, affirmations, and meditations to shape your reality.</p>
         </a>
-
         <a href="tarot-tuesday.html" class="theme-card">
-          <div class="tc-day">Tuesday</div>
-          <h3>🃏 Tarot Tip Tuesdays</h3>
-          <p>Learn the language of the cards one week at a time — plus numerology, a Life Path calculator, and a free 3-card spread.</p>
-          <ul class="tc-list">
-            <li>Weekly tip, card &amp; spread</li>
-            <li>Number of the week + Life Path calculator</li>
-            <li>Full Major Arcana reference guide</li>
-            <li>How to start reading tarot</li>
-          </ul>
-          <span class="tc-cta">Learn Tarot &rarr;</span>
+          <h3>Tarot Tip Tuesdays</h3>
+          <p>Tarot tips, spreads, and a daily card to guide your path.</p>
         </a>
-
         <a href="bewitching-wednesday.html" class="theme-card">
-          <div class="tc-day">Wednesday</div>
-          <h3>🌿 Bewitching Wednesdays</h3>
-          <p>Weekly spellwork, herb magic, shadow work journaling, and the craft education every modern witch needs.</p>
-          <ul class="tc-list">
-            <li>Spell of the week with full instructions</li>
-            <li>Shadow work &amp; inner alchemy prompts</li>
-            <li>Herb magic &amp; correspondence guide</li>
-            <li>Book of Shadows tips</li>
-          </ul>
-          <span class="tc-cta">Enter the Craft &rarr;</span>
+          <h3>Bewitching Wednesdays</h3>
+          <p>Spells, herbs, and witchcraft education for modern practitioners.</p>
         </a>
-
         <a href="astrology-thursday.html" class="theme-card">
-          <div class="tc-day">Thursday</div>
-          <h3>&#9805; Astrology Thursdays</h3>
-          <p>Weekly cosmic weather, planetary transits, and your free Big 3 reading — Sun, Moon, and Rising signs decoded.</p>
-          <ul class="tc-list">
-            <li>Weekly transit forecast</li>
-            <li>Free Big 3 sign calculator</li>
-            <li>All 12 zodiac sign deep dives</li>
-            <li>Houses, aspects &amp; chart basics</li>
-          </ul>
-          <span class="tc-cta">Read the Stars &rarr;</span>
+          <h3>Astrology Thursdays</h3>
+          <p>Zodiac insights, transits, and cosmic weather reports.</p>
         </a>
-
         <a href="freaky-friday.html" class="theme-card">
-          <div class="tc-day">Friday</div>
-          <h3>&#128123; Freaky Fridays</h3>
-          <p>New ghost story and cryptid feature every week, live paranormal cams, and an interactive haunted map of America you can add to.</p>
-          <ul class="tc-list">
-            <li>Featured ghost story &amp; cryptid of the week</li>
-            <li>Interactive haunted map of all 50 states</li>
-            <li>Live ghost, cryptid &amp; UFO cams</li>
-            <li>Submit your own paranormal story</li>
-          </ul>
-          <span class="tc-cta">Enter if You Dare &rarr;</span>
+          <h3>Freaky Fridays</h3>
+          <p>Ghosts, UFOs, cryptids, and the paranormal side of reality.</p>
         </a>
-
         <a href="spellbound-saturday.html" class="theme-card">
-          <div class="tc-day">Saturday</div>
-          <h3>&#128302; Spellbound Saturdays</h3>
-          <p>The deep education wing of the Academy — ancient traditions, esoteric history, crystals, sacred tools, and grimoire studies.</p>
-          <ul class="tc-list">
-            <li>Ancient traditions: Egypt, Kabbalah, Gnosticism</li>
-            <li>Hermeticism &amp; the great grimoires</li>
-            <li>Crystal &amp; sacred tool guide</li>
-            <li>Beginner altar setup tutorials</li>
-          </ul>
-          <span class="tc-cta">Study the Old Ways &rarr;</span>
+          <h3>Spellbound Saturdays</h3>
+          <p>Weekly occult lessons, deep dives, and magical practice.</p>
         </a>
-
-      </div>
-
-      <div style="margin-top:1.75rem;padding:1.4rem 1.75rem;background:linear-gradient(135deg,rgba(239,159,39,0.12),rgba(165,107,255,0.08));border:1px solid rgba(239,159,39,0.3);border-radius:14px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
-        <div>
-          <div style="font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:#EF9F27;font-weight:700;margin-bottom:0.25rem;">Readings &amp; Shop</div>
-          <p style="margin:0;font-size:0.9rem;color:var(--text-muted);">Personal tarot readings,  chart reports, crystal kits, journals, altar setups, and Jennifer's original tarot deck.</p>
-        </div>
-        <a href="services.html" class="btn secondary" style="white-space:nowrap;">Visit the Shop &rarr;</a>
       </div>
     </div>
   </section>
@@ -510,56 +401,59 @@
       <!-- ── Tab switcher ─────────────────────────────────────────── -->
       <div class="tarot-tabs">
         <button class="tarot-tab active" onclick="switchTarotTab('pull', this)">🃏 Daily Card Pull</button>
+        <button class="tarot-tab" onclick="switchTarotTab('spread', this)">🔮 Past, Present &amp; Future</button>
         <button class="tarot-tab" onclick="switchTarotTab('search', this)">🔍 Search a Card</button>
       </div>
 
-      <!-- ── DAILY PULL: Past / Present / Future ────────────────────── -->
+      <!-- ── DAILY PULL ────────────────────────────────────────────── -->
       <div id="tarot-panel-pull" class="tarot-panel">
-        <p style="text-align:center;color:rgba(255,255,255,0.55);font-size:0.9rem;margin-bottom:1.25rem;">
-          Set your intention, then pull three cards.
-        </p>
-        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1.5rem;margin-bottom:1.25rem;">
-
-          <div class="tarot-card-display" style="flex:1;min-width:180px;max-width:240px;">
-            <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#a56bff;margin-bottom:0.5rem;">Past</div>
-            <img id="tarot-card-image-0" src="images/tarot/back.png" alt="Past Card" class="tarot-image" />
-            <p class="tarot-label">
-              <span id="tarot-card-name-0">-</span><br/>
-              <span id="tarot-card-orientation-0" style="font-size:0.8rem;color:rgba(255,255,255,0.45);"></span>
-            </p>
-            <div id="tarot-meaning-box-0" class="tarot-meaning-box" style="display:none;"></div>
-          </div>
-
-          <div class="tarot-card-display" style="flex:1;min-width:180px;max-width:240px;">
-            <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#EF9F27;margin-bottom:0.5rem;">Present</div>
-            <img id="tarot-card-image-1" src="images/tarot/back.png" alt="Present Card" class="tarot-image" />
-            <p class="tarot-label">
-  <span id="tarot-card-name">Your card will appear here</span>
-  <br />
-  <span id="tarot-card-suit" style="font-size:0.8rem; 
-    color:rgba(240,230,211,0.5); 
-    font-style:italic;">
-  </span>
-  <br />
-  <span id="tarot-card-orientation"></span>
-</p>
-            <div id="tarot-meaning-box-1" class="tarot-meaning-box" style="display:none;"></div>
-          </div>
-
-          <div class="tarot-card-display" style="flex:1;min-width:180px;max-width:240px;">
-            <div style="font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;color:#4bb4ff;margin-bottom:0.5rem;">Future</div>
-            <img id="tarot-card-image-2" src="images/tarot/back.png" alt="Future Card" class="tarot-image" />
-            <p class="tarot-label">
-              <span id="tarot-card-name-2">-</span><br/>
-              <span id="tarot-card-orientation-2" style="font-size:0.8rem;color:rgba(255,255,255,0.45);"></span>
-            </p>
-            <div id="tarot-meaning-box-2" class="tarot-meaning-box" style="display:none;"></div>
-          </div>
-
-        </div>
-        <div style="text-align:center;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
-          <button type="button" class="btn secondary" onclick="pullThreeCards()">Pull Your Three Cards</button>
+        <div class="tarot-card-display">
+          <img id="tarot-card-image" src="images/tarot/back.png" alt="Tarot Card" class="tarot-image" />
+          <p class="tarot-label">
+            <span id="tarot-card-name">Your card will appear here</span>
+            <br />
+            <span id="tarot-card-orientation"></span>
+          </p>
+          <div id="tarot-meaning-box" class="tarot-meaning-box" style="display:none;"></div>
+          <button type="button" class="btn secondary" onclick="pullDailyCard()">Pull a Free Daily Card</button>
           <button type="button" class="btn outline" onclick="saveReading()">Save This Reading</button>
+        </div>
+      </div>
+
+      <!-- ── PAST / PRESENT / FUTURE SPREAD ──────────────────────────── -->
+      <div id="tarot-panel-spread" class="tarot-panel" style="display:none;">
+        <div class="tarot-spread-grid" id="tarot-spread-grid">
+          <div class="tarot-spread-slot">
+            <span class="tarot-spread-position">Past</span>
+            <img id="spread-card-image-0" src="images/tarot/back.png" alt="Past Card" class="tarot-image" />
+            <p class="tarot-label">
+              <span id="spread-card-name-0">—</span><br />
+              <span id="spread-card-orientation-0"></span>
+            </p>
+            <div id="spread-meaning-box-0" class="tarot-meaning-box" style="display:none;"></div>
+          </div>
+          <div class="tarot-spread-slot">
+            <span class="tarot-spread-position">Present</span>
+            <img id="spread-card-image-1" src="images/tarot/back.png" alt="Present Card" class="tarot-image" />
+            <p class="tarot-label">
+              <span id="spread-card-name-1">—</span><br />
+              <span id="spread-card-orientation-1"></span>
+            </p>
+            <div id="spread-meaning-box-1" class="tarot-meaning-box" style="display:none;"></div>
+          </div>
+          <div class="tarot-spread-slot">
+            <span class="tarot-spread-position">Future</span>
+            <img id="spread-card-image-2" src="images/tarot/back.png" alt="Future Card" class="tarot-image" />
+            <p class="tarot-label">
+              <span id="spread-card-name-2">—</span><br />
+              <span id="spread-card-orientation-2"></span>
+            </p>
+            <div id="spread-meaning-box-2" class="tarot-meaning-box" style="display:none;"></div>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <button type="button" class="btn secondary" onclick="pullThreeCards()">Pull Past, Present &amp; Future</button>
+          <button type="button" class="btn outline" onclick="saveSpreadReading()">Save This Reading</button>
         </div>
       </div>
 
@@ -581,173 +475,209 @@
       </div>
 
       <div class="info-box" style="margin-top:1.5rem;">
-        <h3>Full Tarot Reading — $19.95</h3>
+        <h3>Full Tarot Reading — $9.95</h3>
         <p>
-          For $19.95, receive a full email reading tailored to your question or situation. I'll pull a spread,
+          For $9.95, receive a full email reading tailored to your question or situation. I'll pull a spread,
           interpret each card, and share clear, compassionate guidance.
-        <a href="/pages/tarot-form.html"
-   class="btn outline"
-   style="width:100%;display:flex;justify-content:center;margin-top:0.5rem;">
-  📋 Submit Tarot Reading Form
-</a>
-
+        </p>
+        <p class="small-note">
+          To request a full reading, email me with your question and "Full Tarot Reading" in the subject line.
+        </p>
       </div>
 
     </div><!-- /.section-inner -->
   </section>
 
- <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
-<section class="section section-light" id="birth-chart">
-  <div class="section-inner">
-
-    <h2 class="section-title">Birth Chart Mini‑Reading</h2>
-    <p class="section-intro">
-      Discover your <strong>Sun</strong>, <strong>Moon</strong>, and <strong>Rising</strong> signs — 
-      the three celestial constellations that shape your identity, emotions, and outward presence.
-    </p>
-
-    <!-- SVG OCCULT ACADEMY SEAL -->
-    <div class="birthchart-seal-container">
-    <svg id="academy-seal" viewBox="0 0 300 300">
-
-  <!-- Outer Circle -->
-  <circle cx="150" cy="150" r="140"
-          stroke="#EF9F27" stroke-width="3" fill="none"/>
-
-  <!-- Inner Glow Circle -->
-  <circle cx="150" cy="150" r="115"
-          stroke="rgba(239,159,39,0.45)" stroke-width="1.5"
-          stroke-dasharray="6 4" fill="none"/>
-
-  <!-- Arcane Star -->
-  <polygon points="
-    150,40
-    200,110
-    260,130
-    210,190
-    220,260
-    150,230
-    80,260
-    90,190
-    40,130
-    100,110
-  " stroke="#EF9F27" stroke-width="2" fill="none"/>
-
-  <!-- Runic Ring -->
-  <g id="runic-ring">
-    <text x="150" y="60" text-anchor="middle"
-          fill="#EF9F27" font-size="12" font-family="Cinzel">
-      ✦ ᚠ ᚨ ᛉ ᛞ ✦
-    </text>
-    <text x="150" y="285" text-anchor="middle"
-          fill="#EF9F27" font-size="12" font-family="Cinzel">
-      ✦ ᛟ ᚾ ᚱ ᛇ ✦
-    </text>
-  </g>
-
-  <!-- Crescent Moons -->
-  <path d="M110 150
-           A40 40 0 1 1 109 149
-           A30 40 0 1 0 110 150"
-        stroke="#EF9F27" stroke-width="1.5" fill="none"/>
-
-  <path d="M190 150
-           A40 40 0 1 0 191 151
-           A30 40 0 1 1 190 150"
-        stroke="#EF9F27" stroke-width="1.5" fill="none"/>
-
-  <!-- 12 House Lines — drawn by JS -->
-  <g id="house-lines"></g>
-
-  <!-- Glyph placeholders -->
-  <g id="glyph-layer"></g>
-
-</svg>
-
-    </div>
-
-    <!-- INPUT FORM -->
-    <div class="info-box">
-      <div class="form-grid">
-        <div class="form-field">
-          <label for="birth-date">Birth Date</label>
-          <input type="date" id="birth-date" />
-        </div>
-        <div class="form-field">
-          <label for="birth-time">Birth Time</label>
-          <input type="time" id="birth-time" />
-        </div>
-        <div class="form-field">
-          <label for="birth-location">Birth Location</label>
-          <input type="text" id="birth-location" placeholder="City, State or Country" />
-        </div>
-      </div>
-      <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
-    </div>
-
-    <!-- RESULTS -->
-    <div id="birth-results" class="info-box" style="display:none;">
-      <h3>Your Big Three</h3>
-
-      <p><strong>☀️ Sun Sign:</strong> <span id="sun-sign"></span></p>
-      <p><strong>🌙 Moon Sign:</strong> <span id="moon-sign"></span></p>
-      <p><strong>⬆️ Rising Sign:</strong> <span id="rising-sign"></span></p>
-
-      <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
-        ✨ <strong style="color:#d7e2ff;">Want to understand what your Big Three mean?</strong><br>
-        Visit <a href="astrology-thursday.html#big-three" style="color:#a56bff;">Astrology Thursday</a> 
-        for interpretations of your Sun, Moon, and Rising signs — plus a full guide to the 12 houses.
+  <!-- ─── THE DECK — PDF + PRE-ORDER ────────────────────────────────────── -->
+  <section id="deck" class="section section-light">
+    <div class="section-inner">
+      <h2 class="section-title">Ambrosia's Occult Academy Tarot Deck</h2>
+      <p class="section-intro">
+        My original, hand-drawn 78-card tarot deck is finally here. Get the digital PDF instantly,
+        or reserve your spot for a printed hard-copy deck.
       </p>
 
-      <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
+      <div class="deck-showcase">
+        <!-- TODO: swap this src for the real deck cover once you upload the image
+             (placeholder path — suggested convention: images/tarot/deck-cover.jpg) -->
+        <img
+          src="images/tarot/deck-cover.jpg"
+          alt="Ambrosia's Occult Academy Tarot Deck cover"
+          class="deck-cover-image"
+          onerror="this.src='images/tarot/back.png'"
+        />
+
+        <div class="deck-showcase-info">
+          <div class="info-box">
+            <h3>📄 PDF Deck — $17.50</h3>
+            <p>
+              All 78 cards as high-resolution, print-ready images you can download instantly —
+              perfect for digital use or printing your own deck at home.
+            </p>
+            <a
+              href="https://payhip.com/b/4K0Yk"
+              target="_blank"
+              rel="noopener"
+              class="btn secondary">
+              🛒 Buy the PDF Deck — $17.50
+            </a>
+          </div>
+
+          <div class="info-box">
+            <h3>🃏 Hard-Copy Deck — Pre-Order</h3>
+            <p>
+              Printed, physical decks are in the works. Price is still being finalized —
+              reserve your spot below and I'll email you as soon as pricing and shipping are confirmed.
+            </p>
+            <a href="#deck-preorder-form" class="btn outline">✨ Reserve My Deck</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── HARD-COPY PRE-ORDER FORM ─────────────────────────────────── -->
+      <div id="deck-preorder-form" class="ghost-form-wrap">
+        <h3>✉️ Pre-Order the Hard-Copy Deck</h3>
+        <p style="color:rgba(255,255,255,0.5); font-size:0.85rem; margin-top:0; margin-bottom:1rem;">
+          No payment now — this just reserves your spot on the list. Price to be determined.
+        </p>
+
+        <!-- TODO: replace YOUR_FORMSPREE_ID with a real Formspree endpoint before launch -->
+        <form
+          id="deck-preorder-form-el"
+          action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+          method="POST">
+
+          <div class="ghost-form-grid">
+
+            <div class="ghost-form-field">
+              <label for="po-name">Your Name <span style="color:#EF9F27">*</span></label>
+              <input type="text" id="po-name" name="name" placeholder="Full name" required />
+            </div>
+
+            <div class="ghost-form-field">
+              <label for="po-email">Email Address <span style="color:#EF9F27">*</span></label>
+              <input type="email" id="po-email" name="email" placeholder="so Jennifer can reach you" required />
+            </div>
+
+            <div class="ghost-form-field">
+              <label for="po-quantity">How Many Decks?</label>
+              <select id="po-quantity" name="quantity">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4+">4 or more</option>
+              </select>
+            </div>
+
+            <div class="ghost-form-field">
+              <label for="po-location">Shipping City / State / Country</label>
+              <input type="text" id="po-location" name="location" placeholder="Optional, for shipping estimates" />
+            </div>
+
+            <div class="ghost-form-field full-width">
+              <label for="po-notes">Notes or Questions</label>
+              <textarea
+                id="po-notes"
+                name="notes"
+                rows="4"
+                placeholder="Anything you'd like me to know? (optional)"></textarea>
+            </div>
+
+          </div><!-- /.ghost-form-grid -->
+
+          <!-- Hidden fields Formspree uses -->
+          <input type="hidden" name="_subject" value="🃏 New Tarot Deck Pre-Order" />
+          <input type="text" name="_gotcha" style="display:none" /> <!-- honeypot spam trap -->
+
+          <div class="ghost-form-actions">
+            <button type="submit" class="btn secondary">🃏 Reserve My Deck</button>
+          </div>
+
+          <div id="deck-preorder-message"></div>
+
+        </form>
+      </div><!-- /.ghost-form-wrap -->
+
+    </div><!-- /.section-inner -->
+  </section>
+
+  <!-- ─── BIRTH CHART SECTION ───────────────────────────────────────────── -->
+  <section class="section section-light" id="birth-chart">
+    <div class="section-inner">
+
+      <h2 class="section-title">Birth Chart Mini‑Reading</h2>
+      <p class="section-intro">Reveal your Sun, Moon, and Rising signs through the Academy's Arcane Seal.</p>
+
+      <!-- SVG OCCULT ACADEMY SEAL -->
+      <div class="birthchart-seal-container">
+        <svg id="academy-seal" viewBox="0 0 300 300">
+          <!-- Outer Circle -->
+          <circle cx="150" cy="150" r="140" stroke="#EF9F27" stroke-width="3" fill="none"/>
+
+          <!-- Inner Star -->
+          <polygon points="
+            150,40
+            200,110
+            260,130
+            210,190
+            220,260
+            150,230
+            80,260
+            90,190
+            40,130
+            100,110
+          " stroke="#EF9F27" stroke-width="2" fill="none"/>
+
+          <!-- 12 House Lines — drawn by JS after DOM is ready -->
+          <g id="house-lines"></g>
+
+          <!-- Glyph placeholders -->
+          <g id="glyph-layer"></g>
+        </svg>
+      </div>
+
+      <!-- INPUT FORM -->
+      <div class="info-box">
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="birth-date">Birth Date</label>
+            <input type="date" id="birth-date" />
+          </div>
+          <div class="form-field">
+            <label for="birth-time">Birth Time</label>
+            <input type="time" id="birth-time" />
+          </div>
+          <div class="form-field">
+            <label for="birth-location">Birth Location</label>
+            <input type="text" id="birth-location" placeholder="City, State or Country" />
+          </div>
+        </div>
+        <button class="btn primary" onclick="generateBirthChart()">Reveal My Cosmic Blueprint</button>
+      </div>
+
+      <!-- RESULTS (hidden until chart is generated) -->
+      <div id="birth-results" class="info-box" style="display:none;">
+        <h3>Your Big Three</h3>
+        <p><strong>☀️ Sun:</strong> <span id="sun-sign"></span></p>
+        <p><strong>🌙 Moon:</strong> <span id="moon-sign"></span></p>
+        <p><strong>⬆️ Rising:</strong> <span id="rising-sign"></span></p>
+        <p class="small-note" style="margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid rgba(165,107,255,0.15);">
+          🏠 <strong style="color:#d7e2ff;">Want to understand what your placements mean?</strong>
+          Visit <a href="astrology-thursday.html#house-guide" style="color:#a56bff;">Astrology Thursday</a>
+          for our House Placement Guide — covering what every planet means in your 1st, 2nd, and 3rd house.
+        </p>
+        <button class="btn outline" onclick="saveBirthReading()">Save This Reading</button>
+      </div>
+
+      <!-- UPSELL -->
+      <div class="info-box upsell-box">
+        <h3>Unlock Your Full Birth Chart — $9.95</h3>
+        <p>Receive a 3‑page PDF with all 12 houses, planetary aspects, elemental balance, and personalized interpretations.</p>
+        <button class="btn secondary">Purchase Full Reading</button>
+      </div>
+
     </div>
-
-    <!-- UPSELL -->
-    <div class="info-box upsell-box">
-      <h3>Go Deeper Into Your Cosmic Blueprint</h3>
-
-      <p><strong>✧ Celestial Birth Chart Portrait — $9.95</strong><br>
-      A beautifully rendered image of your full chart wheel, including all 12 houses and planetary placements.</p>
-
-		<a href="https://paypal.me/ambrosiasoccultacad/9.95" 
-   target="_blank" 
-   class="btn primary">
-  💳 Purchase Celestial Birth Chart Portrait — $9.95
-</a>
-		<a href="/pages/birthchart-form.html" 
-   class="btn outline" 
-   style="margin-top:0.5rem;">
-  📋 Submit Birth Details
-</a>
-
-
-      <p><strong>✧ Complete Cosmic Blueprint Reading — $19.95</strong><br>
-      A detailed, intuitive interpretation of your entire birth chart — Sun, Moon, Rising, planets, houses, aspects, and more.</p>
-
-    <a href="https://paypal.me/ambrosiasoccultacad/19.95" 
-   target="_blank" 
-   class="btn primary">
-  💳 Purchase Portrait + Full Reading — $19.95
-</a>
-
-		<div class="info-box">
-  <h3>🌙 Sample Full Birth Chart Reading</h3>
-  <p>Here is a complete example of what you receive when ordering a full natal chart reading.</p>
-  <a href="diana-reading.html" class="btn secondary">View Example Reading</a>
-</div>
-		
-  <a href="/pages/birthchart-form.html" 
-   class="btn outline" 
-   style="margin-top:0.5rem;">
-  📋 Submit Birth Details
-</a>
-
-
-
-    </div>
-
-  </div>
-</section>
+  </section>
 
 
    <!-- ─── INLINE STYLES for Freaky Friday additions ─────────────────────── -->
@@ -1042,106 +972,30 @@
      </div><!-- /.section-inner -->
    </section>
 
-  <!-- ─── READING SERVICES / FUTURE SHOP ───────────────────────────────────────────────────── -->
+  <!-- ─── FUTURE SHOP ───────────────────────────────────────────────────── -->
   <section id="shop" class="section section-dark">
     <div class="section-inner">
-      <h2>&#128717; Shop &amp; Services</h2>
-      <p class="section-intro">Personal readings, birth charts, and handcrafted tools for your practice.</p>
+      <h2>Future Apothecary &amp; Candle Shop</h2>
+      <p class="section-intro">
+        Coming soon: hand‑poured candles, spell tools, and celestial creations aligned with each zodiac sign.
+      </p>
       <div class="shop-grid">
         <div class="info-box">
-          <h3>&#9986; Emailed Tarot Reading — $19.95</h3>
-          <p>A full personalized spread read for your specific question, with compassionate guidance delivered to your inbox.</p>
-          <a href="https://paypal.me/ambrosiasoccultacad/19.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $19.95</a>
-        </div>
-		    <div class="info-box">
-          <h3>&#9986; Emailed Palmistry Reading — $14.95</h3>
-          <p>A full personalized interpretation of the four major lines (head, heart, fate, and life), breaks, key markings, & notable features on both dominant and non-dominat hand delivered to your inbox.</p>
-          <a href="https://paypal.me/ambrosiasoccultacad/14.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $14.95</a>
-        </div>
-		  <div class="info-box">
-          <h3>&#127769; Celestial Birth Chart Portrait — $9.95</h3>
-          <p>A beautifully rendered image of your full chart wheel, including all 12 houses and planetary placements.</p>
-          <a href="https://paypal.me/ambrosiasoccultacad/9.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $9.95</a>
-			   <h3>🌙 Natal Chart Portrait — Example</h3>
-  <img src="images/PrincessDiana_NatalChart.png"
-       alt="Princess Diana Natal Chart Portrait"
-       style="width:100%;max-width:300px;border-radius:10px;margin:0.75rem 0;">
-
-  <p>Every natal chart reading includes a custom chart portrait like the example shown above.</p>
+          <h3>Zodiac Candles</h3>
+          <p>
+            Soy candles crafted for each sign — with colors, scents, and gemstone chips chosen to match your cosmic energy.
+          </p>
         </div>
         <div class="info-box">
-          <h3>&#127769; Full Birth Chart Report — $19.95</h3>
-          <p>All 12 houses, planetary aspects, and personalized interpretations generated with Jennifer's custom program.</p>
-          <a href="https://paypal.me/ambrosiasoccultacad/19.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $19.95</a>
-			
-  <h3>🌙 Sample Full Birth Chart Reading</h3>
-  <p>Here is a complete example of what you receive when ordering a full natal chart reading.</p>
-  <a href="diana-reading.html" class="btn secondary">View Example Reading</a>
-</div>
-        <div class="info-box">
-          <h3>&#128142; Crystal Starter Kit — $24.95</h3>
-          <p>Six foundational stones plus a selenite charging plate — everything you need to begin working with crystals.</p>
-          <a href="https://paypal.me/ambrosiasoccultacad/24.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $24.95</a>
-        </div>
-		 <<div class="info-box">
-
-<!-- Small Product Image -->
-  <div style="text-align:center; margin-bottom:0.75rem;">
-    <img src="images/DreamJournal_Cover.png"
-         alt="Celestial Dream Journal"
-         style="max-width:140px; border-radius:10px; box-shadow:0 0 12px rgba(0,0,0,0.25);">
-  </div>
-
-    <h3>🌙 Celestial Dream Journal — PDF & Hardcover Pre‑Order</h3>
-
-  <p>
-    A guided dreamwork journal featuring daily entries, moon phase tracking, 
-    shadow dream work, lucid dreaming prompts, and a full symbol reference guide. 
-    Available in 30‑day and 90‑day PDF editions, with hardcover pre‑orders open now.
-  </p>
-
-  <!-- PDF Buttons -->
-  <a href= "https://payhip.com/b/ey9nH"
-target="_blank" 
-     class="btn secondary" 
-     style="margin-top:0.75rem; display:inline-block;">
-     🌙 30‑Day PDF — $15
-  </a>
-
-  <a href="https://payhip.com/b/SsDoN" target="_blank" 
-     class="btn secondary" 
-     style="margin-top:0.75rem; display:inline-block;">
-     🌙 90‑Day PDF — $35
-  </a>
-
-  <h3>🌙 Celestial Dream Journal — Hardcover Pre‑Order</h3>
-
-  <p>
-    Reserve your printed hardcover edition of the Celestial Dream Journal.  
-    Choose between the 30‑day or 90‑day guided dreamwork version.
-  </p>
-
-  <a href="preorder.html" class="btn secondary" 
-     style="margin-top:0.75rem; display:inline-block;">
-     💫 Pre‑Order 30‑Day Hardcover — $25
-  </a>
-
-  <a href="preorder.html" class="btn secondary" 
-     style="margin-top:0.75rem; display:inline-block;">
-     💫 Pre‑Order 90‑Day Hardcover — $45
-  </a>
-
-</div>
-
-        <div class="info-box">
-          <h3>&#128214; Book of Shadows Journal — $14.95</h3>
-          <p>Lay-flat binding, thick pages, and section dividers for spells, moon work, herbs, crystals, and dreams.</p>
-          <a href="https://paypal.me/ambrosiasoccultacad/14.95" target="_blank" class="btn secondary" style="margin-top:0.75rem;display:inline-block;">Order — $14.95</a>
+          <h3>Spell Candles</h3>
+          <p>
+            Intention‑based candles dressed with herbs, oils, and crystals to support your rituals and manifestations.
+          </p>
         </div>
       </div>
-      <div style="text-align:center;margin-top:1.5rem;">
-        <a href="services.html" class="btn outline">See All Products &amp; Services &rarr;</a>
-      </div>
+      <p class="small-note">
+        Check back soon or follow my YouTube channel for launch updates.
+      </p>
     </div>
   </section>
 
@@ -1177,492 +1031,80 @@ target="_blank"
        TAROT — deck data with upright + reversed meanings
     ===================================================================== */
     const tarotDeck = [
-
-  // ── MAJOR ARCANA ──────────────────────────────────────────────
-  {
-    name: "The Fool", numeral: "0", suit: "Major Arcana",
-    image: "images/tarot/major/fool.png",
-    upright: "New beginnings, innocence, spontaneity, free spirit, leap of faith",
-    reversed: "Recklessness, risk-taking, poor judgment, naivety, holding back"
-  },
-  {
-    name: "The Magician", numeral: "I", suit: "Major Arcana",
-    image: "images/tarot/major/magician.png",
-    upright: "Manifestation, willpower, skill, resourcefulness, inspired action",
-    reversed: "Manipulation, poor planning, untapped talent, trickery, illusion"
-  },
-  {
-    name: "The High Priestess", numeral: "II", suit: "Major Arcana",
-    image: "images/tarot/major/high-priestess.png",
-    upright: "Intuition, sacred knowledge, divine feminine, inner wisdom, mystery",
-    reversed: "Secrets, disconnected intuition, withdrawal, repressed feelings"
-  },
-  {
-    name: "The Empress", numeral: "III", suit: "Major Arcana",
-    image: "images/tarot/major/empress.png",
-    upright: "Femininity, abundance, nurturing, nature, fertility, creativity",
-    reversed: "Creative block, dependence, smothering, emptiness, neglect"
-  },
-  {
-    name: "The Emperor", numeral: "IV", suit: "Major Arcana",
-    image: "images/tarot/major/emperor.png",
-    upright: "Authority, structure, stability, leadership, protection, fatherhood",
-    reversed: "Domination, rigidity, control, excessive discipline, lack of authority"
-  },
-  {
-    name: "The Hierophant", numeral: "V", suit: "Major Arcana",
-    image: "images/tarot/major/hierophant.png",
-    upright: "Tradition, conformity, spiritual guidance, institutions, shared beliefs",
-    reversed: "Rebellion, unconventional path, breaking tradition, forging your own way"
-  },
-  {
-    name: "The Lovers", numeral: "VI", suit: "Major Arcana",
-    image: "images/tarot/major/lovers.png",
-    upright: "Love, harmony, relationships, values alignment, choices, partnership",
-    reversed: "Disharmony, imbalance, misaligned values, bad choices, conflict"
-  },
-  {
-    name: "The Chariot", numeral: "VII", suit: "Major Arcana",
-    image: "images/tarot/major/chariot.png",
-    upright: "Control, willpower, victory, determination, success through effort",
-    reversed: "Lack of control, aggression, no direction, scattered energy, defeat"
-  },
-  {
-    name: "Strength", numeral: "VIII", suit: "Major Arcana",
-    image: "images/tarot/major/strength.png",
-    upright: "Inner strength, courage, patience, compassion, soft control",
-    reversed: "Self-doubt, weakness, insecurity, raw emotion, lack of confidence"
-  },
-  {
-    name: "The Hermit", numeral: "IX", suit: "Major Arcana",
-    image: "images/tarot/major/hermit.png",
-    upright: "Solitude, inner guidance, introspection, withdrawal, seeking truth",
-    reversed: "Isolation, loneliness, withdrawal gone too far, refusing guidance"
-  },
-  {
-    name: "Wheel of Fortune", numeral: "X", suit: "Major Arcana",
-    image: "images/tarot/major/wheel-of-fortune.png",
-    upright: "Good luck, karma, life cycles, destiny, turning point, fate",
-    reversed: "Bad luck, resistance to change, breaking cycles, no control"
-  },
-  {
-    name: "Justice", numeral: "XI", suit: "Major Arcana",
-    image: "images/tarot/major/justice.png",
-    upright: "Justice, fairness, truth, cause and effect, law, accountability",
-    reversed: "Unfairness, lack of accountability, dishonesty, avoiding consequences"
-  },
-  {
-    name: "The Hanged Man", numeral: "XII", suit: "Major Arcana",
-    image: "images/tarot/major/hanged-man.png",
-    upright: "Pause, surrender, letting go, new perspective, sacrifice",
-    reversed: "Martyrdom, stalling, resistance, indecision, refusing to let go"
-  },
-  {
-    name: "Death", numeral: "XIII", suit: "Major Arcana",
-    image: "images/tarot/major/death.png",
-    upright: "Endings, transformation, transition, letting go, new beginnings",
-    reversed: "Resistance to change, inability to move on, stagnation, fear of endings"
-  },
-  {
-    name: "Temperance", numeral: "XIV", suit: "Major Arcana",
-    image: "images/tarot/major/temperance.png",
-    upright: "Balance, moderation, patience, purpose, meaning, divine timing",
-    reversed: "Imbalance, excess, lack of patience, conflict, re-alignment needed"
-  },
-  {
-    name: "The Devil", numeral: "XV", suit: "Major Arcana",
-    image: "images/tarot/major/devil.png",
-    upright: "Shadow self, addiction, restriction, materialism, bondage, patterns",
-    reversed: "Releasing limiting beliefs, freedom, reclaiming power, detachment"
-  },
-  {
-    name: "The Tower", numeral: "XVI", suit: "Major Arcana",
-    image: "images/tarot/major/tower.png",
-    upright: "Sudden upheaval, chaos, revelation, disruption, awakening",
-    reversed: "Avoiding disaster, fear of change, averting crisis, personal upheaval"
-  },
-  {
-    name: "The Star", numeral: "XVII", suit: "Major Arcana",
-    image: "images/tarot/major/star.png",
-    upright: "Hope, renewal, serenity, inspiration, faith, healing, clarity",
-    reversed: "Despair, lack of faith, disconnection, hopelessness, creative block"
-  },
-  {
-    name: "The Moon", numeral: "XVIII", suit: "Major Arcana",
-    image: "images/tarot/major/moon.png",
-    upright: "Illusion, fear, the subconscious, dreams, uncertainty, confusion",
-    reversed: "Releasing fear, repressed emotion, inner confusion clearing, truth emerging"
-  },
-  {
-    name: "The Sun", numeral: "XIX", suit: "Major Arcana",
-    image: "images/tarot/major/sun.png",
-    upright: "Joy, success, vitality, positivity, confidence, abundance, clarity",
-    reversed: "Temporary sadness, inner child blocked, overly optimistic, clouds blocking light"
-  },
-  {
-    name: "Judgement", numeral: "XX", suit: "Major Arcana",
-    image: "images/tarot/major/judgement.png",
-    upright: "Reflection, reckoning, awakening, absolution, inner calling",
-    reversed: "Self-doubt, refusal of self-examination, ignoring the call, harsh self-judgment"
-  },
-  {
-    name: "The World", numeral: "XXI", suit: "Major Arcana",
-    image: "images/tarot/major/world.png",
-    upright: "Completion, integration, accomplishment, wholeness, fulfillment",
-    reversed: "Incompletion, shortcuts, delays, lack of closure, unfinished business"
-  },
-
-  // ── WANDS ─────────────────────────────────────────────────────
-  {
-    name: "Ace of Wands", numeral: "Ace", suit: "Wands",
-    image: "images/tarot/wands/Ace_wands.png",
-    upright: "New beginnings, creative inspiration, passion, career opportunity, raw potential",
-    reversed: "Delays, creative blocks, false starts, lack of motivation, misdirected energy"
-  },
-  {
-    name: "Two of Wands", numeral: "2", suit: "Wands",
-    image: "images/tarot/wands/2_wands.png",
-    upright: "Future planning, bold vision, personal power, expansion, moving forward",
-    reversed: "Fear of change, lack of planning, playing it safe, indecision, staying small"
-  },
-  {
-    name: "Three of Wands", numeral: "3", suit: "Wands",
-    image: "images/tarot/wands/3_wands.png",
-    upright: "Expansion, foresight, overseas opportunities, waiting for results, confidence",
-    reversed: "Delays, obstacles to expansion, lack of foresight, plans not returning as hoped"
-  },
-  {
-    name: "Four of Wands", numeral: "4", suit: "Wands",
-    image: "images/tarot/wands/4_wands.png",
-    upright: "Celebration, homecoming, harmony, milestone achieved, community, joy",
-    reversed: "Lack of support, instability, delayed celebration, disharmony, feeling unwelcome"
-  },
-  {
-    name: "Five of Wands", numeral: "5", suit: "Wands",
-    image: "images/tarot/wands/5_wands.png",
-    upright: "Competition, conflict, disagreement, rivalry, healthy challenge, diverse opinions",
-    reversed: "Avoiding conflict, inner tension, pointless arguments, suppressed aggression"
-  },
-  {
-    name: "Six of Wands", numeral: "6", suit: "Wands",
-    image: "images/tarot/wands/6_wands.png",
-    upright: "Victory, public recognition, success, achievement, leadership, confidence",
-    reversed: "Egotism, delayed success, fall from grace, lack of recognition, seeking validation"
-  },
-  {
-    name: "Seven of Wands", numeral: "7", suit: "Wands",
-    image: "images/tarot/wands/7_wands.png",
-    upright: "Perseverance, standing your ground, protecting your position, courage under pressure",
-    reversed: "Giving up, feeling overwhelmed, capitulating, exhaustion from constant defense"
-  },
-  {
-    name: "Eight of Wands", numeral: "8", suit: "Wands",
-    image: "images/tarot/wands/8_wands.png",
-    upright: "Rapid movement, swift action, momentum, travel, events happening fast, alignment",
-    reversed: "Delays, miscommunication, things grinding to a halt, misdirection, chaos"
-  },
-  {
-    name: "Nine of Wands", numeral: "9", suit: "Wands",
-    image: "images/tarot/wands/9_wands.png",
-    upright: "Resilience, persistence, last stand, courage despite exhaustion, defensive strength",
-    reversed: "Paranoia, giving up at the last moment, stubbornness, old wounds reopened"
-  },
-  {
-    name: "Ten of Wands", numeral: "10", suit: "Wands",
-    image: "images/tarot/wands/10_wands.png",
-    upright: "Burden, overcommitment, taking on too much, exhaustion, nearing end of heavy journey",
-    reversed: "Refusing to delegate, martyrdom, unnecessary burden, inability to ask for help"
-  },
-  {
-    name: "Page of Wands", numeral: "Page", suit: "Wands",
-    image: "images/tarot/wands/Page_wands.png",
-    upright: "Enthusiasm, new ideas, free spirit, adventurous energy, inspired beginnings, curiosity",
-    reversed: "Immaturity, recklessness, lack of follow-through, scattered energy, creative blocks"
-  },
-  {
-    name: "Knight of Wands", numeral: "Knight", suit: "Wands",
-    image: "images/tarot/wands/Knight_wands.png",
-    upright: "Action, adventure, fearlessness, passion in motion, confidence, rapid progress",
-    reversed: "Recklessness, arrogance, scattered energy, hot-headed decisions, burnout"
-  },
-  {
-    name: "Queen of Wands", numeral: "Queen", suit: "Wands",
-    image: "images/tarot/wands/Queen_wands.png",
-    upright: "Confidence, charisma, passion, warmth, independence, creativity, natural leadership",
-    reversed: "Jealousy, insecurity beneath bravado, demanding behavior, burnout, manipulation"
-  },
-  {
-    name: "King of Wands", numeral: "King", suit: "Wands",
-    image: "images/tarot/wands/King_wands.png",
-    upright: "Natural leader, bold vision, entrepreneurship, inspiring others, mastery of creative fire",
-    reversed: "Impulsiveness, arrogance, forceful control, ruthlessness, hot temper"
-  },
-
-  // ── CUPS ──────────────────────────────────────────────────────
-  {
-    name: "Ace of Cups", numeral: "Ace", suit: "Cups",
-    image: "images/tarot/cups/Ace_cups.png",
-    upright: "New love, emotional awakening, intuition, compassion, spiritual connection, creative flow",
-    reversed: "Emotional repression, blocked feelings, unrequited love, fear of vulnerability"
-  },
-  {
-    name: "Two of Cups", numeral: "2", suit: "Cups",
-    image: "images/tarot/cups/2_cups.png",
-    upright: "Partnership, mutual love, deep connection, romantic union, harmony, soul recognition",
-    reversed: "Disharmony, broken bonds, imbalance, separation, miscommunication, codependency"
-  },
-  {
-    name: "Three of Cups", numeral: "3", suit: "Cups",
-    image: "images/tarot/cups/3_cups.png",
-    upright: "Friendship, celebration, community, creative collaboration, joy shared, abundance",
-    reversed: "Overindulgence, gossip, exclusion, third party issues, superficial friendships"
-  },
-  {
-    name: "Four of Cups", numeral: "4", suit: "Cups",
-    image: "images/tarot/cups/4_cups.png",
-    upright: "Contemplation, apathy, withdrawal, missing opportunities, emotional reassessment",
-    reversed: "New motivation, emerging from withdrawal, accepting what is offered, renewed interest"
-  },
-  {
-    name: "Five of Cups", numeral: "5", suit: "Cups",
-    image: "images/tarot/cups/5_cups.png",
-    upright: "Loss, grief, disappointment, focusing on what is gone, regret, mourning",
-    reversed: "Moving on, acceptance, finding hope after grief, turning toward what remains"
-  },
-  {
-    name: "Six of Cups", numeral: "6", suit: "Cups",
-    image: "images/tarot/cups/6_cups.png",
-    upright: "Nostalgia, innocence, childhood memories, past returning, kindness, simple joy",
-    reversed: "Living in the past, inability to move forward, unresolved childhood patterns"
-  },
-  {
-    name: "Seven of Cups", numeral: "7", suit: "Cups",
-    image: "images/tarot/cups/7_cups.png",
-    upright: "Illusion, fantasy, wishful thinking, too many choices, temptation, lack of focus",
-    reversed: "Clarity after confusion, making a decision, seeing through illusion, focus returning"
-  },
-  {
-    name: "Eight of Cups", numeral: "8", suit: "Cups",
-    image: "images/tarot/cups/8_cups.png",
-    upright: "Walking away, seeking deeper meaning, emotional withdrawal, courage to leave, transition",
-    reversed: "Fear of moving on, staying in unfulfilling situations, drifting without purpose"
-  },
-  {
-    name: "Nine of Cups", numeral: "9", suit: "Cups",
-    image: "images/tarot/cups/9_cups.png",
-    upright: "Wishes fulfilled, contentment, emotional satisfaction, abundance, dreams realized",
-    reversed: "Overindulgence, inner emptiness despite outer success, greed, dissatisfaction"
-  },
-  {
-    name: "Ten of Cups", numeral: "10", suit: "Cups",
-    image: "images/tarot/cups/10_cups.png",
-    upright: "Lasting happiness, emotional fulfillment, family harmony, peace, alignment of heart and home",
-    reversed: "Broken family dynamics, dysfunctional relationships, unhappy home, fractured ideals"
-  },
-  {
-    name: "Page of Cups", numeral: "Page", suit: "Cups",
-    image: "images/tarot/cups/Page_cups.png",
-    upright: "Creative messages, intuitive gifts, dreamy imagination, emotional openness, wonder",
-    reversed: "Emotional immaturity, creative blocks, bad news, ignoring intuition, escapism"
-  },
-  {
-    name: "Knight of Cups", numeral: "Knight", suit: "Cups",
-    image: "images/tarot/cups/Knight_cups.png",
-    upright: "Romance, charm, idealism, following the heart, creative pursuit, emotional messenger",
-    reversed: "Moodiness, unreliability, manipulation, disappointing promises, emotional unavailability"
-  },
-  {
-    name: "Queen of Cups", numeral: "Queen", suit: "Cups",
-    image: "images/tarot/cups/Queen_cups.png",
-    upright: "Emotional intelligence, deep intuition, compassion, empathy, nurturing wisdom, inner knowing",
-    reversed: "Emotional manipulation, codependency, martyrdom, oversensitivity, smothering"
-  },
-  {
-    name: "King of Cups", numeral: "King", suit: "Cups",
-    image: "images/tarot/cups/King_cups.png",
-    upright: "Emotional mastery, wisdom, diplomacy, compassionate authority, calm under pressure",
-    reversed: "Emotional manipulation, moodiness, addiction, volatility beneath a calm surface"
-  },
-
-  // ── SWORDS ────────────────────────────────────────────────────
-  {
-    name: "Ace of Swords", numeral: "Ace", suit: "Swords",
-    image: "images/tarot/swords/Ace_swords.png",
-    upright: "Mental clarity, breakthrough, truth revealed, new idea, cutting through confusion",
-    reversed: "Confusion, mental fog, lies, poor decisions, using intellect destructively"
-  },
-  {
-    name: "Two of Swords", numeral: "2", suit: "Swords",
-    image: "images/tarot/swords/2_swords.png",
-    upright: "Indecision, avoidance, stalemate, blocked emotions, self-imposed blindness",
-    reversed: "Indecision broken, facing truth, removing the blindfold, forced decision"
-  },
-  {
-    name: "Three of Swords", numeral: "3", suit: "Swords",
-    image: "images/tarot/swords/3_swords.png",
-    upright: "Heartbreak, grief, sorrow, painful truth, separation, betrayal, loss",
-    reversed: "Recovery from heartbreak, releasing grief, healing slowly, forgiving"
-  },
-  {
-    name: "Four of Swords", numeral: "4", suit: "Swords",
-    image: "images/tarot/swords/4_swords.png",
-    upright: "Rest, recuperation, meditation, withdrawal for recovery, healing through pause",
-    reversed: "Restlessness, inability to recover, forced back into action, burnout"
-  },
-  {
-    name: "Five of Swords", numeral: "5", suit: "Swords",
-    image: "images/tarot/swords/5_swords.png",
-    upright: "Conflict, defeat, underhanded tactics, winning at a cost, hollow victory",
-    reversed: "Reconciliation, moving past conflict, releasing the need to win, making peace"
-  },
-  {
-    name: "Six of Swords", numeral: "6", suit: "Swords",
-    image: "images/tarot/swords/6_swords.png",
-    upright: "Transition, moving on, mental passage, leaving difficulty behind, calmer waters ahead",
-    reversed: "Inability to move on, resisting necessary transition, carrying too much baggage forward"
-  },
-  {
-    name: "Seven of Swords", numeral: "7", suit: "Swords",
-    image: "images/tarot/swords/7_swords.png",
-    upright: "Deception, strategy, cunning, getting away with something, avoiding confrontation",
-    reversed: "Exposure, getting caught, confession, deception backfiring, coming clean"
-  },
-  {
-    name: "Eight of Swords", numeral: "8", suit: "Swords",
-    image: "images/tarot/swords/8_swords.png",
-    upright: "Self-imprisonment, limiting beliefs, feeling trapped, paralysis by fear or thought",
-    reversed: "Release from restriction, new perspective, recognizing self-imposed limitations"
-  },
-  {
-    name: "Nine of Swords", numeral: "9", suit: "Swords",
-    image: "images/tarot/swords/9_swords.png",
-    upright: "Anxiety, nightmares, mental anguish, worst-case thinking, insomnia, guilt",
-    reversed: "Hope after despair, releasing shame, seeking help, confronting inner demons"
-  },
-  {
-    name: "Ten of Swords", numeral: "10", suit: "Swords",
-    image: "images/tarot/swords/10_swords.png",
-    upright: "Painful endings, total defeat, rock bottom, betrayal, end of a cycle, dawn follows",
-    reversed: "Resisting inevitable ending, prolonging suffering, slow crawl back upward"
-  },
-  {
-    name: "Page of Swords", numeral: "Page", suit: "Swords",
-    image: "images/tarot/swords/Page_swords.png",
-    upright: "Curiosity, mental energy, truth-seeking, new ideas, vigilance, witty communication",
-    reversed: "Gossip, hasty words, deception, scattered thinking, all talk no follow-through"
-  },
-  {
-    name: "Knight of Swords", numeral: "Knight", suit: "Swords",
-    image: "images/tarot/swords/Knight_swords.png",
-    upright: "Ambition, action, fast thinking, determination, speaking truth boldly, moving fast",
-    reversed: "Recklessness, aggression, rushing in without a plan, sharp words used as weapons"
-  },
-  {
-    name: "Queen of Swords", numeral: "Queen", suit: "Swords",
-    image: "images/tarot/swords/Queen_swords.png",
-    upright: "Clear thinking, honest communication, independence, wisdom from experience, discernment",
-    reversed: "Coldness, cruelty disguised as honesty, bitterness, using truth as a weapon"
-  },
-  {
-    name: "King of Swords", numeral: "King", suit: "Swords",
-    image: "images/tarot/swords/King_swords.png",
-    upright: "Intellectual authority, clear judgment, truth above all, ethical leadership, fairness",
-    reversed: "Manipulation, abuse of power, tyrannical thinking, cold detachment, dishonesty"
-  },
-
-  // ── PENTACLES ─────────────────────────────────────────────────
-  {
-    name: "Ace of Pentacles", numeral: "Ace", suit: "Pentacles",
-    image: "images/tarot/pentacles/Ace_pentacles.png",
-    upright: "New financial opportunity, material beginnings, prosperity, grounded new start, manifestation",
-    reversed: "Missed opportunity, poor financial planning, scarcity mindset, lost investment"
-  },
-  {
-    name: "Two of Pentacles", numeral: "2", suit: "Pentacles",
-    image: "images/tarot/pentacles/2_pentacles.png",
-    upright: "Balance, adaptability, juggling priorities, managing finances, finding rhythm in chaos",
-    reversed: "Imbalance, overwhelm, dropping the ball financially, poor time management"
-  },
-  {
-    name: "Three of Pentacles", numeral: "3", suit: "Pentacles",
-    image: "images/tarot/pentacles/3_pentacles.png",
-    upright: "Teamwork, skilled craftsmanship, collaboration, learning, recognition of skill",
-    reversed: "Lack of teamwork, corners cut, poor workmanship, disorganization, unrecognized effort"
-  },
-  {
-    name: "Four of Pentacles", numeral: "4", suit: "Pentacles",
-    image: "images/tarot/pentacles/4_pentacles.png",
-    upright: "Security, control, holding onto resources, financial caution, stability through restriction",
-    reversed: "Releasing control, generosity returning, financial loss, loosening grip"
-  },
-  {
-    name: "Five of Pentacles", numeral: "5", suit: "Pentacles",
-    image: "images/tarot/pentacles/5_pentacles.png",
-    upright: "Financial hardship, poverty mindset, exclusion, material loss, help nearby but unseen",
-    reversed: "Recovery from hardship, accepting help, improving finances, renewed hope"
-  },
-  {
-    name: "Six of Pentacles", numeral: "6", suit: "Pentacles",
-    image: "images/tarot/pentacles/6_pentacles.png",
-    upright: "Generosity, giving and receiving, charity, balance of resources, fair exchange",
-    reversed: "Strings attached, one-sided giving, debt, gifts with conditions, withholding as control"
-  },
-  {
-    name: "Seven of Pentacles", numeral: "7", suit: "Pentacles",
-    image: "images/tarot/pentacles/7_pentacles.png",
-    upright: "Patience, long-term investment, assessing progress, awaiting results, sustainable growth",
-    reversed: "Impatience, poor investment, lack of progress, working hard with little reward"
-  },
-  {
-    name: "Eight of Pentacles", numeral: "8", suit: "Pentacles",
-    image: "images/tarot/pentacles/8_pentacles.png",
-    upright: "Diligence, skill development, apprenticeship, focused work, dedication to mastery",
-    reversed: "Perfectionism, shortcuts, lack of focus, poor quality work, working without growth"
-  },
-  {
-    name: "Nine of Pentacles", numeral: "9", suit: "Pentacles",
-    image: "images/tarot/pentacles/9_pentacles.png",
-    upright: "Abundance, financial independence, self-sufficiency, luxury earned, success from effort",
-    reversed: "Financial dependence, living beyond means, false success, losing what was built"
-  },
-  {
-    name: "Ten of Pentacles", numeral: "10", suit: "Pentacles",
-    image: "images/tarot/pentacles/10_pentacles.png",
-    upright: "Legacy, generational wealth, family stability, lasting success, long-term security",
-    reversed: "Family conflict over money, failed legacy, unstable foundations, financial insecurity"
-  },
-  {
-    name: "Page of Pentacles", numeral: "Page", suit: "Pentacles",
-    image: "images/tarot/pentacles/Page_pentacles.png",
-    upright: "Ambition, diligence, new financial goals, studious energy, manifesting through focus",
-    reversed: "Procrastination, lack of focus, get-rich-quick thinking, poor financial habits"
-  },
-  {
-    name: "Knight of Pentacles", numeral: "Knight", suit: "Pentacles",
-    image: "images/tarot/pentacles/Knight_pentacles.png",
-    upright: "Reliability, hard work, methodical progress, responsibility, patience, thoroughness",
-    reversed: "Stubbornness, stagnation, perfectionism as paralysis, inflexibility, workaholic"
-  },
-  {
-    name: "Queen of Pentacles", numeral: "Queen", suit: "Pentacles",
-    image: "images/tarot/pentacles/Queen_pentacles.png",
-    upright: "Nurturing, practicality, financial security, abundance, grounded warmth, sensual wisdom",
-    reversed: "Self-neglect, financial insecurity, smothering, materialism, disconnection from body"
-  },
-  {
-    name: "King of Pentacles", numeral: "King", suit: "Pentacles",
-    image: "images/tarot/pentacles/King_pentacles.png",
-    upright: "Financial mastery, abundance, security, disciplined success, generous provider",
-    reversed: "Materialism, greed, stubbornness, using wealth as control, financial recklessness"
-  }
-
-];
+      { name: "The Fool",           numeral: "0",     image: "images/tarot/fool.png",
+        upright:  "New beginnings, spontaneity, a leap of faith, innocence, free spirit, adventure.",
+        reversed: "Recklessness, risk-taking without thought, naivety, holding back out of fear." },
+      { name: "The Magician",       numeral: "I",     image: "images/tarot/magician.png",
+        upright:  "Willpower, skill, resourcefulness, manifestation, inspired action, concentration.",
+        reversed: "Manipulation, poor planning, untapped talents, trickery, illusion." },
+      { name: "The High Priestess", numeral: "II",    image: "images/tarot/high-priestess.png",
+        upright:  "Intuition, sacred knowledge, divine feminine, the subconscious, mystery, inner knowing.",
+        reversed: "Secrets, disconnection from intuition, withdrawal, repressed feelings, surface knowledge." },
+      { name: "The Empress",        numeral: "III",   image: "images/tarot/empress.png",
+        upright:  "Femininity, beauty, nature, nurturing, abundance, fertility, sensuality, creativity.",
+        reversed: "Creative block, dependence on others, smothering, emptiness, neglect of self." },
+      { name: "The Emperor",        numeral: "IV",    image: "images/tarot/emperor.png",
+        upright:  "Authority, structure, control, fatherhood, solid foundation, discipline, leadership.",
+        reversed: "Domination, rigidity, inflexibility, loss of control, abuse of power, obstruction." },
+      { name: "The Hierophant",     numeral: "V",     image: "images/tarot/hierophant.png",
+        upright:  "Tradition, conformity, morality, ethics, spiritual wisdom, institutions, mentorship.",
+        reversed: "Personal belief systems, freedom, challenging tradition, unconventionality, rebellion." },
+      { name: "The Lovers",         numeral: "VI",    image: "images/tarot/lovers.png",
+        upright:  "Love, harmony, relationships, values alignment, choices, partnerships, deep connection.",
+        reversed: "Self-love deficit, disharmony, imbalance, misalignment of values, poor decisions." },
+      { name: "The Chariot",        numeral: "VII",   image: "images/tarot/chariot.png",
+        upright:  "Control, willpower, victory, determination, ambition, direction, hard-won success.",
+        reversed: "Aggression, no direction, scattered energy, defeat, lack of self-control, opposition." },
+      { name: "Strength",           numeral: "VIII",  image: "images/tarot/strength.png",
+        upright:  "Courage, persuasion, influence, compassion, inner strength, patience, soft power.",
+        reversed: "Inner conflict, self-doubt, low energy, raw emotion overwhelming reason, cowardice." },
+      { name: "The Hermit",         numeral: "IX",    image: "images/tarot/hermit.png",
+        upright:  "Soul-searching, introspection, solitude, inner guidance, contemplation, withdrawal.",
+        reversed: "Isolation, loneliness, withdrawal from the world, lost, rejection of guidance." },
+      { name: "Wheel of Fortune",   numeral: "X",     image: "images/tarot/wheel-of-fortune.png",
+        upright:  "Good luck, karma, life cycles, destiny, a turning point, fortune, synchronicity.",
+        reversed: "Bad luck, resistance to change, breaking cycles, clinging to control, setbacks." },
+      { name: "Justice",            numeral: "XI",    image: "images/tarot/justice.png",
+        upright:  "Justice, fairness, truth, cause and effect, law, accountability, integrity.",
+        reversed: "Unfairness, dishonesty, lack of accountability, avoidance of truth, legal complications." },
+      { name: "The Hanged Man",     numeral: "XII",   image: "images/tarot/hanged-man.png",
+        upright:  "Surrender, new perspectives, pause, letting go, sacrifice, suspension, enlightenment.",
+        reversed: "Delays, resistance, stalling, indecision, avoiding sacrifice, martyrdom." },
+      { name: "Death",              numeral: "XIII",  image: "images/tarot/death.png",
+        upright:  "Endings, change, transformation, transition, letting go, the inevitable, new cycles.",
+        reversed: "Resistance to change, inability to move on, stagnation, decay, personal transformation delayed." },
+      { name: "Temperance",         numeral: "XIV",   image: "images/tarot/temperance.png",
+        upright:  "Balance, moderation, patience, purpose, meaning, alchemy, divine timing, flow.",
+        reversed: "Imbalance, excess, lack of long-term vision, re-alignment needed, self-indulgence." },
+      { name: "The Devil",          numeral: "XV",    image: "images/tarot/devil.png",
+        upright:  "Shadow self, attachment, addiction, restriction, materialism, bondage, sexuality.",
+        reversed: "Releasing limiting beliefs, exploring darkness, detachment, freedom, reclaiming power." },
+      { name: "The Tower",          numeral: "XVI",   image: "images/tarot/tower.png",
+        upright:  "Sudden change, upheaval, chaos, revelation, awakening, the necessary destruction of false structures.",
+        reversed: "Personal transformation, fear of change, averting disaster, delaying the inevitable." },
+      { name: "The Star",           numeral: "XVII",  image: "images/tarot/star.png",
+        upright:  "Hope, faith, purpose, renewal, spirituality, serenity, inspiration, healing after hardship.",
+        reversed: "Lack of faith, despair, disconnection, discouragement, creative blocks." },
+      { name: "The Moon",           numeral: "XVIII", image: "images/tarot/moon.png",
+        upright:  "Illusion, fear, the unconscious, intuition, confusion, complexity, the hidden self.",
+        reversed: "Release of fear, repressed emotion coming to surface, confusion lifting, inner confusion." },
+      { name: "The Sun",            numeral: "XIX",   image: "images/tarot/sun.png",
+        upright:  "Positivity, fun, warmth, success, vitality, joy, clarity, confidence, optimism.",
+        reversed: "Temporary depression, lack of success, inner child work needed, overly optimistic." },
+      { name: "Judgement",          numeral: "XX",    image: "images/tarot/judgement.png",
+        upright:  "Judgement, rebirth, inner calling, absolution, awakening, reflection, reckoning.",
+        reversed: "Self-doubt, refusal of self-examination, ignoring the call, harsh self-judgement." },
+      { name: "The World",          numeral: "XXI",   image: "images/tarot/world.png",
+        upright:  "Completion, integration, accomplishment, travel, the end of a major life cycle, wholeness.",
+        reversed: "Seeking closure, incomplete goals, short-cuts, delays in completion." }
+    ];
 
     // ── Tab switching ───────────────────────────────────────────────────────
     function switchTarotTab(tab, el) {
       document.querySelectorAll('.tarot-tab').forEach(t => t.classList.remove('active'));
       el.classList.add('active');
-      document.getElementById('tarot-panel-pull').style.display   = tab === 'pull'   ? '' : 'none';
+      document.getElementById('tarot-panel-pull').style.display    = tab === 'pull'   ? '' : 'none';
+      document.getElementById('tarot-panel-spread').style.display  = tab === 'spread' ? '' : 'none';
       document.getElementById('tarot-panel-search').style.display  = tab === 'search' ? '' : 'none';
       if (tab === 'search') {
         filterTarotCards('');
@@ -1671,55 +1113,48 @@ target="_blank"
     }
 
     // ── Pull Daily Card ─────────────────────────────────────────────────────
-    // -- Pull 3-card Past / Present / Future spread
-   function pullThreeCards() {
-  // tarotDeck should be an array of card objects available to the page:
-  // [{ name: 'The Fool', image: 'images/tarot/fool.png', meaning: { upright: '...', reversed: '...' } }, ...]
-  if (!window.tarotDeck || !Array.isArray(window.tarotDeck) || window.tarotDeck.length < 3) {
-    console.warn('pullThreeCards: tarotDeck not found or too small.');
-    return;
-  }
+    function pullDailyCard() {
+      const card       = tarotDeck[Math.floor(Math.random() * tarotDeck.length)];
+      const isReversed = Math.random() < 0.5;
 
-  // pick 3 unique random indices
-  const deckSize = tarotDeck.length;
-  const picks = new Set();
-  while (picks.size < 3) {
-    picks.add(Math.floor(Math.random() * deckSize));
-  }
-  const indices = Array.from(picks); // length 3
+      const img         = document.getElementById("tarot-card-image");
+      const nameEl      = document.getElementById("tarot-card-name");
+      const orientEl    = document.getElementById("tarot-card-orientation");
+      const displayArea = document.querySelector(".tarot-card-display");
+      const meaningBox  = document.getElementById("tarot-meaning-box");
 
-  indices.forEach((deckIndex, pos) => {
-    const card = tarotDeck[deckIndex];
-    const isReversed = Math.random() < 0.5; // 50/50 reversal
+      img.src            = card.image;
+      nameEl.textContent = card.name;
 
-    // image element
-    const img = document.getElementById(`tarot-card-image-${pos}`);
-    if (img) {
-      img.src = card.image || 'images/tarot/back.png';
-      img.alt = card.name || '';
-      img.classList.toggle('reversed', isReversed);
+      if (isReversed) {
+        img.classList.add("reversed");
+        orientEl.textContent = "(Reversed)";
+      } else {
+        img.classList.remove("reversed");
+        orientEl.textContent = "(Upright)";
+      }
+
+      // Sparkle on reversed
+      const oldSparkle = displayArea.querySelector(".sparkle");
+      if (oldSparkle) oldSparkle.remove();
+      if (isReversed) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+        img.insertAdjacentElement("afterend", sparkle);
+      }
+
+      // Show meaning box
+      meaningBox.style.display = 'block';
+      meaningBox.innerHTML =
+        '<div class="tm-upright">' +
+          '<div class="tm-label">⬆ Upright</div>' +
+          '<div class="tm-keywords">' + card.upright + '</div>' +
+        '</div>' +
+        '<div class="tm-reversed">' +
+          '<div class="tm-label">⬇ Reversed</div>' +
+          '<div class="tm-keywords">' + card.reversed + '</div>' +
+        '</div>';
     }
-
-    // name / orientation elements
-    const nameEl = document.getElementById(`tarot-card-name-${pos}`);
-    if (nameEl) nameEl.textContent = card.name || '-';
-
-    const oriEl = document.getElementById(`tarot-card-orientation-${pos}`);
-    if (oriEl) oriEl.textContent = isReversed ? 'Reversed' : 'Upright';
-
-    // meaning box
-    const box = document.getElementById(`tarot-meaning-box-${pos}`);
-    if (box) {
-      const meaningText = (isReversed ? (card.meaning && card.meaning.reversed) : (card.meaning && card.meaning.upright)) || '';
-      box.style.display = 'block';
-      box.innerHTML = `
-        <div class="${isReversed ? 'tm-reversed' : 'tm-upright'}">
-          <div class="tm-label">${isReversed ? 'Reversed' : 'Upright'}</div>
-          <div class="tm-keywords">${meaningText}</div>
-        </div>`;
-    }
-  });
-}
 
     // ── Save Reading ────────────────────────────────────────────────────────
     function saveReading() {
@@ -1733,6 +1168,77 @@ target="_blank"
       }).then(canvas => {
         const link    = document.createElement("a");
         link.download = "tarot-reading.png";
+        link.href     = canvas.toDataURL("image/png");
+        link.click();
+      }).catch(() => alert("Sorry, the reading couldn't be saved. Please try again."));
+    }
+
+    // ── Pull Past / Present / Future Spread ───────────────────────────────────
+    function pullThreeCards() {
+      // Draw 3 unique cards (no repeats across the 3 positions)
+      const deckCopy = tarotDeck.slice();
+      const drawn = [];
+      for (let i = 0; i < 3; i++) {
+        const randIdx = Math.floor(Math.random() * deckCopy.length);
+        drawn.push(deckCopy[randIdx]);
+        deckCopy.splice(randIdx, 1);
+      }
+
+      for (let pos = 0; pos < 3; pos++) {
+        const card       = drawn[pos];
+        const isReversed = Math.random() < 0.5;
+
+        const img         = document.getElementById("spread-card-image-" + pos);
+        const nameEl      = document.getElementById("spread-card-name-" + pos);
+        const orientEl    = document.getElementById("spread-card-orientation-" + pos);
+        const slotEl      = img.closest(".tarot-spread-slot");
+        const meaningBox  = document.getElementById("spread-meaning-box-" + pos);
+
+        img.src            = card.image;
+        nameEl.textContent = card.name;
+
+        if (isReversed) {
+          img.classList.add("reversed");
+          orientEl.textContent = "(Reversed)";
+        } else {
+          img.classList.remove("reversed");
+          orientEl.textContent = "(Upright)";
+        }
+
+        // Sparkle on reversed
+        const oldSparkle = slotEl.querySelector(".sparkle");
+        if (oldSparkle) oldSparkle.remove();
+        if (isReversed) {
+          const sparkle = document.createElement("div");
+          sparkle.classList.add("sparkle");
+          img.insertAdjacentElement("afterend", sparkle);
+        }
+
+        meaningBox.style.display = 'block';
+        meaningBox.innerHTML =
+          '<div class="tm-upright">' +
+            '<div class="tm-label">⬆ Upright</div>' +
+            '<div class="tm-keywords">' + card.upright + '</div>' +
+          '</div>' +
+          '<div class="tm-reversed">' +
+            '<div class="tm-label">⬇ Reversed</div>' +
+            '<div class="tm-keywords">' + card.reversed + '</div>' +
+          '</div>';
+      }
+    }
+
+    // ── Save Spread Reading ─────────────────────────────────────────────────
+    function saveSpreadReading() {
+      const firstName = document.getElementById("spread-card-name-0").textContent.trim();
+      if (firstName === "—") {
+        alert("Please pull your Past, Present & Future spread first!");
+        return;
+      }
+      html2canvas(document.getElementById("tarot-spread-grid"), {
+        backgroundColor: null, useCORS: true
+      }).then(canvas => {
+        const link    = document.createElement("a");
+        link.download = "past-present-future-reading.png";
         link.href     = canvas.toDataURL("image/png");
         link.click();
       }).catch(() => alert("Sorry, the reading couldn't be saved. Please try again."));
@@ -1772,14 +1278,22 @@ target="_blank"
       detail.style.display  = 'block';
 
       detail.innerHTML =
-        '<button class="tsd-back-btn" onclick="backToResults()">Back to all cards</button>' +
+        '<button class="tsd-back-btn" onclick="backToResults()">← Back to all cards</button>' +
         '<div class="tsd-inner">' +
-          '<div class="tsd-img-wrap"><img src="' + card.image + '" alt="' + card.name + '" /></div>' +
+          '<div class="tsd-img-wrap">' +
+            '<img src="' + card.image + '" alt="' + card.name + '" />' +
+          '</div>' +
           '<div class="tsd-content">' +
-            '<div class="tsd-numeral">' + card.numeral + ' - Major Arcana</div>' +
+            '<div class="tsd-numeral">' + card.numeral + ' · Major Arcana</div>' +
             '<div class="tsd-name">' + card.name + '</div>' +
-            '<div class="tsd-block tsd-upright"><div class="tsd-block-label">Upright Meanings</div><p>' + card.upright + '</p></div>' +
-            '<div class="tsd-block tsd-reversed"><div class="tsd-block-label">Reversed Meanings</div><p>' + card.reversed + '</p></div>' +
+            '<div class="tsd-block tsd-upright">' +
+              '<div class="tsd-block-label">⬆ Upright Meanings</div>' +
+              '<p>' + card.upright + '</p>' +
+            '</div>' +
+            '<div class="tsd-block tsd-reversed">' +
+              '<div class="tsd-block-label">⬇ Reversed Meanings</div>' +
+              '<p>' + card.reversed + '</p>' +
+            '</div>' +
           '</div>' +
         '</div>';
     }
@@ -1959,6 +1473,49 @@ target="_blank"
 	        } finally {
 	          submitBtn.disabled    = false;
 	          submitBtn.textContent = "🕯️ Submit My Story";
+	          msgEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+	        }
+	      });
+	    })();
+
+	    /* =====================================================================
+	       DECK PRE-ORDER FORM
+	    ===================================================================== */
+	    (function () {
+	      const form  = document.getElementById("deck-preorder-form-el");
+	      const msgEl = document.getElementById("deck-preorder-message");
+
+	      if (!form) return;
+
+	      form.addEventListener("submit", async function (e) {
+	        e.preventDefault();
+
+	        const submitBtn = form.querySelector("button[type='submit']");
+	        submitBtn.disabled    = true;
+	        submitBtn.textContent = "Sending...";
+
+	        try {
+	          const response = await fetch(form.action, {
+	            method:  "POST",
+	            body:    new FormData(form),
+	            headers: { "Accept": "application/json" }
+	          });
+
+	          if (response.ok) {
+	            msgEl.className     = "success";
+	            msgEl.style.display = "block";
+	            msgEl.textContent   = "✨ You're on the list! Jennifer will email you as soon as hard-copy pricing and shipping are confirmed.";
+	            form.reset();
+	          } else {
+	            throw new Error("Server error");
+	          }
+	        } catch (err) {
+	          msgEl.className     = "error";
+	          msgEl.style.display = "block";
+	          msgEl.textContent   = "⚠️ Something went wrong. Please try emailing AmbrosiasOccultAcademy@gmail.com directly to reserve your deck.";
+	        } finally {
+	          submitBtn.disabled    = false;
+	          submitBtn.textContent = "🃏 Reserve My Deck";
 	          msgEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
 	        }
 	      });
