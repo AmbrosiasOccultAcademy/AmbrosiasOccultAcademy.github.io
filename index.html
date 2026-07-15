@@ -1687,11 +1687,10 @@ target="_blank"
         if (isReversed) { img.classList.add('reversed'); } else { img.classList.remove('reversed'); }
         img.src = '';
         img.src = card.image;
-        img.onerror = function() {
-          this.onerror = null;
-          nameEl.textContent = card.name + ' [missing: ' + card.image + ']';
-			document.getElementById("tarot-card-suit").textContent = card.suit;
-        };
+       img.onerror = function() {
+  this.onerror = null;
+  nameEl.textContent = card.name + ' [missing: ' + card.image + ']';
+};
         var upHtml   = '<div class="tm-upright"><div class="tm-label">Upright</div><div class="tm-keywords">' + card.upright + '</div></div>';
         var downHtml = '<div class="tm-reversed"><div class="tm-label">Reversed</div><div class="tm-keywords">' + card.reversed + '</div></div>';
         meaningBox.innerHTML     = upHtml + downHtml;
