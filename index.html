@@ -1673,50 +1673,51 @@ target="_blank"
     // ── Pull Daily Card ─────────────────────────────────────────────────────
     // -- Pull 3-card Past / Present / Future spread
    function pullThreeCards() {
-  var deck  = tarotDeck.slice().sort(function() { return Math.random() - 0.5; });
-  var picks = deck.slice(0, 3);
+  // tarotDeck should be an array of card objects available to the page:
+  // [{ name: 'The Fool', image: 'images/tarot/fool.png', meaning: { upright: '...', reversed: '...' } }, ...]
+  if (!window.tarotDeck || !Array.isArray(window.tarotDeck) || window.tarotDeck.length < 3) {
+    console.warn('pullThreeCards: tarotDeck not found or too small.');
+    return;
+  }
 
-  picks.forEach(function(card, i) {
-    var isReversed = Math.random() < 0.5;
-    var img        = document.getElementById('tarot-card-image-'   + i);
-    var nameEl     = document.getElementById('tarot-card-name-'    + i);
-    var orientEl   = document.getElementById('tarot-card-orientation-' + i);
-    var meaningBox = document.getElementById('tarot-meaning-box-'  + i);
+  // pick 3 unique random indices
+  const deckSize = tarotDeck.length;
+  const picks = new Set();
+  while (picks.size < 3) {
+    picks.add(Math.floor(Math.random() * deckSize));
+  }
+  const indices = Array.from(picks); // length 3
 
+  indices.forEach((deckIndex, pos) => {
+    const card = tarotDeck[deckIndex];
+    const isReversed = Math.random() < 0.5; // 50/50 reversal
 
-    // Guard — if any element is missing, skip this card
-    if (!img || !nameEl || !orientEl || !meaningBox) return;
-
-    nameEl.textContent   = card.name;
-    orientEl.textContent = isReversed ? '(Reversed)' : '(Upright)';
-
-    if (isReversed) {
-      img.classList.add('reversed');
-    } else {
-      img.classList.remove('reversed');
+    // image element
+    const img = document.getElementById(`tarot-card-image-${pos}`);
+    if (img) {
+      img.src = card.image || 'images/tarot/back.png';
+      img.alt = card.name || '';
+      img.classList.toggle('reversed', isReversed);
     }
 
-    img.src = '';
-    img.src = card.image;
+    // name / orientation elements
+    const nameEl = document.getElementById(`tarot-card-name-${pos}`);
+    if (nameEl) nameEl.textContent = card.name || '-';
 
-    // onerror — use indexed nameEl, no suit element needed
-    img.onerror = function() {
-      this.onerror = null;
-      nameEl.textContent = card.name + ' [missing image]';
-    };
+    const oriEl = document.getElementById(`tarot-card-orientation-${pos}`);
+    if (oriEl) oriEl.textContent = isReversed ? 'Reversed' : 'Upright';
 
-    // Build meaning box
-    var upHtml   = '<div class="tm-upright">'  +
-                     '<div class="tm-label">Upright</div>'  +
-                     '<div class="tm-keywords">' + (card.upright  || 'No meaning found') + '</div>' +
-                   '</div>';
-    var downHtml = '<div class="tm-reversed">' +
-                     '<div class="tm-label">Reversed</div>' +
-                     '<div class="tm-keywords">' + (card.reversed || 'No meaning found') + '</div>' +
-                   '</div>';
-
-    meaningBox.innerHTML     = upHtml + downHtml;
-    meaningBox.style.display = 'block';
+    // meaning box
+    const box = document.getElementById(`tarot-meaning-box-${pos}`);
+    if (box) {
+      const meaningText = (isReversed ? (card.meaning && card.meaning.reversed) : (card.meaning && card.meaning.upright)) || '';
+      box.style.display = 'block';
+      box.innerHTML = `
+        <div class="${isReversed ? 'tm-reversed' : 'tm-upright'}">
+          <div class="tm-label">${isReversed ? 'Reversed' : 'Upright'}</div>
+          <div class="tm-keywords">${meaningText}</div>
+        </div>`;
+    }
   });
 }
 
