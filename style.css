@@ -305,31 +305,56 @@ body {
   gap: 1.5rem;
 }
 
-.tarot-card-placeholder {
-  border-radius: var(--radius-lg);
-  border: 1px dashed rgba(215, 226, 255, 0.4);
-  height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent-silver);
-  background: radial-gradient(circle at top, rgba(165, 107, 255, 0.12), transparent 70%);
-}
+/* ───────────────────────────────────────────────
+   TAROT IMAGE STANDARDS — CLEAN + ORGANIZED
+   These four classes control ALL tarot images.
+─────────────────────────────────────────────── */
 
-/* TAROT CARD IMAGE */
+/* 1. Daily Tarot Generator */
 .tarot-image {
   width: 110px;
   height: auto;
-  max-width: none !important;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.2);
   box-shadow: 0 12px 30px rgba(0,0,0,0.6);
   transition: transform 0.4s ease;
+  display: block;
 }
 
 .tarot-image.reversed {
   transform: rotate(180deg);
 }
+
+/* 2. Card of the Week — Featured Card */
+.tarot-card-img {
+  width: 180px;
+  height: auto;
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+}
+
+/* 3. Major Arcana Reference Guide */
+.arcana-thumb {
+  width: 110px;
+  height: auto;
+  display: block;
+  margin: 0 auto 0.5rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* 4. Spread of the Week — Layout Cards */
+.spread-card-img {
+  width: 120px;
+  height: auto;
+  display: block;
+  margin: 0.5rem auto 1rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+}
+
 
 /* SPARKLE */
 .sparkle {
@@ -492,30 +517,6 @@ body {
   background: rgba(239,159,39,0.08);
 }
 
-/* ── TAROT FIXES ─────────────────────────────────── */
-.tarot-card-display {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.tarot-image {
-  width: 220px;
-  height: 380px;
-  object-fit: cover;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-  transition: transform 0.4s ease;
-  display: block;
-  max-width: none !important;
-}
-
-.tarot-image.reversed {
-  transform: rotate(180deg);
-}
 
 /* Gradient sparkle — no image file needed */
 .sparkle {
