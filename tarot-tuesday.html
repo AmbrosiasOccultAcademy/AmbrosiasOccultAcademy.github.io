@@ -163,6 +163,34 @@
       max-width: 820px;
     }
 
+  /* ── Deck showcase (cover image + PDF / pre-order boxes) ─────────────── */
+    .deck-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 950px;
+      margin: 0 auto 2rem;
+    }
+    .deck-cover-image {
+      width: 260px;
+      max-width: 80vw;
+      border-radius: 14px;
+      box-shadow: 0 10px 36px rgba(0, 0, 0, 0.45);
+      flex-shrink: 0;
+    }
+    .deck-showcase-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      flex: 1 1 320px;
+      min-width: 280px;
+    }
+    .deck-showcase-info .info-box .btn {
+      margin-top: 0.75rem;
+    }
+
     /* ── Card Grid ──────────────────────────────────────────────────────── */
     .card-grid {
       display: grid;
