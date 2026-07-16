@@ -1137,6 +1137,29 @@ a:hover {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
+  /* PALMISTRY SUNDAY SUPPORT STYLES */
+#palmistry-sunday .card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+
+#palmistry-sunday .card-tile {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 1rem 1rem;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+}
+
+#palmistry-sunday .card-numeral {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-silver);
+  margin-bottom: 0.3rem;
+}
+
 
 
 
