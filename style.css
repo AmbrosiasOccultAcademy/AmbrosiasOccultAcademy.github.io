@@ -1132,6 +1132,12 @@ a:hover {
   animation: seal-shimmer 4s linear infinite;
   pointer-events: none;
 }
+  .academy-seal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
 
 @keyframes seal-shimmer {
   0% { transform: translateX(-100%); }
