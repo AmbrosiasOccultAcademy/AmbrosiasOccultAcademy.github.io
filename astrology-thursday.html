@@ -79,6 +79,269 @@
     .forecast-day-label { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: #4bb4ff; padding-top: 2px; }
     .forecast-day-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
 
+    /* ── Astrology Thursday weekly items ────────────────────────── */
+  .forecast-card {
+    background: rgba(10,10,30,0.9);
+    border: 1px solid rgba(75,180,255,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .forecast-card-header {
+    background: linear-gradient(135deg, rgba(75,180,255,0.12), rgba(165,107,255,0.07));
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(75,180,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .forecast-card-header h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #4bb4ff;
+    margin: 0 0 0.2rem;
+  }
+
+  .forecast-card-header .week-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(75,180,255,0.5);
+  }
+
+  .forecast-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    background: linear-gradient(135deg, rgba(10,26,58,0.8), rgba(5,3,22,0.95));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(75,180,255,0.1);
+    overflow: hidden;
+  }
+
+  .forecast-card-body {
+    padding: 1.75rem;
+  }
+
+  .forecast-card-body h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #d7e2ff;
+    margin: 0 0 0.25rem;
+  }
+
+  .forecast-card-body .fc-subtitle {
+    font-size: 0.8rem;
+    color: rgba(75,180,255,0.6);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+
+  .planet-day-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+  }
+
+  .planet-day-card {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(75,180,255,0.1);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    transition: border-color 0.2s;
+  }
+
+  .planet-day-card:hover { border-color: rgba(75,180,255,0.3); }
+
+  .planet-day-name {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #4bb4ff;
+    margin-bottom: 0.3rem;
+  }
+
+  .planet-day-card h5 {
+    font-size: 0.9rem;
+    color: #d7e2ff;
+    margin: 0 0 0.4rem;
+  }
+
+  .planet-day-card p {
+    font-size: 0.83rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .key-days-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  @media (max-width: 600px) {
+    .key-days-wrap { grid-template-columns: 1fr; }
+  }
+
+  .key-day-block {
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .key-day-block.good { border-color: rgba(46,204,113,0.2); }
+  .key-day-block.caution { border-color: rgba(231,76,60,0.2); }
+
+  .key-day-block .kd-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 0.5rem;
+  }
+
+  .key-day-block.good .kd-label { color: rgba(46,204,113,0.6); }
+  .key-day-block.caution .kd-label { color: rgba(231,76,60,0.6); }
+
+  .key-day-item {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    padding: 0.25rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* ── Transit of the week ────────────────────────────────────── */
+  .transit-card {
+    background: linear-gradient(135deg, rgba(255,180,30,0.06), rgba(255,140,0,0.03));
+    border: 1px solid rgba(255,180,30,0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .transit-card-header {
+    background: linear-gradient(135deg, rgba(255,180,30,0.12), rgba(255,100,0,0.05));
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(255,180,30,0.15);
+  }
+
+  .transit-card-header h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffb41e;
+    margin: 0 0 0.2rem;
+  }
+
+  .transit-card-header .week-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,180,30,0.5);
+  }
+
+  .transit-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    background: linear-gradient(135deg, rgba(80,40,10,0.6), rgba(10,5,2,0.9));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255,180,30,0.1);
+    overflow: hidden;
+  }
+
+  .transit-card-body {
+    padding: 1.75rem;
+  }
+
+  .transit-card-body h4 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #ffb41e;
+    margin: 0 0 0.25rem;
+  }
+
+  .transit-card-body .tc-subtitle {
+    font-size: 0.8rem;
+    color: rgba(255,180,30,0.55);
+    letter-spacing: 0.08em;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+
+  .transit-card-body p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .transit-card-body p strong { color: #d7e2ff; }
+
+  .transit-effects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin: 1.25rem 0;
+  }
+
+  .transit-effect {
+    background: rgba(255,180,30,0.05);
+    border: 1px solid rgba(255,180,30,0.15);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+  }
+
+  .transit-effect .te-icon { font-size: 1.2rem; display: block; margin-bottom: 0.3rem; }
+  .transit-effect h5 { font-size: 0.82rem; color: #ffb41e; margin: 0 0 0.25rem; }
+  .transit-effect p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; margin: 0; }
+
+  .transit-shadow-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,100,30,0.15);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .transit-shadow-box strong { color: rgba(255,130,50,0.8); }
+
+  .transit-cta {
+    background: linear-gradient(135deg, rgba(255,180,30,0.1), rgba(255,100,0,0.05));
+    border: 1px solid rgba(255,180,30,0.2);
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: #d7e2ff;
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
     /* Horoscope sign selector */
     .sign-selector-wrap { background: rgba(10,10,30,0.9); border: 1px solid var(--border-soft); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
     .sign-selector-wrap h3 { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 1.25rem; }
