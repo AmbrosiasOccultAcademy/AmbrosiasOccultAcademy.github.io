@@ -9,17 +9,42 @@
 
   <style>
     /* ── Page hero ──────────────────────────────────────────────────────── */
-    <section class="freaky-hero">
-  <div class="freaky-hero-content">
-
-    <div class="day-label">Freaky Fridays</div>
-
-    <h1>Freaky Fridays</h1>
-
-    <p>Exploring paranormal mysteries, strange phenomena, and the uncanny energies that shape our world.</p>
-
-  </div>
-</section>
+ .friday-hero {
+      position: relative;
+      min-height: 40vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #1a0a2e 0%, #050316 55%, #02010b 100%);
+      overflow: hidden;
+    }
+    .friday-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 25% 35%, rgba(165,107,255,0.18) 0, transparent 50%),
+        radial-gradient(circle at 70% 20%, rgba(75,180,255,0.1) 0, transparent 45%);
+      pointer-events: none;
+    }
+    .friday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .friday-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .day-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #a56bff;
+      margin-bottom: 0.75rem;
+    }
+    .friday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
 
     /* ── Jump nav ───────────────────────────────────────────────────────── */
     .jump-nav {
