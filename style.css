@@ -1,25 +1,37 @@
+/* ═══════════════════════════════════════════════════════════════
+   AMBROSIA'S OCCULT ACADEMY — style.css
+   Cleaned & reorganized — July 2026
+   Sections: Variables → Reset → Body → Nav → Hero → Sections →
+             Components → Tarot → Birth Chart → Buttons →
+             Footer → Page-specific → Responsive
+═══════════════════════════════════════════════════════════════ */
+
+
+/* ── 1. CSS VARIABLES ───────────────────────────────────────── */
 :root {
-  --bg-dark: #050316;
-  --bg-darker: #02010b;
-  --bg-light: #0f1024;
-  --accent-purple: #a56bff;
-  --accent-blue: #4bb4ff;
-  --accent-silver: #d7e2ff;
-  --text-main: #f5f5ff;
-  --text-muted: #c2c6e0;
-  --card-bg: rgba(10, 10, 30, 0.9);
-  --border-soft: rgba(255, 255, 255, 0.12);
-  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.6);
-  --radius-lg: 18px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
+  --bg-dark:        #050316;
+  --bg-darker:      #02010b;
+  --bg-light:       #0f1024;
+  --accent-purple:  #a56bff;
+  --accent-blue:    #4bb4ff;
+  --accent-silver:  #d7e2ff;
+  --accent-gold:    #EF9F27;
+  --text-main:      #f5f5ff;
+  --text-muted:     #c2c6e0;
+  --card-bg:        rgba(10, 10, 30, 0.9);
+  --border-soft:    rgba(255, 255, 255, 0.12);
+  --shadow-soft:    0 18px 40px rgba(0, 0, 0, 0.6);
+  --radius-lg:      18px;
+  --radius-md:      12px;
+  --radius-sm:      8px;
   --transition-fast: 0.2s ease-out;
-  --transition-med: 0.3s ease-out;
-  --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --transition-med:  0.3s ease-out;
+  --font-main:    system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-display: "Cinzel", "Cormorant Garamond", serif;
 }
 
-/* GLOBAL RESET */
+
+/* ── 2. GLOBAL RESET ────────────────────────────────────────── */
 *,
 *::before,
 *::after {
@@ -32,6 +44,8 @@ html, body {
   height: 100%;
 }
 
+
+/* ── 3. BODY ────────────────────────────────────────────────── */
 body {
   font-family: var(--font-main);
   background: radial-gradient(circle at top, #2b1b5a 0, #050316 45%, #02010b 100%);
@@ -39,12 +53,26 @@ body {
   line-height: 1.6;
 }
 
-/* NAV */
+a {
+  color: var(--accent-silver);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.highlight {
+  color: #f6d06f;
+}
+
+
+/* ── 4. NAVIGATION ──────────────────────────────────────────── */
 .main-nav {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: linear-gradient(to right, rgba(5, 3, 22, 0.96), rgba(15, 16, 36, 0.96));
+  background: linear-gradient(to right, rgba(5,3,22,0.96), rgba(15,16,36,0.96));
   border-bottom: 1px solid var(--border-soft);
   backdrop-filter: blur(16px);
 }
@@ -67,11 +95,171 @@ body {
   transition: color var(--transition-fast);
 }
 
-.main-nav a:hover {
+.main-nav a:hover,
+.main-nav a.active {
   color: var(--accent-silver);
 }
 
-/* SECTIONS */
+
+/* ── 5. HERO SECTION ────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at top,    rgba(60,20,100,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(20,10,60,0.5)  0%, transparent 55%),
+    #07030f;
+}
+
+/* Animated starfield */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+    radial-gradient(circle, rgba(239,159,39,0.7)  1px, transparent 1px);
+  background-size: 200px 200px, 300px 300px, 150px 150px;
+  background-position: 0 0, 100px 50px, 50px 120px;
+  animation: star-drift 60s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes star-drift {
+  from { background-position: 0 0,       100px 50px,  50px 120px; }
+  to   { background-position: 200px 0px, 300px 50px, 200px 120px; }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(7,3,15,0.55) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* Seal wrapper */
+.hero-seal-wrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.hero-seal-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(239,159,39,0.35) 0%,
+    rgba(180,80,255,0.18) 40%,
+    transparent 70%
+  );
+  animation: seal-pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes seal-pulse {
+  from { opacity: 0.7; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.05); }
+}
+
+.hero-seal-ring {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(239,159,39,0.5);
+  box-shadow:
+    0 0 20px rgba(239,159,39,0.4),
+    0 0 50px rgba(180,80,255,0.25),
+    inset 0 0 20px rgba(239,159,39,0.1);
+}
+
+.hero-seal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-seal-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0)   0%,
+    rgba(239,159,39,0.30) 50%,
+    rgba(255,255,255,0)   100%
+  );
+  mix-blend-mode: screen;
+  animation: seal-shimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes seal-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%);  }
+}
+
+/* Hero text */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  text-shadow:
+    0 0 20px rgba(239,159,39,0.5),
+    0 0 50px rgba(239,159,39,0.2);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: rgba(240,230,211,0.65);
+  letter-spacing: 0.04em;
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0;
+}
+
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+
+/* ── 6. PAGE SECTIONS ───────────────────────────────────────── */
 .section {
   padding: 3.5rem 1.5rem;
 }
@@ -102,7 +290,39 @@ body {
   margin-bottom: 2rem;
 }
 
-/* ABOUT */
+.content-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+
+/* ── 7. CARDS & INFO BOXES ──────────────────────────────────── */
+.info-box {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 1.3rem 1.2rem;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 1.2rem;
+}
+
+.info-box h3 {
+  margin-bottom: 0.5rem;
+}
+
+.upsell-box {
+  border-color: rgba(239,159,39,0.5);
+  background: rgba(239,159,39,0.08);
+}
+
+.small-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 0.4rem;
+}
+
+/* About section */
 .about-quote {
   margin: 1.5rem 0;
   color: var(--accent-silver);
@@ -136,7 +356,7 @@ body {
   color: var(--text-muted);
 }
 
-/* THEME GRID */
+/* Theme grid */
 .theme-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -145,7 +365,7 @@ body {
 
 .theme-card {
   display: block;
-  background: linear-gradient(135deg, rgba(165, 107, 255, 0.12), rgba(75, 180, 255, 0.08));
+  background: linear-gradient(135deg, rgba(165,107,255,0.12), rgba(75,180,255,0.08));
   border-radius: var(--radius-lg);
   padding: 1.4rem 1.3rem;
   border: 1px solid var(--border-soft);
@@ -167,11 +387,68 @@ body {
 
 .theme-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.75);
-  border-color: rgba(165, 107, 255, 0.7);
+  box-shadow: 0 22px 50px rgba(0,0,0,0.75);
+  border-color: rgba(165,107,255,0.7);
 }
 
-/* FORMS / INFO BOXES */
+/* Weekly spell items (Bewitching Wed / Spellbound Sat) */
+.weekly-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.weekly-item-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-purple);
+  margin-bottom: 0.5rem;
+}
+
+.weekly-spell-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  color: var(--accent-silver);
+  margin-bottom: 1rem;
+}
+
+.weekly-spell-body {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.75;
+}
+
+.weekly-spell-body strong {
+  color: var(--accent-silver);
+}
+
+.weekly-spell-body em {
+  color: rgba(215,194,255,0.75);
+}
+
+.spell-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.spell-tag {
+  background: rgba(165,107,255,0.08);
+  border: 1px solid rgba(165,107,255,0.2);
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.7rem;
+  color: rgba(200,120,255,0.7);
+  letter-spacing: 0.06em;
+}
+
+
+/* ── 8. FORMS ───────────────────────────────────────────────── */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -179,78 +456,53 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.form-field label {
+.form-field label,
+.form-group label {
   display: block;
   font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-silver);
+  letter-spacing: 0.05em;
   margin-bottom: 0.3rem;
 }
 
-.form-field input {
+.form-field input,
+.form-group input {
   width: 100%;
-  padding: 0.55rem 0.7rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--border-soft);
-  background: rgba(5, 3, 22, 0.9);
+  border: 1px solid rgba(165,107,255,0.35);
+  background: rgba(5,3,22,0.9);
   color: var(--text-main);
-}
-
-.form-field input:focus {
+  font-size: 0.95rem;
   outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.form-field input:focus,
+.form-group input:focus {
   border-color: var(--accent-purple);
-  box-shadow: 0 0 0 1px rgba(165, 107, 255, 0.4);
+  box-shadow: 0 0 0 1px rgba(165,107,255,0.4);
 }
 
-.info-box {
-  background: var(--card-bg);
-  border-radius: var(--radius-md);
-  padding: 1.3rem 1.2rem;
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-soft);
-  margin-bottom: 1.2rem;
+.birth-chart-form,
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 1.5rem auto;
 }
 
-.info-box h3 {
-  margin-bottom: 0.5rem;
-}
 
-.small-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 0.4rem;
-}
-
-/* TAROT LAYOUT */
+/* ── 9. TAROT ───────────────────────────────────────────────── */
 .tarot-layout {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 1.5rem;
 }
 
-/* SPARKLE */
-.sparkle {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  width: 40px;
-  height: 40px;
-  background: url('images/sparkle.png') no-repeat center center / contain;
-  animation: twinkle 1.2s infinite ease-in-out;
-  pointer-events: none;
-}
-
-@keyframes twinkle {
-  0% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.1); }
-  100% { opacity: 0.2; transform: scale(0.8); }
-}
-
-
-/* ───────────────────────────────────────────────
-   TAROT IMAGE STANDARDS — CLEAN + ORGANIZED
-   These four classes control ALL tarot images.
-─────────────────────────────────────────────── */
-
-/* 1. Daily Tarot Generator */
+/* Daily pull / generator card */
 .tarot-image {
   width: 110px;
   height: auto;
@@ -265,17 +517,17 @@ body {
   transform: rotate(180deg);
 }
 
-/* 2. Card of the Week — Featured Card */
+/* Featured / card of the week */
 .tarot-card-img {
-  width: 180px;
+  width: 220px;
   height: auto;
   display: block;
   margin: 0 auto 1rem;
   border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 0 18px rgba(165,107,255,0.25);
 }
 
-/* 3. Major Arcana Reference Guide */
+/* Major Arcana reference thumbnails */
 .arcana-thumb {
   width: 110px;
   height: auto;
@@ -285,7 +537,7 @@ body {
   box-shadow: 0 6px 20px rgba(0,0,0,0.4);
 }
 
-/* 4. Spread of the Week — Layout Cards */
+/* Spread of the week */
 .spread-card-img {
   width: 120px;
   height: auto;
@@ -295,9 +547,140 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
 
+/* Sparkle animation */
+.sparkle {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 40px;
+  height: 40px;
+  background: url('images/sparkle.png') no-repeat center center / contain;
+  animation: twinkle 1.2s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0%   { opacity: 0.2; transform: scale(0.8); }
+  50%  { opacity: 1;   transform: scale(1.1); }
+  100% { opacity: 0.2; transform: scale(0.8); }
+}
 
 
-/* BUTTONS */
+/* ── 10. BIRTH CHART ────────────────────────────────────────── */
+.birthchart-seal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.bigthree-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.bigthree-card {
+  background: rgba(10,10,30,0.85);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 1.1rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.bigthree-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(165,107,255,0.4);
+}
+
+.bigthree-card h4 {
+  margin: 0 0 0.4rem;
+  font-size: 0.92rem;
+  color: var(--accent-silver);
+}
+
+.houses-container {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.house-result-card {
+  background: rgba(10,10,30,0.9);
+  border: 1px solid rgba(165,107,255,0.2);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.house-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.house-number {
+  color: var(--accent-purple);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.house-theme {
+  font-size: 0.75rem;
+  color: var(--accent-blue);
+  letter-spacing: 0.08em;
+}
+
+.house-placement {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(165,107,255,0.12);
+}
+
+.house-placement strong {
+  color: var(--accent-silver);
+}
+
+.house-interpretation {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0.5rem 0 0;
+}
+
+.transit-image {
+  width: 100%;
+  max-width: 500px;
+  margin: 1.25rem auto 0;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(165,107,255,0.25);
+  box-shadow: 0 0 18px rgba(75,180,255,0.15);
+}
+
+.transit-center {
+  text-align: center;
+}
+
+.transit-center img {
+  display: inline-block;
+}
+
+.crystal-of-week-img img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  border-radius: 12px;
+}
+
+
+/* ── 11. BUTTONS ────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -310,41 +693,123 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
-  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .btn.primary {
   background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
   color: #050316;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.7);
 }
 
 .btn.primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.8);
 }
 
 .btn.secondary {
-  background: rgba(10, 10, 30, 0.9);
+  background: rgba(10,10,30,0.9);
   color: var(--accent-silver);
-  border-color: rgba(165, 107, 255, 0.6);
+  border-color: rgba(165,107,255,0.6);
 }
 
 .btn.secondary:hover {
-  background: rgba(20, 20, 50, 0.95);
+  background: rgba(20,20,50,0.95);
 }
 
 .btn.outline {
   background: transparent;
   color: var(--accent-silver);
-  border-color: rgba(215, 226, 255, 0.7);
+  border-color: rgba(215,226,255,0.7);
 }
 
 .btn.outline:hover {
-  background: rgba(10, 10, 30, 0.9);
+  background: rgba(10,10,30,0.9);
 }
 
-/* FOOTER */
+
+/* ── 12. CELESTIAL BANNER (used on sub-pages) ───────────────── */
+#banner-wrapper {
+  width: 75vw;
+  height: 32vh;
+  margin: 2rem auto;
+  background: #120018;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: banner-reveal 2.2s ease-out forwards;
+  box-shadow:
+    0 0 25px rgba(255,215,130,0.35),
+    0 0 45px rgba(255,200,90,0.25);
+  border: 1px solid rgba(255,220,150,0.35);
+}
+
+@keyframes banner-reveal {
+  0%   { opacity: 0; transform: scale(0.96); filter: blur(6px); }
+  60%  { opacity: 1; transform: scale(1.02); filter: blur(0);   }
+  100% { transform: scale(1); }
+}
+
+#banner-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0)     0%,
+    rgba(180,120,255,0.15) 40%,
+    rgba(255,255,255,0)    80%
+  );
+  mix-blend-mode: screen;
+  animation: shimmer-slide 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmer-slide {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%);  }
+}
+
+#banner-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(150,80,255,0.25), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(100,50,200,0.2),  transparent 70%);
+  animation: nebula-parallax 18s ease-in-out infinite alternate;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  z-index: 0;
+}
+
+@keyframes nebula-parallax {
+  0%   { transform: translateX(-10px) scale(1);    opacity: 0.35; }
+  100% { transform: translateX(10px)  scale(1.15); opacity: 0.55; }
+}
+
+.banner-img,
+.site-logo {
+  height: 35%;
+  max-height: 70%;
+  width: auto;
+  max-width: 85%;
+  object-fit: contain;
+  z-index: 3;
+  display: block;
+}
+
+
+/* ── 13. FOOTER ─────────────────────────────────────────────── */
 .footer {
   background: #02010b;
   border-top: 1px solid var(--border-soft);
@@ -380,296 +845,36 @@ body {
   color: var(--text-muted);
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .tarot-layout {
-    grid-template-columns: 1fr;
-  }
 
-  .hero {
-    padding-top: 1rem;
-  }
-
-  .main-nav ul {
-    gap: 0.9rem;
-  }
-
-.birthchart-seal-container {
-  display: flex;
-  justify-content: center;
-  margin: 2rem 0;
-}
-
-
-
-.upsell-box {
-  border-color: rgba(239,159,39,0.5);
-  background: rgba(239,159,39,0.08);
-}
-
-
-
-.houses-container { 
-  display: grid; 
-  gap: 1rem; 
-  margin-top: 1.5rem; 
-}
-
-.house-result-card {
-  background: rgba(10,10,30,0.9);
-  border: 1px solid rgba(165,107,255,0.2);
-  border-radius: 12px;
-  padding: 1.25rem;
-}
-
-.house-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: start; 
-  margin-bottom: 1rem; 
-}
-
-.house-number { 
-  color: #a56bff; 
-  font-weight: 700; 
-}
-
-.house-theme { 
-  font-size: 0.75rem; 
-  color: #4bb4ff; 
-  letter-spacing: 0.08em; 
-}
-
-.house-placement { 
-  margin-top: 1rem; 
-  padding-top: 1rem; 
-  border-top: 1px solid rgba(165,107,255,0.12); 
-}
-
-/* Birth Chart Form */
-.birth-chart-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 500px;
-  margin: 1.5rem auto;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #d7e2ff;
-  letter-spacing: 0.05em;
-}
-
-.form-group input {
-  padding: 0.75rem 1rem;
-  background: rgba(0,0,0,0.4);
-  border: 1px solid rgba(165,107,255,0.35);
-  border-radius: 10px;
-  color: #fff;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.form-group input:focus {
-  border-color: #a56bff;
-}
-
-/* House Results */
-.houses-container {
+/* ── 14. PAGE-SPECIFIC: PALMISTRY SUNDAY ────────────────────── */
+#palmistry-sunday .card-grid {
   display: grid;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.5rem;
 }
 
-.house-result-card {
-  background: rgba(10,10,30,0.9);
-  border: 1px solid rgba(165,107,255,0.2);
-  border-radius: 12px;
-  padding: 1.25rem;
-}
-
-.house-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.house-number {
-  color: #a56bff;
-  font-weight: 700;
-  font-size: 0.9rem;
-}
-
-.house-theme {
-  font-size: 0.75rem;
-  color: #4bb4ff;
-  letter-spacing: 0.08em;
-}
-
-.house-placement {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(165,107,255,0.12);
-}
-
-.house-placement strong {
-  color: #d7e2ff;
-}
-
-.house-interpretation {
-  font-size: 0.88rem;
-  color: var(--text-muted);
-  line-height: 1.65;
-  margin: 0.5rem 0 0;
-}
-
-.bigthree-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
-  gap: 1rem;
-  margin-top: 1.25rem;
-}
-
-.bigthree-card {
-  background: rgba(10,10,30,0.85);
+#palmistry-sunday .card-tile {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: 1rem;
   border: 1px solid var(--border-soft);
-  border-radius: 12px;
-  padding: 1.1rem;
-  transition: transform 0.2s, border-color 0.2s;
+  box-shadow: var(--shadow-soft);
 }
 
-.bigthree-card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(165,107,255,0.4);
-}
-
-.bigthree-card h4 {
-  margin: 0 0 0.4rem 0;
-  font-size: 0.92rem;
-  color: #d7e2ff;
-}
-
-.transit-image {
-  width: 100%;
-  max-width: 500px;
-  margin: 1.25rem auto 0;
-  display: block;
-  border-radius: 12px;
-  border: 1px solid rgba(165,107,255,0.25);
-  box-shadow: 0 0 18px rgba(75,180,255,0.15);
-}
-
-/* ===== Global Reset ===== */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-/* ===== Base Styles ===== */
-body {
-  font-family: "Georgia", "Times New Roman", serif;
-  background: radial-gradient(circle at top, #151528 0, #050509 55%, #020208 100%);
-  color: #f5f2ff;
-  line-height: 1.6;
-}
-
-a {
-  color: #e0b3ff;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.highlight {
-  color: #f6d06f;
-}
-
-/* ===== Layout ===== */
-.content-wrapper {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2.5rem 1.5rem 4rem;
-}
-
-/* ===== Header & Nav ===== */
-.site-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.5rem 1.5rem 1rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: flex-end;
-  background: linear-gradient(to right, #050509, #151528);
-}
-
-.logo-title h1 {
-  font-size: 1.6rem;
+#palmistry-sunday .card-numeral {
+  font-size: 0.85rem;
+  text-transform: uppercase;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--accent-silver);
+  margin-bottom: 0.3rem;
 }
 
-.tagline {
-  font-size: 0.9rem;
-  color: #c9c3ff;
-  margin-top: 0.25rem;
-}
-
-.main-nav {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0.75rem;
-}
-
-.main-nav a {
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding-bottom: 0.25rem;
-  border-bottom: 2px solid transparent;
-}
-
-.main-nav a.active,
-.main-nav a:hover {
-  border-color: #e0b3ff;
+.card-tile img.arcana-thumb {
+  width: 60px;
 }
 
 
-.week-range {
-  font-size: 0.95rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: #c9c3ff;
-  margin-bottom: 1rem;
-}
-
-.intro-copy {
-  font-size: 1rem;
-  color: #f5f2ff;
-}
-
-
-/* ===== Card Focus ===== */
-.card-focus {
-  margin-top: 3rem;
-}
-
+/* ── 15. PAGE-SPECIFIC: TAROT CARDS (weekly/daily pages) ────── */
 .card-focus h3 {
   font-size: 1.6rem;
   margin-bottom: 0.75rem;
@@ -690,10 +895,10 @@ a:hover {
 }
 
 .meaning-block {
-  background: rgba(10, 8, 24, 0.9);
+  background: rgba(10,8,24,0.9);
   border-radius: 0.75rem;
   padding: 1.25rem 1.4rem;
-  border: 1px solid rgba(224, 179, 255, 0.25);
+  border: 1px solid rgba(224,179,255,0.25);
 }
 
 .meaning-block h4 {
@@ -713,11 +918,7 @@ a:hover {
   font-size: 0.95rem;
 }
 
-/* ===== Weekly Energy & Daily Grid ===== */
-.weekly-energy {
-  margin-top: 3rem;
-}
-
+/* Weekly energy / daily grid */
 .weekly-energy h3 {
   font-size: 1.5rem;
   text-transform: uppercase;
@@ -741,8 +942,8 @@ a:hover {
   background: radial-gradient(circle at top, #26224a 0, #0b0b16 60%, #050509 100%);
   border-radius: 0.9rem;
   padding: 1.4rem 1.5rem;
-  border: 1px solid rgba(201, 195, 255, 0.3);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(201,195,255,0.3);
+  box-shadow: 0 10px 26px rgba(0,0,0,0.55);
 }
 
 .day-card h4 {
@@ -758,18 +959,13 @@ a:hover {
   margin-bottom: 0.6rem;
 }
 
-.day-card p {
-  font-size: 0.95rem;
-  color: #f5f2ff;
-}
-
-/* ===== Ritual Section ===== */
+/* Ritual section */
 .ritual-section {
   margin-top: 3rem;
   padding: 2rem 1.75rem;
   border-radius: 1rem;
-  background: rgba(10, 8, 24, 0.95);
-  border: 1px solid rgba(246, 208, 111, 0.35);
+  background: rgba(10,8,24,0.95);
+  border: 1px solid rgba(246,208,111,0.35);
 }
 
 .ritual-section h3 {
@@ -779,7 +975,8 @@ a:hover {
   margin-bottom: 0.75rem;
 }
 
-.ritual-section p {
+.ritual-section p,
+.deck-project p {
   margin-bottom: 0.75rem;
   color: #e9e4ff;
 }
@@ -793,22 +990,12 @@ a:hover {
   margin-bottom: 0.4rem;
 }
 
-/* ===== Deck Project Section ===== */
-.deck-project {
-  margin-top: 3rem;
-}
-
+/* Deck project */
 .deck-project h3 {
   font-size: 1.4rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   margin-bottom: 0.75rem;
-}
-
-.deck-project p {
-  max-width: 820px;
-  margin-bottom: 0.75rem;
-  color: #e9e4ff;
 }
 
 .deck-project ul {
@@ -826,383 +1013,42 @@ a:hover {
   color: #c9c3ff;
 }
 
-/* ===== Footer ===== */
-.site-footer {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 1.25rem 1.5rem 1.75rem;
-  text-align: center;
-  font-size: 0.85rem;
-  color: #a39ad6;
-  background: #050509;
+/* Week range label */
+.week-range {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #c9c3ff;
+  margin-bottom: 1rem;
 }
 
-/* ===== Responsive ===== */
+.intro-copy {
+  font-size: 1rem;
+  color: #f5f2ff;
+}
+
+
+/* ── 16. RESPONSIVE ─────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .site-header {
-    align-items: flex-start;
+  .tarot-layout {
+    grid-template-columns: 1fr;
   }
 
-  .main-nav {
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+  .hero {
+    padding-top: 1rem;
+  }
+
+  .main-nav ul {
+    gap: 0.9rem;
   }
 
   .tarot-card-img {
-    width: 60px;
-    border-radius: 12px;
-    display: block;
-    margin: 0 auto;
-    box-shadow: 0 0 18px rgba(165,107,255,0.25);
+    width: 160px;
   }
-
-.tarot-card-img {
-  width: 220px !important;
-  height: auto !important;
-  border-radius: 12px;
-  display: block;
-  margin: 0 auto;
-  box-shadow: 0 0 18px rgba(165,107,255,0.25);
 }
 
-.arcana-thumb {
-  width: 110px;
-  height: auto;
-  display: block;
-  margin: 0 auto 0.5rem;
-  border-radius: 8px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
-  shadow: 0 8px 24px rgba(0,0,0,0.45);
-}
-
-  .spread-card-img {
-  width: 120px;
-  height: auto;
-  display: block;
-  margin: 0.5rem auto 1rem;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
-}
-.card-tile img.arcana-thumb {
-  width: 60px !important;
-}
-/* ────────────────────────────────
-   AOA CELESTIAL BANNER — FINAL FIX
-   ──────────────────────────────── */
-
-#banner-wrapper {
-  width: 75vw;
-  height: 32vh;
-  margin: 2rem auto;
-  background: #120018;
-  border-radius: 16px;
-  position: relative;
-  overflow: hidden;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  /* constrain banner logo so it can't overflow */
-  #banner-wrapper .site-logo {
-    display: block;
-    max-width: 85%;
-    max-height: 85%; 
-    width: auto;
-    height: auto;
-    object-fit: contain; }
-
-  animation: banner-reveal 2.2s ease-out forwards;
-
-  box-shadow:
-    0 0 25px rgba(255, 215, 130, 0.35),
-    0 0 45px rgba(255, 200, 90, 0.25);
-  border: 1px solid rgba(255, 220, 150, 0.35);
-}
-
-@keyframes banner-reveal {
-  0% { opacity: 0; transform: scale(0.96); filter: blur(6px); }
-  60% { opacity: 1; transform: scale(1.02); filter: blur(0); }
-  100% { transform: scale(1); }
-}
-
-/* Celestial shimmer */
-#banner-wrapper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(180,120,255,0.15) 40%,
-    rgba(255,255,255,0) 80%
-  );
-  mix-blend-mode: screen;
-  animation: shimmer-slide 8s linear infinite;
-  pointer-events: none;
-  z-index: 1;
-}
-
-@keyframes shimmer-slide {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-/* Parallax nebula */
-#banner-wrapper::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 30% 40%, rgba(150,80,255,0.25), transparent 60%),
-    radial-gradient(circle at 70% 60%, rgba(100,50,200,0.2), transparent 70%);
-  animation: nebula-parallax 18s ease-in-out infinite alternate;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  z-index: 0;
-}
-
-@keyframes nebula-parallax {
-  0%   { transform: translateX(-10px) scale(1); opacity: 0.35; }
-  100% { transform: translateX(10px) scale(1.15); opacity: 0.55; }
-}
-
-/* Logo inside banner */
-.banner-img,
-.site-logo {
-  height: 35%;
-  width: 35;
-  max-height: 70%;
-  object-fit: contain;
-  z-index: 3;
-  display: block;
-}
-  .transit-center {
-  text-align: center;
-}
-
-.transit-center img {
-  display: inline-block;
-}
-  /* Crystal of the Week image sizing */
-.crystal-of-week-img img {
-  width: 100%;
-  max-width: 260px;
-  height: auto;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  border-radius: 12px;
-}
-/* FINAL override for birth chart seal size */
-.birthchart-seal-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-}
-
-  /* PALMISTRY SUNDAY SUPPORT STYLES */
-#palmistry-sunday .card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1.5rem;
-}
-
-#palmistry-sunday .card-tile {
-  background: var(--card-bg);
-  border-radius: var(--radius-md);
-  padding: 1rem 1rem;
-  border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow-soft);
-}
-
-#palmistry-sunday .card-numeral {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--accent-silver);
-  margin-bottom: 0.3rem;
-}
-  ═══════════════════════════════════════════════════════ -->
-
-<style>
-
-/* ── Hero section ───────────────────────────────────────── */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 4rem 1.5rem;
-  overflow: hidden;
-
-  /* Starfield background */
-  background:
-    radial-gradient(ellipse at top,    rgba(60,20,100,0.6) 0%, transparent 60%),
-    radial-gradient(ellipse at bottom, rgba(20,10,60,0.5)  0%, transparent 55%),
-    #07030f;
-}
-
-/* Tiny star dots */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
-    radial-gradient(circle, rgba(239,159,39,0.7)  1px, transparent 1px);
-  background-size: 200px 200px, 300px 300px, 150px 150px;
-  background-position: 0 0, 100px 50px, 50px 120px;
-  animation: star-drift 60s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes star-drift {
-  from { background-position: 0 0,      100px 50px,  50px 120px; }
-  to   { background-position: 200px 0px, 300px 50px, 200px 120px; }
-}
-
-/* Dark overlay */
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at center, transparent 30%, rgba(7,3,15,0.55) 100%);
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Content wrapper */
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 680px;
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-/* ── Seal wrapper ───────────────────────────────────────── */
-.hero-seal-wrap {
-  position: relative;
-  width: 200px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-}
-
-/* Outer radial glow behind the seal */
-.hero-seal-glow {
-  position: absolute;
-  inset: -30px;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(239,159,39,0.35) 0%,
-    rgba(180,80,255,0.18) 40%,
-    transparent 70%
-  );
-  animation: seal-pulse 4s ease-in-out infinite alternate;
-  pointer-events: none;
-}
-
-@keyframes seal-pulse {
-  from { opacity: 0.7; transform: scale(0.95); }
-  to   { opacity: 1;   transform: scale(1.05); }
-}
-
-/* Circular crop ring */
-.hero-seal-ring {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  overflow: hidden;
-  position: relative;
-  border: 2px solid rgba(239,159,39,0.5);
-  box-shadow:
-    0 0 20px rgba(239,159,39,0.4),
-    0 0 50px rgba(180,80,255,0.25),
-    inset 0 0 20px rgba(239,159,39,0.1);
-}
-
-/* Logo image inside ring */
-.hero-seal-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Shimmer sweep over the seal */
-.hero-seal-shimmer {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0)    0%,
-    rgba(239,159,39,0.30)  50%,
-    rgba(255,255,255,0)    100%
-  );
-  mix-blend-mode: screen;
-  animation: seal-shimmer 4s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes seal-shimmer {
-  0%   { transform: translateX(-100%); }
-  100% { transform: translateX(100%);  }
-}
-
-/* ── Hero text ──────────────────────────────────────────── */
-.hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: #EF9F27;
-  text-shadow:
-    0 0 20px rgba(239,159,39,0.5),
-    0 0 50px rgba(239,159,39,0.2);
-  margin: 0;
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  font-size: 0.95rem;
-  color: rgba(240,230,211,0.65);
-  letter-spacing: 0.04em;
-  line-height: 1.65;
-  max-width: 480px;
-  margin: 0;
-}
-
-/* ── Hero buttons ───────────────────────────────────────── */
-.hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-  margin-top: 0.5rem;
-}
-
-/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 480px) {
-  .hero-seal-wrap  { width: 160px; height: 160px; }
-  .hero-seal-ring  { width: 145px; height: 145px; }
-  .hero-buttons    { flex-direction: column; align-items: center; }
+  .hero-seal-wrap { width: 160px; height: 160px; }
+  .hero-seal-ring { width: 145px; height: 145px; }
+  .hero-buttons   { flex-direction: column; align-items: center; }
 }
-
-</style>
-
-
-
-
