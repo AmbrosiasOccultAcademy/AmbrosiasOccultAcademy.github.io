@@ -247,36 +247,46 @@
   <!-- ─── HEADER / HERO ──────────────────────────────────────────────────── -->
 
 	
-  <header class="hero">
-<div class="academy-banner">
-  <div class="academy-logo-wrapper">
-    <img src="images/AOA-Logo.png" alt="Ambrosia's Occult Academy" class="academy-logo">
-    <div class="academy-logo-shimmer"></div>
-  </div>
+ <!-- ═══════════════════════════════════════════════════════
+     STEP 1: Replace your entire <header class="hero"> block
+     with this clean version
+════════════════════════════════════════════════════════ -->
 
-  <h1 class="academy-title">Ambrosia's Occult Academy</h1>
-</div>
+<header class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
 
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-		  <!-- Ambrosia's Occult Academy Seal -->
-<div class="academy-seal-container">
-  <img src="images/AOA-Logo.png" 
-       alt="Ambrosia's Occult Academy Seal"
-       id="academy-seal">
-      <p class="hero-subtitle">
-        Celestial guidance, mystical education, and practical magic for modern seekers.
-      </p>
-      <div class="hero-buttons">
-        <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">Visit YouTube</a>
-        <a href="#tarot" class="btn secondary">Free Daily Tarot</a>
-        <a href="#birth-chart" class="btn outline">Birth Chart Tool</a>
-        <a href="services.html" class="btn outline">Book a Reading</a>
+    <!-- Seal with glow -->
+    <div class="hero-seal-wrap">
+      <div class="hero-seal-glow"></div>
+      <div class="hero-seal-ring">
+        <img
+          src="images/AOA-Logo.png"
+          alt="Ambrosia's Occult Academy Seal"
+          class="hero-seal-img"
+        />
+        <div class="hero-seal-shimmer"></div>
       </div>
     </div>
-</div>
 
-  </header>
+    <!-- Title -->
+    <h1 class="hero-title">Ambrosia's Occult Academy</h1>
+
+    <!-- Subtitle -->
+    <p class="hero-subtitle">
+      Celestial guidance, mystical education, and practical magic for modern seekers.
+    </p>
+
+    <!-- Buttons -->
+    <div class="hero-buttons">
+      <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank" class="btn primary">Visit YouTube</a>
+      <a href="#tarot"       class="btn secondary">Free Daily Tarot</a>
+      <a href="#birth-chart" class="btn outline">Birth Chart Tool</a>
+      <a href="services.html" class="btn outline">Book a Reading</a>
+    </div>
+
+  </div>
+</header>
 
 
 
