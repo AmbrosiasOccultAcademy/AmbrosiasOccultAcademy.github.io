@@ -39,85 +39,6 @@ body {
   line-height: 1.6;
 }
 
-/* HERO */
-.hero {
-  position: relative;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 2rem 1.5rem;
-  background: radial-gradient(circle at top, #4b3b9b 0, #050316 55%, #02010b 100%);
-  overflow: hidden;
-}
-
-.hero::before,
-.hero::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.6;
-}
-
-.hero::before {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(165, 107, 255, 0.9), transparent 70%);
-  top: -80px;
-  left: -120px;
-}
-
-.hero::after {
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(75, 180, 255, 0.9), transparent 70%);
-  bottom: -120px;
-  right: -80px;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.12) 0, transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(255, 255, 255, 0.08) 0, transparent 55%),
-    radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.06) 0, transparent 55%);
-  mix-blend-mode: screen;
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  max-width: 100%;
-  z-index: 1;
-  width: 100%;
-}
-
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 4vw, 3.4rem);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 1rem;
-}
-
-.hero-subtitle {
-  font-size: 1.05rem;
-  color: var(--text-muted);
-  max-width: 620px;
-  margin: 0 auto 2rem;
-}
-
-.hero-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.9rem;
-}
-
 /* NAV */
 .main-nav {
   position: sticky;
@@ -479,39 +400,6 @@ body {
   margin: 2rem 0;
 }
 
-#academy-seal {
-  width: 160px !important;
-  height: 160px !important;
-  max-width: 160px !important;
-  max-height: 160px !important;
-  padding: 8px;
-  filter: drop-shadow(0 0 10px rgba(239,159,39,0.45));
-}
-  #academy-seal::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(239,159,39,0.25) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  mix-blend-mode: screen;
-  animation: seal-shimmer 4s linear infinite;
-  pointer-events: none;
-}
-  .academy-seal-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2rem 0;
-}
-
-@keyframes seal-shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
 
 
 .upsell-box {
@@ -1136,6 +1024,184 @@ a:hover {
   color: var(--accent-silver);
   margin-bottom: 0.3rem;
 }
+  ═══════════════════════════════════════════════════════ -->
+
+<style>
+
+/* ── Hero section ───────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 1.5rem;
+  overflow: hidden;
+
+  /* Starfield background */
+  background:
+    radial-gradient(ellipse at top,    rgba(60,20,100,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(20,10,60,0.5)  0%, transparent 55%),
+    #07030f;
+}
+
+/* Tiny star dots */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px),
+    radial-gradient(circle, rgba(239,159,39,0.7)  1px, transparent 1px);
+  background-size: 200px 200px, 300px 300px, 150px 150px;
+  background-position: 0 0, 100px 50px, 50px 120px;
+  animation: star-drift 60s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes star-drift {
+  from { background-position: 0 0,      100px 50px,  50px 120px; }
+  to   { background-position: 200px 0px, 300px 50px, 200px 120px; }
+}
+
+/* Dark overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(7,3,15,0.55) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content wrapper */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+/* ── Seal wrapper ───────────────────────────────────────── */
+.hero-seal-wrap {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Outer radial glow behind the seal */
+.hero-seal-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(239,159,39,0.35) 0%,
+    rgba(180,80,255,0.18) 40%,
+    transparent 70%
+  );
+  animation: seal-pulse 4s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes seal-pulse {
+  from { opacity: 0.7; transform: scale(0.95); }
+  to   { opacity: 1;   transform: scale(1.05); }
+}
+
+/* Circular crop ring */
+.hero-seal-ring {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  border: 2px solid rgba(239,159,39,0.5);
+  box-shadow:
+    0 0 20px rgba(239,159,39,0.4),
+    0 0 50px rgba(180,80,255,0.25),
+    inset 0 0 20px rgba(239,159,39,0.1);
+}
+
+/* Logo image inside ring */
+.hero-seal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Shimmer sweep over the seal */
+.hero-seal-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0)    0%,
+    rgba(239,159,39,0.30)  50%,
+    rgba(255,255,255,0)    100%
+  );
+  mix-blend-mode: screen;
+  animation: seal-shimmer 4s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes seal-shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%);  }
+}
+
+/* ── Hero text ──────────────────────────────────────────── */
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #EF9F27;
+  text-shadow:
+    0 0 20px rgba(239,159,39,0.5),
+    0 0 50px rgba(239,159,39,0.2);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 0.95rem;
+  color: rgba(240,230,211,0.65);
+  letter-spacing: 0.04em;
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0;
+}
+
+/* ── Hero buttons ───────────────────────────────────────── */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .hero-seal-wrap  { width: 160px; height: 160px; }
+  .hero-seal-ring  { width: 145px; height: 145px; }
+  .hero-buttons    { flex-direction: column; align-items: center; }
+}
+
+</style>
 
 
 
