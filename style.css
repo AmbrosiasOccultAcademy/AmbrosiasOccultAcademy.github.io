@@ -1111,11 +1111,11 @@ a:hover {
 }
 
 #academy-seal {
-  width: 160px !important;
-  height: 160px !important;
-  max-width: 160px !important;
-  max-height: 160px !important;
-  padding: 8px;
+  width: 80px !important;
+  height: 80px !important;
+  max-width: 80px !important;
+  max-height: 80px !important;
+  padding: 2px;
   filter: drop-shadow(0 0 10px rgba(239,159,39,0.45));
 }
   #academy-seal::after {
