@@ -9,35 +9,17 @@
 
   <style>
     /* ── Page hero ──────────────────────────────────────────────────────── */
-    .freaky-hero {
-      position: relative;
-      min-height: 38vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 4rem 1.5rem 3rem;
-      background: radial-gradient(ellipse at top, #1a0030 0%, #050316 55%, #02010b 100%);
-      overflow: hidden;
-    }
-    .freaky-hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        radial-gradient(circle at 15% 25%, rgba(165,107,255,0.18) 0, transparent 50%),
-        radial-gradient(circle at 80% 15%, rgba(75,180,255,0.12) 0, transparent 50%);
-      pointer-events: none;
-    }
-    .freaky-hero-content { position: relative; z-index: 1; max-width: 750px; }
-    .freaky-hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 0.8rem;
-    }
-    .freaky-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+    <section class="freaky-hero">
+  <div class="freaky-hero-content">
+
+    <div class="day-label">Freaky Fridays</div>
+
+    <h1>Freaky Fridays</h1>
+
+    <p>Exploring paranormal mysteries, strange phenomena, and the uncanny energies that shape our world.</p>
+
+  </div>
+</section>
 
     /* ── Jump nav ───────────────────────────────────────────────────────── */
     .jump-nav {
@@ -69,6 +51,34 @@
       border-color: rgba(165,107,255,0.5);
       background: rgba(165,107,255,0.08);
     }
+    <nav class="jump-nav">
+  <a href="#weekly">Weekly Feature</a>
+  <a href="#guide">Guide</a>
+  <a href="#basics">Basics</a>
+  <a href="#bos">Book of Shadows</a>
+</nav>
+
+    /''Section ID
+
+    <section id="weekly" class="weekly-box">
+  <h3>Weekly Freaky Feature</h3>
+
+  <div class="weekly-item">
+    <div class="weekly-item-label">This Week</div>
+    <div class="weekly-spell-title">Paranormal Case Study</div>
+    <div class="weekly-spell-body">
+      A deep dive into a strange phenomenon, unexplained event, or eerie mystery.
+    </div>
+  </div>
+
+    <section id="guide">
+  <p class="guide-intro">
+    Freaky Fridays explore the strange, the uncanny, and the paranormal.  
+    This guide helps you understand the energies behind unusual events,  
+    how to interpret them, and how to protect your space.
+  </p>
+</section>
+
 
     /* ── Cam cards ──────────────────────────────────────────────────────── */
     .cam-grid {
