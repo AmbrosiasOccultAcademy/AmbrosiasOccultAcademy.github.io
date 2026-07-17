@@ -567,6 +567,16 @@ a:hover {
 
 
 /* ── 10. BIRTH CHART ────────────────────────────────────────── */
+
+#birthchart-seal {
+  width: min(40vw, 200px);
+  height: auto;
+}
+
+#birthchart-seal {
+  filter: drop-shadow(0 0 12px rgba(239,159,39,0.35));
+}
+
 .birthchart-seal-container {
   display: flex;
   justify-content: center;
