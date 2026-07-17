@@ -480,9 +480,9 @@ body {
 }
 
 #academy-seal {
-  width: 140px;        /* smaller, elegant */
-  height: 140px;
-  padding: 10px;       /* breathing room */
+  width: 80px;        /* smaller, elegant */
+  height: 80px;
+  padding: 4px;       /* breathing room */
   filter: drop-shadow(0 0 10px rgba(239,159,39,0.45));
 }
 #academy-seal {
