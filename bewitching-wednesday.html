@@ -109,6 +109,328 @@
     .bos-list li::before { content: "✦"; color: #a56bff; flex-shrink: 0; font-size: 0.7rem; margin-top: 4px; }
     .bos-list li strong { color: #d7e2ff; }
 
+    <style>
+  /* ── Weekly spell card ──────────────────────────────────────── */
+  .weekly-spell-card {
+    background: rgba(10,10,30,0.9);
+    border: 1px solid rgba(180,100,255,0.25);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .weekly-spell-header {
+    background: linear-gradient(135deg, rgba(180,100,255,0.15), rgba(100,50,180,0.08));
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(180,100,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .weekly-spell-header-left h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #c878ff;
+    margin: 0 0 0.2rem;
+  }
+
+  .weekly-spell-header-left .week-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(200,120,255,0.5);
+  }
+
+  .weekly-spell-badge {
+    background: rgba(180,100,255,0.12);
+    border: 1px solid rgba(180,100,255,0.3);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #c878ff;
+  }
+
+  /* ── Spell image placeholder ────────────────────────────────── */
+  .spell-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 6;
+    background: linear-gradient(135deg, rgba(100,30,160,0.4), rgba(30,10,60,0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(180,100,255,0.1);
+    overflow: hidden;
+  }
+
+  .spell-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  .spell-image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(200,120,255,0.4);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .spell-image-placeholder .ph-icon { font-size: 2.5rem; opacity: 0.4; }
+
+  /* ── Spell body ─────────────────────────────────────────────── */
+  .weekly-spell-body-wrap {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 0;
+  }
+
+  @media (max-width: 768px) {
+    .weekly-spell-body-wrap { grid-template-columns: 1fr; }
+  }
+
+  .weekly-spell-main {
+    padding: 1.75rem;
+    border-right: 1px solid rgba(180,100,255,0.1);
+  }
+
+  @media (max-width: 768px) {
+    .weekly-spell-main { border-right: none; border-bottom: 1px solid rgba(180,100,255,0.1); }
+  }
+
+  .weekly-spell-main h4 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #d7c2ff;
+    margin: 0 0 0.25rem;
+  }
+
+  .weekly-spell-main .spell-timing {
+    font-size: 0.78rem;
+    color: rgba(200,120,255,0.6);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.25rem;
+    font-style: italic;
+  }
+
+  .weekly-spell-main p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+
+  .weekly-spell-main p strong { color: #d7c2ff; }
+
+  /* ── Spell ingredients sidebar ──────────────────────────────── */
+  .weekly-spell-sidebar {
+    padding: 1.75rem;
+    background: rgba(0,0,0,0.2);
+  }
+
+  .sidebar-block {
+    margin-bottom: 1.5rem;
+  }
+
+  .sidebar-block:last-child { margin-bottom: 0; }
+
+  .sidebar-block-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #c878ff;
+    margin-bottom: 0.65rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(180,100,255,0.15);
+  }
+
+  .ingredient-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .ingredient-list li {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 0.3rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .ingredient-list li:last-child { border-bottom: none; }
+  .ingredient-list li::before { content: "✦"; color: #c878ff; font-size: 0.6rem; margin-top: 3px; flex-shrink: 0; }
+
+  .incantation-box {
+    background: rgba(180,100,255,0.06);
+    border: 1px solid rgba(180,100,255,0.2);
+    border-radius: 10px;
+    padding: 0.9rem 1rem;
+    font-size: 0.83rem;
+    color: rgba(215,194,255,0.75);
+    line-height: 1.65;
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* ── Spell tags ─────────────────────────────────────────────── */
+  .spell-tags-wrap {
+    padding: 1rem 1.75rem;
+    border-top: 1px solid rgba(180,100,255,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .spell-tag {
+    background: rgba(180,100,255,0.08);
+    border: 1px solid rgba(180,100,255,0.2);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+    font-size: 0.7rem;
+    color: rgba(200,120,255,0.7);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── Shadow work card ───────────────────────────────────────── */
+  .shadow-card {
+    background: rgba(10,10,30,0.9);
+    border: 1px solid rgba(140,80,200,0.2);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .shadow-card-header {
+    background: linear-gradient(135deg, rgba(80,40,140,0.3), rgba(20,10,40,0.5));
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid rgba(140,80,200,0.15);
+  }
+
+  .shadow-card-header h3 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #a56bff;
+    margin: 0 0 0.2rem;
+  }
+
+  .shadow-card-header .week-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(165,107,255,0.5);
+  }
+
+  .shadow-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 5;
+    background: linear-gradient(135deg, rgba(40,20,80,0.6), rgba(10,5,20,0.9));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(140,80,200,0.1);
+    overflow: hidden;
+  }
+
+  .shadow-card-body {
+    padding: 1.75rem;
+  }
+
+  .shadow-card-body h4 {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #c8a8ff;
+    margin: 0 0 0.5rem;
+  }
+
+  .shadow-card-body .shadow-context {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(140,80,200,0.12);
+  }
+
+  .prompt-block {
+    background: rgba(140,80,200,0.06);
+    border-left: 3px solid #a56bff;
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .prompt-num {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #a56bff;
+    margin-bottom: 0.35rem;
+  }
+
+  .prompt-question {
+    font-size: 0.95rem;
+    color: #d7c2ff;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+  }
+
+  .prompt-guidance {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .integration-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(140,80,200,0.15);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+  }
+
+  .integration-box .int-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a56bff;
+    margin-bottom: 0.65rem;
+  }
+
+  .integration-box p {
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin: 0 0 0.5rem;
+  }
+
+  .integration-box p:last-child { margin-bottom: 0; }
+  .integration-box em { color: rgba(200,160,255,0.7); }
+
     /* ── Tip box ────────────────────────────────────────────────────────── */
     .tip-box {
       background: rgba(165,107,255,0.07); border-left: 3px solid #a56bff;
