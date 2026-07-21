@@ -733,9 +733,10 @@ a:hover {
 }
 
 .section-image {
-    max-width: 260px;   /* adjust size here */
     width: 100%;
+    max-width: 260px;
     height: auto;
+    object-fit: contain;
     display: block;
     margin: 0 auto 1rem; /* centers image + spacing */
     border-radius: 10px; /* optional aesthetic */
