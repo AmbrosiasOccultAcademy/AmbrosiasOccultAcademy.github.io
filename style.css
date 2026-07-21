@@ -661,6 +661,59 @@ a:hover {
   margin: 0.5rem 0 0;
 }
 
+/* ─── 12 HOUSES CARD STYLE ─────────────────────────────── */
+.house-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.4rem;
+    margin-top: 1.5rem;
+}
+
+.house-card {
+    background: linear-gradient(135deg,
+        rgba(165,107,255,0.12),
+        rgba(212,83,126,0.07)
+    );
+    border: 1px solid rgba(165,107,255,0.35);
+    border-radius: 16px;
+    padding: 1.4rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover glow */
+.house-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 22px rgba(165,107,255,0.25);
+}
+
+/* House title styling */
+.house-card h4 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+    color: #d7e2ff;
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+}
+
+/* Optional: subtle star mist overlay */
+.house-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right,
+        rgba(255,255,255,0.08),
+        transparent 60%
+    );
+    pointer-events: none;
+}
+
+
 .transit-image {
   width: 100%;
   max-width: 500px;
