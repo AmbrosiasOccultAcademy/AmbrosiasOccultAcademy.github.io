@@ -732,6 +732,15 @@ a:hover {
   display: inline-block;
 }
 
+.section-image {
+    max-width: 260px;   /* adjust size here */
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 1rem; /* centers image + spacing */
+    border-radius: 10px; /* optional aesthetic */
+}
+
 .crystal-of-week-img img {
   width: 100%;
   max-width: 260px;
