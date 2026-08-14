@@ -236,6 +236,33 @@
     @media(max-width:640px){
       .cam-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Friday hero — matches other daily theme pages ──────────────────── */
+    .friday-hero {
+      position: relative; min-height: 40vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #1a0a0a 0%, #050316 50%, #02010b 100%);
+      overflow: hidden;
+    }
+    .friday-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(212,83,126,0.15) 0, transparent 50%),
+        radial-gradient(circle at 75% 20%, rgba(165,107,255,0.15) 0, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(239,159,39,0.08) 0, transparent 40%);
+      pointer-events: none;
+    }
+    .friday-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .friday-hero .day-label {
+      font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #d45b7a; margin-bottom: 0.75rem;
+    }
+    .friday-hero h1 {
+      font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3rem);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .friday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
   </style>
 </head>
 <body>
@@ -251,6 +278,21 @@
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
   </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────────────────────── -->
+  <div class="friday-hero">
+    <div class="friday-hero-content">
+      <div class="day-label">Every Friday</div>
+      <h1>👻 Freaky Fridays</h1>
+      <p>Ghost stories, cryptids, UFO sightings, live paranormal cams, and an interactive haunted map of America — updated every week.</p>
+      <div style="margin-top:1.5rem;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <a href="#this-week" class="btn secondary">This Week's Stories</a>
+        <a href="#haunted-map" class="btn outline">Haunted Map</a>
+        <a href="index.html#themes" class="btn outline">Back to Homepage</a>
+      </div>
+    </div>
+  </div>
+
   <div class="jump-nav">
     <a href="#this-week">This Week</a>
     <a href="#haunted-map">Haunted Map</a>
@@ -279,7 +321,7 @@
           <div style="font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;color:#a56bff;margin-bottom:0.4rem;font-weight:700;">Cryptid of the Week</div>
           <div style="font-family:var(--font-display);font-size:1rem;color:#d7e2ff;margin-bottom:0.6rem;">The Fouke Monster — Fouke, Arkansas</div>
           <div style="background:rgba(0,0,0,0.25);border-radius:10px;padding:1rem 1.2rem;color:var(--text-muted);font-size:0.91rem;line-height:1.75;">
-            Also known as the Boggy Creek Monster, this tall, hair-covered, foul-smelling biped has been reported around the swampy Sulphur River bottoms near Fouke since at least 1946. It became a national sensation in May 1971, when Bobby and Elizabeth Ford reported that a creature roughly seven feet tall reached through a window of their rural home and grabbed at them in the dark. The story spread through local newspapers and inspired the 1972 docudrama <em>The Legend of Boggy Creek</em>, a surprise box-office hit that cemented the monster in cryptid lore nationwide.<br><br>
+            Also known as the Boggy Creek Monster, this tall, hair-covered, foul-smelling biped has been reported around the swampy Sulphur River bottoms near Fouke since at least 1946. It became a national sensation in May 1971, when Bobby and Elizabeth Ford reported that a creature roughly seven feet tall reached through a window of their rural home and grabbed at them in the dark. The story spread through local newspapers and inspired the 1972 docudrama "The Legend of Boggy Creek," a surprise box-office hit that cemented the monster in cryptid lore nationwide.<br><br>
             Sightings never really stopped — hunters and drivers around Fouke and the Boggy Creek bottomlands still report a reddish-brown, apelike shape moving through the tree line, along with strange tracks and unexplained howls. Decades on, the swampland around Fouke remains thick, remote, and largely unchanged — plenty of room, believers say, for something to still be out there.
           </div>
         </div>
@@ -293,7 +335,7 @@
     <div class="section-inner">
       <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.4rem;">The Haunted Map of America</h2>
       <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.75;margin-bottom:0.5rem;max-width:820px;">Each week we feature the most haunted places in one US state going alphabetically. Click any pin to read the haunted history and visiting info. Add your own scary place with the form below.</p>
-      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Current state: <strong style="color:#a56bff;">Arkansas</strong> &nbsp;|&nbsp; Next week: California &nbsp;|&nbsp; <span style="color:#4bb464;">Green pins</span> = your submissions</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Current states: <strong style="color:#a56bff;">Alabama</strong>, <strong style="color:#a56bff;">Arizona</strong> &amp; <strong style="color:#a56bff;">Arkansas</strong> &nbsp;|&nbsp; Next week: California &nbsp;|&nbsp; <span style="color:#4bb464;">Green pins</span> = your submissions</p>
 
       <div id="map-wrap" style="background:#06030f;border-radius:14px;border:1px solid rgba(165,107,255,0.35);overflow:hidden;margin-bottom:1.5rem;position:relative;">
         <div id="map-zoom-controls" style="position:absolute;top:10px;right:10px;z-index:10;display:flex;flex-direction:column;gap:4px;">
@@ -327,40 +369,93 @@
       </div>
       <div id="hoverlay" onclick="closePopup()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:999;"></div>
 
-      <h3 style="font-family:var(--font-display);letter-spacing:0.07em;text-transform:uppercase;color:#d7e2ff;font-size:1rem;margin-bottom:0.3rem;">5 Most Haunted Places in Arkansas</h3>
-      <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1rem;">Click a card or a map pin to read the full story.</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:2rem;">
-        <div onclick="openPin(0)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+      <h3 style="font-family:var(--font-display);letter-spacing:0.07em;text-transform:uppercase;color:#d7e2ff;font-size:1rem;margin-bottom:0.3rem;">Featured This Week: 5 Most Haunted Places in Arkansas</h3>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1rem;">Click a card or a map pin to read the full story. Alabama and Arizona pins remain on the map from previous weeks.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1rem;">
+        <div onclick="openPin(10)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
           <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Eureka Springs, AR</div>
           <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Crescent Hotel</div>
           <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">"America's Most Haunted Hotel." A fake cancer hospital, a basement morgue, and a stonemason's ghost.</p>
           <div style="font-size:0.76rem;color:#EF9F27;">Bookable overnight stays, nightly ghost tours</div>
         </div>
-        <div onclick="openPin(1)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div onclick="openPin(11)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
           <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Gurdon, AR</div>
           <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Gurdon Light</div>
           <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A floating ghost light drifts along an old railroad bed said to mark a 1931 murder.</p>
           <div style="font-size:0.76rem;color:#4bb464;">Public land, best seen after dark</div>
         </div>
-        <div onclick="openPin(2)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div onclick="openPin(12)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
           <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Monticello, AR</div>
           <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Allen House</div>
-          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A daughter's 1948 suicide by cyanide, a sealed bedroom, and a face caught in a mirror photo.</p>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A daughter's suicide by cyanide, a sealed bedroom, and a face caught in a mirror photo.</p>
           <div style="font-size:0.76rem;color:#4bb464;">Private residence, viewable from street</div>
         </div>
-        <div onclick="openPin(3)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div onclick="openPin(13)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
           <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Little Rock, AR</div>
           <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Mount Holly Cemetery</div>
           <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Little Rock's oldest cemetery, resting place of governors and Confederate generals -- and reported apparitions among the headstones.</p>
           <div style="font-size:0.76rem;color:#4bb464;">Open to the public, self-guided tours</div>
         </div>
-        <div onclick="openPin(4)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+        <div onclick="openPin(14)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
           <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Van Buren, AR</div>
           <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The King Opera House</div>
           <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A murdered actor in a top hat and cape reportedly still flips the lights on and off backstage.</p>
           <div style="font-size:0.76rem;color:#4bb464;">Working theater, public performances</div>
         </div>
       </div>
+
+      <!-- Previous weeks reference -->
+      <details style="margin-bottom:1rem;">
+        <summary style="cursor:pointer;font-size:0.82rem;color:#a56bff;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 0;">&#9660; Week 1 — Alabama pins still on map (click to show)</summary>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
+          <div onclick="openPin(0)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Tuscaloosa, AL</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">The Drish House</div>
+          </div>
+          <div onclick="openPin(1)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Huntsville, AL</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Maple Hill Cemetery</div>
+          </div>
+          <div onclick="openPin(2)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Cahaba, AL</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Old Cahawba</div>
+          </div>
+          <div onclick="openPin(3)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Montgomery, AL</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">The Exchange Hotel</div>
+          </div>
+          <div onclick="openPin(4)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Anniston, AL</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Anniston Museum</div>
+          </div>
+        </div>
+      </details>
+
+      <details style="margin-bottom:2rem;">
+        <summary style="cursor:pointer;font-size:0.82rem;color:#a56bff;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 0;">&#9660; Week 2 — Arizona pins still on map (click to show)</summary>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
+          <div onclick="openPin(5)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Jerome, AZ</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Jerome Grand Hotel</div>
+          </div>
+          <div onclick="openPin(6)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Tombstone, AZ</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Bird Cage Theatre</div>
+          </div>
+          <div onclick="openPin(7)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Wickenburg, AZ</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Vulture Mine</div>
+          </div>
+          <div onclick="openPin(8)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Yuma, AZ</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Yuma Territorial Prison</div>
+          </div>
+          <div onclick="openPin(9)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Apache Junction, AZ</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Goldfield Ghost Town</div>
+          </div>
+        </div>
+      </details>
 
       <div style="background:linear-gradient(135deg,rgba(75,180,100,0.1),rgba(5,3,22,0.9));border:1px solid rgba(75,180,100,0.3);border-radius:16px;padding:1.75rem;">
         <h3 style="font-family:var(--font-display);font-size:1rem;letter-spacing:0.06em;text-transform:uppercase;color:#d7e2ff;margin:0 0 0.3rem;">Add Your Favorite Scary Place</h3>
@@ -971,20 +1066,57 @@
 ];
 
   // ── Pin data ──────────────────────────────────────────────────────────────
+  // ✏️ ACCUMULATES WEEK OVER WEEK — always ADD new pins with the next available id.
+  // Never remove or overwrite a previous week's entries here.
   var PINS = [
-    {id:0, name:"The Crescent Hotel", city:"Eureka Springs, AR", state:"AR", lat:36.40, lng:-93.74, type:"haunted",
+    // Week 1 — Alabama (ids 0-4)
+    {id:0, name:"The Drish House", city:"Tuscaloosa, AL", state:"AL", lat:33.21, lng:-87.57, type:"haunted",
+     history:"Built 1837. Sarah Drish saved her husband's funeral candles from 1867 and had them relit at her own funeral in 1884. Since that night, phantom candlelight has appeared in the empty tower -- documented for over 140 years.",
+     access:"Exterior viewable from street. Tours via local Tuscaloosa paranormal groups.", link:"", linklabel:""},
+    {id:1, name:"Maple Hill Cemetery", city:"Huntsville, AL", state:"AL", lat:34.73, lng:-86.59, type:"cemetery",
+     history:"Alabama's oldest and largest municipal cemetery, established 1822. Civil War soldier apparitions, shadow figures, a child ghost near the iron gate, and EVP recordings with unexplained responses.",
+     access:"Public access year-round. Seasonal ghost tours by Huntsville paranormal companies.", link:"", linklabel:""},
+    {id:2, name:"Old Cahawba", city:"Cahaba, AL", state:"AL", lat:32.32, lng:-87.12, type:"haunted",
+     history:"Alabama's first state capital, abandoned after the Civil War. The Cahawba Lights -- orbs above the old cemetery that appear to move with intelligence -- documented since the 1800s.",
+     access:"Open as a state archaeological park. Guided tours available.", link:"https://cahawba.com", linklabel:"cahawba.com"},
+    {id:3, name:"The Exchange Hotel", city:"Montgomery, AL", state:"AL", lat:32.38, lng:-86.31, type:"haunted",
+     history:"Antebellum hotel used as Confederate headquarters. Guests report full-body apparitions in period clothing, doors locking from inside empty rooms, and cold spots in specific hallways.",
+     access:"Fully bookable -- overnight stays available.", link:"", linklabel:""},
+    {id:4, name:"Anniston Museum", city:"Anniston, AL", state:"AL", lat:33.66, lng:-85.83, type:"haunted",
+     history:"Staff report objects moving overnight, a Victorian woman walking exhibit halls after closing, motion sensors triggering in empty rooms, and EVP recordings capturing voices.",
+     access:"Public museum. Seasonal paranormal events -- check museum website.", link:"", linklabel:""},
+
+    // Week 2 — Arizona (ids 5-9)
+    {id:5, name:"Jerome Grand Hotel", city:"Jerome, AZ", state:"AZ", lat:34.7484, lng:-112.1136, type:"haunted",
+     history:"Originally the United Verde Hospital (1927), this 25-room hotel witnessed decades of mining-era deaths. The ghost of maintenance worker Claude haunts the elevator shaft where he died. Room 32 is the most active location. Staff report a child crying in empty hallways and a nurse in period clothing on the upper floors. Featured on multiple paranormal investigation programs with exceptionally high EVP activity.",
+     access:"Fully bookable -- overnight stays available. October ghost walk tours through Jerome.", link:"https://jeromegrandhotel.net", linklabel:"Jerome Grand Hotel"},
+    {id:6, name:"Bird Cage Theatre", city:"Tombstone, AZ", state:"AZ", lat:31.7130, lng:-110.0676, type:"haunted",
+     history:"Open 24/7 for eight straight years during Tombstone's wildest era, the Bird Cage accumulated 140 bullet holes and as many as 31 reported ghosts. Since 1921 visitors report music, laughter, glasses clinking, the smell of cigar smoke, and a man in striped pants walking the stage. A massive dice table has been witnessed moving on its own. Extensively investigated by paranormal programs.",
+     access:"Open daily to the public. Self-guided and guided tours available.", link:"https://www.tombstonebirdcage.com", linklabel:"Bird Cage Theatre"},
+    {id:7, name:"Vulture Mine", city:"Wickenburg, AZ", state:"AZ", lat:33.9200, lng:-112.7900, type:"haunted",
+     history:"Arizona's richest gold mine in the 1860s-1880s, Vulture Mine saw 18 hangings from its Hanging Tree. Visitors report shadow figures in the mine shafts, screams echoing from underground, a woman in Victorian dress near the assay office, and an overwhelming dread in the mine tunnels themselves. The gallows area is considered the most paranormally active.",
+     access:"Open for tours. See vulturegoldmine.com for hours and bookings.", link:"https://www.vulturegoldmine.com", linklabel:"Vulture Mine Tours"},
+    {id:8, name:"Yuma Territorial Prison", city:"Yuma, AZ", state:"AZ", lat:32.7253, lng:-114.6219, type:"haunted",
+     history:"Arizona's most feared prison from 1876 to 1909. The Dark Cell -- a tiny underground solitary confinement chamber carved into solid granite -- is the most paranormally active location. The ghost of John Ryan, who died in custody, is frequently reported. EVP recordings have captured voices repeating the names of former inmates.",
+     access:"State historic park open daily to the public. Self-guided tours.", link:"https://azstateparks.com/yuma", linklabel:"Yuma Territorial Prison State Park"},
+    {id:9, name:"Goldfield Ghost Town", city:"Apache Junction, AZ", state:"AZ", lat:33.4629, lng:-111.4804, type:"haunted",
+     history:"Born from a gold rush in 1893 and abandoned five years later, Goldfield sits in the shadow of the Superstition Mountains -- home to the Lost Dutchman's Gold Mine legend and the ghost of Jacob Waltz, said to still guard his treasure. Mine tours go into shafts where accidents once claimed lives. Staff report tools moving, voices from empty tunnels, and cold spots deep underground.",
+     access:"Open daily as a living ghost town. Mine tours and self-guided exploration available.", link:"https://goldfieldghosttown.com", linklabel:"Goldfield Ghost Town"},
+
+    // Week 3 — Arkansas (ids 10-14)
+    {id:10, name:"The Crescent Hotel", city:"Eureka Springs, AR", state:"AR", lat:36.40, lng:-93.74, type:"haunted",
      history:"Built 1886 as a Victorian mountain resort. A stonemason died in a construction fall, landing in what became Room 218. In 1937, con man Norman Baker turned the hotel into a fraudulent cancer hospital -- patients died and were moved through a basement morgue that still exists. In 2019, hundreds of buried medical bottles from that era were found on the grounds.",
      access:"Fully bookable -- overnight stays and nightly ghost tours available.", link:"https://www.crescent-hotel.com", linklabel:"crescent-hotel.com"},
-    {id:1, name:"The Gurdon Light", city:"Gurdon, AR", state:"AR", lat:33.92, lng:-93.15, type:"other",
+    {id:11, name:"The Gurdon Light", city:"Gurdon, AR", state:"AR", lat:33.92, lng:-93.15, type:"other",
      history:"A floating orb of light has been reported for decades along an old railroad bed outside this small town. Local legend ties it to a 1931 murder of a railroad worker; a scientific theory points to electrical activity from quartz crystals in the ground. No one has fully explained it.",
      access:"Public land along the old rail bed. Best viewed after dark on foot.", link:"", linklabel:""},
-    {id:2, name:"The Allen House", city:"Monticello, AR", state:"AR", lat:33.63, lng:-91.79, type:"haunted",
+    {id:12, name:"The Allen House", city:"Monticello, AR", state:"AR", lat:33.63, lng:-91.79, type:"haunted",
      history:"Built in 1905 by Joe Lee Allen. His daughter Ladell is said to have taken her own life with cyanide in an upstairs bedroom, which the family sealed off for decades. Tenants since the 1950s have reported footsteps, moans, and a skeptical former resident who found Ladell's face in a developed photograph of the house.",
      access:"Private residence -- exterior viewable from the street only.", link:"", linklabel:""},
-    {id:3, name:"Mount Holly Cemetery", city:"Little Rock, AR", state:"AR", lat:34.74, lng:-92.29, type:"cemetery",
+    {id:13, name:"Mount Holly Cemetery", city:"Little Rock, AR", state:"AR", lat:34.74, lng:-92.29, type:"cemetery",
      history:"Little Rock's oldest cemetery, established 1843 and sometimes called the 'Westminster Abbey of Arkansas.' Ten Arkansas governors and several Confederate generals are buried here, and visitors and staff have long reported shadow figures and unexplained cold spots among the older sections.",
      access:"Open to the public during daylight hours. Self-guided and group tours available.", link:"", linklabel:""},
-    {id:4, name:"The King Opera House", city:"Van Buren, AR", state:"AR", lat:35.44, lng:-94.35, type:"haunted",
+    {id:14, name:"The King Opera House", city:"Van Buren, AR", state:"AR", lat:35.44, lng:-94.35, type:"haunted",
      history:"According to local legend, an actor named Charles Tolson fell for a local doctor's daughter and planned to run away with her and the theater troupe. Her father caught them at the train depot and killed him. Staff and visitors say his ghost, dressed in a top hat and cape, still switches the lights on and off.",
      access:"Working theater -- open for public performances and events.", link:"", linklabel:""}
   ];
@@ -1014,7 +1146,7 @@
   var ALB_N=(Math.sin(ALB_SP1)+Math.sin(ALB_SP2))/2;
   var ALB_C=Math.cos(ALB_SP1)*Math.cos(ALB_SP1)+2*ALB_N*Math.sin(ALB_SP1);
   var ALB_P0=Math.sqrt(ALB_C-2*ALB_N*Math.sin(ALB_LAT0))/ALB_N;
-  var ALB_MINX=-0.5437, ALB_MAXX=0.5440, ALB_MINY=-0.3992, ALB_MAXY=0.4293;
+  var ALB_MINX=-0.368874, ALB_MAXX=0.353162, ALB_MINY=-0.202977, ALB_MAXY=0.244800;
   var SVG_W=900, SVG_H=560, SVG_M=20;
 
   function proj(lat, lng) {
@@ -1054,6 +1186,12 @@
   }
 
   // ── Build the SVG map ─────────────────────────────────────────────────────
+  // ✏️ THIS_WEEK_STATE holds the abbreviation for the current week's spotlight;
+  // FEATURED_STATES accumulates every state that has been featured so far —
+  // always ADD the new state's abbreviation here, never remove old ones.
+  var THIS_WEEK_STATE = "AR";
+  var FEATURED_STATES = ["AL", "AZ", "AR"];
+
   function buildMap() {
     var statesG = document.getElementById("map-states");
     var pinsG   = document.getElementById("map-pins");
@@ -1063,7 +1201,8 @@
 
     // Draw each state
     GEO_STATES.forEach(function(st) {
-      var isFeatured = (st.ab === "AR");
+      var isFeatured = (FEATURED_STATES.indexOf(st.ab) !== -1);
+      var isThisWeek = (st.ab === THIS_WEEK_STATE);
       var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
       path.setAttribute("d", st.d);
       path.setAttribute("fill", isFeatured ? "rgba(165,107,255,0.30)" : "#0e0a2a");
@@ -1117,7 +1256,7 @@
           wk.setAttribute("font-weight", "700");
           wk.setAttribute("fill", "#EF9F27");
           wk.setAttribute("pointer-events", "none");
-          wk.textContent = "THIS WEEK";
+          wk.textContent = isThisWeek ? "THIS WEEK" : ("WK " + (FEATURED_STATES.indexOf(st.ab) + 1));
           statesG.appendChild(wk);
         }
       }
