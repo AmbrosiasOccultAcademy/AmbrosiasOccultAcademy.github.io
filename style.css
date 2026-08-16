@@ -742,14 +742,13 @@ a:hover {
     border-radius: 10px; /* optional aesthetic */
 }
 
-.crystal-of-week-img img {
+.crystal-of-week-img {
   width: 100%;
-  max-width: 260px;
+  max-width: 400px;   /* same scale as weekly tradition image */
   height: auto;
-  object-fit: contain;
   display: block;
-  margin: 0 auto;
-  border-radius: 12px;
+  margin: 1rem auto;  /* centers the image nicely */
+  border-radius: 8px; /* optional, matches your aesthetic */
 }
 
 .weekly-image {
