@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
   <style>
+    /* ── Hero ───────────────────────────────────────────────────────────── */
     .thursday-hero {
       position: relative; min-height: 40vh;
       display: flex; align-items: center; justify-content: center;
@@ -29,6 +30,7 @@
     .day-label { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #4bb4ff; margin-bottom: 0.75rem; }
     .thursday-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
 
+    /* ── Jump nav ───────────────────────────────────────────────────────── */
     .jump-nav {
       display: flex; flex-wrap: wrap; justify-content: center;
       gap: 0.65rem; padding: 0.9rem 1.5rem;
@@ -43,7 +45,7 @@
     }
     .jump-nav a:hover { color: #d7e2ff; border-color: rgba(75,180,255,0.5); background: rgba(75,180,255,0.08); }
 
-    /* Moon widget */
+    /* ── Moon phase widget ──────────────────────────────────────────────── */
     .moon-widget {
       background: linear-gradient(135deg, rgba(75,180,255,0.1), rgba(165,107,255,0.07));
       border: 1px solid rgba(75,180,255,0.3);
@@ -51,301 +53,88 @@
       display: flex; align-items: center; gap: 2rem;
       flex-wrap: wrap; margin-bottom: 2rem;
     }
-    .moon-glyph { font-size: 4rem; line-height: 1; filter: drop-shadow(0 0 12px rgba(75,180,255,0.5)); flex-shrink: 0; }
-    .moon-info h3 { font-family: var(--font-display); font-size: 1.15rem; letter-spacing: 0.07em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 0.25rem; }
+    .moon-glyph {
+      font-size: 4rem; line-height: 1;
+      filter: drop-shadow(0 0 12px rgba(75,180,255,0.5));
+      flex-shrink: 0;
+    }
+    .moon-info h3 {
+      font-family: var(--font-display); font-size: 1.15rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 0.25rem;
+    }
     .moon-phase-name { font-size: 1rem; color: #4bb4ff; margin-bottom: 0.4rem; font-weight: 600; }
     .moon-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; max-width: 520px; }
-    .moon-illumination { margin-top: 0.5rem; font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(75,180,255,0.7); }
+    .moon-illumination {
+      margin-top: 0.5rem; font-size: 0.75rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: rgba(75,180,255,0.7);
+    }
 
-    /* Weekly update box */
-    .weekly-box {
-      background: linear-gradient(135deg, rgba(75,180,255,0.1), rgba(165,107,255,0.07));
-      border: 1px solid rgba(75,180,255,0.35);
-      border-radius: 16px; padding: 2rem; margin: 0 0 2rem;
-      position: relative; overflow: hidden;
+    /* ── Weekly forecast (AI generated) ────────────────────────────────── */
+    .forecast-wrap {
+      background: rgba(10,10,30,0.9);
+      border: 1px solid rgba(75,180,255,0.2);
+      border-radius: 16px; overflow: hidden; margin-bottom: 2rem;
     }
-    .weekly-box::before {
-      content: "✏️ UPDATED WEEKLY"; position: absolute; top: 0.75rem; right: 1rem;
-      font-size: 0.65rem; letter-spacing: 0.12em; color: #4bb4ff; font-weight: 700;
+    .forecast-header {
+      background: linear-gradient(135deg, rgba(75,180,255,0.12), rgba(165,107,255,0.07));
+      padding: 1.25rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      border-bottom: 1px solid rgba(75,180,255,0.15);
     }
-    .weekly-box h3 { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 1.25rem; }
+    .forecast-header h3 {
+      font-family: var(--font-display); font-size: 1.1rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin: 0;
+    }
+    .forecast-body { padding: 1.5rem; }
     .forecast-days { display: flex; flex-direction: column; gap: 0.85rem; }
     .forecast-day {
-      display: grid; grid-template-columns: 110px 1fr;
+      display: grid; grid-template-columns: 90px 1fr;
       gap: 0.75rem; align-items: start;
-      padding-bottom: 0.85rem; border-bottom: 1px solid rgba(75,180,255,0.08);
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(75,180,255,0.08);
     }
     .forecast-day:last-child { border-bottom: none; padding-bottom: 0; }
-    .forecast-day-label { font-family: var(--font-display); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: #4bb4ff; padding-top: 2px; }
+    .forecast-day-label {
+      font-family: var(--font-display); font-size: 0.78rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: #4bb4ff; padding-top: 2px;
+    }
     .forecast-day-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
+    .forecast-placeholder {
+      text-align: center; padding: 2rem 1rem;
+      color: rgba(194,198,224,0.4); font-size: 0.9rem; line-height: 1.7;
+    }
+    .forecast-placeholder .fp-icon { font-size: 2.5rem; opacity: 0.3; margin-bottom: 0.75rem; }
+    .ai-loading {
+      text-align: center; padding: 2rem;
+      color: #4bb4ff; font-size: 0.9rem; letter-spacing: 0.06em;
+      display: none;
+    }
+    .ai-loading::after {
+      content: "";
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(75,180,255,0.3); border-top-color: #4bb4ff;
+      border-radius: 50%; animation: spin 0.8s linear infinite;
+      margin-left: 0.5rem; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── Astrology Thursday weekly items ────────────────────────── */
-  .forecast-card {
-    background: rgba(10,10,30,0.9);
-    border: 1px solid rgba(75,180,255,0.2);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-
-  .forecast-card-header {
-    background: linear-gradient(135deg, rgba(75,180,255,0.12), rgba(165,107,255,0.07));
-    padding: 1.25rem 1.75rem;
-    border-bottom: 1px solid rgba(75,180,255,0.15);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .forecast-card-header h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #4bb4ff;
-    margin: 0 0 0.2rem;
-  }
-
-  .forecast-card-header .week-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(75,180,255,0.5);
-  }
-
-  .forecast-image-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 5;
-    background: linear-gradient(135deg, rgba(10,26,58,0.8), rgba(5,3,22,0.95));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid rgba(75,180,255,0.1);
-    overflow: hidden;
-  }
-
-  .forecast-card-body {
-    padding: 1.75rem;
-  }
-
-  .forecast-card-body h4 {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #d7e2ff;
-    margin: 0 0 0.25rem;
-  }
-
-  .forecast-card-body .fc-subtitle {
-    font-size: 0.8rem;
-    color: rgba(75,180,255,0.6);
-    letter-spacing: 0.06em;
-    margin-bottom: 1.25rem;
-    font-style: italic;
-  }
-
-  .planet-day-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
-    margin: 1.25rem 0;
-  }
-
-  .planet-day-card {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(75,180,255,0.1);
-    border-radius: 12px;
-    padding: 1rem 1.1rem;
-    transition: border-color 0.2s;
-  }
-
-  .planet-day-card:hover { border-color: rgba(75,180,255,0.3); }
-
-  .planet-day-name {
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: #4bb4ff;
-    margin-bottom: 0.3rem;
-  }
-
-  .planet-day-card h5 {
-    font-size: 0.9rem;
-    color: #d7e2ff;
-    margin: 0 0 0.4rem;
-  }
-
-  .planet-day-card p {
-    font-size: 0.83rem;
-    color: var(--text-muted);
-    line-height: 1.65;
-    margin: 0;
-  }
-
-  .key-days-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-top: 1.25rem;
-  }
-
-  @media (max-width: 600px) {
-    .key-days-wrap { grid-template-columns: 1fr; }
-  }
-
-  .key-day-block {
-    background: rgba(0,0,0,0.25);
-    border-radius: 10px;
-    padding: 1rem;
-    border: 1px solid rgba(255,255,255,0.05);
-  }
-
-  .key-day-block.good { border-color: rgba(46,204,113,0.2); }
-  .key-day-block.caution { border-color: rgba(231,76,60,0.2); }
-
-  .key-day-block .kd-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 0.5rem;
-  }
-
-  .key-day-block.good .kd-label { color: rgba(46,204,113,0.6); }
-  .key-day-block.caution .kd-label { color: rgba(231,76,60,0.6); }
-
-  .key-day-item {
-    font-size: 0.84rem;
-    color: var(--text-muted);
-    padding: 0.25rem 0;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-
-  /* ── Transit of the week ────────────────────────────────────── */
-  .transit-card {
-    background: linear-gradient(135deg, rgba(255,180,30,0.06), rgba(255,140,0,0.03));
-    border: 1px solid rgba(255,180,30,0.25);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-
-  .transit-card-header {
-    background: linear-gradient(135deg, rgba(255,180,30,0.12), rgba(255,100,0,0.05));
-    padding: 1.25rem 1.75rem;
-    border-bottom: 1px solid rgba(255,180,30,0.15);
-  }
-
-  .transit-card-header h3 {
-    font-family: var(--font-display);
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #ffb41e;
-    margin: 0 0 0.2rem;
-  }
-
-  .transit-card-header .week-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,180,30,0.5);
-  }
-
-  .transit-image-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 5;
-    background: linear-gradient(135deg, rgba(80,40,10,0.6), rgba(10,5,2,0.9));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid rgba(255,180,30,0.1);
-    overflow: hidden;
-  }
-
-  .transit-card-body {
-    padding: 1.75rem;
-  }
-
-  .transit-card-body h4 {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: #ffb41e;
-    margin: 0 0 0.25rem;
-  }
-
-  .transit-card-body .tc-subtitle {
-    font-size: 0.8rem;
-    color: rgba(255,180,30,0.55);
-    letter-spacing: 0.08em;
-    margin-bottom: 1.25rem;
-    font-style: italic;
-  }
-
-  .transit-card-body p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.75;
-    margin-bottom: 1rem;
-  }
-
-  .transit-card-body p strong { color: #d7e2ff; }
-
-  .transit-effects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0.75rem;
-    margin: 1.25rem 0;
-  }
-
-  .transit-effect {
-    background: rgba(255,180,30,0.05);
-    border: 1px solid rgba(255,180,30,0.15);
-    border-radius: 10px;
-    padding: 0.85rem 1rem;
-  }
-
-  .transit-effect .te-icon { font-size: 1.2rem; display: block; margin-bottom: 0.3rem; }
-  .transit-effect h5 { font-size: 0.82rem; color: #ffb41e; margin: 0 0 0.25rem; }
-  .transit-effect p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.55; margin: 0; }
-
-  .transit-shadow-box {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,100,30,0.15);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    margin: 1rem 0;
-    font-size: 0.87rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
-
-  .transit-shadow-box strong { color: rgba(255,130,50,0.8); }
-
-  .transit-cta {
-    background: linear-gradient(135deg, rgba(255,180,30,0.1), rgba(255,100,0,0.05));
-    border: 1px solid rgba(255,180,30,0.2);
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    font-size: 0.9rem;
-    color: #d7e2ff;
-    line-height: 1.7;
-    margin-top: 1rem;
-  }
-
-    /* Horoscope sign selector */
-    .sign-selector-wrap { background: rgba(10,10,30,0.9); border: 1px solid var(--border-soft); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
-    .sign-selector-wrap h3 { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 1.25rem; }
-    .sign-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(85px,1fr)); gap: 0.6rem; margin-bottom: 1.5rem; }
+    /* ── Horoscope sign selector ────────────────────────────────────────── */
+    .sign-selector-wrap {
+      background: rgba(10,10,30,0.9); border: 1px solid var(--border-soft);
+      border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+    }
+    .sign-selector-wrap h3 {
+      font-family: var(--font-display); font-size: 1.1rem;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 1.25rem;
+    }
+    .sign-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(85px,1fr));
+      gap: 0.6rem; margin-bottom: 1.5rem;
+    }
     .sign-btn {
       background: rgba(165,107,255,0.07); border: 1px solid rgba(165,107,255,0.2);
       border-radius: 10px; padding: 0.6rem 0.4rem;
@@ -353,33 +142,33 @@
       font-size: 0.78rem; text-align: center; line-height: 1.4;
       transition: all 0.2s; font-family: inherit;
     }
-    .sign-btn:hover, .sign-btn.active { background: rgba(165,107,255,0.2); border-color: #a56bff; color: #d7e2ff; }
-    .sign-btn .sign-glyph { font-size: 1.4rem; display: block; margin-bottom: 2px; }
-    .sign-btn .sign-name { font-size: 0.68rem; letter-spacing: 0.04em; }
-
-    /* Horoscope result */
-    #horoscope-result { display: none; }
-    #horoscope-result.visible { display: block; }
-    .horo-card {
-      background: rgba(10,10,30,0.9); border: 1px solid rgba(165,107,255,0.25);
-      border-radius: 14px; overflow: hidden;
+    .sign-btn:hover, .sign-btn.active {
+      background: rgba(165,107,255,0.2); border-color: #a56bff; color: #d7e2ff;
     }
-    .horo-header {
-      background: linear-gradient(135deg, rgba(165,107,255,0.15), rgba(75,180,255,0.07));
-      padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+    .sign-btn .sign-glyph { font-size: 1.4rem; display: block; margin-bottom: 2px; }
+    .sign-btn .sign-name  { font-size: 0.68rem; letter-spacing: 0.04em; }
+
+    /* ── Horoscope result ───────────────────────────────────────────────── */
+    #horoscope-result {
+      background: rgba(0,0,0,0.3); border: 1px solid rgba(165,107,255,0.2);
+      border-radius: 12px; padding: 1.5rem;
+      font-size: 0.92rem; line-height: 1.8;
+      display: none;
+    }
+    #horoscope-result.visible { display: block; }
+    .horo-sign-header {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1rem; padding-bottom: 0.75rem;
       border-bottom: 1px solid rgba(165,107,255,0.15);
     }
-    .horo-glyph { font-size: 2.2rem; }
-    .horo-title { font-family: var(--font-display); font-size: 1.1rem; letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; }
-    .horo-dates { font-size: 0.78rem; color: #a56bff; }
-    .horo-body { padding: 1.25rem 1.5rem; }
-    .horo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 1rem; margin-bottom: 1rem; }
-    .horo-stat {
-      background: rgba(0,0,0,0.25); border-radius: 10px; padding: 0.85rem 1rem;
+    .horo-glyph { font-size: 2rem; }
+    .horo-title {
+      font-family: var(--font-display); font-size: 1.1rem;
+      letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff;
     }
-    .horo-stat-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4bb4ff; margin-bottom: 0.3rem; }
-    .horo-stat-value { font-size: 0.92rem; color: #d7e2ff; font-weight: 600; }
-    .horo-description { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(165,107,255,0.12); }
+    .horo-dates { font-size: 0.78rem; color: #a56bff; }
+    .horo-body p { color: var(--text-muted); margin-bottom: 0.75rem; }
+    .horo-body p:last-child { margin-bottom: 0; }
     .horo-loading {
       text-align: center; padding: 2rem; color: #a56bff;
       font-size: 0.9rem; letter-spacing: 0.06em;
@@ -390,10 +179,11 @@
       border-radius: 50%; animation: spin 0.8s linear infinite;
       margin-left: 0.5rem; vertical-align: middle;
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* House guide */
-    .house-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    /* ── House placement guide ──────────────────────────────────────────── */
+    .house-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
     .house-tab {
       background: rgba(10,10,30,0.8); border: 1px solid rgba(75,180,255,0.25);
       border-radius: 999px; padding: 0.5rem 1.3rem;
@@ -401,7 +191,9 @@
       letter-spacing: 0.06em; text-transform: uppercase;
       cursor: pointer; font-family: inherit; transition: all 0.2s;
     }
-    .house-tab.active, .house-tab:hover { background: rgba(75,180,255,0.15); border-color: #4bb4ff; color: #d7e2ff; }
+    .house-tab.active, .house-tab:hover {
+      background: rgba(75,180,255,0.15); border-color: #4bb4ff; color: #d7e2ff;
+    }
     .house-panel { display: none; }
     .house-panel.active { display: block; }
     .house-intro-card {
@@ -409,11 +201,26 @@
       border: 1px solid rgba(75,180,255,0.25); border-radius: 14px;
       padding: 1.5rem; margin-bottom: 1.5rem;
     }
-    .house-intro-card h3 { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.07em; text-transform: uppercase; color: #d7e2ff; margin-bottom: 0.25rem; }
-    .house-intro-card .house-keywords { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #4bb4ff; margin-bottom: 0.75rem; font-weight: 700; }
+    .house-intro-card h3 {
+      font-family: var(--font-display); font-size: 1.2rem;
+      letter-spacing: 0.07em; text-transform: uppercase;
+      color: #d7e2ff; margin-bottom: 0.25rem;
+    }
+    .house-intro-card .house-keywords {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #4bb4ff; margin-bottom: 0.75rem; font-weight: 700;
+    }
     .house-intro-card p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.75; margin: 0; }
-    .planet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap: 1.1rem; }
-    .planet-card { background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft); border-radius: 12px; padding: 1.25rem; transition: transform 0.2s, border-color 0.2s; }
+
+    .planet-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+      gap: 1.1rem;
+    }
+    .planet-card {
+      background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 1.25rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
     .planet-card:hover { transform: translateY(-2px); border-color: rgba(75,180,255,0.35); }
     .planet-card-top { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.65rem; }
     .planet-glyph { font-size: 1.5rem; }
@@ -421,12 +228,25 @@
     .planet-card .planet-rules { font-size: 0.7rem; letter-spacing: 0.09em; text-transform: uppercase; color: #4bb4ff; }
     .planet-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
 
-    .tip-box { background: rgba(75,180,255,0.07); border-left: 3px solid #4bb4ff; border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+    /* ── Tip box ─────────────────────────────────────────────────────────── */
+    .tip-box {
+      background: rgba(75,180,255,0.07); border-left: 3px solid #4bb4ff;
+      border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.5rem 0;
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;
+    }
     .tip-box strong { color: #d7e2ff; }
     .tip-box a { color: #4bb4ff; }
 
-    .zodiac-mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 1rem; margin-top: 1.25rem; }
-    .zodiac-mini-card { background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft); border-radius: 12px; padding: 1.1rem; transition: transform 0.2s, border-color 0.2s; }
+    /* ── Zodiac quick guide ──────────────────────────────────────────────── */
+    .zodiac-mini-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap: 1rem; margin-top: 1.25rem;
+    }
+    .zodiac-mini-card {
+      background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 1.1rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
     .zodiac-mini-card:hover { transform: translateY(-2px); border-color: rgba(165,107,255,0.4); }
     .zodiac-mini-top { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 0.4rem; }
     .z-glyph { font-size: 1.5rem; }
@@ -439,19 +259,30 @@
       .sign-grid { grid-template-columns: repeat(4,1fr); }
       .moon-widget { flex-direction: column; gap: 1rem; text-align: center; }
       .forecast-day { grid-template-columns: 1fr; gap: 0.25rem; }
-      .horo-grid { grid-template-columns: 1fr 1fr; }
+      .forecast-day-label { color: #4bb4ff; font-size: 0.72rem; }
     }
   </style>
 </head>
 <body>
 
- <a href="index.html#themes" class="btn outline">Back to Homepage</a>
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#themes">Daily Themes</a></li>
+      <li><a href="index.html#birth-chart">Birth Charts</a></li>
+      <li><a href="index.html#tarot">Tarot</a></li>
+      <li><a href="freaky-friday.html">Freaky Fridays</a></li>
+      <li><a href="services.html">✨ Readings</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
 
   <header class="thursday-hero">
     <div class="thursday-hero-content">
       <p class="day-label">Every Thursday</p>
       <h1>♑ Astrology Thursdays</h1>
-      <p>Weekly planetary forecasts, live daily horoscopes for all 12 signs, a live moon phase guide, and a complete reference for understanding your birth chart placements.</p>
+      <p>Weekly planetary forecasts, personalized horoscopes for all 12 signs, a live moon phase guide, and a complete reference for understanding your birth chart placements.</p>
     </div>
   </header>
 
@@ -459,6 +290,7 @@
     <a href="#moon-phase">🌙 Moon Phase</a>
     <a href="#weekly-forecast">🌌 Weekly Forecast</a>
     <a href="#horoscopes">⭐ Horoscopes</a>
+    <a href="#zodiac-features">🔮 Zodiac Features</a>
     <a href="#house-guide">🏠 House Guide</a>
     <a href="#zodiac-guide">📖 Zodiac Guide</a>
   </div>
@@ -468,7 +300,8 @@
   <section id="moon-phase" class="section section-dark">
     <div class="section-inner">
       <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:1.25rem;">🌙 Current Moon Phase</h2>
-      <div class="moon-widget">
+
+      <div class="moon-widget" id="moon-widget">
         <div class="moon-glyph" id="moon-glyph">🌙</div>
         <div class="moon-info">
           <h3>Live Moon Tracker</h3>
@@ -477,363 +310,275 @@
           <div class="moon-illumination" id="moon-illumination"></div>
         </div>
       </div>
+
       <div class="tip-box">
         <strong>🌙 Working with the moon:</strong> The moon moves into a new zodiac sign roughly every 2.5 days,
-        shifting the emotional and intuitive energy available to all of us. New moons begin; full moons reveal;
+        shifting the emotional and intuitive energy available to all of us. The phase it's in — new, waxing,
+        full, or waning — tells you what kind of action that energy supports. New moons begin; full moons reveal;
         waning moons release. Use this as your weekly energetic compass.
       </div>
     </div>
   </section>
 
 
+  <!-- ══ WEEKLY PLANETARY FORECAST (Gemini AI) ══════════════════════════ -->
+  <section id="weekly-forecast" class="section section-light">
+    <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🌌 Weekly Planetary Forecast</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
+        A day-by-day look at what the planets have in store — Moon signs, major transits, and the energetic
+        theme of each day from Sunday through Saturday.
+      </p>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     ASTROLOGY THURSDAY — Weekly Forecast + Transit of the Week
-     Week of August 22–29, 2026
-════════════════════════════════════════════════════════════════ -->
- 
-<!-- ✏️ UPDATE WEEKLY — Astrology Thursday August 22–29, 2026 -->
-<div class="weekly-item">
-  <div class="weekly-item-label">🪐 Weekly Planetary Forecast — August 22–29, 2026</div>
-  <div class="weekly-spell-title">Virgo Season Begins + The August 27 Pisces Lunar Eclipse</div>
-  <div class="weekly-spell-body">
-    <strong>Overview:</strong> This week carries us from grounded sorting into full eclipse illumination. The Sun entered Virgo on August 22, and by the time Mercury joins it there on August 25, the whole week is oriented toward refinement, discernment, and honest self-assessment. It all builds to August 27 — a Lunar Eclipse in Pisces occurring the same day as a rare Mercury-Sun cazimi in Virgo. The Hermit (IX), the Card of the Week, captures the mood perfectly: step back, look inward, then return with clarity.<br><br>
- 
-    <strong>🌿 Sun in Virgo — Season of Refinement</strong><br>
-    The Sun moves into Virgo on August 22, shifting us out of Leo's bold self-expression and into Virgo's quieter work of sorting, refining, and being of service. This is a month for honest inventory — of habits, routines, and what actually deserves your energy.<br><br>
- 
-    <strong>☿️ Mercury Enters Virgo, Then Meets the Sun</strong><br>
-    Mercury leaves Leo and enters Virgo on August 25 — its own sign, where the mind sharpens toward detail and efficiency. On August 27, Mercury and the Sun meet exactly in a cazimi, a rare "heart of the sun" alignment that heightens clarity, insight, and any ideas or intuitive nudges that surface that day.<br><br>
- 
-    <strong>🌘 August 27 Lunar Eclipse in Pisces</strong><br>
-    The same day as the Mercury cazimi, the Full Moon becomes a Lunar Eclipse in Pisces — directly opposite the Virgo stellium. This is the axis of discernment versus surrender: Virgo wants to organize and perfect, Pisces wants to dissolve and release. Eclipses accelerate endings, so expect a situation you've been quietly sorting through to reach sudden clarity or closure.<br><br>
- 
-    <strong>♄ Saturn Retrograde in Aries — Ongoing</strong><br>
-    Saturn has been retrograde in Aries since late July and remains so through the week, still asking where you've been impulsive rather than accountable. Its influence is steady background pressure this week rather than the main event, but it colors the eclipse with a "build it properly this time" undertone.<br><br>
- 
-    <strong>♂ Mars in Cancer</strong><br>
-    Mars continues its transit through Cancer, keeping emotional honesty and home-and-family matters active alongside the eclipse's themes of release.<br><br>
- 
-    <strong>🌙 Moon movement this week:</strong><br>
-    The Moon moves through Capricorn, Aquarius, Pisces, and into Aries — a progression from structure → detachment → dissolution → renewal.<br><br>
- 
-    🌟 <strong>Saturday–Monday:</strong> Moon in Capricorn — structure, discipline, practical grounding<br>
-    🌟 <strong>Tuesday–Wednesday:</strong> Moon in Aquarius — detachment, perspective, room to think<br>
-    🌟 <strong>Thursday (Eclipse):</strong> Moon in Pisces — dissolution, intuition, release<br>
-    🌟 <strong>Friday–Saturday:</strong> Moon in Pisces → Aries — integration into fresh momentum<br><br>
- 
-    <strong>Best days this week:</strong><br>
-    🌟 <strong>Thursday August 27</strong> — Lunar Eclipse + Mercury cazimi = the week's turning point<br>
-    🌟 <strong>Wednesday August 26</strong> — Moon in Aquarius = clear-headed preparation before the eclipse<br>
-    🌟 <strong>Saturday August 29</strong> — Moon shifts into Aries = fresh direction after the release<br><br>
- 
-    <strong>Days to slow down:</strong><br>
-    ⚠️ <strong>Friday August 28</strong> — Post-eclipse integration; avoid major decisions the day right after
-  </div>
-</div>
-<!-- ✏️ END PLANETARY FORECAST UPDATE -->
- 
- 
-<!-- ✏️ UPDATE WEEKLY — Transit of the Week August 27, 2026 -->
-<div class="weekly-item">
-  <div class="weekly-item-label">⭐ Transit of the Week — August 27, 2026</div>
-  <div class="weekly-spell-title">The Pisces Lunar Eclipse — Release Meets Clarity</div>
-  <div class="weekly-spell-body">
-    <strong>The transit:</strong> A Lunar Eclipse in Pisces, exact the same day as a Mercury-Sun cazimi in Virgo<br><br>
- 
-    Eclipses arrive in pairs and clusters, and this one lands squarely on the Virgo-Pisces axis — the axis of daily discipline versus spiritual surrender. Because it falls the same day Mercury sits "in the heart of the Sun," whatever this eclipse reveals will arrive with unusual mental clarity rather than confusion. It's less a chaotic unraveling and more a moment of finally seeing something for what it is.<br><br>
- 
-    <strong>What this means for you:</strong><br>
-    🌘 <strong>Release accelerates</strong> — something you've been sorting through reaches a natural ending<br>
-    🌘 <strong>Clarity arrives with it</strong> — the Mercury cazimi keeps this from feeling murky<br>
-    🌘 <strong>Old routines get questioned</strong> — Virgo's influence means the release is often practical, not just emotional<br>
-    🌘 <strong>Intuition sharpens</strong> — Pisces amplifies dreams, hunches, and quiet inner knowing this week<br><br>
- 
-    <strong>Key themes:</strong><br>
-    🌙 Emotional release<br>
-    🌿 Virgo discernment<br>
-    🜄 Water clarity from Pisces<br>
-    ☿️ Mental sharpness from the Mercury cazimi<br><br>
- 
-    <strong>The shadow side to watch:</strong><br>
-    Over-analysis — using Virgo precision to avoid actually letting go<br>
-    Escapism — using Pisces dissolution to avoid a needed decision<br>
-    Self-criticism — mistaking Virgo's clarity for a reason to be harsh with yourself<br><br>
- 
-    <strong>How to work with this energy:</strong><br>
-    • Do something that helps you release, not just analyze — water, journaling, or a physical letting-go ritual<br>
-    • Notice what becomes obvious on eclipse day and trust it<br>
-    • Avoid signing anything major or starting something new on the 27th itself<br>
-    • Revisit the release you named earlier in the week and let the eclipse finish it<br><br>
- 
-    <div class="spell-tags">
-      <span class="spell-tag">🌘 Pisces Eclipse</span>
-      <span class="spell-tag">🌿 Sun in Virgo</span>
-      <span class="spell-tag">☿️ Mercury Cazimi</span>
-      <span class="spell-tag">♄ Saturn Retrograde</span>
-      <span class="spell-tag">✨ Release & Clarity</span>
+      <div class="forecast-wrap">
+        <div class="forecast-header">
+          <h3>🌠 This Week's Cosmic Weather</h3>
+          <button class="btn secondary" onclick="generateWeeklyForecast()" id="forecast-btn"
+            style="font-size:0.82rem;padding:0.45rem 1.1rem;">
+            ✨ Generate This Week's Forecast
+          </button>
+        </div>
+        <div class="forecast-body">
+          <div class="ai-loading" id="forecast-loading">Reading the planetary alignments for this week</div>
+          <div id="forecast-content">
+            <div class="forecast-placeholder">
+              <div class="fp-icon">🌌</div>
+              <p>Click <strong style="color:#4bb4ff;">Generate This Week's Forecast</strong> above to pull the current planetary weather — updated every Thursday with fresh cosmic insight for the week ahead.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 For Jennifer:</strong> Click "Generate This Week's Forecast" every Thursday to create fresh
+        content. The AI uses today's date to generate accurate day-by-day planetary energy for Sunday–Saturday.
+        Make sure your Gemini API key is set in the script below.
+      </div>
     </div>
-  </div>
-</div>
-<!-- ✏️ END TRANSIT OF THE WEEK UPDATE -->
- 
+  </section>
 
 
-  
-  <!-- ══ DAILY HOROSCOPES — powered by Aztro API ════════════════════════ -->
+  <!-- ══ WEEKLY HOROSCOPES (Gemini AI) ══════════════════════════════════ -->
   <section id="horoscopes" class="section section-dark">
     <div class="section-inner">
-      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">⭐ Daily Horoscopes</h2>
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">⭐ Weekly Horoscopes</h2>
       <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
-        Select your sign for today's horoscope — including your daily description, lucky number, lucky color,
-        mood, and compatible sign. Updated fresh every single day, no key required.
+        Select your sign for a personalized weekly horoscope covering love, energy, work, and a message
+        for the week ahead — Sunday through Saturday.
       </p>
 
       <div class="sign-selector-wrap">
         <h3>✨ Choose Your Sign</h3>
         <div class="sign-grid">
-          <button class="sign-btn" onclick="getHoroscope('aries','Aries','♈','Mar 21 – Apr 19',this)"><span class="sign-glyph">♈</span><span class="sign-name">Aries</span></button>
-          <button class="sign-btn" onclick="getHoroscope('taurus','Taurus','♉','Apr 20 – May 20',this)"><span class="sign-glyph">♉</span><span class="sign-name">Taurus</span></button>
-          <button class="sign-btn" onclick="getHoroscope('gemini','Gemini','♊','May 21 – Jun 20',this)"><span class="sign-glyph">♊</span><span class="sign-name">Gemini</span></button>
-          <button class="sign-btn" onclick="getHoroscope('cancer','Cancer','♋','Jun 21 – Jul 22',this)"><span class="sign-glyph">♋</span><span class="sign-name">Cancer</span></button>
-          <button class="sign-btn" onclick="getHoroscope('leo','Leo','♌','Jul 23 – Aug 22',this)"><span class="sign-glyph">♌</span><span class="sign-name">Leo</span></button>
-          <button class="sign-btn" onclick="getHoroscope('virgo','Virgo','♍','Aug 23 – Sep 22',this)"><span class="sign-glyph">♍</span><span class="sign-name">Virgo</span></button>
-          <button class="sign-btn" onclick="getHoroscope('libra','Libra','♎','Sep 23 – Oct 22',this)"><span class="sign-glyph">♎</span><span class="sign-name">Libra</span></button>
-          <button class="sign-btn" onclick="getHoroscope('scorpio','Scorpio','♏','Oct 23 – Nov 21',this)"><span class="sign-glyph">♏</span><span class="sign-name">Scorpio</span></button>
-          <button class="sign-btn" onclick="getHoroscope('sagittarius','Sagittarius','♐','Nov 22 – Dec 21',this)"><span class="sign-glyph">♐</span><span class="sign-name">Sagittarius</span></button>
-          <button class="sign-btn" onclick="getHoroscope('capricorn','Capricorn','♑','Dec 22 – Jan 19',this)"><span class="sign-glyph">♑</span><span class="sign-name">Capricorn</span></button>
-          <button class="sign-btn" onclick="getHoroscope('aquarius','Aquarius','♒','Jan 20 – Feb 18',this)"><span class="sign-glyph">♒</span><span class="sign-name">Aquarius</span></button>
-          <button class="sign-btn" onclick="getHoroscope('pisces','Pisces','♓','Feb 19 – Mar 20',this)"><span class="sign-glyph">♓</span><span class="sign-name">Pisces</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Aries','♈','Mar 21 – Apr 19',this)"><span class="sign-glyph">♈</span><span class="sign-name">Aries</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Taurus','♉','Apr 20 – May 20',this)"><span class="sign-glyph">♉</span><span class="sign-name">Taurus</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Gemini','♊','May 21 – Jun 20',this)"><span class="sign-glyph">♊</span><span class="sign-name">Gemini</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Cancer','♋','Jun 21 – Jul 22',this)"><span class="sign-glyph">♋</span><span class="sign-name">Cancer</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Leo','♌','Jul 23 – Aug 22',this)"><span class="sign-glyph">♌</span><span class="sign-name">Leo</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Virgo','♍','Aug 23 – Sep 22',this)"><span class="sign-glyph">♍</span><span class="sign-name">Virgo</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Libra','♎','Sep 23 – Oct 22',this)"><span class="sign-glyph">♎</span><span class="sign-name">Libra</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Scorpio','♏','Oct 23 – Nov 21',this)"><span class="sign-glyph">♏</span><span class="sign-name">Scorpio</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Sagittarius','♐','Nov 22 – Dec 21',this)"><span class="sign-glyph">♐</span><span class="sign-name">Sagittarius</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Capricorn','♑','Dec 22 – Jan 19',this)"><span class="sign-glyph">♑</span><span class="sign-name">Capricorn</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Aquarius','♒','Jan 20 – Feb 18',this)"><span class="sign-glyph">♒</span><span class="sign-name">Aquarius</span></button>
+          <button class="sign-btn" onclick="getHoroscope('Pisces','♓','Feb 19 – Mar 20',this)"><span class="sign-glyph">♓</span><span class="sign-name">Pisces</span></button>
         </div>
         <div id="horoscope-result"></div>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ══ ZODIAC FEATURES TEASER ═══════════════════════════════════════════
+       ✏️ UPDATE the video title + destination text below whenever a new
+       "by zodiac sign" video airs. Full 12-sign results live on the
+       Zodiac Features hub page — add them there, not here.
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="zodiac-features" class="section section-dark">
+    <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🔮 Zodiac Features</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
+        Results from the "by zodiac sign" video series — spirit animals, dream cities, and more, one card per sign.
+      </p>
 
       <div class="tip-box">
-        <strong>💡 About these readings:</strong> Daily horoscopes are pulled live from the Aztro astrology
-        API — fresh content every day for all 12 signs, no login required. For a deeper personalized reading
-        that goes beyond the daily forecast, <a href="services.html">book a full reading with Jennifer →</a>
+        <strong>🎬 This week's feature:</strong> Best Summer Vacation Spot for Each Zodiac Sign is live now.
+        See your sign's destination, plus every past feature, on the
+        <a href="zodiac-features.html" style="color:#4bb4ff;">Zodiac Features page →</a>
       </div>
     </div>
   </section>
 
 
   <!-- ══ HOUSE PLACEMENT GUIDE ══════════════════════════════════════════ -->
- <section id="house-guide" class="section section-light">
-  <div class="section-inner">
+  <section id="house-guide" class="section section-light">
+    <div class="section-inner">
 
-    <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">
-      ✨ Your Big Three & The 12 Houses
-    </h2>
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🏠 Birth Chart House Placement Guide</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:0.75rem;line-height:1.7;">
+        The free birth chart tool on the <a href="index.html#birth-chart" style="color:#4bb4ff;">main page</a>
+        shows your first three house placements. Use this guide to understand what each planet means
+        when it falls in your 1st, 2nd, or 3rd house. Click a house to explore its planets.
+      </p>
 
-    <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:0.75rem;line-height:1.7;">
-      Astrology Thursday is your weekly guide to understanding the foundations of your birth chart.
-      Your free reading on the 
-      <a href="index.html#birth-chart" style="color:#4bb4ff;">main page</a>
-      reveals your <strong>Sun</strong>, <strong>Moon</strong>, and <strong>Rising</strong> signs — the three constellations that shape your identity, emotions, and outward presence.
-    </p>
-
-    <div class="tip-box">
-      <strong>💡 Want deeper insight?</strong>  
-      Below you'll find:
-      <br>• What your <strong>Sun</strong>, <strong>Moon</strong>, and <strong>Rising</strong> signs mean  
-      <br>• A general guide to the <strong>12 Houses</strong>  
-      <br><br>
-      <strong>Curious about your personal placements?</strong>  
-      Your full chart — planets, houses, aspects — is available through our premium readings.
-      <a href="services.html" style="color:#4bb4ff;">Explore readings →</a>
-    </div>
-
-       <!-- BIG THREE SECTION -->
-<h3 id="big-three" style="margin-top:2rem;">🌞 Your Big Three Explained</h3>
-
-<div class="info-box">
-  <h4>☀️ Sun Sign — Your Core Self</h4>
-  <p>Your Sun sign reveals your identity, purpose, and the energy you radiate into the world. It is the constellation your Sun was in at the moment of your birth.</p>
-
-  <h4>🌙 Moon Sign — Your Inner World</h4>
-  <p>Your Moon sign reflects your emotions, instincts, and subconscious needs. It shows how you nurture and how you seek comfort.</p>
-
-  <h4>⬆️ Rising Sign — Your Cosmic Mask</h4>
-  <p>Your Rising sign (Ascendant) is the constellation rising on the eastern horizon at your birth. It shapes your first impressions, appearance, and approach to life.</p>
-</div>
-
-<h3 style="margin-top:2rem;">🔮 What Each Sign Means as Your Sun, Moon, or Rising</h3>
-<p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">
-  Use this guide to interpret your Big Three. Each sign expresses differently depending on whether it is your Sun, Moon, or Rising.
-</p>
-
-<!-- BIG THREE SIGN GRID -->
-<div class="bigthree-grid">
-
-  <div class="bigthree-card">
-    <h4>♈ Aries</h4>
-    <p><strong>Sun:</strong> Bold, fiery, and born to lead.</p>
-    <p><strong>Moon:</strong> Passionate instincts and fierce loyalty.</p>
-    <p><strong>Rising:</strong> Direct, energetic, unstoppable presence.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♉ Taurus</h4>
-    <p><strong>Sun:</strong> Grounded, sensual, steady.</p>
-    <p><strong>Moon:</strong> Loyal emotions and deep comfort needs.</p>
-    <p><strong>Rising:</strong> Calm, earthy, magnetic presence.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♊ Gemini</h4>
-    <p><strong>Sun:</strong> Curious, expressive, adaptable.</p>
-    <p><strong>Moon:</strong> Quick-changing emotions, mental processing.</p>
-    <p><strong>Rising:</strong> Social, witty, youthful energy.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♋ Cancer</h4>
-    <p><strong>Sun:</strong> Nurturing, intuitive, protective.</p>
-    <p><strong>Moon:</strong> Deep emotional tides and intuition.</p>
-    <p><strong>Rising:</strong> Soft, empathetic, gentle presence.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♌ Leo</h4>
-    <p><strong>Sun:</strong> Radiant, creative, expressive.</p>
-    <p><strong>Moon:</strong> Warm-hearted emotions and loyalty.</p>
-    <p><strong>Rising:</strong> Confident, charismatic, magnetic.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♍ Virgo</h4>
-    <p><strong>Sun:</strong> Analytical, helpful, detail-oriented.</p>
-    <p><strong>Moon:</strong> Thoughtful emotions, internal processing.</p>
-    <p><strong>Rising:</strong> Clean, refined, observant.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♎ Libra</h4>
-    <p><strong>Sun:</strong> Harmonious, charming, relationship-focused.</p>
-    <p><strong>Moon:</strong> Peace-seeking emotions.</p>
-    <p><strong>Rising:</strong> Graceful, diplomatic presence.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♏ Scorpio</h4>
-    <p><strong>Sun:</strong> Intense, transformative, powerful.</p>
-    <p><strong>Moon:</strong> Deep emotional waters and intuition.</p>
-    <p><strong>Rising:</strong> Mysterious, magnetic presence.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♐ Sagittarius</h4>
-    <p><strong>Sun:</strong> Adventurous, philosophical, free.</p>
-    <p><strong>Moon:</strong> Restless emotions, truth-seeking.</p>
-    <p><strong>Rising:</strong> Bold, optimistic, open-minded.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♑ Capricorn</h4>
-    <p><strong>Sun:</strong> Ambitious, disciplined, structured.</p>
-    <p><strong>Moon:</strong> Reserved emotions, self-control.</p>
-    <p><strong>Rising:</strong> Mature, serious, grounded.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♒ Aquarius</h4>
-    <p><strong>Sun:</strong> Innovative, unique, visionary.</p>
-    <p><strong>Moon:</strong> Detached emotions, intellectual.</p>
-    <p><strong>Rising:</strong> Eccentric, futuristic, original.</p>
-  </div>
-
-  <div class="bigthree-card">
-    <h4>♓ Pisces</h4>
-    <p><strong>Sun:</strong> Dreamy, mystical, compassionate.</p>
-    <p><strong>Moon:</strong> Sensitive emotions, psychic intuition.</p>
-    <p><strong>Rising:</strong> Ethereal, artistic, soft-spoken.</p>
-  </div>
-
-</div>
-
-        <h3 style="margin-top:3rem;">🏠 The 12 Houses — A Beginner’s Guide</h3>
-    <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1rem;">
-      The houses represent different areas of life. Your personal placements (which planet is in which house) require a full chart — available through our premium readings.
-    </p>
-
-    <div class="house-grid">
-
-      <div class="house-card">
-        <h4>1st House — Self & Identity</h4>
-        <p>Appearance, personality, first impressions, the Ascendant.</p>
+      <div class="tip-box">
+        <strong>💡 How to use this guide:</strong> After generating your free birth chart, note which planets
+        appear in your 1st, 2nd, and 3rd houses. Then click that house number below and find your planet
+        for a full interpretation. Each placement tells a different part of your story.
+        <br><br>
+        <strong>Ready for all 12 houses?</strong> A full birth chart reading goes much deeper —
+        <a href="services.html" style="color:#4bb4ff;">book a full reading here →</a>
       </div>
 
-      <div class="house-card">
-        <h4>2nd House — Value & Resources</h4>
-        <p>Money, possessions, self‑worth, material security.</p>
+      <div class="house-tabs">
+        <button class="house-tab active" onclick="showHouse(1, this)">🏠 1st House</button>
+        <button class="house-tab" onclick="showHouse(2, this)">💰 2nd House</button>
+        <button class="house-tab" onclick="showHouse(3, this)">💬 3rd House</button>
       </div>
 
-      <div class="house-card">
-        <h4>3rd House — Communication</h4>
-        <p>Thinking, speaking, writing, siblings, short travel.</p>
+      <!-- ── 1ST HOUSE ─────────────────────────────────────────────────── -->
+      <div class="house-panel active" id="house-panel-1">
+        <div class="house-intro-card">
+          <h3>The 1st House — The House of Self</h3>
+          <div class="house-keywords">Identity · Appearance · First Impressions · The Ascendant · How the World Sees You</div>
+          <p>The 1st House is the most personal house in the chart — it governs your physical appearance,
+          your instinctive personality, and the energy you project into the world before you even speak.
+          It is the house of the Ascendant (Rising Sign), and any planet placed here colors your entire
+          personality and how others perceive you at first meeting. Planets in the 1st house are expressed
+          openly, prominently, and often unconsciously.</p>
+        </div>
+        <div class="planet-grid">
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☀️</span><div><h4>Sun in the 1st House</h4><div class="planet-rules">Rules Leo · Vitality &amp; Identity</div></div></div>
+            <p>A powerfully confident, radiant placement. You were born to be seen. Your identity and your ego are strongly aligned — you know who you are and you project it without apology. Leadership comes naturally. You have a magnetic, warm presence that draws people to you. Your challenge is learning that your worth doesn't depend on others' recognition, because you'll naturally crave it. At your best you are the archetype of the Solar Hero — generous, vital, and fully yourself.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">🌙</span><div><h4>Moon in the 1st House</h4><div class="planet-rules">Rules Cancer · Emotion &amp; Instinct</div></div></div>
+            <p>Your emotions are written on your face before you've formed a thought about them. You are highly sensitive, deeply intuitive, and respond to the world through feeling first. Your moods cycle visibly — people around you always know how you're doing without asking. You have a natural nurturing presence and others feel safe with you instantly. Your challenge is protecting your sensitive inner world from being overwhelmed. Your superpower is your extraordinary empathy and emotional intelligence.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☿</span><div><h4>Mercury in the 1st House</h4><div class="planet-rules">Rules Gemini &amp; Virgo · Mind &amp; Communication</div></div></div>
+            <p>You think fast, speak fast, and make your intellectual presence felt immediately. Your mind is your most prominent feature — you're witty, articulate, and perpetually curious. People notice your intelligence right away. You process the world through ideas and language, and you can't help but comment, analyze, and communicate. Your challenge is anxiety or overthinking, since Mercury's restless energy in the 1st house never fully switches off. Your gift is the ability to connect with anyone through conversation.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♀</span><div><h4>Venus in the 1st House</h4><div class="planet-rules">Rules Taurus &amp; Libra · Love &amp; Beauty</div></div></div>
+            <p>You were born with natural charm, beauty, and grace. People are drawn to you and often don't know exactly why — it's a Venusian magnetism that operates below the surface. You have an instinct for aesthetics, harmony, and making environments and relationships beautiful. You're often physically attractive or have an unusually pleasing presence. Your challenge is a tendency to avoid conflict at the cost of your own truth. Your gift is making the people around you feel genuinely seen and valued.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♂</span><div><h4>Mars in the 1st House</h4><div class="planet-rules">Rules Aries · Action &amp; Desire</div></div></div>
+            <p>You are an immediate, forceful, physical presence. People feel your energy before you open your mouth. You are assertive, direct, and built for action — you don't wait for permission and you don't hesitate when you want something. Athletic, competitive, and courageous, this is one of the most powerful placements for drive and ambition. Your challenge is impulsiveness, a short fuse, and a tendency to dominate. Your gift is extraordinary courage and the ability to initiate things no one else will touch.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♃</span><div><h4>Jupiter in the 1st House</h4><div class="planet-rules">Rules Sagittarius · Expansion &amp; Luck</div></div></div>
+            <p>You carry an aura of abundance, optimism, and good fortune that others feel immediately. Jupiter in the 1st is one of the luckiest placements in the chart — doors open for you, people want to help you, and life tends to expand in your direction. You are generous, philosophical, and enthusiastic, with a laugh that fills the room. Your physical presence is often large — literally or energetically. Your challenge is excess, overconfidence, or spreading yourself too thin. Your gift is an unshakeable faith in life's goodness.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♄</span><div><h4>Saturn in the 1st House</h4><div class="planet-rules">Rules Capricorn · Discipline &amp; Mastery</div></div></div>
+            <p>You came into this life carrying a weight — a seriousness, a sense of responsibility, or a burden of self-doubt that you've had to work through. Saturn in the 1st often manifests as shyness, rigidity, or a heavy self-critical voice in early life. But Saturn rewards effort over time — by midlife, these people often become the most disciplined, accomplished, and respected in any room. You project authority and trustworthiness. Your challenge is learning to be gentle with yourself. Your gift is extraordinary resilience and earned wisdom.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="house-card">
-        <h4>4th House — Home & Roots</h4>
-        <p>Family, ancestry, emotional foundations, private life.</p>
+      <!-- ── 2ND HOUSE ─────────────────────────────────────────────────── -->
+      <div class="house-panel" id="house-panel-2">
+        <div class="house-intro-card">
+          <h3>The 2nd House — The House of Value</h3>
+          <div class="house-keywords">Money · Possessions · Self-Worth · Material Security · What You Value</div>
+          <p>The 2nd House governs your relationship with the material world — money, possessions, and the
+          tangible resources you accumulate. But more deeply, it speaks to your sense of self-worth: what
+          you believe you deserve, how you earn, and what gives you a feeling of security. Planets here
+          shape your financial patterns, your relationship with your body, and the values that guide your
+          choices. The 2nd house asks: what do you truly value — and do you believe you're worth it?</p>
+        </div>
+        <div class="planet-grid">
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☀️</span><div><h4>Sun in the 2nd House</h4><div class="planet-rules">Rules Leo · Vitality &amp; Identity</div></div></div>
+            <p>Your identity is deeply tied to what you own, what you earn, and what you've built in the material world. Financial security isn't just comfort for you — it's central to your sense of self. You have a strong drive to accumulate resources and a genuine talent for recognizing value. When your finances are stable, you shine. When they're not, your confidence suffers. Your gift is a natural ability to generate income and build lasting material foundations. Your work is learning that your worth exists independently of your bank account.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">🌙</span><div><h4>Moon in the 2nd House</h4><div class="planet-rules">Rules Cancer · Emotion &amp; Instinct</div></div></div>
+            <p>Your emotional security is directly linked to financial and material security. When money is tight, your anxiety spikes. When you feel financially safe, your emotional world stabilizes. You likely have fluctuating finances that mirror your emotional cycles, and you may spend emotionally — comfort buying when stressed, then feeling guilty. Food and physical comfort are important emotional anchors for you. Your gift is an intuitive understanding of value and a deep drive to create a secure nest for yourself and those you love.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☿</span><div><h4>Mercury in the 2nd House</h4><div class="planet-rules">Rules Gemini &amp; Virgo · Mind &amp; Communication</div></div></div>
+            <p>Your mind is your primary moneymaker — you earn through your ideas, your words, your communication skills, and your analytical ability. You think about money constantly and have a quick, clever approach to financial matters. Writing, teaching, sales, media, or any field where thinking and communicating create income is naturally aligned with this placement. Your challenge is that your financial situation may be changeable or scattered, reflecting Mercury's restless nature. Your gift is the ability to find multiple income streams and spot opportunities others miss.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♀</span><div><h4>Venus in the 2nd House</h4><div class="planet-rules">Rules Taurus &amp; Libra · Love &amp; Beauty</div></div></div>
+            <p>Venus in her natural home — the 2nd house is one of Venus's strongest placements. You have a natural talent for attracting money, beautiful possessions, and material comfort. You appreciate quality over quantity and have exquisite taste. Your sense of self-worth tends to be strong and your relationship with your body and physical senses is pleasurable. You may earn through beauty, art, design, or anything that brings pleasure to others. Your challenge is indulgence and overspending. Your gift is the ability to genuinely enjoy and appreciate what you have.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♂</span><div><h4>Mars in the 2nd House</h4><div class="planet-rules">Rules Aries · Action &amp; Desire</div></div></div>
+            <p>You pursue money with fierce drive and determination. You are not passive about finances — you go after what you want and you're willing to work hard, take risks, and compete to get it. You may earn through physical effort, entrepreneurship, or fields requiring initiative and courage. Money can arrive in intense bursts and leave just as fast. Arguments about money or possessions are possible. Your challenge is impulsive spending and financial risk-taking. Your gift is extraordinary entrepreneurial energy and the courage to build something from nothing.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♃</span><div><h4>Jupiter in the 2nd House</h4><div class="planet-rules">Rules Sagittarius · Expansion &amp; Luck</div></div></div>
+            <p>One of the luckiest financial placements in astrology. Jupiter in the 2nd expands everything it touches — wealth, possessions, and self-worth all tend to grow over time with this placement. You have an abundance mindset and a genuine belief that there is enough for everyone, including you. Money tends to arrive, often unexpectedly and generously. Your challenge is excess — overspending, overindulgence, or assuming the abundance will always be there without tending it. Your gift is a natural prosperity consciousness that creates real-world wealth.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♄</span><div><h4>Saturn in the 2nd House</h4><div class="planet-rules">Rules Capricorn · Discipline &amp; Mastery</div></div></div>
+            <p>Financial lessons are among your deepest life themes. Early in life you may have experienced lack, financial restriction, or a deeply ingrained belief that money is scarce or hard to come by. Saturn here demands that you build financial security through sustained effort, discipline, and responsibility — not luck. Over time, these people often become genuinely wealthy through sheer persistence. Your challenge is scarcity thinking and over-frugality. Your gift is the ability to build lasting, rock-solid financial foundations that stand the test of time.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="house-card">
-        <h4>5th House — Creativity & Pleasure</h4>
-        <p>Romance, art, fun, children, self‑expression.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>6th House — Work & Wellness</h4>
-        <p>Daily routines, health, service, habits.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>7th House — Partnerships</h4>
-        <p>Marriage, relationships, contracts, one‑on‑one dynamics.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>8th House — Transformation</h4>
-        <p>Sex, death, rebirth, shared resources, shadow work.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>9th House — Expansion</h4>
-        <p>Travel, philosophy, higher learning, spirituality.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>10th House — Career & Legacy</h4>
-        <p>Public image, ambition, achievements, reputation.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>11th House — Community</h4>
-        <p>Friendships, groups, social causes, hopes for the future.</p>
-      </div>
-
-      <div class="house-card">
-        <h4>12th House — Mysticism</h4>
-        <p>Dreams, intuition, the subconscious, hidden realms.</p>
+      <!-- ── 3RD HOUSE ─────────────────────────────────────────────────── -->
+      <div class="house-panel" id="house-panel-3">
+        <div class="house-intro-card">
+          <h3>The 3rd House — The House of Communication</h3>
+          <div class="house-keywords">Communication · Siblings · Short Journeys · Learning · The Everyday Mind</div>
+          <p>The 3rd House governs how you think, speak, write, and exchange ideas in your immediate
+          environment. It rules your relationship with siblings and neighbors, your early education,
+          short-distance travel, and the constant mental chatter of daily life. Planets here shape your
+          communication style, your learning preferences, and the way you process and share information.
+          The 3rd house asks: how do you think, and how do you make yourself understood?</p>
+        </div>
+        <div class="planet-grid">
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☀️</span><div><h4>Sun in the 3rd House</h4><div class="planet-rules">Rules Leo · Vitality &amp; Identity</div></div></div>
+            <p>Your identity is expressed through your mind, your voice, and your ideas. You are a natural communicator — writing, speaking, teaching, or sharing information in some form is central to who you are. You shine in intellectual environments and are probably the person in any room who has something interesting to say. Siblings or early neighbors may have played a significant role in shaping who you became. Your challenge is mental restlessness or talking more than listening. Your gift is a brilliant, expressive mind that can make any subject come alive.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">🌙</span><div><h4>Moon in the 3rd House</h4><div class="planet-rules">Rules Cancer · Emotion &amp; Instinct</div></div></div>
+            <p>You think and speak with your feelings. Your communication style is warm, nurturing, and deeply intuitive — you say the right thing at the right moment because you feel what others need to hear. Your mind is emotionally driven, which makes you a gifted storyteller and empathic listener. You may have a changeable mind, shifting opinions as your feelings shift. Relationships with siblings are emotionally significant. Your challenge is emotional bias in thinking. Your gift is the ability to connect deeply through words and to make others feel truly heard.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">☿</span><div><h4>Mercury in the 3rd House</h4><div class="planet-rules">Rules Gemini &amp; Virgo · Mind &amp; Communication</div></div></div>
+            <p>Mercury rules the 3rd house, so this is one of its strongest placements. Your mind is razor-sharp, quick, and endlessly curious. You communicate with precision and wit, and you probably learned to read or write early and easily. You have a gift for languages, research, writing, and any form of information gathering and sharing. You may have too many thoughts running at once — the challenge is focus and follow-through. Your gift is one of the finest minds in the zodiac for connecting ideas, gathering information, and sharing it brilliantly.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♀</span><div><h4>Venus in the 3rd House</h4><div class="planet-rules">Rules Taurus &amp; Libra · Love &amp; Beauty</div></div></div>
+            <p>You communicate with charm, elegance, and a natural gift for saying things beautifully. People enjoy listening to you — your voice may be literally pleasing, and your choice of words tends toward the poetic. You have a love of literature, beautiful language, art, and aesthetically-driven learning. Relationships with siblings are generally harmonious and loving. Short trips bring pleasure. Your challenge is avoiding difficult conversations in favor of keeping things pleasant. Your gift is an extraordinary ability to communicate love, beauty, and harmony through words.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♂</span><div><h4>Mars in the 3rd House</h4><div class="planet-rules">Rules Aries · Action &amp; Desire</div></div></div>
+            <p>You think fast, argue brilliantly, and have a mind that cuts straight to the point. You're direct in communication — sometimes bluntly so — and you don't shy away from intellectual debate or confrontation. You defend your ideas with passion and don't back down easily. Siblings may have been competitive or conflict-prone. Your writing or speaking has an urgency and fire to it that compels attention. Your challenge is impatience, argumentativeness, or a tendency to communicate combatively. Your gift is a powerful, persuasive voice that motivates and galvanizes others.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♃</span><div><h4>Jupiter in the 3rd House</h4><div class="planet-rules">Rules Sagittarius · Expansion &amp; Luck</div></div></div>
+            <p>Your mind is expansive, optimistic, and drawn to the big picture. You think philosophically, speak inspirationally, and have a gift for making people feel uplifted and enlightened after a conversation with you. Learning is one of your greatest joys — you'll be a student of something for your entire life. Short trips tend to be fortunate and stimulating. Siblings are likely beneficial influences. Your challenge is overextending intellectually or promising more than you deliver. Your gift is a brilliant, generous mind that expands everyone it touches.</p>
+          </div>
+          <div class="planet-card">
+            <div class="planet-card-top"><span class="planet-glyph">♄</span><div><h4>Saturn in the 3rd House</h4><div class="planet-rules">Rules Capricorn · Discipline &amp; Mastery</div></div></div>
+            <p>Communication and learning may not have come easily early in life — you may have struggled in school, felt intellectually inadequate, or had difficult relationships with siblings. Saturn demands mastery through effort, and 3rd house Saturn people often become extraordinarily disciplined thinkers and communicators over time. You choose your words carefully — sometimes too carefully, leading to silence when speaking up is needed. Your challenge is self-censorship and mental self-doubt. Your gift is the ability to communicate with rare precision, depth, and authority earned through years of careful thought.</p>
+          </div>
+        </div>
       </div>
 
     </div>
-
-
-
+  </section>
 
 
   <!-- ══ ZODIAC GUIDE ════════════════════════════════════════════════════ -->
   <section id="zodiac-guide" class="section section-dark">
     <div class="section-inner">
       <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">📖 The 12 Signs — Quick Reference</h2>
-      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:0.25rem;">A permanent reference for all 12 signs — element, ruling planet, modality, and core essence.</p>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:0.25rem;">A permanent reference for all 12 signs — element, ruler, modality, and core essence.</p>
       <div class="zodiac-mini-grid">
         <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♈</span><div><h4>Aries</h4><div class="z-dates">Mar 21 – Apr 19</div></div></div><div class="z-keywords">Fire · Mars · Cardinal</div><p>The pioneer. Bold, courageous, fiercely independent. Acts first, reflects later. Natural leader fuelled by instinct and desire.</p></div>
-        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♉</span><div><h4>Taurus</h4><div class="z-dates">Apr 20 – May 20</div></div></div><div class="z-keywords">Earth · Venus · Fixed</div><p>The builder. Sensual, loyal, deeply reliable. Creates beauty and security. Resistant to change; unshakeable when committed.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♉</span><div><h4>Taurus</h4><div class="z-dates">Apr 20 – May 20</div></div></div><div class="z-keywords">Earth · Venus · Fixed</div><p>The builder. Sensual, loyal, and deeply reliable. Creates beauty and security. Resistant to change; unshakeable when committed.</p></div>
         <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♊</span><div><h4>Gemini</h4><div class="z-dates">May 21 – Jun 20</div></div></div><div class="z-keywords">Air · Mercury · Mutable</div><p>The communicator. Witty, curious, endlessly adaptable. Lives in the world of ideas. Can see every angle — challenge is choosing one.</p></div>
-        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♋</span><div><h4>Cancer</h4><div class="z-dates">Jun 21 – Jul 22</div></div></div><div class="z-keywords">Water · Moon · Cardinal</div><p>The nurturer. Deeply intuitive, protective, emotionally intelligent. Home and family are everything. Feels everything deeply.</p></div>
+        <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♋</span><div><h4>Cancer</h4><div class="z-dates">Jun 21 – Jul 22</div></div></div><div class="z-keywords">Water · Moon · Cardinal</div><p>The nurturer. Deeply intuitive, protective, and emotionally intelligent. Home and family are everything. Feels everything deeply.</p></div>
         <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♌</span><div><h4>Leo</h4><div class="z-dates">Jul 23 – Aug 22</div></div></div><div class="z-keywords">Fire · Sun · Fixed</div><p>The sovereign. Radiant, generous, born to lead and inspire. Rules the heart. Thrives in the spotlight; withers without recognition.</p></div>
         <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♍</span><div><h4>Virgo</h4><div class="z-dates">Aug 23 – Sep 22</div></div></div><div class="z-keywords">Earth · Mercury · Mutable</div><p>The healer. Analytical, devoted, deeply service-oriented. Notices everything. Improves everything they touch. Greatest gift: discernment.</p></div>
         <div class="zodiac-mini-card"><div class="zodiac-mini-top"><span class="z-glyph">♎</span><div><h4>Libra</h4><div class="z-dates">Sep 23 – Oct 22</div></div></div><div class="z-keywords">Air · Venus · Cardinal</div><p>The diplomat. Graceful, fair-minded, relational. Seeks beauty and balance in all things. Struggles to choose; excels at creating harmony.</p></div>
@@ -855,6 +600,7 @@
         <a href="manifest-monday.html"      class="btn outline" style="font-size:0.82rem;">🌙 Manifest Monday</a>
         <a href="tarot-tuesday.html"        class="btn outline" style="font-size:0.82rem;">🃏 Tarot Tuesday</a>
         <a href="bewitching-wednesday.html" class="btn outline" style="font-size:0.82rem;">🌿 Bewitching Wednesday</a>
+        <a href="zodiac-features.html"      class="btn outline" style="font-size:0.82rem;">🔮 Zodiac Features</a>
         <a href="freaky-friday.html"        class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
         <a href="spellbound-saturday.html"  class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
         <a href="palmistry-sunday.html"     class="btn outline" style="font-size:0.82rem;">🤲 Palmistry Sunday</a>
@@ -874,143 +620,203 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // ── Moon Phase Calculator (no API needed) ────────────────────────────
-    (function() {
-      const today     = new Date();
+	async function getWeeklyHoroscope(sign) {
+	  const res = await fetch(`https://aztro.sameerkumar.website/?sign=${sign}&day=week`, {
+	    method: "POST"
+	  });
+	  return res.json();
+	}
+
+    // ── Get Sunday of current week ──────────────────────────────────────
+	async function loadAllWeeklyHoroscopes() {
+	  const signs = [
+	    "aries","taurus","gemini","cancer","leo","virgo",
+	    "libra","scorpio","sagittarius","capricorn","aquarius","pisces"
+	  ];
+
+	  const container = document.getElementById("weekly-horoscopes");
+	  container.innerHTML = "<p>Loading weekly horoscopes...</p>";
+
+	  const results = await Promise.all(signs.map(s => getWeeklyHoroscope(s)));
+
+	  container.innerHTML = results.map((data, i) => {
+	    const sign = signs[i].toUpperCase();
+	    return `
+	      <div class="horoscope-card">
+	        <h3>${sign}</h3>
+	        <p class="date-range">${data.date_range}</p>
+	        <p class="description">${data.description}</p>
+	        <p class="extras">
+	          <strong>Lucky Number:</strong> ${data.lucky_number}<br>
+	          <strong>Color:</strong> ${data.color}<br>
+	          <strong>Mood:</strong> ${data.mood}
+	        </p>
+	      </div>
+	    `;
+	  }).join("");
+	}
+
+
+    // ─────────────────────────────────────────────────────────────────────
+    // MOON PHASE CALCULATOR
+    // ─────────────────────────────────────────────────────────────────────
+    function getMoonPhase() {
       const knownNew  = new Date("2000-01-06T18:14:00Z");
       const synodicMs = 29.53058867 * 24 * 60 * 60 * 1000;
-      let   age       = ((today - knownNew) % synodicMs) / synodicMs;
+      const elapsed   = today - knownNew;
+      let   age       = (elapsed % synodicMs) / synodicMs;
       if (age < 0) age += 1;
-      const illum = Math.round((1 - Math.cos(2 * Math.PI * age)) / 2 * 100);
+      const illumination = Math.round(
+        age < 0.5
+          ? (1 - Math.cos(2 * Math.PI * age)) / 2 * 100
+          : (1 - Math.cos(2 * Math.PI * age)) / 2 * 100
+      );
 
       let phase, glyph, desc;
-      if      (age < 0.034) { phase = "New Moon";        glyph = "🌑"; desc = "A time of new beginnings and fresh intentions. The veil between worlds is thin — set your most important intentions tonight."; }
-      else if (age < 0.10)  { phase = "Waxing Crescent"; glyph = "🌒"; desc = "Energy is building. Take the first concrete steps toward what you seeded at the new moon. Momentum is available — use it."; }
-      else if (age < 0.20)  { phase = "First Quarter";   glyph = "🌓"; desc = "A decision point. Challenges test your commitment. Push through — the universe is checking your resolve."; }
-      else if (age < 0.34)  { phase = "Waxing Gibbous";  glyph = "🌔"; desc = "Refinement time. You can see your goal clearly. Fine-tune your approach and prepare for the full moon breakthrough."; }
-      else if (age < 0.54)  { phase = "Full Moon";       glyph = "🌕"; desc = "Peak energy. What was hidden is now revealed. A powerful time for manifestation, divination, and charging your magical tools."; }
-      else if (age < 0.65)  { phase = "Waning Gibbous";  glyph = "🌖"; desc = "Gratitude and integration. Harvest what the full moon revealed. Begin releasing what no longer serves your highest path."; }
-      else if (age < 0.76)  { phase = "Last Quarter";    glyph = "🌗"; desc = "Release and forgiveness. Let go of what isn't working. A powerful time for cord-cutting and clearing emotional debris."; }
-      else if (age < 0.94)  { phase = "Waning Crescent"; glyph = "🌘"; desc = "Rest, reflection, and surrender. Honor what you've learned. Restore before the new moon begins the cycle again."; }
-      else                  { phase = "Dark Moon";        glyph = "🌑"; desc = "The liminal space between cycles. Sacred time for deep introspection and communion with your inner self before rebirth."; }
+      if      (age < 0.034) { phase = "New Moon";          glyph = "🌑"; desc = "A time of new beginnings, planting intentions, and stepping into fresh cycles. The veil between worlds is thin. Set your most important intentions tonight."; }
+      else if (age < 0.10)  { phase = "Waxing Crescent";   glyph = "🌒"; desc = "Energy is building. This is the time to take the first concrete steps toward what you seeded at the new moon. Momentum is available — use it."; }
+      else if (age < 0.20)  { phase = "First Quarter";     glyph = "🌓"; desc = "A decision point. Challenges may arise that test your commitment to your intentions. Push through — the universe is checking your resolve."; }
+      else if (age < 0.34)  { phase = "Waxing Gibbous";    glyph = "🌔"; desc = "Refinement and adjustment. You can see your goal clearly now. Fine-tune your approach and prepare for the breakthrough the full moon will bring."; }
+      else if (age < 0.54)  { phase = "Full Moon";         glyph = "🌕"; desc = "Peak energy, peak illumination. What was hidden is now revealed. Emotions run high. A powerful time for manifestation, divination, and charging your tools."; }
+      else if (age < 0.65)  { phase = "Waning Gibbous";    glyph = "🌖"; desc = "Gratitude and integration. Harvest what the full moon revealed. Share your gifts. Begin releasing what no longer serves your highest path."; }
+      else if (age < 0.76)  { phase = "Last Quarter";      glyph = "🌗"; desc = "Release and forgiveness. Let go of what isn't working. This is a powerful time for cord-cutting, banishing work, and clearing emotional debris."; }
+      else if (age < 0.94)  { phase = "Waning Crescent";   glyph = "🌘"; desc = "Rest, reflection, and surrender. The cycle is completing. Honor what you've learned. Restore your energy before the new moon begins the cycle again."; }
+      else                  { phase = "Dark Moon";          glyph = "🌑"; desc = "The liminal space between cycles. A sacred time for deep introspection, shadow work, and communion with your inner self before rebirth."; }
 
-      document.getElementById("moon-glyph").textContent       = glyph;
-      document.getElementById("moon-phase-name").textContent   = phase;
-      document.getElementById("moon-desc").textContent         = desc;
-      document.getElementById("moon-illumination").textContent = `☀️ Illumination: approx. ${illum}%`;
+      return { phase, glyph, desc, illumination };
+    }
+
+    // Display moon phase
+    (function() {
+      const m = getMoonPhase();
+      document.getElementById("moon-glyph").textContent      = m.glyph;
+      document.getElementById("moon-phase-name").textContent  = m.phase;
+      document.getElementById("moon-desc").textContent        = m.desc;
+      document.getElementById("moon-illumination").textContent = `☀️ Illumination: approx. ${m.illumination}%`;
     })();
 
+  
+    // ─────────────────────────────────────────────────────────────────────
+    // WEEKLY PLANETARY FORECAST
+    // ─────────────────────────────────────────────────────────────────────
+    async function generateWeeklyForecast() {
+      const btn      = document.getElementById("forecast-btn");
+      const loading  = document.getElementById("forecast-loading");
+      const content  = document.getElementById("forecast-content");
+      const sunday   = getWeekSunday();
+      const days     = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 
-    // ── Aztro API Horoscope (free, no key needed) ────────────────────────
-    async function getHoroscope(signSlug, signName, glyph, dates, btnEl) {
-      // Highlight active button
+      btn.disabled     = true;
+      loading.style.display  = "block";
+      content.style.display  = "none";
+
+      const dayList = days.map((d,i) => {
+        const dd = new Date(sunday);
+        dd.setDate(sunday.getDate() + i);
+        return `${d} ${formatDate(dd)}`;
+      }).join(", ");
+
+      const prompt = `You are Jennifer Ambrosia, an intuitive astrologer at Ambrosia's Occult Academy.
+Write a day-by-day planetary energy forecast for the week of ${formatDate(sunday)}.
+The days are: ${dayList}.
+
+For each day write 2-3 sentences covering: the Moon sign if it changes, any notable planetary aspects or transits happening that day, and the overall energetic theme and what it's good for.
+
+Be mystical, warm, and practical. Give real astrological information based on actual planetary positions for these dates.
+
+Format your response EXACTLY like this — one entry per day, no extra text:
+SUNDAY: [forecast]
+MONDAY: [forecast]
+TUESDAY: [forecast]
+WEDNESDAY: [forecast]
+THURSDAY: [forecast]
+FRIDAY: [forecast]
+SATURDAY: [forecast]`;
+
+      try {
+        const text = await callGemini(prompt, 0.7, 900);
+        const dayData = {};
+        days.forEach(d => {
+          const rx    = new RegExp(`${d.toUpperCase()}:\\s*(.+?)(?=(?:MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY):|$)`, "si");
+          const match = text.match(rx);
+          if (match) dayData[d] = match[1].trim();
+        });
+
+        const sunday2 = getWeekSunday();
+        const html = days.map((d,i) => {
+          const dd = new Date(sunday2);
+          dd.setDate(sunday2.getDate() + i);
+          const label = `${d}<br><span style="font-size:0.65rem;opacity:0.6;">${formatDate(dd)}</span>`;
+          return `<div class="forecast-day">
+            <div class="forecast-day-label">${label}</div>
+            <div class="forecast-day-text">${dayData[d] || "Planetary data loading — check back shortly."}</div>
+          </div>`;
+        }).join("");
+
+        content.innerHTML = `<div class="forecast-days">${html}</div>`;
+      } catch(err) {
+        content.innerHTML = `<div style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem;">
+          <strong style="color:#e74c3c;">⚠️ Could not load forecast.</strong> Please check that your Gemini API key
+          is set in the script section. <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#4bb4ff;">Get your key here →</a>
+        </div>`;
+      } finally {
+        btn.disabled          = false;
+        loading.style.display = "none";
+        content.style.display = "block";
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // WEEKLY HOROSCOPE BY SIGN
+    // ─────────────────────────────────────────────────────────────────────
+    async function getHoroscope(sign, glyph, dates, btnEl) {
       document.querySelectorAll(".sign-btn").forEach(b => b.classList.remove("active"));
       btnEl.classList.add("active");
 
       const resultEl = document.getElementById("horoscope-result");
       resultEl.className = "visible";
-      resultEl.innerHTML = `<div class="horo-loading">Reading the stars for ${signName}</div>`;
+      resultEl.innerHTML = `<div class="horo-loading">Reading the stars for ${sign}</div>`;
 
-      // Aztro requires POST and uses a CORS proxy since it blocks direct browser calls
-      // We use allorigins.win as a free CORS proxy
-      const aztroUrl = `https://aztro.sameerkumar.website/?sign=${signSlug}&day=today`;
-      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(aztroUrl + '&method=POST')}`;
+      const sunday = getWeekSunday();
+      const prompt = `You are Jennifer Ambrosia, an intuitive astrologer at Ambrosia's Occult Academy.
+Write a warm, mystical weekly horoscope for ${sign} (${dates}) for the week of ${formatDate(sunday)} through ${formatDate(new Date(sunday.getTime() + 6*86400000))}.
+
+Use these four sections (write 2-3 sentences each, label them plainly without markdown):
+
+OVERALL ENERGY: The cosmic theme and general energy for ${sign} this week.
+LOVE & RELATIONSHIPS: Heart matters, connection, and relationship energy.
+WORK & PURPOSE: Career, creativity, finances, and daily direction.
+MESSAGE FROM THE STARS: One powerful insight, closing wisdom, or affirmation.
+
+End with a single italicized mantra on its own line starting with: Your mantra this week:`;
 
       try {
-        // Try direct POST first (works if CORS is open), then proxy fallback
-        let data = null;
+        const text = await callGemini(prompt, 0.85, 500);
+        const formatted = text
+          .replace(/(OVERALL ENERGY|LOVE & RELATIONSHIPS|LOVE &amp; RELATIONSHIPS|WORK & PURPOSE|WORK &amp; PURPOSE|MESSAGE FROM THE STARS):/gi,
+            '<strong style="color:#d7e2ff;display:block;margin-top:0.75rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">$1</strong>')
+          .replace(/Your mantra this week:/gi,
+            '<em style="color:#a56bff;display:block;margin-top:1rem;font-size:0.88rem;">✨ Your mantra this week:')
+          .replace(/\n\n/g, "</p><p>")
+          .replace(/\n/g, "<br>");
 
-        try {
-          const direct = await fetch(aztroUrl, { method: "POST" });
-          if (direct.ok) data = await direct.json();
-        } catch(e) {
-          // Direct blocked by CORS — try proxy
-          const proxy = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(aztroUrl)}`,
-            { method: "GET", headers: { "Content-Type": "application/json" } });
-          if (proxy.ok) {
-            const wrapper = await proxy.json();
-            // allorigins returns { contents: "...", status: {...} }
-            // Aztro needs POST but allorigins does GET — so we get the page not data
-            // Fall through to static fallback
-            data = null;
-          }
-        }
-
-        if (data && data.description) {
-          // Aztro returned valid data
-          const today = new Date().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" });
-          resultEl.innerHTML = `
-            <div class="horo-card">
-              <div class="horo-header">
-                <span class="horo-glyph">${glyph}</span>
-                <div>
-                  <div class="horo-title">${signName}</div>
-                  <div class="horo-dates">${dates} &nbsp;·&nbsp; ${today}</div>
-                </div>
-              </div>
-              <div class="horo-body">
-                <div class="horo-grid">
-                  <div class="horo-stat"><div class="horo-stat-label">🍀 Lucky Number</div><div class="horo-stat-value">${data.lucky_number || "—"}</div></div>
-                  <div class="horo-stat"><div class="horo-stat-label">🎨 Lucky Color</div><div class="horo-stat-value">${data.color || "—"}</div></div>
-                  <div class="horo-stat"><div class="horo-stat-label">💫 Mood</div><div class="horo-stat-value">${data.mood || "—"}</div></div>
-                  <div class="horo-stat"><div class="horo-stat-label">💞 Compatible With</div><div class="horo-stat-value">${data.compatibility || "—"}</div></div>
-                </div>
-                <div class="horo-description">${data.description}</div>
-              </div>
-            </div>`;
-        } else {
-          // Aztro CORS blocked — show static reading styled nicely
-          showStaticHoroscope(signName, glyph, dates, resultEl);
-        }
-
+        resultEl.innerHTML = `
+          <div class="horo-sign-header">
+            <span class="horo-glyph">${glyph}</span>
+            <div><div class="horo-title">${sign}</div><div class="horo-dates">${dates}</div></div>
+          </div>
+          <div class="horo-body"><p>${formatted}</p></div>`;
       } catch(err) {
-        showStaticHoroscope(signName, glyph, dates, resultEl);
+        resultEl.innerHTML = `<div style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem;">
+          <strong style="color:#e74c3c;">⚠️ The stars are a little cloudy.</strong><br>
+          Check that your Gemini API key is set. <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#a56bff;">Get your key here →</a>
+        </div>`;
       }
     }
 
-    // Static fallback readings (shown when Aztro is blocked by CORS on GitHub Pages)
-    // These rotate based on the day of the week so they feel fresh
-    const staticReadings = {
-      aries:       ["A burst of energy arrives to fuel your most ambitious goals. Trust your instincts — they're sharper than you know. A bold move pays off.","The stars ask you to slow down before charging forward. Reflection now saves energy later. Your patience is a superpower today.","Leadership opportunities arise naturally. Step into them without hesitation. Others are watching you for the signal to move.","Channel your fire into creative work today. The results will surprise you. Your enthusiasm is contagious — share it freely.","A challenge appears designed for your particular brand of courage. You've faced harder. Meet it head-on and watch it dissolve.","Connections made today carry long-term significance. Be present in your conversations. Someone valuable is paying close attention.","Rest is productive too, Aries. Let yourself recharge without guilt. Tomorrow your fire will burn twice as bright."],
-      taurus:      ["Steady progress is your theme today. Trust the slow build — what you're creating has roots that will last. Beauty surrounds you.","Your senses are heightened and the physical world is full of pleasure. Indulge wisely and intentionally.","Financial matters deserve your attention. A practical decision made today compounds significantly over time.","Your loyalty to those you love is your greatest asset. Someone needs your steady presence more than they're saying.","Something worth keeping requires patience today. Don't rush what needs to unfold naturally. The timing is already perfect.","Nature calls to you — step outside if you can. Grounding your body resets everything. You'll return clearer and stronger.","Creative work flourishes under your hands today. What you make carries your energy and intention. Make it beautiful."],
-      gemini:      ["Your mind is a lightning rod for brilliant ideas today. Write them down — even the ones that seem too wild.","A conversation today holds more significance than it appears. Listen as much as you speak. The answer is in the exchange.","Versatility is your superpower and today calls for it fully. You can hold two truths at once — that's rare and valuable.","Social energy is high. Connect with the people who stimulate your thinking. Your network is your net worth right now.","Curiosity leads you somewhere unexpected and wonderful today. Follow the thread — it goes somewhere worth finding.","Mercury blesses your communication today. Write that message, make that call, have that conversation you've been putting off.","Rest your restless mind with something purely pleasurable. Not everything needs to be productive. Play is its own kind of wisdom."],
-      cancer:      ["Your intuition is your compass today — follow it without second-guessing. The feeling is the data.","Home and family need your nurturing energy. The care you give returns to you multiplied. Your presence is a gift.","Emotional patterns from the past are ready to be seen clearly and released. This awareness is the beginning of freedom.","Your sensitivity is not a weakness — it's how you receive information others miss. Trust what you feel in your body.","A creative project connected to personal meaning deserves your attention today. Make something that matters to your soul.","Finances and emotional security are intertwined for you today. A small act of self-care is also an investment in stability.","The full moon of your heart is shining. Let what needs expressing come forward. Your vulnerability connects you to others."],
-      leo:         ["You were born for days like this. Your presence is magnetic, your confidence contagious. Shine without apology.","A creative project you've poured yourself into is ready to be shared. The audience you need is already waiting.","Generosity flows from you naturally — today it returns multiplied. What you give comes back in unexpected forms.","Leadership is called for and you're the right person for it. Step up. The people around you need your particular brand of courage.","Romance and pleasure are highlighted. Make space for joy. Life doesn't have to be serious to be meaningful.","Your heart knows something your mind hasn't caught up to yet. Trust the warmth in your chest as your guide today.","Rest doesn't diminish your radiance — it deepens it. Give yourself permission to receive as well as give."],
-      virgo:       ["The details others overlook are exactly where your genius lives. Today, your precision makes all the difference.","Your body is sending you information — are you listening? Small adjustments to your routine pay enormous dividends.","Service is your love language and someone around you genuinely needs what only you can offer. Show up.","A problem that's been circling you finally reveals its solution. Your analytical mind was preparing for this moment.","Perfectionism serves you when it pushes toward excellence — watch that it doesn't become paralysis today.","Your practical wisdom is someone's answered prayer right now. Share what you know generously.","The work you do quietly and consistently is more significant than you realize. Keep going."],
-      libra:       ["Balance is not a destination — it's a practice. Today calls for graceful adjustment rather than rigid positions.","Beauty and harmony are your medicine. Surround yourself with what pleases your senses and watch your energy restore.","A relationship matter asks for your gift of fairness. You can hold both perspectives — that's rare and needed here.","Venus blesses your social interactions today. Connections made feel effortless and meaningful. Enjoy the flow.","A creative decision needs your aesthetic judgment. Trust your taste — it's been refined over many lifetimes.","Indecision is information too. What you're hesitating about deserves a closer look before commitment.","Your desire for peace is a strength. Just ensure you're not keeping peace at the cost of your own truth."],
-      scorpio:     ["The depths call to you today and you're equipped to go there. What you discover in the shadows carries treasure.","Your instincts about a person or situation are correct. Trust what you know without needing it confirmed.","Transformation is not always comfortable — you know this. Trust the process you're in. What's dying is making way for something essential.","Your power is strongest when it's quiet. Observe, receive, and act when the moment is exactly right.","Intimacy — emotional, creative, or spiritual — is available to you today. Let yourself be known.","A financial or resource matter asks for your penetrating analysis. Look beneath the surface. The answer is there.","Your capacity for regeneration is extraordinary. Whatever you've been through, you are rising. Trust the timing."],
-      sagittarius: ["The horizon calls and your soul responds. Even if you can't travel far today, expand your mind. Learn something new.","Optimism is your superpower and today it's particularly potent. Your belief in possibility creates the conditions for it.","A philosophical question worth sitting with arrives today. Don't rush to answer it — let it open you.","Adventure doesn't require distance — it requires willingness to be surprised. Say yes to something unexpected.","Your honesty is a gift today, even when it's uncomfortable for others. Truth spoken kindly always finds its home.","The big picture is visible to you when others see only obstacles. Share your vision — it's needed.","Freedom and commitment are not opposites — today shows you how they can coexist beautifully."],
-      capricorn:   ["The mountain you're climbing was built for someone with exactly your endurance. Keep going. The summit is closer than it feels.","Ambition serves you best when it's rooted in genuine purpose. Reconnect with your why today.","Your reputation is your most valuable long-term asset. Every action today is a brick in that foundation.","A practical matter benefits from your methodical approach. Slow and steady not only wins — it builds something that lasts.","Responsibility doesn't have to be heavy. Today, find the dignity and pride in the work you do. It matters.","Rest is strategic, not weak. Your best decisions come from a rested mind. Permission granted.","The structures you're building — in your career, your life, your relationships — are more solid than they look right now."],
-      aquarius:    ["The future you can see clearly is the one you're being asked to help build. Your vision is the blueprint.","Community and collective energy are your power source today. Connect with your people. Together you move mountains.","Your uniqueness is not a liability — it's your most valuable offering. The world needs exactly your particular mind.","Innovation is called for and you're built for it. The unconventional approach is the right one today.","A humanitarian impulse leads you somewhere meaningful. Follow it without needing to understand the full map first.","Detachment is a tool, not a wall. Use your ability to see clearly without losing your connection to what you love.","The rebel in you serves the world when it stands for something rather than merely against something. What are you for?"],
-      pisces:      ["Your connection to the unseen world is your greatest gift. Today it speaks clearly — trust what you receive.","Creativity flows from a place beyond your thinking mind. Let yourself be moved by what wants to come through you.","Compassion for yourself first — then you have something real to offer others. Fill before you pour.","The boundary between dreaming and creating is thinner for you than for most. Use this porousness intentionally today.","Your empathy is a form of knowing. What you feel in the presence of others is information — honor it.","Spiritual practice — whatever that means to you — charges your battery in a way nothing else can. Make time for it today.","The universe is conspiring in your favor in ways you can't fully see yet. Trust the unfolding."]
-    };
-
-    function showStaticHoroscope(signName, glyph, dates, el) {
-      const slug    = signName.toLowerCase();
-      const reading = staticReadings[slug] || staticReadings.aries;
-      const dayIdx  = new Date().getDay(); // 0-6, rotates daily
-      const text    = reading[dayIdx];
-      const today   = new Date().toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric" });
-
-      el.innerHTML = `
-        <div class="horo-card">
-          <div class="horo-header">
-            <span class="horo-glyph">${glyph}</span>
-            <div>
-              <div class="horo-title">${signName}</div>
-              <div class="horo-dates">${dates} &nbsp;·&nbsp; ${today}</div>
-            </div>
-          </div>
-          <div class="horo-body">
-            <div class="horo-description" style="border-top:none;margin-top:0;padding-top:0;">${text}</div>
-            <p style="font-size:0.75rem;color:rgba(165,107,255,0.6);margin-top:1rem;margin-bottom:0;">
-              ✨ For a fully personalized reading, <a href="services.html" style="color:#a56bff;">book a session with Jennifer →</a>
-            </p>
-          </div>
-        </div>`;
-    }
-
-    // ── House tab switching ──────────────────────────────────────────────
+    // ─────────────────────────────────────────────────────────────────────
+    // HOUSE TAB SWITCHING
+    // ─────────────────────────────────────────────────────────────────────
     function showHouse(num, el) {
       document.querySelectorAll(".house-tab").forEach(t => t.classList.remove("active"));
       document.querySelectorAll(".house-panel").forEach(p => p.classList.remove("active"));
