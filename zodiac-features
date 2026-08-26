@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Zodiac Features | Ambrosia's Occult Academy</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Hero ───────────────────────────────────────────────────────────── */
+    .features-hero {
+      position: relative; min-height: 34vh;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 4rem 1.5rem 3rem;
+      background: radial-gradient(ellipse at top, #1a0a3a 0%, #0f0524 55%, #02010b 100%);
+      overflow: hidden;
+    }
+    .features-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 22% 30%, rgba(165,107,255,0.16) 0, transparent 50%),
+        radial-gradient(circle at 78% 25%, rgba(75,180,255,0.12) 0, transparent 45%);
+      pointer-events: none;
+    }
+    .features-hero-content { position: relative; z-index: 1; max-width: 760px; }
+    .features-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.6rem;
+    }
+    .day-label { font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: #a56bff; margin-bottom: 0.75rem; }
+    .features-hero p { color: var(--text-muted); font-size: 1rem; max-width: 580px; margin: 0 auto; }
+
+    .jump-nav {
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 0.65rem; padding: 0.9rem 1.5rem;
+      background: rgba(5,3,22,0.96); border-bottom: 1px solid var(--border-soft);
+      position: sticky; top: 0; z-index: 9; backdrop-filter: blur(14px);
+    }
+    .jump-nav a {
+      color: var(--text-muted); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.28rem 0.75rem; border-radius: 999px; border: 1px solid var(--border-soft);
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .jump-nav a:hover { color: #d7e2ff; border-color: rgba(165,107,255,0.5); background: rgba(165,107,255,0.08); }
+
+    .tip-box {
+      background: rgba(165,107,255,0.07); border-left: 3px solid #a56bff;
+      border-radius: 0 10px 10px 0; padding: 1rem 1.25rem; margin: 1.5rem 0;
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.7;
+    }
+    .tip-box strong { color: #d7e2ff; }
+    .tip-box a { color: #a56bff; }
+
+    /* ── Feature block (one per video) ─────────────────────────────────── */
+    .feature-block {
+      background: rgba(10,10,30,0.9); border: 1px solid rgba(165,107,255,0.2);
+      border-radius: 16px; overflow: hidden; margin-bottom: 1.75rem;
+    }
+    .feature-header {
+      background: linear-gradient(135deg, rgba(165,107,255,0.14), rgba(75,180,255,0.07));
+      padding: 1.5rem 1.75rem;
+      border-bottom: 1px solid rgba(165,107,255,0.18);
+    }
+    .feature-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #a56bff; margin-bottom: 0.4rem; font-weight: 700;
+    }
+    .feature-header h3 {
+      font-family: var(--font-display); font-size: 1.35rem;
+      letter-spacing: 0.05em; text-transform: uppercase; color: #d7e2ff; margin: 0 0 0.35rem;
+    }
+    .feature-date { font-size: 0.8rem; color: var(--text-muted); }
+    .feature-body { padding: 1.5rem 1.75rem; }
+
+    .feature-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+      gap: 1rem;
+    }
+    .feature-card {
+      background: rgba(0,0,0,0.25); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 1.1rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-2px); border-color: rgba(165,107,255,0.4); }
+    .feature-card-top { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .f-glyph { font-size: 1.4rem; }
+    .feature-card h4 { margin: 0; font-size: 0.88rem; letter-spacing: 0.04em; color: #d7e2ff; }
+    .feature-result {
+      font-size: 0.95rem; color: #d7e2ff; font-weight: 600; margin: 0 0 0.3rem;
+    }
+    .feature-note { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; margin: 0; }
+
+    /* ── Archive (past features, collapsed) ──────────────────────────────── */
+    #archive summary {
+      cursor: pointer; list-style: none; font-family: var(--font-display);
+      font-size: 1rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: #d7e2ff; padding: 1.1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #archive summary::-webkit-details-marker { display: none; }
+    #archive summary::after {
+      content: "▾"; color: #a56bff; font-size: 0.9rem; transition: transform 0.2s;
+    }
+    details[open] > summary::after { transform: rotate(180deg); }
+    details.feature-block { padding: 0; }
+    details.feature-block .feature-eyebrow { margin-bottom: 0.2rem; }
+    details.feature-block summary .feature-date {
+      font-size: 0.75rem; color: var(--text-muted); text-transform: none; letter-spacing: normal;
+    }
+    details.feature-block .feature-body { border-top: 1px solid rgba(165,107,255,0.15); }
+  </style>
+</head>
+<body>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="index.html">🏠 Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#themes">Daily Themes</a></li>
+      <li><a href="index.html#birth-chart">Birth Charts</a></li>
+      <li><a href="index.html#tarot">Tarot</a></li>
+      <li><a href="freaky-friday.html">Freaky Fridays</a></li>
+      <li><a href="services.html">✨ Readings</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <header class="features-hero">
+    <div class="features-hero-content">
+      <p class="day-label">From the YouTube Channel</p>
+      <h1>🔮 Zodiac Features</h1>
+      <p>The results from every "by zodiac sign" video — spirit animals, dream vacations, dream cities, and
+        whatever comes next — collected here for each of the 12 signs to browse anytime.</p>
+    </div>
+  </header>
+
+  <div class="jump-nav">
+    <a href="#latest">✨ Latest Feature</a>
+    <a href="#archive">📚 Past Features</a>
+    <a href="astrology-thursday.html">♑ Astrology Thursday</a>
+  </div>
+
+
+  <!-- ══ LATEST FEATURE ═══════════════════════════════════════════════════
+       ✏️ UPDATE THIS BLOCK once each new video airs.
+       Workflow:
+       1. Move the CURRENT contents of this block into a new <details class="feature-block">
+          entry at the TOP of the #archive list below (copy the whole block, wrap it in
+          <details>...<summary>...</summary>...</details> — see the examples already there).
+       2. Replace the contents here with the new video's title, air date, and 12 results.
+       3. Keep one .feature-card per sign, always in the same order (Aries → Pisces) so it's
+          easy to scan.
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="latest" class="section section-dark">
+    <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">✨ Latest Feature</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
+        Straight from this week's video — now aired, and now on record here for good.
+      </p>
+
+      <div class="feature-block">
+        <div class="feature-header">
+          <div class="feature-eyebrow">🎬 Now Aired</div>
+          <h3>Best Summer Vacation Spot for Each Zodiac Sign</h3>
+          <div class="feature-date"><!-- ✏️ set air date --> Aired [Month Day, Year]</div>
+        </div>
+        <div class="feature-body">
+          <div class="feature-grid">
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♈</span><h4>Aries</h4></div><p class="feature-result">Costa Rica</p><p class="feature-note">Jungle, adrenaline, and no itinerary required — built for Aries' need to move.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♉</span><h4>Taurus</h4></div><p class="feature-result">Napa Valley, CA</p><p class="feature-note">Slow mornings, good food, and wine country luxury — pure Taurus comfort.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♊</span><h4>Gemini</h4></div><p class="feature-result">New York City, NY</p><p class="feature-note">Nonstop stimulation and a new conversation on every block — Gemini's playground.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♋</span><h4>Cancer</h4></div><p class="feature-result">Coastal Maine</p><p class="feature-note">Cozy harbor towns and water views — a homey retreat for a sign that never fully unplugs.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♌</span><h4>Leo</h4></div><p class="feature-result">Miami Beach, FL</p><p class="feature-note">Sun, spectacle, and a scene to be seen in — Leo's natural habitat.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♍</span><h4>Virgo</h4></div><p class="feature-result">Kyoto, Japan</p><p class="feature-note">Precision, tradition, and quiet beauty — order that actually feels peaceful.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♎</span><h4>Libra</h4></div><p class="feature-result">Santorini, Greece</p><p class="feature-note">Postcard-perfect views and effortless romance — Libra's aesthetic, realized.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♏</span><h4>Scorpio</h4></div><p class="feature-result">New Orleans, LA</p><p class="feature-note">Moody, magnetic, and a little haunted — a city with real depth to match Scorpio's.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♐</span><h4>Sagittarius</h4></div><p class="feature-result">Backpacking, Europe</p><p class="feature-note">No fixed plan, a new border every few days — freedom is the whole point.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♑</span><h4>Capricorn</h4></div><p class="feature-result">Swiss Alps</p><p class="feature-note">Structured, scenic, a little exclusive — a trip that still feels like an achievement.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♒</span><h4>Aquarius</h4></div><p class="feature-result">Iceland</p><p class="feature-note">Otherworldly landscapes and off-the-beaten-path energy — made for Aquarius' strangeness.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♓</span><h4>Pisces</h4></div><p class="feature-result">Bali</p><p class="feature-note">Water, spirituality, and dreamy escapism — Pisces doesn't just visit, it dissolves in.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 For Jennifer:</strong> This section should only go live once the video has actually aired —
+        until then, leave the previous feature showing here. When the new one airs, follow the 3 steps in the
+        HTML comment above this section to promote the old "latest" into the archive and drop the new one in.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ ARCHIVE (past features) ═══════════════════════════════════════════
+       Newest goes at the TOP. Each past feature is a <details> block so the
+       page stays short — visitors click a title to expand the 12 results.
+       Duplicate one of these blocks for every feature you retire from
+       "Latest Feature" above.
+  ════════════════════════════════════════════════════════════════════════ -->
+  <section id="archive" class="section section-light">
+    <div class="section-inner">
+      <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">📚 Past Features</h2>
+      <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
+        Every feature that's aired, kept here for good — click a title to expand it.
+      </p>
+
+      <!-- ── EXAMPLE PAST FEATURE #1 — replace with real results ─────────── -->
+      <details class="feature-block">
+        <summary>
+          <span>
+            <div class="feature-eyebrow">🐾 Aired</div>
+            Spirit Animal by Zodiac Sign
+          </span>
+          <span class="feature-date"><!-- ✏️ set air date -->[Month Year]</span>
+        </summary>
+        <div class="feature-body">
+          <div class="feature-grid">
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♈</span><h4>Aries</h4></div><p class="feature-result">Zebra</p><p class="feature-note">Bold stripes, fast, and never afraid to stand out in the herd.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♉</span><h4>Taurus</h4></div><p class="feature-result">Bear</p><p class="feature-note">Steady, strong, and protective of its space — comfort with real power behind it.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♊</span><h4>Gemini</h4></div><p class="feature-result">Peacock</p><p class="feature-note">Expressive, social, and always showing a different side of itself.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♋</span><h4>Cancer</h4></div><p class="feature-result">Turtle</p><p class="feature-note">Carries home wherever it goes and knows exactly when to retreat inward.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♌</span><h4>Leo</h4></div><p class="feature-result">Cheetah</p><p class="feature-note">Fast, confident, and built to be watched.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♍</span><h4>Virgo</h4></div><p class="feature-result">Fox</p><p class="feature-note">Sharp, observant, and quietly working out every detail.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♎</span><h4>Libra</h4></div><p class="feature-result">Eagle</p><p class="feature-note">Graceful and fair-minded, seeing every side before it moves.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♏</span><h4>Scorpio</h4></div><p class="feature-result">Swan</p><p class="feature-note">Calm on the surface, powerful underneath — never quite what it first appears.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♐</span><h4>Sagittarius</h4></div><p class="feature-result">Tarantula</p><p class="feature-note">Unbothered by what unsettles everyone else, and always exploring new ground.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♑</span><h4>Capricorn</h4></div><p class="feature-result">Raccoon</p><p class="feature-note">Resourceful and clever, quietly figuring out how to get what it needs.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♒</span><h4>Aquarius</h4></div><p class="feature-result">Owl</p><p class="feature-note">Sees what others miss and thinks on a different wavelength entirely.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♓</span><h4>Pisces</h4></div><p class="feature-result">Dolphin</p><p class="feature-note">Intuitive, playful, and deeply attuned to emotion beneath the surface.</p></div>
+          </div>
+        </div>
+      </details>
+
+      <!-- ── EXAMPLE PAST FEATURE #2 — replace with real results ─────────── -->
+      <details class="feature-block">
+        <summary>
+          <span>
+            <div class="feature-eyebrow">🏙️ Aired</div>
+            US City You Should Live In by Zodiac Sign
+          </span>
+          <span class="feature-date"><!-- ✏️ set air date -->[Month Year]</span>
+        </summary>
+        <div class="feature-body">
+          <div class="feature-grid">
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♈</span><h4>Aries</h4></div><p class="feature-result">Philadelphia, PA</p><p class="feature-note">Gritty, fast-paced, and a little combative — a city that keeps up with Aries' energy.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♉</span><h4>Taurus</h4></div><p class="feature-result">Seattle, WA</p><p class="feature-note">Good food, green surroundings, and a slower pace worth settling into.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♊</span><h4>Gemini</h4></div><p class="feature-result">Miami, FL</p><p class="feature-note">Fast, social, and always something new happening — Gemini never gets bored here.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♋</span><h4>Cancer</h4></div><p class="feature-result">Atlanta, GA</p><p class="feature-note">Strong sense of community and Southern hospitality — a place that feels like home fast.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♌</span><h4>Leo</h4></div><p class="feature-result">Los Angeles, CA</p><p class="feature-note">Sunshine, glamour, and a stage for every Leo to shine on.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♍</span><h4>Virgo</h4></div><p class="feature-result">Austin, TX</p><p class="feature-note">Health-conscious, productive, and organized chaos — practicality with personality.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♎</span><h4>Libra</h4></div><p class="feature-result">Big Sky, MT</p><p class="feature-note">Beautiful, balanced, and peaceful — a setting built for harmony.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♏</span><h4>Scorpio</h4></div><p class="feature-result">Detroit, MI</p><p class="feature-note">Raw, resilient, and a little mysterious — a city with real staying power.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♐</span><h4>Sagittarius</h4></div><p class="feature-result">Denver, CO</p><p class="feature-note">Mountains, open space, and easy access to the next adventure.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♑</span><h4>Capricorn</h4></div><p class="feature-result">Washington, D.C.</p><p class="feature-note">Ambitious, structured, and status-driven — right where Capricorn wants to climb.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♒</span><h4>Aquarius</h4></div><p class="feature-result">Portland, OR</p><p class="feature-note">Independent, unconventional, and proudly a little weird — Aquarius' kind of town.</p></div>
+            <div class="feature-card"><div class="feature-card-top"><span class="f-glyph">♓</span><h4>Pisces</h4></div><p class="feature-result">Paia, HI</p><p class="feature-note">Dreamy, water-adjacent, and worlds away from anything ordinary.</p></div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </section>
+
+
+  <!-- ─── FOOTER ────────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="section-inner">
+      <h2>More from the Academy</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin:1rem 0 1.5rem;">
+        <a href="manifest-monday.html"      class="btn outline" style="font-size:0.82rem;">🌙 Manifest Monday</a>
+        <a href="tarot-tuesday.html"        class="btn outline" style="font-size:0.82rem;">🃏 Tarot Tuesday</a>
+        <a href="bewitching-wednesday.html" class="btn outline" style="font-size:0.82rem;">🌿 Bewitching Wednesday</a>
+        <a href="astrology-thursday.html"   class="btn outline" style="font-size:0.82rem;">♑ Astrology Thursday</a>
+        <a href="freaky-friday.html"        class="btn outline" style="font-size:0.82rem;">👻 Freaky Friday</a>
+        <a href="spellbound-saturday.html"  class="btn outline" style="font-size:0.82rem;">🔮 Spellbound Saturday</a>
+        <a href="palmistry-sunday.html"     class="btn outline" style="font-size:0.82rem;">🤲 Palmistry Sunday</a>
+        <a href="services.html"             class="btn primary"  style="font-size:0.82rem;">✨ Book a Reading</a>
+      </div>
+      <ul class="footer-links">
+        <li><strong>YouTube:</strong> <a href="https://www.youtube.com/@AmbrosiasOccultAcademy" target="_blank">@AmbrosiasOccultAcademy</a></li>
+        <li><strong>Email:</strong> <a href="mailto:AmbrosiasOccultAcademy@gmail.com">AmbrosiasOccultAcademy@gmail.com</a></li>
+      </ul>
+      <p style="margin-top:1rem;"><a href="index.html" class="btn outline" style="font-size:0.85rem;">← Back to Main Site</a></p>
+      <p class="footer-copy">&copy; <span id="year"></span> Ambrosia's Occult Academy — Made with starlight, intuition, and a little bit of magic.</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
