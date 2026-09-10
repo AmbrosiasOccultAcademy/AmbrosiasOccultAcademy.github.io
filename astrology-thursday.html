@@ -70,7 +70,7 @@
       letter-spacing: 0.1em; text-transform: uppercase; color: rgba(75,180,255,0.7);
     }
 
-    /* ── Weekly forecast (AI generated) ────────────────────────────────── */
+    /* ── Weekly forecast (static) ─────────────────────────────────────── */
     .forecast-wrap {
       background: rgba(10,10,30,0.9);
       border: 1px solid rgba(75,180,255,0.2);
@@ -79,106 +79,30 @@
     .forecast-header {
       background: linear-gradient(135deg, rgba(75,180,255,0.12), rgba(165,107,255,0.07));
       padding: 1.25rem 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
       border-bottom: 1px solid rgba(75,180,255,0.15);
     }
     .forecast-header h3 {
       font-family: var(--font-display); font-size: 1.1rem;
       letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff; margin: 0;
     }
-    .forecast-body { padding: 1.5rem; }
-    .forecast-days { display: flex; flex-direction: column; gap: 0.85rem; }
-    .forecast-day {
-      display: grid; grid-template-columns: 90px 1fr;
-      gap: 0.75rem; align-items: start;
-      padding-bottom: 0.85rem;
-      border-bottom: 1px solid rgba(75,180,255,0.08);
-    }
-    .forecast-day:last-child { border-bottom: none; padding-bottom: 0; }
-    .forecast-day-label {
-      font-family: var(--font-display); font-size: 0.78rem;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: #4bb4ff; padding-top: 2px;
-    }
-    .forecast-day-text { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; }
-    .forecast-placeholder {
-      text-align: center; padding: 2rem 1rem;
-      color: rgba(194,198,224,0.4); font-size: 0.9rem; line-height: 1.7;
-    }
-    .forecast-placeholder .fp-icon { font-size: 2.5rem; opacity: 0.3; margin-bottom: 0.75rem; }
-    .ai-loading {
-      text-align: center; padding: 2rem;
-      color: #4bb4ff; font-size: 0.9rem; letter-spacing: 0.06em;
-      display: none;
-    }
-    .ai-loading::after {
-      content: "";
-      display: inline-block; width: 16px; height: 16px;
-      border: 2px solid rgba(75,180,255,0.3); border-top-color: #4bb4ff;
-      border-radius: 50%; animation: spin 0.8s linear infinite;
-      margin-left: 0.5rem; vertical-align: middle;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .forecast-body { padding: 1.5rem; font-size: 0.92rem; color: var(--text-muted); line-height: 1.8; }
+    .forecast-body strong { color: #d7e2ff; }
 
-    /* ── Horoscope sign selector ────────────────────────────────────────── */
-    .sign-selector-wrap {
-      background: rgba(10,10,30,0.9); border: 1px solid var(--border-soft);
-      border-radius: 16px; padding: 2rem; margin-bottom: 2rem;
+    /* ── Horoscope grid (static) ─────────────────────────────────────── */
+    .horo-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+      gap: 1rem;
     }
-    .sign-selector-wrap h3 {
-      font-family: var(--font-display); font-size: 1.1rem;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      color: #d7e2ff; margin-bottom: 1.25rem;
+    .horo-card {
+      background: rgba(10,10,30,0.85); border: 1px solid var(--border-soft);
+      border-radius: 12px; padding: 1.1rem;
+      transition: transform 0.2s, border-color 0.2s;
     }
-    .sign-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(85px,1fr));
-      gap: 0.6rem; margin-bottom: 1.5rem;
-    }
-    .sign-btn {
-      background: rgba(165,107,255,0.07); border: 1px solid rgba(165,107,255,0.2);
-      border-radius: 10px; padding: 0.6rem 0.4rem;
-      color: var(--text-muted); cursor: pointer;
-      font-size: 0.78rem; text-align: center; line-height: 1.4;
-      transition: all 0.2s; font-family: inherit;
-    }
-    .sign-btn:hover, .sign-btn.active {
-      background: rgba(165,107,255,0.2); border-color: #a56bff; color: #d7e2ff;
-    }
-    .sign-btn .sign-glyph { font-size: 1.4rem; display: block; margin-bottom: 2px; }
-    .sign-btn .sign-name  { font-size: 0.68rem; letter-spacing: 0.04em; }
-
-    /* ── Horoscope result ───────────────────────────────────────────────── */
-    #horoscope-result {
-      background: rgba(0,0,0,0.3); border: 1px solid rgba(165,107,255,0.2);
-      border-radius: 12px; padding: 1.5rem;
-      font-size: 0.92rem; line-height: 1.8;
-      display: none;
-    }
-    #horoscope-result.visible { display: block; }
-    .horo-sign-header {
-      display: flex; align-items: center; gap: 0.75rem;
-      margin-bottom: 1rem; padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(165,107,255,0.15);
-    }
-    .horo-glyph { font-size: 2rem; }
-    .horo-title {
-      font-family: var(--font-display); font-size: 1.1rem;
-      letter-spacing: 0.06em; text-transform: uppercase; color: #d7e2ff;
-    }
-    .horo-dates { font-size: 0.78rem; color: #a56bff; }
-    .horo-body p { color: var(--text-muted); margin-bottom: 0.75rem; }
-    .horo-body p:last-child { margin-bottom: 0; }
-    .horo-loading {
-      text-align: center; padding: 2rem; color: #a56bff;
-      font-size: 0.9rem; letter-spacing: 0.06em;
-    }
-    .horo-loading::after {
-      content: ""; display: inline-block; width: 16px; height: 16px;
-      border: 2px solid rgba(165,107,255,0.3); border-top-color: #a56bff;
-      border-radius: 50%; animation: spin 0.8s linear infinite;
-      margin-left: 0.5rem; vertical-align: middle;
-    }
+    .horo-card:hover { transform: translateY(-2px); border-color: rgba(165,107,255,0.4); }
+    .horo-card-top { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+    .horo-card .h-glyph { font-size: 1.4rem; }
+    .horo-card h4 { margin: 0; font-size: 0.92rem; color: #d7e2ff; }
+    .horo-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
 
     /* ── House placement guide ──────────────────────────────────────────── */
     .house-tabs {
@@ -256,10 +180,7 @@
     .zodiac-mini-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
 
     @media (max-width: 600px) {
-      .sign-grid { grid-template-columns: repeat(4,1fr); }
       .moon-widget { flex-direction: column; gap: 1rem; text-align: center; }
-      .forecast-day { grid-template-columns: 1fr; gap: 0.25rem; }
-      .forecast-day-label { color: #4bb4ff; font-size: 0.72rem; }
     }
   </style>
 </head>
@@ -321,69 +242,126 @@
   </section>
 
 
-  <!-- ══ WEEKLY PLANETARY FORECAST (Gemini AI) ══════════════════════════ -->
+  <!-- ══ WEEKLY PLANETARY FORECAST + TRANSIT OF THE WEEK ═══════════════════
+       ✏️ UPDATE WEEKLY — replace the content in .forecast-body and the
+       Transit of the Week block below each Thursday. No API, no key —
+       just write it in, same as Bewitching Wednesday.
+  ════════════════════════════════════════════════════════════════════════ -->
   <section id="weekly-forecast" class="section section-light">
     <div class="section-inner">
       <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">🌌 Weekly Planetary Forecast</h2>
       <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
-        A day-by-day look at what the planets have in store — Moon signs, major transits, and the energetic
-        theme of each day from Sunday through Saturday.
+        A look at what the planets have in store this week — sign changes, major transits, and the energetic
+        theme running through it all.
       </p>
 
       <div class="forecast-wrap">
         <div class="forecast-header">
-          <h3>🌠 This Week's Cosmic Weather</h3>
-          <button class="btn secondary" onclick="generateWeeklyForecast()" id="forecast-btn"
-            style="font-size:0.82rem;padding:0.45rem 1.1rem;">
-            ✨ Generate This Week's Forecast
-          </button>
+          <h3>🌠 Week of September 7–13, 2026</h3>
         </div>
         <div class="forecast-body">
-          <div class="ai-loading" id="forecast-loading">Reading the planetary alignments for this week</div>
-          <div id="forecast-content">
-            <div class="forecast-placeholder">
-              <div class="fp-icon">🌌</div>
-              <p>Click <strong style="color:#4bb4ff;">Generate This Week's Forecast</strong> above to pull the current planetary weather — updated every Thursday with fresh cosmic insight for the week ahead.</p>
-            </div>
+          <strong>Overview:</strong> This is the most eventful week of September — on Thursday, September 10, four major shifts land almost on top of each other: the New Moon in Virgo, Mercury moving into Libra, Venus moving into Scorpio, and Uranus stationing retrograde in Gemini. The Wheel of Fortune (X), the Card of the Week, says it plainly: this is a turning point, not a slow build. Expect routines, relationships, and communication to all feel like they're shifting lanes at once.<br><br>
+
+          <strong>🌑 New Moon in Virgo — Thursday, September 10</strong><br>
+          Virgo's New Moon is the year's real "get your life together" reset — health, routines, work, and the small daily habits that quietly run everything. Intentions set now about schedules, wellness, or systems have real staying power over the next six months.<br><br>
+
+          <strong>☿️ Mercury Enters Libra</strong><br>
+          Mercury shifts out of Virgo's precision and into Libra's diplomacy — communication turns more relational, more concerned with fairness and finding common ground. Good for repairing a conversation that's gone one-sided.<br><br>
+
+          <strong>♀ Venus Enters Scorpio</strong><br>
+          Venus trades Libra's light touch for Scorpio's intensity, and lingers here longer than usual thanks to a retrograde beginning October 3. Romance turns private and a lot less casual — this is a cycle for depth, not small talk.<br><br>
+
+          <strong>♅ Uranus Stations Retrograde in Gemini</strong><br>
+          Uranus turns retrograde the same day, asking us to revisit rather than reinvent — mental restlessness or scattered thinking is likely over the next several months as old ideas get reworked instead of new ones chased.<br><br>
+
+          <strong>🌙 Moon movement this week:</strong><br>
+          🌟 <strong>Monday–Tuesday:</strong> Moon in Leo — steady, motivated energy, good for routines and catching up with friends<br>
+          🌟 <strong>Wednesday:</strong> Moon moves into Virgo — analytical, good for reviewing relationships and commitments<br>
+          🌟 <strong>Thursday (New Moon):</strong> Moon in Virgo — the reset point of the week<br>
+          🌟 <strong>Friday–Sunday:</strong> Moon joins Mercury in Libra — lighter, more social, better for connection than decisions<br><br>
+
+          <strong>Best days this week:</strong><br>
+          🌟 <strong>Thursday, September 10</strong> — New Moon + Mercury into Libra + Venus into Scorpio = the week's pivot point<br>
+          🌟 <strong>Sunday, September 13</strong> — Mercury and Uranus align, bringing a welcome sense of freshness<br><br>
+
+          <strong>Days to slow down:</strong><br>
+          ⚠️ <strong>Saturday, September 12</strong> — Mercury, Neptune retrograde, and Pluto retrograde sync up; emotions run soupy and confrontations are more likely than usual
+        </div>
+      </div>
+
+      <!-- ── TRANSIT OF THE WEEK ──────────────────────────────────────────── -->
+      <div class="forecast-wrap">
+        <div class="forecast-header">
+          <h3>⭐ Transit of the Week — September 10, 2026</h3>
+        </div>
+        <div class="forecast-body">
+          <strong>The transit:</strong> Four major shifts in one day — New Moon in Virgo, Mercury into Libra, Venus into Scorpio, and Uranus stationing retrograde<br><br>
+
+          It's rare for this many transits to land on the same day. Coming together, they read like the universe issuing a single instruction: audit everything at once — your habits (Virgo New Moon), your conversations (Mercury into Libra), your relationships (Venus into Scorpio), and your old ideas (Uranus retrograde). None of it is subtle, and none of it is optional.<br><br>
+
+          <strong>What this means for you:</strong><br>
+          🌑 <strong>Reset begins</strong> — new intentions around health, routine, and daily systems take root<br>
+          ☿️ <strong>Communication softens</strong> — Libra's influence favors fairness and compromise over being right<br>
+          ♀ <strong>Romance deepens</strong> — Scorpio's Venus wants intimacy and privacy, not casual energy<br>
+          ♅ <strong>Old ideas resurface</strong> — Uranus retrograde asks you to revisit, not reinvent<br><br>
+
+          <strong>The shadow side to watch:</strong><br>
+          Overcommitting to new routines before the old ones are even reviewed<br>
+          Oversharing too soon under Scorpio's intensity<br>
+          Restlessness or scattered thinking as Uranus turns inward<br><br>
+
+          <strong>How to work with this energy:</strong><br>
+          • Set one concrete intention tied to a daily habit, not a big life change<br>
+          • Let a conversation you've been avoiding happen — Libra energy supports resolution<br>
+          • Protect something new and tender in your love life; not everything needs to be announced<br>
+          • Revisit an old idea or unfinished project instead of starting something new<br><br>
+
+          <div class="spell-tags">
+            <span class="spell-tag">🌑 Virgo New Moon</span>
+            <span class="spell-tag">☿️ Mercury in Libra</span>
+            <span class="spell-tag">♀ Venus in Scorpio</span>
+            <span class="spell-tag">♅ Uranus Retrograde</span>
+            <span class="spell-tag">🎡 Wheel of Fortune</span>
           </div>
         </div>
       </div>
 
       <div class="tip-box">
-        <strong>💡 For Jennifer:</strong> Click "Generate This Week's Forecast" every Thursday to create fresh
-        content. The AI uses today's date to generate accurate day-by-day planetary energy for Sunday–Saturday.
-        Make sure your Gemini API key is set in the script below.
+        <strong>💡 For Jennifer:</strong> Update the Overview, transit sections, moon movement, and Transit of the
+        Week block above every Thursday — same workflow as Bewitching Wednesday's weekly spell. No API key needed.
       </div>
     </div>
   </section>
 
 
-  <!-- ══ WEEKLY HOROSCOPES (Gemini AI) ══════════════════════════════════ -->
+  <!-- ══ WEEKLY HOROSCOPES (static) ══════════════════════════════════════
+       ✏️ UPDATE WEEKLY — rewrite each sign's horoscope card below.
+  ════════════════════════════════════════════════════════════════════════ -->
   <section id="horoscopes" class="section section-dark">
     <div class="section-inner">
       <h2 style="font-family:var(--font-display);font-size:1.7rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.5rem;">⭐ Weekly Horoscopes</h2>
       <p style="color:var(--text-muted);font-size:0.95rem;margin-bottom:1.5rem;line-height:1.7;">
-        Select your sign for a personalized weekly horoscope covering love, energy, work, and a message
-        for the week ahead — Sunday through Saturday.
+        Your sign's energy for the week of September 7–13 — love, work, and a message for the days ahead.
       </p>
 
-      <div class="sign-selector-wrap">
-        <h3>✨ Choose Your Sign</h3>
-        <div class="sign-grid">
-          <button class="sign-btn" onclick="getHoroscope('Aries','♈','Mar 21 – Apr 19',this)"><span class="sign-glyph">♈</span><span class="sign-name">Aries</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Taurus','♉','Apr 20 – May 20',this)"><span class="sign-glyph">♉</span><span class="sign-name">Taurus</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Gemini','♊','May 21 – Jun 20',this)"><span class="sign-glyph">♊</span><span class="sign-name">Gemini</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Cancer','♋','Jun 21 – Jul 22',this)"><span class="sign-glyph">♋</span><span class="sign-name">Cancer</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Leo','♌','Jul 23 – Aug 22',this)"><span class="sign-glyph">♌</span><span class="sign-name">Leo</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Virgo','♍','Aug 23 – Sep 22',this)"><span class="sign-glyph">♍</span><span class="sign-name">Virgo</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Libra','♎','Sep 23 – Oct 22',this)"><span class="sign-glyph">♎</span><span class="sign-name">Libra</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Scorpio','♏','Oct 23 – Nov 21',this)"><span class="sign-glyph">♏</span><span class="sign-name">Scorpio</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Sagittarius','♐','Nov 22 – Dec 21',this)"><span class="sign-glyph">♐</span><span class="sign-name">Sagittarius</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Capricorn','♑','Dec 22 – Jan 19',this)"><span class="sign-glyph">♑</span><span class="sign-name">Capricorn</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Aquarius','♒','Jan 20 – Feb 18',this)"><span class="sign-glyph">♒</span><span class="sign-name">Aquarius</span></button>
-          <button class="sign-btn" onclick="getHoroscope('Pisces','♓','Feb 19 – Mar 20',this)"><span class="sign-glyph">♓</span><span class="sign-name">Pisces</span></button>
-        </div>
-        <div id="horoscope-result"></div>
+      <div class="horo-grid">
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♈</span><h4>Aries</h4></div><p>The Virgo New Moon has you tightening up routines you've let slide. Venus in Scorpio adds real heat to a connection — let it simmer instead of rushing it.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♉</span><h4>Taurus</h4></div><p>Mercury in Libra smooths over a conversation you've been dreading. Uranus retrograde stirs up an old idea worth a second look instead of a new one.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♊</span><h4>Gemini</h4></div><p>Uranus stations retrograde in your own sign — expect some internal reshuffling. Don't fight the restlessness; it's pointing you toward what needs revisiting.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♋</span><h4>Cancer</h4></div><p>The Virgo New Moon lands in your practical sector — a good week to rebuild a routine around what actually supports you, not what you think should.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♌</span><h4>Leo</h4></div><p>The Moon opens the week in your sign — steady, motivated energy before Thursday's reset. Use it to get ahead of the busier days coming.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♍</span><h4>Virgo</h4></div><p>Your New Moon, your reset. This lunation sets the tone for the next six months — plant the intention now, even a small one, and let it grow quietly.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♎</span><h4>Libra</h4></div><p>Mercury moves into your sign, sharpening your natural gift for finding common ground. Use your voice this week — people are more ready to listen than usual.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♏</span><h4>Scorpio</h4></div><p>Venus enters your sign and stays a while — romance turns magnetic, private, and a lot less casual. Saturday's Mercury-Neptune-Pluto sync asks for emotional honesty, not avoidance.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♐</span><h4>Sagittarius</h4></div><p>Venus in Scorpio pulls focus toward one-on-one bonds over the group. The Virgo New Moon is a quiet nudge to get your daily systems in order before you chase the next adventure.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♑</span><h4>Capricorn</h4></div><p>The Virgo New Moon supports long-term planning — you can see the next year's direction more clearly than usual. Let Libra's Mercury soften how you deliver hard truths.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♒</span><h4>Aquarius</h4></div><p>Venus in Scorpio is teaching you who actually shows up for you. The Virgo New Moon improves your daily life — small habit changes pay off more than big gestures this week.</p></div>
+        <div class="horo-card"><div class="horo-card-top"><span class="h-glyph">♓</span><h4>Pisces</h4></div><p>Saturday's Neptune-Mercury-Pluto sync hits close to home — feelings run deep and a little overwhelming. Let the Libra Moon at week's end bring lightness back in.</p></div>
+      </div>
+
+      <div class="tip-box">
+        <strong>💡 For Jennifer:</strong> Update each sign's card above every Thursday. This replaces the old
+        AI-generated version — no API key required, and it won't break if a third-party service changes again.
       </div>
     </div>
   </section>
@@ -620,91 +598,17 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-	      // ─── GEMINI CONFIG — put your key here ─────────────────────────────
-    const GEMINI_API_KEY = "AQ.Ab8RN6KU5e-TjcmU1ZRcMngot5ZD-dFB4jk-HKkft6NiWhz8gw";
-    const GEMINI_MODEL   = "gemini-2.0-flash";
-
-    async function callGemini(prompt, temperature = 0.7, maxOutputTokens = 800) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
-      const res = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: { temperature, maxOutputTokens }
-        })
-      });
-      if (!res.ok) throw new Error(`Gemini API error: ${res.status}`);
-      const data = await res.json();
-      return data.candidates[0].content.parts[0].text;
-    }
-
-    // ─── Date helpers used by the forecast & horoscope sections ────────
-    const today = new Date();
-
-    function getWeekSunday() {
-      const now = new Date();
-      const sunday = new Date(now);
-      sunday.setDate(now.getDate() - now.getDay());
-      sunday.setHours(0, 0, 0, 0);
-      return sunday;
-    }
-
-    function formatDate(date) {
-      return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-    }
-
-	async function getWeeklyHoroscope(sign) {
-	  const res = await fetch(`https://aztro.sameerkumar.website/?sign=${sign}&day=week`, {
-	    method: "POST"
-	  });
-	  return res.json();
-	}
-
-    // ── Get Sunday of current week ──────────────────────────────────────
-	async function loadAllWeeklyHoroscopes() {
-	  const signs = [
-	    "aries","taurus","gemini","cancer","leo","virgo",
-	    "libra","scorpio","sagittarius","capricorn","aquarius","pisces"
-	  ];
-
-	  const container = document.getElementById("weekly-horoscopes");
-	  container.innerHTML = "<p>Loading weekly horoscopes...</p>";
-
-	  const results = await Promise.all(signs.map(s => getWeeklyHoroscope(s)));
-
-	  container.innerHTML = results.map((data, i) => {
-	    const sign = signs[i].toUpperCase();
-	    return `
-	      <div class="horoscope-card">
-	        <h3>${sign}</h3>
-	        <p class="date-range">${data.date_range}</p>
-	        <p class="description">${data.description}</p>
-	        <p class="extras">
-	          <strong>Lucky Number:</strong> ${data.lucky_number}<br>
-	          <strong>Color:</strong> ${data.color}<br>
-	          <strong>Mood:</strong> ${data.mood}
-	        </p>
-	      </div>
-	    `;
-	  }).join("");
-	}
-
-
     // ─────────────────────────────────────────────────────────────────────
     // MOON PHASE CALCULATOR
     // ─────────────────────────────────────────────────────────────────────
     function getMoonPhase() {
+      const today     = new Date();
       const knownNew  = new Date("2000-01-06T18:14:00Z");
       const synodicMs = 29.53058867 * 24 * 60 * 60 * 1000;
       const elapsed   = today - knownNew;
       let   age       = (elapsed % synodicMs) / synodicMs;
       if (age < 0) age += 1;
-      const illumination = Math.round(
-        age < 0.5
-          ? (1 - Math.cos(2 * Math.PI * age)) / 2 * 100
-          : (1 - Math.cos(2 * Math.PI * age)) / 2 * 100
-      );
+      const illumination = Math.round((1 - Math.cos(2 * Math.PI * age)) / 2 * 100);
 
       let phase, glyph, desc;
       if      (age < 0.034) { phase = "New Moon";          glyph = "🌑"; desc = "A time of new beginnings, planting intentions, and stepping into fresh cycles. The veil between worlds is thin. Set your most important intentions tonight."; }
@@ -728,125 +632,6 @@
       document.getElementById("moon-desc").textContent        = m.desc;
       document.getElementById("moon-illumination").textContent = `☀️ Illumination: approx. ${m.illumination}%`;
     })();
-
-  
-    // ─────────────────────────────────────────────────────────────────────
-    // WEEKLY PLANETARY FORECAST
-    // ─────────────────────────────────────────────────────────────────────
-    async function generateWeeklyForecast() {
-      const btn      = document.getElementById("forecast-btn");
-      const loading  = document.getElementById("forecast-loading");
-      const content  = document.getElementById("forecast-content");
-      const sunday   = getWeekSunday();
-      const days     = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-
-      btn.disabled     = true;
-      loading.style.display  = "block";
-      content.style.display  = "none";
-
-      const dayList = days.map((d,i) => {
-        const dd = new Date(sunday);
-        dd.setDate(sunday.getDate() + i);
-        return `${d} ${formatDate(dd)}`;
-      }).join(", ");
-
-      const prompt = `You are Jennifer Ambrosia, an intuitive astrologer at Ambrosia's Occult Academy.
-Write a day-by-day planetary energy forecast for the week of ${formatDate(sunday)}.
-The days are: ${dayList}.
-
-For each day write 2-3 sentences covering: the Moon sign if it changes, any notable planetary aspects or transits happening that day, and the overall energetic theme and what it's good for.
-
-Be mystical, warm, and practical. Give real astrological information based on actual planetary positions for these dates.
-
-Format your response EXACTLY like this — one entry per day, no extra text:
-SUNDAY: [forecast]
-MONDAY: [forecast]
-TUESDAY: [forecast]
-WEDNESDAY: [forecast]
-THURSDAY: [forecast]
-FRIDAY: [forecast]
-SATURDAY: [forecast]`;
-
-      try {
-        const text = await callGemini(prompt, 0.7, 900);
-        const dayData = {};
-        days.forEach(d => {
-          const rx    = new RegExp(`${d.toUpperCase()}:\\s*(.+?)(?=(?:MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY|SUNDAY):|$)`, "si");
-          const match = text.match(rx);
-          if (match) dayData[d] = match[1].trim();
-        });
-
-        const sunday2 = getWeekSunday();
-        const html = days.map((d,i) => {
-          const dd = new Date(sunday2);
-          dd.setDate(sunday2.getDate() + i);
-          const label = `${d}<br><span style="font-size:0.65rem;opacity:0.6;">${formatDate(dd)}</span>`;
-          return `<div class="forecast-day">
-            <div class="forecast-day-label">${label}</div>
-            <div class="forecast-day-text">${dayData[d] || "Planetary data loading — check back shortly."}</div>
-          </div>`;
-        }).join("");
-
-        content.innerHTML = `<div class="forecast-days">${html}</div>`;
-      } catch(err) {
-        content.innerHTML = `<div style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem;">
-          <strong style="color:#e74c3c;">⚠️ Could not load forecast.</strong> Please check that your Gemini API key
-          is set in the script section. <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#4bb4ff;">Get your key here →</a>
-        </div>`;
-      } finally {
-        btn.disabled          = false;
-        loading.style.display = "none";
-        content.style.display = "block";
-      }
-    }
-
-    // ─────────────────────────────────────────────────────────────────────
-    // WEEKLY HOROSCOPE BY SIGN
-    // ─────────────────────────────────────────────────────────────────────
-    async function getHoroscope(sign, glyph, dates, btnEl) {
-      document.querySelectorAll(".sign-btn").forEach(b => b.classList.remove("active"));
-      btnEl.classList.add("active");
-
-      const resultEl = document.getElementById("horoscope-result");
-      resultEl.className = "visible";
-      resultEl.innerHTML = `<div class="horo-loading">Reading the stars for ${sign}</div>`;
-
-      const sunday = getWeekSunday();
-      const prompt = `You are Jennifer Ambrosia, an intuitive astrologer at Ambrosia's Occult Academy.
-Write a warm, mystical weekly horoscope for ${sign} (${dates}) for the week of ${formatDate(sunday)} through ${formatDate(new Date(sunday.getTime() + 6*86400000))}.
-
-Use these four sections (write 2-3 sentences each, label them plainly without markdown):
-
-OVERALL ENERGY: The cosmic theme and general energy for ${sign} this week.
-LOVE & RELATIONSHIPS: Heart matters, connection, and relationship energy.
-WORK & PURPOSE: Career, creativity, finances, and daily direction.
-MESSAGE FROM THE STARS: One powerful insight, closing wisdom, or affirmation.
-
-End with a single italicized mantra on its own line starting with: Your mantra this week:`;
-
-      try {
-        const text = await callGemini(prompt, 0.85, 500);
-        const formatted = text
-          .replace(/(OVERALL ENERGY|LOVE & RELATIONSHIPS|LOVE &amp; RELATIONSHIPS|WORK & PURPOSE|WORK &amp; PURPOSE|MESSAGE FROM THE STARS):/gi,
-            '<strong style="color:#d7e2ff;display:block;margin-top:0.75rem;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;">$1</strong>')
-          .replace(/Your mantra this week:/gi,
-            '<em style="color:#a56bff;display:block;margin-top:1rem;font-size:0.88rem;">✨ Your mantra this week:')
-          .replace(/\n\n/g, "</p><p>")
-          .replace(/\n/g, "<br>");
-
-        resultEl.innerHTML = `
-          <div class="horo-sign-header">
-            <span class="horo-glyph">${glyph}</span>
-            <div><div class="horo-title">${sign}</div><div class="horo-dates">${dates}</div></div>
-          </div>
-          <div class="horo-body"><p>${formatted}</p></div>`;
-      } catch(err) {
-        resultEl.innerHTML = `<div style="color:var(--text-muted);font-size:0.88rem;padding:0.5rem;">
-          <strong style="color:#e74c3c;">⚠️ The stars are a little cloudy.</strong><br>
-          Check that your Gemini API key is set. <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:#a56bff;">Get your key here →</a>
-        </div>`;
-      }
-    }
 
     // ─────────────────────────────────────────────────────────────────────
     // HOUSE TAB SWITCHING
