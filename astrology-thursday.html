@@ -620,6 +620,40 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
+	      // ─── GEMINI CONFIG — put your key here ─────────────────────────────
+    const GEMINI_API_KEY = "AQ.Ab8RN6KU5e-TjcmU1ZRcMngot5ZD-dFB4jk-HKkft6NiWhz8gw";
+    const GEMINI_MODEL   = "gemini-2.0-flash";
+
+    async function callGemini(prompt, temperature = 0.7, maxOutputTokens = 800) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature, maxOutputTokens }
+        })
+      });
+      if (!res.ok) throw new Error(`Gemini API error: ${res.status}`);
+      const data = await res.json();
+      return data.candidates[0].content.parts[0].text;
+    }
+
+    // ─── Date helpers used by the forecast & horoscope sections ────────
+    const today = new Date();
+
+    function getWeekSunday() {
+      const now = new Date();
+      const sunday = new Date(now);
+      sunday.setDate(now.getDate() - now.getDay());
+      sunday.setHours(0, 0, 0, 0);
+      return sunday;
+    }
+
+    function formatDate(date) {
+      return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+    }
+
 	async function getWeeklyHoroscope(sign) {
 	  const res = await fetch(`https://aztro.sameerkumar.website/?sign=${sign}&day=week`, {
 	    method: "POST"
