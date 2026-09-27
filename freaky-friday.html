@@ -408,7 +408,7 @@
     <div class="section-inner">
       <h2 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.07em;text-transform:uppercase;margin-bottom:0.4rem;">The Haunted Map of America</h2>
       <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.75;margin-bottom:0.5rem;max-width:820px;">Each week we feature the most haunted places in one US state going alphabetically. Click any pin to read the haunted history and visiting info. Add your own scary place with the form below.</p>
-      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Current states: <strong style="color:#a56bff;">Alabama</strong>, <strong style="color:#a56bff;">Arizona</strong>, <strong style="color:#a56bff;">Arkansas</strong> &amp; <strong style="color:#a56bff;">California (Southern)</strong> &nbsp;|&nbsp; Next week: California (Central) &nbsp;|&nbsp; <span style="color:#4bb464;">Green pins</span> = your submissions</p>
+      <p style="font-size:0.8rem;color:rgba(255,255,255,0.4);margin-bottom:1.25rem;">Current states: <strong style="color:#a56bff;">Alabama</strong>, <strong style="color:#a56bff;">Arizona</strong>, <strong style="color:#a56bff;">Arkansas</strong> &amp; <strong style="color:#a56bff;">California (Southern &amp; Central)</strong> &nbsp;|&nbsp; Next week: California (Northern) &nbsp;|&nbsp; <span style="color:#4bb464;">Green pins</span> = your submissions</p>
 
       <div id="map-wrap" style="background:#06030f;border-radius:14px;border:1px solid rgba(165,107,255,0.35);overflow:hidden;margin-bottom:1.5rem;position:relative;">
         <div id="map-zoom-controls" style="position:absolute;top:10px;right:10px;z-index:10;display:flex;flex-direction:column;gap:4px;">
@@ -442,42 +442,62 @@
       </div>
       <div id="hoverlay" onclick="closePopup()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:999;"></div>
 
-      <h3 style="font-family:var(--font-display);letter-spacing:0.07em;text-transform:uppercase;color:#d7e2ff;font-size:1rem;margin-bottom:0.3rem;">Featured This Week: 5 Most Haunted Places in Southern California</h3>
-      <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1rem;">Click a card or a map pin to read the full story. Alabama, Arizona, and Arkansas pins remain on the map from previous weeks. Central and Northern California are coming in the next two weeks.</p>
+      <h3 style="font-family:var(--font-display);letter-spacing:0.07em;text-transform:uppercase;color:#d7e2ff;font-size:1rem;margin-bottom:0.3rem;">Featured This Week: 4 Most Haunted Places in Central California</h3>
+      <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:1rem;">Click a card or a map pin to read the full story. Alabama, Arizona, Arkansas, and Southern California pins remain on the map from previous weeks. Northern California is coming next week.</p>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1rem;">
-        <div onclick="openPin(15)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Los Angeles, CA</div>
-          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Cecil Hotel</div>
-          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Sixteen confirmed deaths, two serial killers, and the unsolved Elisa Lam case. One of America's most infamous hotels.</p>
-          <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);">Closed to the public for renovations</div>
+        <div onclick="openPin(20)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Fresno, CA</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Kearney Mansion</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">This week's featured haunting — the "Raisin King" who died before his 225-acre estate was finished, and never really left.</p>
+          <div style="font-size:0.76rem;color:#4bb464;">Open as a museum, guided tours available</div>
         </div>
-        <div onclick="openPin(16)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">San Diego, CA</div>
-          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Whaley House</div>
-          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Built on the site of San Diego's old gallows. Officially recognized as America's Most Haunted House.</p>
-          <div style="font-size:0.76rem;color:#4bb464;">Open daily, self-guided and evening ghost tours</div>
-        </div>
-        <div onclick="openPin(17)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Long Beach, CA</div>
-          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Queen Mary</div>
-          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A retired ocean liner said to house up to 150 spirits, including a soldier crushed by door #13.</p>
-          <div style="font-size:0.76rem;color:#EF9F27;">Bookable overnight stays, guided ghost tours</div>
-        </div>
-        <div onclick="openPin(18)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Hollywood, CA</div>
-          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Hollywood Roosevelt Hotel</div>
-          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Marilyn Monroe's reflection still appears in a lobby mirror; Montgomery Clift plays his bugle in Room 928.</p>
+        <div onclick="openPin(21)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Bakersfield, CA</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">The Padre Hotel</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A 1928 oil-boom hotel with a fire, an earthquake, and a colorful owner behind it — plus a little girl's handprint that won't fade.</p>
           <div style="font-size:0.76rem;color:#EF9F27;">Bookable overnight stays</div>
         </div>
-        <div onclick="openPin(19)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Coronado, CA</div>
-          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Hotel del Coronado</div>
-          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">Kate Morgan checked in alone in 1892 and never checked out. Room 302 is the most requested in the hotel.</p>
-          <div style="font-size:0.76rem;color:#EF9F27;">Bookable overnight stays</div>
+        <div onclick="openPin(22)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Stockton, CA</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Bob Hope Theatre</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A 1930 movie palace where a Victorian couple is still seen watching the show from the balcony.</p>
+          <div style="font-size:0.76rem;color:#4bb464;">Open for public performances and events</div>
+        </div>
+        <div onclick="openPin(23)" style="cursor:pointer;border-radius:14px;padding:1.2rem;border:1px solid rgba(165,107,255,0.25);background:linear-gradient(135deg,rgba(165,107,255,0.1),rgba(5,3,22,0.9));transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+          <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:#a56bff;margin-bottom:0.3rem;">Stockton, CA</div>
+          <div style="color:#d7e2ff;font-size:0.95rem;font-weight:600;margin-bottom:0.4rem;">Eight Mile Road</div>
+          <p style="font-size:0.84rem;color:var(--text-muted);line-height:1.6;margin:0 0 0.5rem;">A lonely stretch of road haunted by a dangerous woman in white and the wailing spirit of a young girl.</p>
+          <div style="font-size:0.76rem;color:rgba(255,255,255,0.4);">Public road — best viewed by car after dark</div>
         </div>
       </div>
 
       <!-- Previous weeks reference -->
+      <details style="margin-bottom:1rem;">
+        <summary style="cursor:pointer;font-size:0.82rem;color:#a56bff;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 0;">&#9660; Week 4 — Southern California pins still on map (click to show)</summary>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
+          <div onclick="openPin(15)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Los Angeles, CA</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">The Cecil Hotel</div>
+          </div>
+          <div onclick="openPin(16)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">San Diego, CA</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">The Whaley House</div>
+          </div>
+          <div onclick="openPin(17)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Long Beach, CA</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">The Queen Mary</div>
+          </div>
+          <div onclick="openPin(18)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Hollywood, CA</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">The Hollywood Roosevelt Hotel</div>
+          </div>
+          <div onclick="openPin(19)" style="cursor:pointer;border-radius:14px;padding:1rem;border:1px solid rgba(165,107,255,0.15);background:rgba(165,107,255,0.05);transition:transform 0.2s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+            <div style="font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(165,107,255,0.6);margin-bottom:0.3rem;">Coronado, CA</div>
+            <div style="color:rgba(215,226,255,0.7);font-size:0.9rem;font-weight:600;">Hotel del Coronado</div>
+          </div>
+        </div>
+      </details>
+
       <details style="margin-bottom:1rem;">
         <summary style="cursor:pointer;font-size:0.82rem;color:#a56bff;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem 0;">&#9660; Week 3 — Arkansas pins still on map (click to show)</summary>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-top:1rem;">
@@ -1234,7 +1254,21 @@
      access:"Fully bookable -- overnight stays available.", link:"", linklabel:""},
     {id:19, name:"Hotel del Coronado", city:"Coronado, CA", state:"CA", lat:32.6859, lng:-117.1831, type:"haunted",
      history:"Kate Morgan checked into this 1888 Victorian beach resort alone on Thanksgiving Day 1892 under a false name, waiting for a man who never arrived. Five days later she was found dead on the beach. Guests in her former third-floor room -- the hotel's most requested -- report flickering lights, a television turning itself on and off, and unexplained cold spots. Her grave went unmarked for 98 years until an obsessed researcher gave her a headstone.",
-     access:"Fully bookable -- overnight stays available.", link:"", linklabel:""}
+     access:"Fully bookable -- overnight stays available.", link:"", linklabel:""},
+
+    // Week 5 — California: Central California (ids 20-23)
+    {id:20, name:"Kearney Mansion", city:"Fresno, CA", state:"CA", lat:36.7454, lng:-119.9148, type:"haunted",
+     history:"A French Renaissance estate built for M. Theo Kearney, California's 'Raisin King,' who died at sea in 1906 before his 225-acre agricultural vision was ever finished. Staff, visitors, and paranormal investigators report Kearney's apparition still wandering the grounds, as if trying to complete the estate, while a maid remembered as A. Nora S. is said to keep tidying the halls -- turning lights on and off and rearranging small objects. Local legend also tells of a spectral 'White Witch' seen gliding along the nearby railroad tracks at night.",
+     access:"Open as a museum. Guided tours available.", link:"", linklabel:""},
+    {id:21, name:"The Padre Hotel", city:"Bakersfield, CA", state:"CA", lat:35.3733, lng:-119.0187, type:"haunted",
+     history:"Opened in 1928 during Bakersfield's oil boom, the eight-story Padre was once hailed as the finest hotel west of the Rockies. A 1950s fire killed a family on an upper floor, a 1952 earthquake killed people trapped in the basement, and decades of tragedy under colorful owner Milton 'Spartacus' Miller followed -- including a rooftop suicide, a bathtub death, and a deadly love-triangle shooting. Guests and staff report a small handprint linked to a little girl who died there, spectral children's giggling on the upper floors, and tools that vanish during renovations, sometimes blamed on Miller's own restless ghost.",
+     access:"Fully bookable -- operates today as a boutique hotel.", link:"", linklabel:""},
+    {id:22, name:"Bob Hope Theatre", city:"Stockton, CA", state:"CA", lat:37.9577, lng:-121.2906, type:"haunted",
+     history:"Built in 1930 as the Fox California, this 2,000-seat movie palace was renamed for Bob Hope in 2004. Staff and guests have long reported rapid temperature drops, an unseen hand tapping visitors on the shoulder, and a man and woman in Victorian attire seen looking down at the stage from the balcony -- as though still watching a show from another era.",
+     access:"Working theater -- open for public performances and events.", link:"", linklabel:""},
+    {id:23, name:"Eight Mile Road", city:"Stockton, CA", state:"CA", lat:38.0300, lng:-121.3300, type:"other",
+     history:"A long, paved stretch on the border between Stockton and Lodi, said to be haunted by two very different spirits. A woman in white with large black eyes is reported walking the roadside late at night -- drivers who stop to help say she stares back at them, and some have crashed trying to flee. A second spirit, a young Native American girl who reportedly died in an accident nearby long ago, is said to wail along the same stretch after dark.",
+     access:"Public road -- best viewed by car after dark.", link:"", linklabel:""}
   ];
 
   var userPins = [];
