@@ -977,7 +977,13 @@ a:hover {
     padding: 6px;
 }
 
-
+.astro-thursday-img {
+  width: 60%;
+  max-width: 500px;
+  display: block;
+  margin: 0 auto 1.5rem auto;
+  border-radius: 16px;
+}
 
 /* ── 15. PAGE-SPECIFIC: TAROT CARDS (weekly/daily pages) ────── */
 .card-focus h3 {
